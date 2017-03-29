@@ -2,8 +2,10 @@ KPI #1
 Vad/Vilken KPI?
 	Velocity
 Varför?
-	För att kunna få en övergripande koll på att teamet internt arbetar i rätt takt.
+	För att kunna få en övergripande koll på att teamet internt arbetar i rätt takt. Anledningen är att teamet anser att detta är viktigt för att generellt sett kunna leverera den önskade funktionaliteten i slutprodukten innan deadline. Genom att mäta velocity kan teamet kontinuerligt utvärdera hur stor bredd av funktionalitet som kan levereras under en sprint och på så vis fördela arbetsbördan över projekttiden på ett relevant sätt. Teamet kan även inse interna begränsningar som snabbt lyfts till ytan genom att mäta velocity.
+	Skulle KPI:n avvika markant från utsatta ramar kan djupare diskussion genomföras för att åskådliggöra andra orsaker och problem som teamet påverkas av.
 Hur ska den mätas?
+	Som en procentuell sats där förhållandet beräknas genom arbetspoäng från inkrement godkända av produktägare dividerat med genomsnittlig tidigare velocity (uppskattad velocity för första sprinten).
 
 
 KPI #2

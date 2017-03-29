@@ -17,9 +17,15 @@ Hur ska den mätas?
 
 KPI #3
 Vad/Vilken KPI?
-	Nöjdhet i gruppen (Psykosocial)
+	Psykosocial miljö inom teamet 
 Varför?
+	Det är generellt sett viktigt att ha en god stämning där samtliga teammedlemmar har en positiv attityd och inställning gentemot varandra. Detta för att dra nytta av synergieffekter och en allmän positiv känsla. En positiv stämning leder till bättre resultat.
 Hur ska den mätas?
+	Ett fåtal frågor som besvaras på en skala från 1 till 5 där 1 motsvarar lägsta nivå och 5 högsta. Frågorna lyder:
+		Hur glad är du över att vara en del av teamet?
+		Hur nöjd är du med dina arbetsuppgifter?
+		Hur värdefull känner du dig för teamet?
+		Hur stolt känner du dig för det teamet levererar?
 
 
 KPI #4
@@ -35,6 +41,6 @@ KPI #5
 Vad/Vilken KPI? (Fredrik)
 	Release Burndown
 Varför?
-För att alla i teamet skall ha en god uppfattning av projektets omfattning, framgång och fortgång. Utan denna övergripande förståelse svävar teamet i ovisshet kring hur mycket jobb som avklarats och återstår. Detta skulle i sin tur leda till ojämn arbetsbelastning. Vidare belyser även en Version Burndown effekterna av Scope Creep. Vid omfattande Scope Creep finns en risk att teamets framgångar drunknar bland de stories som produktägaren lägger vilket kan vara ett hårt slag för teamets moral.
+	För att alla i teamet skall ha en god uppfattning av projektets omfattning, framgång och fortgång. Utan denna övergripande förståelse svävar teamet i ovisshet kring hur mycket jobb som avklarats och återstår. Detta skulle i sin tur leda till ojämn arbetsbelastning. Vidare belyser även en Version Burndown effekterna av Scope Creep. Vid omfattande Scope Creep finns en risk att teamets framgångar drunknar bland de stories som produktägaren lägger vilket kan vara ett hårt slag för teamets moral.
 Hur ska den mätas?
-Den mäts genom att projektets samtliga stories sammanställs vid början av projektet. Vid varje sprint noteras hur många av dessa som avklarats samt hur många ytterligare som introduceras till projektet.
+	Den mäts genom att projektets samtliga stories sammanställs vid början av projektet. Vid varje sprint noteras hur många av dessa som avklarats samt hur många ytterligare som introduceras till projektet.

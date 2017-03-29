@@ -24,14 +24,14 @@ Hur ska den mätas?
 
 
 KPI #4
-Vad/Vilken KPI?
+Vad/Vilken KPI? (Max)
 	Andel godkända inkrement
 Varför?
 Hur ska den mätas?
 
 
 KPI #5
-Vad/Vilken KPI?
+Vad/Vilken KPI? (Fredrik)
 	Burndown
 Varför?
 Hur ska den mätas?

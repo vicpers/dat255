@@ -33,6 +33,8 @@ Hur ska den mätas?
 
 KPI #5
 Vad/Vilken KPI? (Fredrik)
-	Burndown
+	Release Burndown
 Varför?
+För att alla i teamet skall ha en god uppfattning av projektets omfattning, framgång och fortgång. Utan denna övergripande förståelse svävar teamet i ovisshet kring hur mycket jobb som avklarats och återstår. Detta skulle i sin tur leda till ojämn arbetsbelastning. Vidare belyser även en Version Burndown effekterna av Scope Creep. Vid omfattande Scope Creep finns en risk att teamets framgångar drunknar bland de stories som produktägaren lägger vilket kan vara ett hårt slag för teamets moral.
 Hur ska den mätas?
+Den mäts genom att projektets samtliga stories sammanställs vid början av projektet. Vid varje sprint noteras hur många av dessa som avklarats samt hur många ytterligare som introduceras till projektet.

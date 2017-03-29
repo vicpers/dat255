@@ -23,7 +23,7 @@ Hur ska den mätas?
 
 
 KPI #4
-Vad/Vilken KPI? (Max)
+Vad/Vilken KPI? (Maxipad)
 	Andel godkända inkrement
 Varför?
 	För att kunna mäta hur väl de inkrement som genomförs under varje sprint uppnår produktägarens krav på motsvarande inkrement.
@@ -35,6 +35,3 @@ Vad/Vilken KPI? (Fredrik)
 	Burndown
 Varför?
 Hur ska den mätas?
-
-
-

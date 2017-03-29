@@ -10,11 +10,31 @@ Hur ska den mätas?
 
 KPI #2
 Vad/Vilken KPI?
+	Kommunikation med produktägare
 Varför?
+	Återkoppla till strategi #1
 Hur ska den mätas?
 
 
 KPI #3
 Vad/Vilken KPI?
+	Nöjdhet i gruppen (Psykosocial)
 Varför?
 Hur ska den mätas?
+
+
+KPI #4
+Vad/Vilken KPI?
+	Andel godkända inkrement
+Varför?
+Hur ska den mätas?
+
+
+KPI #5
+Vad/Vilken KPI?
+	Burndown
+Varför?
+Hur ska den mätas?
+
+
+

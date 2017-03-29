@@ -11,13 +11,13 @@ KPI #2
 Vad/Vilken KPI?
 	Kommunikation med produktägare
 Varför?
-	Återkoppla till strategi #1
+	Säkerställa att anledningen till varför en user story existerar är samma för produktägaren som för utvecklingsteamet samt ifrågasätta denna anledning. Detta för att undersöka syftet med user storys och hitta potentiella förbättringar, antingen för produktägaren, för utvecklingsteamet eller för båda parter.
 Hur ska den mätas?
 
 
 KPI #3
 Vad/Vilken KPI?
-	Psykosocial miljö inom teamet 
+	Psykosocial miljö
 Varför?
 	Det är generellt sett viktigt att ha en god stämning där samtliga teammedlemmar har en positiv attityd och inställning gentemot varandra. Detta för att dra nytta av synergieffekter och en allmän positiv känsla. En positiv stämning leder till bättre resultat.
 Hur ska den mätas?
@@ -30,7 +30,7 @@ Hur ska den mätas?
 
 KPI #4
 Vad/Vilken KPI?
-	Andel godkända inkrement
+	Godkända inkrement
 Varför?
 	För att kunna mäta hur väl de inkrement som genomförs under varje sprint uppnår produktägarens krav på motsvarande inkrement. Hänsyn ska inte tas till hur många poäng varje user story motsvarar utan enbart fokusera på hur de producerade inkrementen för varje sprint upplevs av produktägaren. För att kunna utvärdera hur väl teamets uppfattning av user storys går hand i hand med produktägarens.
 Hur ska den mätas?
@@ -38,7 +38,7 @@ Hur ska den mätas?
 
 
 KPI #5
-Vad/Vilken KPI? (Fredrik)
+Vad/Vilken KPI?
 	Release Burndown
 Varför?
 	För att alla i teamet skall ha en god uppfattning av projektets omfattning, framgång och fortgång. Utan denna övergripande förståelse svävar teamet i ovisshet kring hur mycket jobb som avklarats och återstår. Detta skulle i sin tur leda till ojämn arbetsbelastning. Vidare belyser även en Version Burndown effekterna av Scope Creep. Vid omfattande Scope Creep finns en risk att teamets framgångar drunknar bland de stories som produktägaren lägger vilket kan vara ett hårt slag för teamets moral.

@@ -5,17 +5,9 @@ Varför?
 	För att kunna få en övergripande koll på att teamet internt arbetar i rätt takt. Anledningen är att teamet anser att detta är viktigt för att generellt sett kunna leverera den önskade funktionaliteten i slutprodukten innan deadline. Genom att mäta velocity kan teamet kontinuerligt utvärdera hur stor bredd av funktionalitet som kan levereras under en sprint och på så vis fördela arbetsbördan över projekttiden på ett relevant sätt. Teamet kan även inse interna begränsningar som snabbt lyfts till ytan genom att mäta velocity. Skulle KPI:n avvika markant från utsatta ramar kan djupare diskussion genomföras för att åskådliggöra andra orsaker och problem som teamet påverkas av.
 Hur ska den mätas?
 	Som en procentuell sats där förhållandet beräknas genom arbetspoäng från inkrement godkända av produktägare dividerat med genomsnittlig tidigare velocity (uppskattad velocity för första sprinten).
-
+----------------------------------------------------------------------------------------
 
 KPI #2
-Vad/Vilken KPI?
-	Kommunikation med produktägare
-Varför?
-	Säkerställa att anledningen till varför en user story existerar är samma för produktägaren som för utvecklingsteamet samt ifrågasätta denna anledning. Detta för att undersöka syftet med user storys och hitta potentiella förbättringar, antingen för produktägaren, för utvecklingsteamet eller för båda parter.
-Hur ska den mätas?
-
-----------------------------------------------------------------------------------------
-Förslag på ny KPI (Detta eftersom Håkan vurmar för "ett hållbart" arbetstempo)
 Vad/Vilken KPI?
 	Upplevd arbetsbelastning
 Varför?
@@ -25,6 +17,7 @@ Hur ska den mätas?
 		0 = jag upplever ingen arbetsbelastning överhuvudtaget
 		1 = jag upplever en ohälsosamt hög arbetsbelastning
 ----------------------------------------------------------------------------------------
+
 KPI #3
 Vad/Vilken KPI?
 	Psykosocial miljö
@@ -36,7 +29,7 @@ Hur ska den mätas?
 		Hur nöjd är du med dina arbetsuppgifter?
 		Hur värdefull känner du dig för teamet?
 		Hur stolt känner du dig för det teamet levererar?
-
+----------------------------------------------------------------------------------------
 
 KPI #4
 Vad/Vilken KPI?
@@ -45,7 +38,7 @@ Varför?
 	För att kunna mäta hur väl de inkrement som genomförs under varje sprint uppnår produktägarens krav på motsvarande inkrement. Hänsyn ska inte tas till hur många poäng varje user story motsvarar utan enbart fokusera på hur de producerade inkrementen för varje sprint upplevs av produktägaren. För att kunna utvärdera hur väl teamets uppfattning av user storys går hand i hand med produktägarens.
 Hur ska den mätas?
 	Andelen inkrement, godkända av produktägaren, av de totala inkrement som producerats av teamet. Om 2 inkrement av 5 är och dessa två motsvarar 40 av 50 arbetspoäng för sprinten är andelen 40% och inte 80%.
-
+----------------------------------------------------------------------------------------
 
 KPI #5
 Vad/Vilken KPI?

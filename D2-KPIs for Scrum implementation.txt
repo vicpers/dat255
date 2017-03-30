@@ -22,8 +22,8 @@ Varför?
 	Genom att varje teammedlem reflekterar kring, och subjektivt skattar den upplevda arbetsbelastningen och sedan delar denna med teamet, kan risken för överbelasningen av enskilda teammedlemmar kraftigt reduceras. Vidare får teamet därigenom en god överblick över teamets aggregerade arbetsbelastning och kan därför lättare omfördela arbetsuppgifter vid behov. 
 Hur ska den mätas?
 	Varje teammedlem skattar den personligt upplevda arbetsbelastningen på en skala mellan 0 och 1, där
-	0 = jag upplever ingen arbetsbelastning överhuvudtaget
-	1 = jag upplever en ohälsosamt hög arbetsbelastning
+		0 = jag upplever ingen arbetsbelastning överhuvudtaget
+		1 = jag upplever en ohälsosamt hög arbetsbelastning
 ----------------------------------------------------------------------------------------
 KPI #3
 Vad/Vilken KPI?

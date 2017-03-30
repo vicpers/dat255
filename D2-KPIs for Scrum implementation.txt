@@ -2,7 +2,7 @@ KPI #1
 Vad/Vilken KPI?
 	Velocity
 Varför?
-	För att kunna få en övergripande koll på att teamet internt arbetar i rätt takt. Anledningen är att teamet anser att detta är viktigt för att generellt sett kunna leverera den önskade funktionaliteten i slutprodukten innan deadline. Genom att mäta velocity kan teamet kontinuerligt utvärdera hur stor bredd av funktionalitet som kan levereras under en sprint och på så vis fördela arbetsbördan över projekttiden på ett relevant sätt. Teamet kan även inse interna begränsningar som snabbt lyfts till ytan genom att mäta velocity. Skulle KPI:n avvika markant från utsatta ramar kan djupare diskussion genomföras för att åskådliggöra andra orsaker och problem som teamet påverkas av.
+	För att kunna få en övergripande koll på att teamet internt arbetar i rätt takt. Anledningen är att teamet anser att detta är viktigt för att generellt sett kunna leverera den önskade funktionaliteten i slutprodukten innan deadline. Genom att mäta velocity kan teamet kontinuerligt utvärdera hur stor bredd av funktionalitet som kan levereras under en sprint och på så vis fördela arbetsbördan över projekttiden på ett relevant sätt. Skulle KPI:n avvika markant från utsatta ramar kan djupare diskussion genomföras för att åskådliggöra andra orsaker och problem som teamet påverkas av.
 Hur ska den mätas?
 	Som en procentuell sats där förhållandet beräknas genom arbetspoäng från inkrement godkända av produktägare dividerat med genomsnittlig tidigare velocity (uppskattad velocity för första sprinten).
 ----------------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ Vad/Vilken KPI?
 Varför?
 	Det är generellt sett viktigt att ha en god stämning där samtliga teammedlemmar har en positiv attityd och inställning gentemot varandra. Detta för att dra nytta av synergieffekter och en allmän positiv känsla. En positiv stämning leder till bättre resultat.
 Hur ska den mätas?
-	Ett fåtal frågor som besvaras på en skala från 1 till 5 där 1 motsvarar lägsta nivå och 5 högsta. Frågorna lyder:
+	Ett fåtal frågor som besvaras på en skala från 0 till 1 där 0 motsvarar lägsta nivå och 1 högsta. Frågorna lyder:
 		Hur glad är du över att vara en del av teamet?
 		Hur nöjd är du med dina arbetsuppgifter?
 		Hur värdefull känner du dig för teamet?

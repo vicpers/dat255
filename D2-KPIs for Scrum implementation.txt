@@ -1,3 +1,11 @@
+KPIs for Scrum implementation
+
+Nedan redogörs för 5 KPI:er, vilka teametmedlemmarna enats om som relevanta för att utvärdera teamtes prestation och välmående över tid.
+Samtliga KPI:er kommer att föjas upp efter varje sprint under sprint retrospectives, det vill säga på veckobasis. 
+
+
+----------------------------------------------------------------------------------------
+
 KPI #1
 Vad/Vilken KPI?
 	Velocity

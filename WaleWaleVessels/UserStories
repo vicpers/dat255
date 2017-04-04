@@ -4,3 +4,6 @@ UserStories
 * Skicka in PortCall messages för varje ny händelse som inträffar
 * Möjlighet att prenumerera på nya PortCall messages baserat på olika kriterier
 * Ett användarvänligt grafiskt gränssnitt för interaktion med fartygsaktörer
+* Sätta sig in i de REST-interface som backend API:erna för CPM baseras på
+* Komma fram till ett programspråk som ska användas vid utvecklandet av applikationen
+* Skapa en överblick över hur data-sets ser ut när de returneras från backend funktionaliteten

@@ -1,3 +1,6 @@
 UserStories
 ----------------------------------
 * Presentera och visualisera inkommande information
+* Skicka in PortCall messages för varje ny händelse som inträffar
+* Möjlighet att prenumerera på nya PortCall messages baserat på olika kriterier
+* Ett användarvänligt grafiskt gränssnitt för interaktion med fartygsaktörer

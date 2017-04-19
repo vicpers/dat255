@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import HTTPRequest.HttpUrlConnectionTester;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.title_home);
+                    printXml();
                     return true;
                 case R.id.navigation_dashboard:
                     mTextMessage.setText(R.string.title_dashboard);
@@ -43,8 +46,22 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-    public void sendMessage(View view){
+    public void printXml(){
 
+        HttpUrlConnectionTester apiTester = new HttpUrlConnectionTester();
+        //String testXML = apiTester.xmlTester();
+        //System.out.println(apiTester.test());
+        TextView myXmlView = (TextView)findViewById(R.id.xmlMessage);
+        myXmlView.setText(apiTester.test());
+        //TextView myXmlView = (TextView)findViewById(R.id.xmlMessage);
+        //myXmlView.setText(testXML);
     }
+
+    public void testSetText(){
+
+        TextView myXmlView = (TextView)findViewById(R.id.xmlMessage);
+        myXmlView.setText("Hello World!");
+    }
+
 
 }

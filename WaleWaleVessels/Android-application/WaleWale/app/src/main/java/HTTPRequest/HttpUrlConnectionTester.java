@@ -1,5 +1,9 @@
 package HTTPRequest;
 
+import android.widget.TextView;
+
+import com.example.maxedman.walewale.R;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,22 +14,26 @@ import java.net.HttpURLConnection;
 
 public class HttpUrlConnectionTester {
 
-	public static void main(String[] args) {
+    public String test(){
+        return "Hello World MAX!";
+    }
 
-		HttpUrlConnectionTester apiTester = new HttpUrlConnectionTester();
-		try {
-			apiTester.doGet();
-		} catch (IOException e) {
-			
-			e.printStackTrace();
+
+    public String xmlTester(){
+        String returnXml = "";
+        try {
+            returnXml = doGet();
+        } catch (IOException e) {
+
+            e.printStackTrace();
 //			System.out.println("BREAK");
 //			System.out.println(e.toString());
 //			System.out.println(e.getMessage());
-		}
+        }
+        return returnXml;
+    }
 
-	}
-
-	private void doGet() throws IOException {
+	private String doGet() throws IOException {
 
 		//TODO Enter your base64 encoded Username:Password
 		//String ipAdress = "http://192.168.100.101";
@@ -35,7 +43,7 @@ public class HttpUrlConnectionTester {
 		
 		String url = ipAdress + ":" + port + service;
 		url += "?count=1";
-		System.out.println(url);
+		//System.out.println(url);
 		
 		String apiKey = "dhc";
 		String username = "viktoria";
@@ -52,18 +60,21 @@ public class HttpUrlConnectionTester {
 		
 			
 		int responseCode = con.getResponseCode();
-		System.out.println(responseCode);
+		//System.out.println(responseCode);
 
 		InputStream xmlStream = con.getInputStream();
 		
 		// prints all the rows returned
 		BufferedReader inputReader = new BufferedReader(new InputStreamReader(xmlStream));
 	    String inputLine = "";
+        String totLine = "";
 	    while ((inputLine = inputReader.readLine()) != null) {
-	      System.out.println(inputLine);
+            totLine += inputLine;
 	    }
 	    
 		xmlStream.close();
+
+        return totLine;
 
 	}
 

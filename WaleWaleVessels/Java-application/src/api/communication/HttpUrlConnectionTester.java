@@ -29,13 +29,13 @@ public class HttpUrlConnectionTester {
 	private void doGet() throws IOException {
 
 		//TODO Enter your base64 encoded Username:Password
-		String ipAdress = "http://192.168.1.153";
+		String ipAdress = "http://172.20.10.9";
 		String port = "8080";
 		String service = "/dmp/port_calls";
 		
 		String url = ipAdress + ":" + port + service;
-		url += "?count=1";
-//		System.out.println(url);
+//		url += "?count=1";
+		System.out.println(url);
 		
 		String apiKey = "dhc";
 		String username = "porter";
@@ -49,6 +49,8 @@ public class HttpUrlConnectionTester {
 		con.setRequestProperty("X-PortCDM-Password", password);
 		con.setRequestProperty("X-PortCDM-APIKey", apiKey);
 		
+		
+			
 		int responseCode = con.getResponseCode();
 		System.out.println(responseCode);
 

@@ -1,0 +1,15 @@
+[{"id":"urn:mrn:stm:portcdm:port_call:SEGOT:773d0e65-c3e5-4b61-8962-21767e20fad0",
+
+"vessel":{"imo":"9747974","id":"urn:mrn:stm:vessel:IMO:9747974","name":"Tern Sea","callSign":"OYBD2","mmsi":"219814000","type":"TANKER_CHEMICAL","stmVesselId":217007,"photoURL":"http://photos.marinetraffic.com/ais/showphoto.aspx?photoid=2538218"},
+
+"portUnLocode":"SEGOT",
+
+"arrivalDate":"2017-04-19T10:30:00Z",
+
+"createdAt":"2017-04-18T06:33:34Z",
+
+"lastUpdate":"2017-04-19T13:21:25Z",
+
+"startTime":"2017-04-19T10:30:00Z",
+
+"endTime":"2017-04-20T10:00:00Z"}]

@@ -14,15 +14,14 @@ import java.net.HttpURLConnection;
 
 public class HttpUrlConnectionTester {
 
-    public String test(){
-        return "Hello World MAX!";
+    public static void main(String[] args){
+        HttpUrlConnectionTester foo = new HttpUrlConnectionTester();
+        System.out.println(foo.xmlTester());
     }
-
-
     public String xmlTester(){
-        String returnXml = "";
+
         try {
-            returnXml = doGet();
+            return doGet();
         } catch (IOException e) {
 
             e.printStackTrace();
@@ -30,13 +29,12 @@ public class HttpUrlConnectionTester {
 //			System.out.println(e.toString());
 //			System.out.println(e.getMessage());
         }
-        return returnXml;
+        return null;
     }
 
 	private String doGet() throws IOException {
 
-		//TODO Enter your base64 encoded Username:Password
-		//String ipAdress = "http://192.168.100.101";
+		//String ipAdress = "http://walewale.portcdm";
 		String ipAdress = "http://dev.portcdm.eu";
 		String port = "8080";
 		String service = "/dmp/port_calls";
@@ -45,37 +43,39 @@ public class HttpUrlConnectionTester {
 		url += "?count=1";
 		//System.out.println(url);
 		
-		String apiKey = "dhc";
+
 		String username = "viktoria";
 		String password = "vik123";
+        String apiKey = "dhc";
+        //String username = "porter";
+        //String password = "porter";
 
 		URL requestURL = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) requestURL.openConnection();
+
 		con.setRequestMethod("GET");
 		con.setRequestProperty("Accept", "application/json");
 		con.setRequestProperty("X-PortCDM-UserId", username);
 		con.setRequestProperty("X-PortCDM-Password", password);
 		con.setRequestProperty("X-PortCDM-APIKey", apiKey);
-		
-		
-			
+
 		int responseCode = con.getResponseCode();
 		//System.out.println(responseCode);
 
 		InputStream xmlStream = con.getInputStream();
-		
+
 		// prints all the rows returned
 		BufferedReader inputReader = new BufferedReader(new InputStreamReader(xmlStream));
 	    String inputLine = "";
         String totLine = "";
+
 	    while ((inputLine = inputReader.readLine()) != null) {
             totLine += inputLine;
 	    }
-	    
-		xmlStream.close();
 
+        xmlStream.close();
+        //System.out.println(inputLine instanceof String);
         return totLine;
-
 	}
 
 }

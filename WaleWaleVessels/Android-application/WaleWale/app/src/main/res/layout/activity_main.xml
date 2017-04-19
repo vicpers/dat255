@@ -24,6 +24,16 @@
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:text="@string/title_home" />
 
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Get PortCallMessage"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="60dp"
+            android:onClick="printXml" />
+
         <TextView
             android:id="@+id/xmlMessage"
             android:layout_width="match_parent"
@@ -31,8 +41,8 @@
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginTop="60dp"
-            android:text="@string/title_home" />
+            android:layout_marginTop="160dp"
+            />
 
     </FrameLayout>
 

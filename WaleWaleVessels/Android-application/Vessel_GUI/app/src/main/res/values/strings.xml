@@ -6,4 +6,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="get_PCM">Get PCM</string>
+    <string name="towing_status">Towing</string>
+    <string name="mooring_status">Mooring</string>
+    <string name="terminal_status">Terminal</string>
+
 </resources>

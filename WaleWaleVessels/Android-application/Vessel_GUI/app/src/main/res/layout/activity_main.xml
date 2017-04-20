@@ -10,10 +10,11 @@
         android:id="@+id/button6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="213dp"
         android:text="@string/terminal_status"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBaseline_toBaselineOf="@+id/button9"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:layout_marginEnd="16dp" />
 
     <Button
         android:id="@+id/button9"
@@ -23,29 +24,37 @@
         android:layout_marginTop="16dp"
         android:text="@string/mooring_status"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/button1"
+        app:layout_constraintRight_toLeftOf="@+id/button6"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/button1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:onClick="viewPCM"
         android:text="@string/get_PCM"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/button4"
+        android:layout_marginRight="16dp"
+        app:layout_constraintHorizontal_bias="0.323"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="20dp" />
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="213dp"
-        android:layout_marginRight="24dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:text="@string/towing_status"
-        app:layout_constraintBaseline_toBaselineOf="@+id/button3"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@+id/button1"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp" />
 
 </android.support.constraint.ConstraintLayout>

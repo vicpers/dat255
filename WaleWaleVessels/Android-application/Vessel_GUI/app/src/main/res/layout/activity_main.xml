@@ -9,7 +9,27 @@
         android:id="@+id/tableRow1"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" >
+        android:layout_weight="1"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="fill_parent"
+            android:layout_height="150dp"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            android:src="@drawable/plane" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp">
 
         <Button
             android:id="@+id/button1"
@@ -19,7 +39,8 @@
             android:background="@android:color/holo_blue_dark"
             android:onClick="viewPCM"
             android:text="@string/get_PCM"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:layout_marginRight="8dp"/>
 
         <Button
             android:id="@+id/button1"
@@ -29,19 +50,24 @@
             android:background="@android:color/holo_orange_dark"
             android:elevation="0dp"
             android:text="@string/mooring_status"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:layout_marginLeft="8dp"/>
     </TableRow>
 
     <TableRow
-        android:id="@+id/tableRow1"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
+        android:id="@+id/tableRow3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1">
 
         <Button
             android:id="@+id/button1"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
+            android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:background="@android:color/holo_green_light"
             android:text="@string/towing_status"
@@ -51,10 +77,68 @@
             android:id="@+id/button1"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
+            android:layout_marginLeft="8dp"
             android:layout_weight="1"
-            android:background="@android:color/holo_red_dark"
+            android:background="@android:color/holo_green_light"
             android:text="@string/terminal_status"
             android:textSize="24sp" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow4"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:background="@android:color/holo_blue_dark"
+            android:text="PTA"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:background="@android:color/holo_blue_dark"
+            android:onClick="sendETA"
+            android:text="ETA"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:background="@android:color/holo_blue_dark"
+            android:text="MAIL"
+            android:textSize="24sp" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow5"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_margin="16dp"
+      >
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="@string/latest_ETA"
+            android:textAlignment="center"/>
+
     </TableRow>
 
 </TableLayout>

@@ -19,4 +19,9 @@ public class MainActivity extends AppCompatActivity {
         // TODO Fixa källan till texten, dvs här ska ett PCM läsas is till ett textfält
         startActivity(intent);
     }
+
+    public void sendETA(View view) {
+        Intent intent = new Intent(this, Send_ETA.class); //skapar en ny instans av klassen ViewPCM som initierar ett nytt blankt fönster
+        startActivity(intent);
+    }
 }

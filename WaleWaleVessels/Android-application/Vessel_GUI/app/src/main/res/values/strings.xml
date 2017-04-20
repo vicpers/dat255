@@ -10,5 +10,6 @@
     <string name="towing_status">Towing</string>
     <string name="mooring_status">Mooring</string>
     <string name="terminal_status">Terminal</string>
+    <string name="latest_ETA">Latest ETA sent:</string>
 
 </resources>

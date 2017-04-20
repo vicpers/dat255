@@ -2,7 +2,7 @@ package HTTPRequest;
 
 import android.widget.TextView;
 
-import com.example.maxedman.walewale.R;
+import com.example.juliagustafsson.vessel_gui.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,12 +12,13 @@ import java.net.URL;
 import java.net.HttpURLConnection;
 
 
-public class HttpUrlConnectionTester {
+public class HttpUrlConnectionPortCDM {
 
-    public static void main(String[] args){
-        HttpUrlConnectionTester foo = new HttpUrlConnectionTester();
-        System.out.println(foo.xmlTester());
-    }
+	public static void main (String[] args){
+		HttpUrlConnectionPortCDM foo = new HttpUrlConnectionPortCDM();
+		System.out.println(foo.xmlTester());
+	}
+
     public String xmlTester(){
 
         try {

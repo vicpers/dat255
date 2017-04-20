@@ -57,11 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public String test(View v){
 
-        return "WoHo";
-
-    }
 
 
 

@@ -29,3 +29,14 @@ Vi gör ett utkast på hur vår User Story Map Backlog skulle kunna se ut. Funkt
 Victor deltar på första SOS mötet, de flesta verkar precis som oss inte ha gjort så mycket ännu, dock ingen stress. Under första sprinten planerar de flesta att skapa någon from av Hello World GUI. 
 
 Uppdragsgivaren verkar vilja ha en mobil enhet med pushnotiser. Webbapplikationer stödjer inte notiser vilket innebär att Andriod App borde lösa uppdraget bättre. Vi gör därmed något av en kovändning på 5 minuter och laddar ned Android Studio. Spontant känner vi att det innebär lägre arbetsbörda (uppskattning). 
+
+>> 20 APRIL
+Eric och Mattias lär sig Android Studio via guider på nätet. Victor kartlägger kommunikationen genom att göra en tidslinje över händelseförloppet. Julia gör ett grundläggande GUI med fyra knappar. Vilken funktionalitet dessa ska ha är inte fastslaget än. Max hjälper till för att vi ska försöka få knappen GET CMP att hämta hem senaste Port Call Message. Det strular en del så vi gör upp. Senare på kvällen bekräftar Max att felkällan hittats. 
+
+På kvällen gör vi vår första daily scrum. Vi kommer överens om att våra User Stories är dåligt definierade och behöver ytterligare arbete. 
+
+>> 21 APRIL 
+Julia bygger vidare på sitt GUI och adderar knapparna PTA, ETA samt MAIL. Tanken är att man på knapparna PTA och ETA ska kunna skicka tidsstämplar till andra aktörer i systemet. Sätter upp ny aktivitet för att kunna skicka meddelanden. Backend ej påbörjad för dessa processer. 
+
+
+

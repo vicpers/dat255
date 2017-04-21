@@ -33,9 +33,9 @@ public class HttpUrlConnectionPortCDM {
 //    public static void main(String[] args){
     public String requestTester(String wrResponse){
 
-        WebRequest wr = new WebRequest();
 
-        /*
+
+        /* WebRequest wr = new WebRequest();
 
         String ipAdress = "http://dev.portcdm.eu";
         String port = "8080";
@@ -60,20 +60,19 @@ public class HttpUrlConnectionPortCDM {
         System.out.println(wrResponse);
 */
         String jsonString = "";
-        try {
-            JSONArray jsonArr = new JSONArray(wrResponse);
-            jsonString = "Mjemje";
+        /*try {
+            JSONArray jsonArr1 = new JSONArray(wrResponse);
+            JSONArray jsonArr2 = jsonArr1.getJSONArray(0);
+            JSONObject jsonObj = jsonArr2.getJSONObject(0);
         } catch (JSONException e1){
             jsonString = e1.toString();
-            //jsonString = "Hello!";
-        }
-
-        return jsonString;
-        // Calling method for parsing JSon-string
-        /*ArrayList<HashMap<String, Object>> testPcm = wr.parseJson(wrResponse);
-        for (HashMap<String, Object> singlePcm : testPcm) {
-            singlePcm.toString();
         }*/
+
+        // Calling method for parsing JSon-string
+
+        PCM testPcm = jsonJavaConverter.jsonToPcm(wrResponse);
+
+        return testPcm.toString() + "\n" + testPcm.getVessel().toString();
     }
 
 /*    public static void main(String[] args){

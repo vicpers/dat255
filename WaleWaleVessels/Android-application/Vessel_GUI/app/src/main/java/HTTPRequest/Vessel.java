@@ -14,11 +14,22 @@ class Vessel {
     private long stmVesselId;
     private String photoURL;
 
+    public Vessel(long imo, String id, String name, String callSign, long mmsi, String type, long stmVesselId, String photoURL){
+        setImo(imo);
+        setId(id);
+        setName(name);
+        setCallSign(callSign);
+        setMmsi(mmsi);
+        setType(type);
+        setStmVesselId(stmVesselId);
+        setPhotoURL(photoURL);
+    }
+
     public long getImo() {
         return imo;
     }
 
-    public void setImo(long imo) {
+    private void setImo(long imo) {
         this.imo = imo;
     }
 
@@ -26,7 +37,7 @@ class Vessel {
         return id;
     }
 
-    public void setId(String id) {
+    private void setId(String id) {
         this.id = id;
     }
 
@@ -34,7 +45,7 @@ class Vessel {
         return name;
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         this.name = name;
     }
 
@@ -42,7 +53,7 @@ class Vessel {
         return callSign;
     }
 
-    public void setCallSign(String callSign) {
+    private void setCallSign(String callSign) {
         this.callSign = callSign;
     }
 
@@ -50,7 +61,7 @@ class Vessel {
         return mmsi;
     }
 
-    public void setMmsi(long mmsi) {
+    private void setMmsi(long mmsi) {
         this.mmsi = mmsi;
     }
 
@@ -58,7 +69,7 @@ class Vessel {
         return type;
     }
 
-    public void setType(String type) {
+    private void setType(String type) {
         this.type = type;
     }
 
@@ -66,7 +77,7 @@ class Vessel {
         return stmVesselId;
     }
 
-    public void setStmVesselId(long stmVesselId) {
+    private void setStmVesselId(long stmVesselId) {
         this.stmVesselId = stmVesselId;
     }
 
@@ -74,7 +85,14 @@ class Vessel {
         return photoURL;
     }
 
-    public void setPhotoURL(String photoURL) {
+    private void setPhotoURL(String photoURL) {
         this.photoURL = photoURL;
+    }
+
+    public String toString(){
+        String toStr = "VesselID: " + getId()
+                + "\nVesselName: " + getName();
+
+        return toStr;
     }
 }

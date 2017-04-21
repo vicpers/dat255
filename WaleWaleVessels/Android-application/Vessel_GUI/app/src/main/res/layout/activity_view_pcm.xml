@@ -8,14 +8,14 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="377dp"
-        android:layout_height="353dp"
+        android:layout_width="330dp"
+        android:layout_height="600dp"
         android:layout_marginLeft="17dp"
         android:layout_marginTop="16dp"
         android:fontFamily="serif"
         android:text="TextView"
         android:textAlignment="textStart"
-        android:textSize="24sp"
+        android:textSize="12sp"
         android:typeface="normal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

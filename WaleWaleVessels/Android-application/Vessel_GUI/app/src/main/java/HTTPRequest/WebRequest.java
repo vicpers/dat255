@@ -19,7 +19,13 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import static HTTPRequest.webRequestConstants.TAG_PCM_ARRIVAL_DATE;
+import static HTTPRequest.webRequestConstants.TAG_PCM_CREATED_AT;
+import static HTTPRequest.webRequestConstants.TAG_PCM_END_TIME;
 import static HTTPRequest.webRequestConstants.TAG_PCM_ID;
+import static HTTPRequest.webRequestConstants.TAG_PCM_LAST_UPDATE;
+import static HTTPRequest.webRequestConstants.TAG_PCM_PORT_UN_LOCODE;
+import static HTTPRequest.webRequestConstants.TAG_PCM_START_TIME;
 import static HTTPRequest.webRequestConstants.TAG_PCM_VESSEL;
 
 public class WebRequest {
@@ -41,7 +47,7 @@ public class WebRequest {
     }
 
     /**
-     * Making web service call
+     * Making simple web service call
      *
      * @param urladdress- url to make web request
      * @param requestmethod - http request method
@@ -118,58 +124,5 @@ public class WebRequest {
         return response;
     }
 
-
-
-
-
-    /**
-     * For parsing the returned JSON string from PortCDM
-     *
-     * @param json  - JSon-string to parse
-     * @return Arraylist of HashMaps that contains the data plus object of a Vessel.
-     */
-    //TODO Change back to private access. Only for use inside the class. Directly after calling makeWebServiceCall.
-    public ArrayList<HashMap<String, Object>> parseJson(String json) {
-
-        if (json != null) {
-            try {
-// Hashmap for presenting as ListView
-                ArrayList<HashMap<String, Object>> pcmList = new ArrayList<HashMap<String, Object>>();
-                //System.out.println(json);
-                //JSONArray jsonObject = new JSONArray(json);
-// Getting JSON Array that contains all the data.
-                JSONArray portCallMessages = new JSONArray(json);
-
-// looping through all PCM:s
-                for (int i = 0; i < portCallMessages.length(); i++) {
-                    JSONObject c = portCallMessages.getJSONObject(i);
-
-                    String id = c.getString(TAG_PCM_ID);
-
-// Vessel node is JSON Object
-                    JSONObject vessel = c.getJSONObject(TAG_PCM_VESSEL);
-
-// Temporary hashmap for single PCM
-                    HashMap<String, Object> singlePcm = new HashMap<String, Object>();
-
-// adding every child node to HashMap key => value
-                    singlePcm.put(TAG_PCM_ID, id);
-                    singlePcm.put(TAG_PCM_VESSEL, vessel);
-
-// adding singe PCM to total list
-                    pcmList.add(singlePcm);
-                }
-
-// returning the complete pcmList
-                return pcmList;
-            } catch (JSONException e) {
-                e.printStackTrace();
-                return null;
-            }
-        } else {
-//            Log.e("ServiceHandler", "No data received from HTTP request");
-            return null;
-        }
-    }
 }
 

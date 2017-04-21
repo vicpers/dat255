@@ -5,6 +5,7 @@ package HTTPRequest;
  */
 
 public class PCM {
+
     private String id;
     private Vessel vessel;
     private String portUnLocode;
@@ -14,12 +15,28 @@ public class PCM {
     private String startTime;
     private String endTime;
 
+    /**
+     * Constructor for creating a new PortCallMessage that includes all class variables
+     * @param id
+     */
+    public PCM(String id, Vessel vessel, String portUnLocode, String arrivalDate, String createdAt
+                ,String lastUpdate, String startTime, String endTime){
+        setId(id);
+        setVessel(vessel);
+        setPortUnLocode(portUnLocode);
+        setArrivalDate(arrivalDate);
+        setCreatedAt(createdAt);
+        setLastUpdate(lastUpdate);
+        setStartTime(startTime);
+        setEndTime(endTime);
+    }
+
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
+    private void setId(String id) {
         this.id = id;
     }
 
@@ -27,7 +44,7 @@ public class PCM {
         return vessel;
     }
 
-    public void setVessel(Vessel vessel) {
+    private void setVessel(Vessel vessel) {
         this.vessel = vessel;
     }
 
@@ -35,7 +52,7 @@ public class PCM {
         return portUnLocode;
     }
 
-    public void setPortUnLocode(String portUnLocode) {
+    private void setPortUnLocode(String portUnLocode) {
         this.portUnLocode = portUnLocode;
     }
 
@@ -43,7 +60,7 @@ public class PCM {
         return arrivalDate;
     }
 
-    public void setArrivalDate(String arrivalDate) {
+    private void setArrivalDate(String arrivalDate) {
         this.arrivalDate = arrivalDate;
     }
 
@@ -51,7 +68,7 @@ public class PCM {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    private void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -59,7 +76,7 @@ public class PCM {
         return lastUpdate;
     }
 
-    public void setLastUpdate(String lastUpdate) {
+    private void setLastUpdate(String lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
@@ -67,7 +84,7 @@ public class PCM {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    private void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
@@ -75,7 +92,14 @@ public class PCM {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    private void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public String toString(){
+        String toStr = "PortCallMessage ID - " + getId()
+                + "\nCreated at: " + getCreatedAt();
+
+        return toStr;
     }
 }

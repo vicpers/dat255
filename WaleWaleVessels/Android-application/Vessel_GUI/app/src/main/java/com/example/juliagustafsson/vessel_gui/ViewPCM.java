@@ -1,10 +1,10 @@
 package com.example.juliagustafsson.vessel_gui;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.ViewGroup;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+
+import HTTPRequest.HttpUrlConnectionPortCDM;
 
 
 public class ViewPCM extends AppCompatActivity {
@@ -13,10 +13,17 @@ public class ViewPCM extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pcm);
-
-        // TODO Läs in rätt Port Call Message, koden nedan bör modifieras
         // Get the Intent that started this activity and extract the string
+        HttpUrlConnectionPortCDM portCdmCon = new HttpUrlConnectionPortCDM();
         TextView textView = (TextView) findViewById(R.id.textView2);
-        textView.setText("Hej Max");
+        String wrTest = portCdmCon.getPcm(1).toString();
+//        textView.setText(wrTest);
+
+        //Test new webRequest methods
+        String test = portCdmCon.requestTester(wrTest);
+        textView.setText(test);
     }
+
 }
+
+

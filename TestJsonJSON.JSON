@@ -1,0 +1,22 @@
+[
+	{
+		"id":"urn:mrn:stm:portcdm:port_call:SEGOT:2830fb8a-8ccc-4478-8258-1515e529fabb",
+		"vessel":
+			{
+				"imo":"9402249",
+				"id":"urn:mrn:stm:vessel:IMO:9402249",
+				"name":"Caspian Galaxy",
+				"callSign":"3FWR3",
+				"mmsi":"354306000",
+				"type":"TANKER_PRODUCT",
+				"stmVesselId":219808,
+				"photoURL":"http://photos.marinetraffic.com/ais/showphoto.aspx?photoid=352596"
+			},
+		"portUnLocode":"SEGOT",
+		"arrivalDate":"2017-04-20T21:30:00Z",
+		"createdAt":"2017-04-18T14:20:21Z",
+		"lastUpdate":"2017-04-20T11:33:15Z",
+		"startTime":"2017-04-20T21:30:00Z",
+		"endTime":"2017-04-23T10:00:00Z"
+	}
+]

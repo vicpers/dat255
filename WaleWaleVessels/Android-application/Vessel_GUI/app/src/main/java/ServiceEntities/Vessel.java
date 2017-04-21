@@ -1,10 +1,10 @@
-package HTTPRequest;
+package ServiceEntities;
 
 /**
  * Created by maxedman on 2017-04-20.
  */
 
-class Vessel {
+public class Vessel {
     private long imo;
     private String id;
     private String name;

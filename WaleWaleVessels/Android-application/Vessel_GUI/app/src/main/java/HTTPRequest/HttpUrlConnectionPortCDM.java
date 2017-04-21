@@ -1,50 +1,39 @@
 package HTTPRequest;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-
-import android.app.ListActivity;
-import android.os.Bundle;
-import android.widget.ArrayAdapter;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 
-
+import ServiceEntities.*;
+import ServiceEntities.ArrivalLocation;
 
 
 public class HttpUrlConnectionPortCDM {
 
-//    public static void main(String[] args){
-    public String requestTester(String wrResponse){
+    private String testQueueJson = "[{\"portCallId\":\"urn:mrn:stm:portcdm:port_call:SEGOT:a07913a3-04a1-43db-9ca1-4c12bb86646a\",\"localPortCallId\":null,\"localJobId\":null,\"vesselId\":\"urn:mrn:stm:vessel:IMO:9259501\",\"messageId\":\"urn:mrn:stm:portcdm:message:936740d3-13c1-4250-8c7c-144ca1eff7d0\",\"groupWith\":null,\"reportedAt\":\"2017-04-21T19:44:26Z\",\"reportedBy\":\"urn:mrn:legacy:user:SSPA\",\"comment\":null,\"messageOperation\":null,\"locationState\":{\"referenceObject\":\"VESSEL\",\"time\":\"2017-04-21T19:44:10Z\",\"timeType\":\"ACTUAL\",\"arrivalLocation\":null,\"departureLocation\":{\"from\":{\"locationType\":\"TRAFFIC_AREA\",\"position\":{\"latitude\":0.0,\"longitude\":0.0},\"name\":\"Port of Gothenburg's traffic area\"},\"to\":null}},\"serviceState\":null},{\"portCallId\":\"urn:mrn:stm:portcdm:port_call:SEGOT:9319431a-c87b-41df-9392-07c381dd80ee\",\"localPortCallId\":null,\"localJobId\":null,\"vesselId\":\"urn:mrn:stm:vessel:IMO:9262089\",\"messageId\":\"urn:mrn:stm:portcdm:message:4bf0e334-ea5c-4e19-89e6-616b99f2879a\",\"groupWith\":null,\"reportedAt\":\"2017-04-21T19:55:06Z\",\"reportedBy\":\"urn:mrn:legacy:user:SSPA\",\"comment\":null,\"messageOperation\":null,\"locationState\":{\"referenceObject\":\"VESSEL\",\"time\":\"2017-04-21T19:51:50Z\",\"timeType\":\"ACTUAL\",\"arrivalLocation\":{\"from\":null,\"to\":{\"locationType\":\"BERTH\",\"position\":{\"latitude\":0.0,\"longitude\":0.0},\"name\":\"Älvsborg Harbour 712\"}},\"departureLocation\":null},\"serviceState\":null},{\"portCallId\":\"urn:mrn:stm:portcdm:port_call:SEGOT:5a378dfc-1d82-4d1d-a8ec-2f6db9656eb1\",\"localPortCallId\":null,\"localJobId\":null,\"vesselId\":\"urn:mrn:stm:vessel:IMO:9125944\",\"messageId\":\"urn:mrn:stm:portcdm:message:5a465dff-4211-434c-b435-23d183a6c479\",\"groupWith\":null,\"reportedAt\":\"2017-04-21T20:14:35Z\",\"reportedBy\":\"urn:mrn:legacy:user:SSPA\",\"comment\":null,\"messageOperation\":null,\"locationState\":{\"referenceObject\":\"VESSEL\",\"time\":\"2017-04-21T20:14:18Z\",\"timeType\":\"ACTUAL\",\"arrivalLocation\":{\"from\":null,\"to\":{\"locationType\":\"TRAFFIC_AREA\",\"position\":{\"latitude\":0.0,\"longitude\":0.0},\"name\":\"Port of Gothenburg's traffic area\"}},\"departureLocation\":null},\"serviceState\":null},{\"portCallId\":\"urn:mrn:stm:portcdm:port_call:SEGOT:9319431a-c87b-41df-9392-07c381dd80ee\",\"localPortCallId\":null,\"localJobId\":null,\"vesselId\":\"urn:mrn:stm:vessel:IMO:9262089\",\"messageId\":\"urn:mrn:stm:portcdm:message:d639b0cc-02ce-4846-b4cc-aedff0b982c2\",\"groupWith\":null,\"reportedAt\":\"2017-04-21T20:21:46Z\",\"reportedBy\":\"urn:mrn:legacy:user:SSPA\",\"comment\":null,\"messageOperation\":null,\"locationState\":{\"referenceObject\":\"TUG\",\"time\":\"2017-04-21T20:21:29Z\",\"timeType\":\"ACTUAL\",\"arrivalLocation\":null,\"departureLocation\":{\"from\":{\"locationType\":\"VESSEL\",\"position\":{\"latitude\":0.0,\"longitude\":0.0},\"name\":\"VESSEL\"},\"to\":null}},\"serviceState\":null}]";
+
+    public static void main(String[] args){
+        HttpUrlConnectionPortCDM portCdmCon = new HttpUrlConnectionPortCDM();
+        String wrTest = portCdmCon.getPortCallMessages(1);
+        System.out.println(wrTest);
+    }
+
+    public static String getPortCallMessages(int count){
 
 
 
-        /* WebRequest wr = new WebRequest();
+        WebRequest wr = new WebRequest();
 
         String ipAdress = "http://dev.portcdm.eu";
         String port = "8080";
         String service = "/dmp/port_calls";
         String url = ipAdress + ":" + port + service;
-        url += "?count=1";
+//        url += "?count=1";
 
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put("count", "1");
+        params.put("count", "" + count);
 
         HashMap<String, String> headers = new HashMap<String, String>();
         String username = "viktoria";
@@ -56,95 +45,34 @@ public class HttpUrlConnectionPortCDM {
         headers.put("X-PortCDM-Password", password);
         headers.put("X-PortCDM-APIKey", apiKey);
 
-        String wrResponse = wr.makeWebServiceCall(url, 1, headers, null);
-        System.out.println(wrResponse);
-*/
+        String wrResponse = wr.makeWebServiceCall(url, 1, headers, params);
+
+
         String jsonString = "";
-        /*try {
-            JSONArray jsonArr1 = new JSONArray(wrResponse);
-            JSONArray jsonArr2 = jsonArr1.getJSONArray(0);
-            JSONObject jsonObj = jsonArr2.getJSONObject(0);
+        PCM tempPcm;
+        try {
+            JSONArray jsonArr = new JSONArray(wrResponse);
+            for (int i = 0 ; i < jsonArr.length(); i++) {
+                try {
+                    JSONObject jsonObj = jsonArr.getJSONObject(i);
+                    tempPcm = jsonJavaConverter.jsonToPcm(jsonObj);
+                    jsonString += tempPcm.toString() + "\n" + tempPcm.getVessel().toString();
+                } catch (JSONException e){
+                    jsonString = e.toString();
+                }
+                jsonString += "\n\n";
+            }
+
         } catch (JSONException e1){
             jsonString = e1.toString();
-        }*/
+        }
 
         // Calling method for parsing JSon-string
-
+/*
         PCM testPcm = jsonJavaConverter.jsonToPcm(wrResponse);
 
-        return testPcm.toString() + "\n" + testPcm.getVessel().toString();
-    }
-
-/*    public static void main(String[] args){
-
-        String json = "{\"MyResponse\":[{\"foo\":\"fooStr\",\"bar\":\"barStr\"}]}";
-        // Calling method for parsing JSon-string
-        WebRequest wr = new WebRequest();
-        ArrayList<HashMap<String, Object>> testPcm = wr.parseJson(json);
-        for (HashMap<String, Object> singlePcm : testPcm) {
-            singlePcm.toString();
-        }
-    }*/
-
-    public ArrayList<String> getPcm(int x){
-
-        try {
-            return getLatestPCM(x);
-        } catch (IOException e) {
-
-            e.printStackTrace();
-//			System.out.println("BREAK");
-//			System.out.println(e.toString());
-//			System.out.println(e.getMessage());
-        }
-        return null;
-    }
-
-    private ArrayList<String> getLatestPCM(int x) throws IOException {
-
-        //String ipAdress = "http://walewale.portcdm";
-        String ipAdress = "http://dev.portcdm.eu";
-        String port = "8080";
-        String service = "/dmp/port_calls";
-
-        String url = ipAdress + ":" + port + service;
-        url += "?count=" + x;
-
-        String username = "viktoria";
-        String password = "vik123";
-        String apiKey = "eeee";
-        //String username = "porter";
-        //String password = "porter";
-
-        URL requestURL = new URL(url);
-
-        HttpURLConnection con = (HttpURLConnection) requestURL.openConnection();
-
-        con.setRequestMethod("GET");
-        con.setRequestProperty("Accept", "application/json");
-        con.setRequestProperty("X-PortCDM-UserId", username);
-        con.setRequestProperty("X-PortCDM-Password", password);
-        con.setRequestProperty("X-PortCDM-APIKey", apiKey);
-
-        int responseCode = con.getResponseCode();
-        //System.out.println(responseCode);
-
-        InputStream xmlStream = con.getInputStream();
-
-        // prints all the rows returned
-        BufferedReader inputReader = new BufferedReader(new InputStreamReader(xmlStream));
-        String inputLine = "";
-        ArrayList<String> dataArray = new ArrayList<String>();
-
-        while ((inputLine = inputReader.readLine()) != null) {
-            dataArray.add(inputLine);
-        }
-
-        xmlStream.close();
-        con.disconnect();
-
-        return dataArray;
-
+        return testPcm.toString() + "\n" + testPcm.getVessel().toString();*/
+        return jsonString;
     }
 
 }

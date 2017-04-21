@@ -5,28 +5,14 @@ package HTTPRequest;
  */
 
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
-
-import static HTTPRequest.webRequestConstants.TAG_PCM_ARRIVAL_DATE;
-import static HTTPRequest.webRequestConstants.TAG_PCM_CREATED_AT;
-import static HTTPRequest.webRequestConstants.TAG_PCM_END_TIME;
-import static HTTPRequest.webRequestConstants.TAG_PCM_ID;
-import static HTTPRequest.webRequestConstants.TAG_PCM_LAST_UPDATE;
-import static HTTPRequest.webRequestConstants.TAG_PCM_PORT_UN_LOCODE;
-import static HTTPRequest.webRequestConstants.TAG_PCM_START_TIME;
-import static HTTPRequest.webRequestConstants.TAG_PCM_VESSEL;
 
 public class WebRequest {
     static String response = null;
@@ -59,15 +45,27 @@ public class WebRequest {
     public String makeWebServiceCall(String urladdress, int requestmethod, HashMap<String, String> headers, HashMap<String, String> params) {
         URL url;
         String response = "";
+//         Adds parameters to the urladdress string for GETRequests
+        boolean first = true;
+        if (requestmethod == GETRequest){
+            for (Map.Entry<String, String> param : params.entrySet()) {
+                if (first){
+                    urladdress += "?" + param.getKey() + "=" + param.getValue();
+                    first = false;
+                } else {
+                    urladdress += "&?" + param.getKey() + "=" + param.getValue();
+                }
+            }
+        }
         try {
             url = new URL(urladdress);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(15001);
             conn.setConnectTimeout(15001);
             conn.setDoInput(true);
-            conn.setDoOutput(true);
             if (requestmethod == POSTRequest) {
                 conn.setRequestMethod("POST");
+                conn.setDoOutput(true);
             } else if (requestmethod == GETRequest) {
                 conn.setRequestMethod("GET");
             }
@@ -75,10 +73,10 @@ public class WebRequest {
             if (headers != null) {
                 for (Map.Entry<String, String> entry : headers.entrySet()) {
                     conn.setRequestProperty(entry.getKey(), entry.getValue());
-//                    System.out.println(entry.getKey() + " - " + entry.getValue());
+                    System.out.println(entry.getKey() + " - " + entry.getValue());
                 }
             }
-//TODO Implement the correct way of adding params. For now it has to be included in the URL-adress string.
+//TODO Implement the correct way of adding params for POSTRequests. For now it has to be included in the URL-adress string.
             /*if (params != null) {
                 OutputStream ostream = conn.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(
@@ -105,6 +103,7 @@ public class WebRequest {
                 ostream.close();
             }*/
             int reqresponseCode = conn.getResponseCode();
+            System.out.println(reqresponseCode);
 
             if (reqresponseCode == HttpsURLConnection.HTTP_OK) {
                 String line;
@@ -116,10 +115,13 @@ public class WebRequest {
                 System.out.println("WebRequestHTTPConnection is not OK!");
                 System.out.println("ResponseCode: " + reqresponseCode);
                 System.out.println("URL: " + urladdress);
-                response = "";
+                response = "WebRequestHTTPConnection is not OK!" +
+                            "\nResponseCode: " + reqresponseCode +
+                            "\nURL: " + urladdress;
             }
         } catch (Exception e) {
             e.printStackTrace();
+            response = e.toString();
         }
         return response;
     }

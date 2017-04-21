@@ -1,4 +1,5 @@
-package HTTPRequest;
+package ServiceEntities;
+
 
 /**
  * Created by maxedman on 2017-04-20.

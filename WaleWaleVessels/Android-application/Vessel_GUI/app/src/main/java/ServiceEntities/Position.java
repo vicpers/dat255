@@ -5,22 +5,27 @@ package ServiceEntities;
  */
 
 public class Position {
-    private String longitude;
-    private String latitude;
+    private long latitude;
+    private long longitude;
 
-    public String getLongitude() {
+    public Position(long latitude, long longitude){
+        setLatitude(latitude);
+        setLongitude(longitude);
+    }
+
+    public long getLongitude() {
         return longitude;
     }
 
-    private void setLongitude(String longitude) {
+    private void setLongitude(long longitude) {
         this.longitude = longitude;
     }
 
-    public String getLatitude() {
+    public long getLatitude() {
         return latitude;
     }
 
-    private void setLatitude(String latitude) {
+    private void setLatitude(long latitude) {
         this.latitude = latitude;
     }
 }

@@ -19,17 +19,14 @@ public class WebRequest {
     public final static int GETRequest = 1;
     public final static int POSTRequest = 2;
 
-    //Constructor with no parameter
-    public WebRequest() {
-    }
     /**
      * Making web service call
      *
      * @url - url to make web request
      * @requestmethod - http request method
      */
-    public String makeWebServiceCall(String url, int requestmethod) {
-        return this.makeWebServiceCall(url, requestmethod, null, null);
+    public static String makeWebServiceCall(String url, int requestmethod) {
+        return makeWebServiceCall(url, requestmethod, null, null);
     }
 
     /**
@@ -42,12 +39,12 @@ public class WebRequest {
      * @param headers - http request headers. e.g login
      * @param params - http request params, depending on the service. Not working atm. Send null
      */
-    public String makeWebServiceCall(String urladdress, int requestmethod, HashMap<String, String> headers, HashMap<String, String> params) {
+    public static String makeWebServiceCall(String urladdress, int requestmethod, HashMap<String, String> headers, HashMap<String, String> params) {
         URL url;
         String response = "";
 //         Adds parameters to the urladdress string for GETRequests
         boolean first = true;
-        if (requestmethod == GETRequest){
+        if ((requestmethod == GETRequest) && (params != null)){
             for (Map.Entry<String, String> param : params.entrySet()) {
                 if (first){
                     urladdress += "?" + param.getKey() + "=" + param.getValue();

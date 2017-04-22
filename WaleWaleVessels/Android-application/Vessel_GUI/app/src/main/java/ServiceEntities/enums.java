@@ -3,7 +3,7 @@ package ServiceEntities;
 /**
  * Created by maxedman on 2017-04-21.
  */
-
+// Is not in use at the moment because of problem with casting Json-string ti Java-enumerator.
     enum TimeType {
         RECOMMENDED, TARGET, CANCELLED, ESTIMATED, ACTUAL
     }

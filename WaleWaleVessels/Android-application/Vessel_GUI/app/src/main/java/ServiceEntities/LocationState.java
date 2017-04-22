@@ -5,10 +5,18 @@ package ServiceEntities;
  */
 
 public class LocationState {
-    private ReferenceObject referenceObject;
+
+    private String referenceObject;
+    private String time;
+    private String timeType;
     private ArrivalLocation arrivalLocation;
     private DepartureLocation departureLocation;
-    private TimeType timeType;
-    private String time;
 
+    public LocationState(String referenceObject, String time, String timeType, ArrivalLocation arrivalLocation, DepartureLocation departureLocation) {
+        this.referenceObject = referenceObject;
+        this.time = time;
+        this.timeType = timeType;
+        this.arrivalLocation = arrivalLocation;
+        this.departureLocation = departureLocation;
+    }
 }

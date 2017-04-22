@@ -12,4 +12,20 @@ public class Between {
         this.from = from;
         this.to = to;
     }
+
+    public Location getFrom() {
+        return from;
+    }
+
+    private void setFrom(Location from) {
+        this.from = from;
+    }
+
+    public Location getTo() {
+        return to;
+    }
+
+    private void setTo(Location to) {
+        this.to = to;
+    }
 }

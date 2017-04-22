@@ -6,17 +6,42 @@ package ServiceEntities;
 
 public class PortCallMessage {
 
-    private String portCallId               = "urn:mrn:stm:portcdm:port_call:SEGOT:9319431a-c87b-41df-9392-07c381dd80ee";
-    private String localPortCallId          = null;
-    private String localJobId               = null;
-    private String vesselId                 = "urn:mrn:stm:vessel:IMO:9262089";
-    private String messageId                = "urn:mrn:stm:portcdm:message:bbaa74f5-b244-43c8-94c3-be390de4e727";
-    private String groupWith                = null;
-    private String reportedAt               = "2017-04-21T19:19:37Z"; //TODO Convert to a DateTime format.
-    private String reportedBy               = "urn:mrn:legacy:user:SSPA";
-    private String comment                  = null;
-    private String messageOperation         = null;
+    private String portCallId;
+    private String localPortCallId;
+    private String localJobId;
+    private String vesselId;
+    private String messageId;
+    private String groupWith;
+    private String reportedAt; //TODO Convert to a DateTime format.
+    private String reportedBy;
+    private String comment;
+    private String messageOperation;
     private LocationState locationState;
-    private ServiceState serviceState       = null;
+    private ServiceState serviceState;
 
+    public PortCallMessage(String portCallId, String localPortCallId, String localJobId,
+                           String vesselId, String messageId, String groupWith, String reportedAt,
+                           String reportedBy, String comment, String messageOperation,
+                           LocationState locationState, ServiceState serviceState) {
+        this.portCallId = portCallId;
+        this.localPortCallId = localPortCallId;
+        this.localJobId = localJobId;
+        this.vesselId = vesselId;
+        this.messageId = messageId;
+        this.groupWith = groupWith;
+        this.reportedAt = reportedAt;
+        this.reportedBy = reportedBy;
+        this.comment = comment;
+        this.messageOperation = messageOperation;
+        this.locationState = locationState;
+        this.serviceState = serviceState;
+
+
+    }
+
+    @Override
+    public String toString() {
+        return "PortCallMessage{" +
+                "portCallId='" + portCallId + "'}";
+    }
 }

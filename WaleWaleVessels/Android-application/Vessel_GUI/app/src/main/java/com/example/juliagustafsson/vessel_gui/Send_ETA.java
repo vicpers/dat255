@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import HTTPRequest.PCM;
+//import HTTPRequest.PCM;
 
 import static android.R.attr.textCheckMark;
 
@@ -75,7 +75,7 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         }
 
     }
-    public void sendNewETA(View v) {
+    /*public void sendNewETA(View v) {
         PCM pcm = new PCM();
         pcm.setArrivalDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(dateEditText.getText().toString()));
         pcm.setEndTime("");
@@ -86,6 +86,6 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         //pcm.setVessel(new Vessel());
         pcm.setCreatedAt(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date()));
 
-    }
+    }*/
 
 }

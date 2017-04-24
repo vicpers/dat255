@@ -17,17 +17,15 @@ import android.widget.TimePicker;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import HTTPRequest.PCM;
 
 import static android.R.attr.textCheckMark;
 
-public class Send_ETA extends AppCompatActivity implements View.OnClickListener {
-    EditText dateEditText;
-    EditText timeEditText;
-    String date;
-    String time;
-    ImageView correctFormatIndicator;
+public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
+    private EditText dateEditText;
+    private EditText timeEditText;
     private SimpleDateFormat dateFormat;
     private DatePickerDialog datePicker;
     private TimePickerDialog timePicker;
@@ -40,12 +38,13 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener 
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateEditText = (EditText) findViewById(R.id.editText2);
         dateEditText.setInputType(InputType.TYPE_NULL);
-        //dateEditText.requestFocus();
+        dateEditText.requestFocus();
 
         timeEditText = (EditText) findViewById(R.id.editText);
         timeEditText.setInputType(InputType.TYPE_NULL);
 
         dateEditText.setOnClickListener(this);
+
         timeEditText.setOnClickListener(this);
         Calendar calendar = Calendar.getInstance();
         datePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
@@ -54,10 +53,11 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener 
                 Calendar newCalendar = Calendar.getInstance();
                 newCalendar.set(year,month,dayOfMonth);
                 dateEditText.setText(dateFormat.format(newCalendar.getTime()));
+                timeEditText.requestFocus();
             }
-
         },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
-        timePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+
+        timePicker = new TimePickerDialog(this,/*android.R.style.Theme_Holo_Light_Dialog,*/ new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 timeEditText.setText( selectedHour + ":" + selectedMinute);
@@ -75,4 +75,17 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener 
         }
 
     }
+    public void sendNewETA(View v) {
+        PCM pcm = new PCM();
+        pcm.setArrivalDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(dateEditText.getText().toString()));
+        pcm.setEndTime("");
+        pcm.setId("");
+        pcm.setLastUpdate("");
+        pcm.setPortUnLocode("");
+        pcm.setStartTime("");
+        //pcm.setVessel(new Vessel());
+        pcm.setCreatedAt(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date()));
+
+    }
+
 }

@@ -6,7 +6,6 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-import RESTServices.jsonJavaConverter;
 import ServiceEntities.*;
 
 
@@ -21,10 +20,6 @@ public class HttpUrlConnectionPortCDM {
         HttpUrlConnectionPortCDM portCdmCon = new HttpUrlConnectionPortCDM();
 
 
-//        String wrTest = portCdmCon.getLatestPortCalls(1);
-        String wrTest = portCdmCon.pollQueueTest();
-
-        System.out.println(wrTest);
     }
 
     public static String getLatestPortCalls(int count){
@@ -53,13 +48,13 @@ public class HttpUrlConnectionPortCDM {
 
 
         String jsonString = "";
-        PCM tempPcm;
+        PortCall tempPcm;
         try {
             JSONArray jsonArr = new JSONArray(wrResponse);
             for (int i = 0 ; i < jsonArr.length(); i++) {
                 try {
                     JSONObject jsonObj = jsonArr.getJSONObject(i);
-                    tempPcm = jsonJavaConverter.jsonToPcm(jsonObj);
+                    tempPcm = new PortCall(jsonObj);
                     jsonString += tempPcm.toString() + "\n" + tempPcm.getVessel().toString();
                 } catch (JSONException e){
                     jsonString = e.toString();
@@ -76,33 +71,6 @@ public class HttpUrlConnectionPortCDM {
         PCM testPcm = jsonJavaConverter.jsonToPcm(wrResponse);
 
         return testPcm.toString() + "\n" + testPcm.getVessel().toString();*/
-        return jsonString;
-    }
-
-    public static String pollQueueTest(){
-
-        String jsonString = "";
-        PortCallMessage tempPcm;
-        try {
-            JSONArray jsonArr = new JSONArray(testQueueJson);
-            for (int i = 0 ; i < jsonArr.length(); i++) {
-                try {
-                    JSONObject jsonObj = jsonArr.getJSONObject(i);
-                    tempPcm = jsonJavaConverter.jsonToPortCallMessage(jsonObj);
-                    jsonString += tempPcm.toString();
-
-                } catch (JSONException e){
-                    jsonString = e.toString();
-                }
-                jsonString += "\n\n";
-            }
-
-            /*JSONObject jsonObj = jsonArr.getJSONObject(0);
-            jsonString = jsonJavaConverter.jsonToPortCallMessage(jsonObj);
-*/
-        } catch (JSONException e1){
-            jsonString = e1.toString();
-        }
         return jsonString;
     }
 }

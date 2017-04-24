@@ -1,5 +1,10 @@
 package ServiceEntities;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by maxedman on 2017-04-20.
  */
@@ -13,6 +18,36 @@ public class Vessel {
     private String type;
     private long stmVesselId;
     private String photoURL;
+
+    public Vessel(JSONObject vesselJsonObj){
+        if (vesselJsonObj != null) {
+            try {
+
+                long imo            = vesselJsonObj.getLong(Constants_jsonParsing.TAG_VESSEL_IMO);
+                String id           = vesselJsonObj.getString(Constants_jsonParsing.TAG_VESSEL_ID);
+                String name         = vesselJsonObj.getString(Constants_jsonParsing.TAG_VESSEL_NAME);
+                String callSign     = vesselJsonObj.getString(Constants_jsonParsing.TAG_VESSEL_CALL_SIGN);
+                long mmsi           = vesselJsonObj.getLong(Constants_jsonParsing.TAG_VESSEL_MMSI);
+                String type         = vesselJsonObj.getString(Constants_jsonParsing.TAG_VESSEL_TYPE);
+                long stmVesselId    = vesselJsonObj.getLong(Constants_jsonParsing.TAG_VESSEL_STM_VESSEL_ID);
+                String photoURL     = vesselJsonObj.getString(Constants_jsonParsing.TAG_VESSEL_PHOTOURL);
+
+                this.imo            = imo;
+                this.id             = id;
+                this.name           = name;
+                this.callSign       = callSign;
+                this.mmsi           = mmsi;
+                this.type           = type;
+                this.stmVesselId    = stmVesselId;
+                this.photoURL       = photoURL;
+
+            } catch (JSONException e) {
+                Log.e("Vessel Constructor", "Problem getting data - " + e.toString());
+            }
+        } else {
+            Log.e("Vessel Constructor", "param vesselJsonObj is null");
+        }
+    }
 
     public Vessel(long imo, String id, String name, String callSign, long mmsi, String type, long stmVesselId, String photoURL){
         setImo(imo);
@@ -90,9 +125,7 @@ public class Vessel {
     }
 
     public String toString(){
-        String toStr = "VesselID: " + getId()
-                + "\nVesselName: " + getName();
-
-        return toStr;
+        return "VesselID: " + getId() +
+               "\nVesselName: " + getName();
     }
 }

@@ -1,5 +1,10 @@
 package ServiceEntities;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by maxedman on 2017-04-21.
  */
@@ -7,6 +12,27 @@ package ServiceEntities;
 public class Between {
     private Location from;
     private Location to;
+
+    public Between(JSONObject betwJsonObj){
+        if (betwJsonObj != null) {
+
+            Location from;
+            try {
+                from  =  new Location(betwJsonObj.getJSONObject(Constants_jsonParsing.TAG_LOCATION_FROM));
+            } catch (JSONException e1){ from = null; }
+
+            Location to;
+            try {
+                to    =  new Location(betwJsonObj.getJSONObject(Constants_jsonParsing.TAG_LOCATION_TO));
+            } catch (JSONException e2){ to = null; }
+
+            this.from = from;
+            this.to = to;
+
+        } else {
+            Log.e("Between Constructor", "param betwJsonObj is null");
+        }
+    }
 
     public Between(Location from, Location to){
         this.from = from;

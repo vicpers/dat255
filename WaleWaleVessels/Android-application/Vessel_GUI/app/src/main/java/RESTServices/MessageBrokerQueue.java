@@ -69,8 +69,7 @@ public class MessageBrokerQueue {
             for (int i = 0 ; i < jsonArr.length(); i++) {
                 try {
                     JSONObject jsonObj = jsonArr.getJSONObject(i);
-                    tempPcm = jsonJavaConverter.jsonToPortCallMessage(jsonObj);
-                    this.queue.add(tempPcm);
+                    this.queue.add(new PortCallMessage(jsonObj));
 
                 } catch (JSONException e1){
                     Log.e("sortQueueResponse_inner", e1.toString());

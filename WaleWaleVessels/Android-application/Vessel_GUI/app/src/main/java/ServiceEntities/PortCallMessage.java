@@ -69,6 +69,13 @@ public class PortCallMessage {
         }
     }
 
+    public PortCallMessage(String vesselId, String messageId, String reportedBy, LocationState locationState) {
+        this.vesselId = vesselId;
+        this.messageId = messageId;
+        this.reportedBy = reportedBy;
+        this.locationState = locationState;
+    }
+
     public PortCallMessage(String portCallId, String localPortCallId, String localJobId,
                            String vesselId, String messageId, String groupWith, String reportedAt,
                            String reportedBy, String comment, String messageOperation,
@@ -93,5 +100,35 @@ public class PortCallMessage {
     public String toString() {
         return "PortCallMessage{" +
                 "portCallId='" + portCallId + "'}";
+    }
+
+    public String toXml() {
+        String xmlStr = "";
+        if(portCallId != null)
+            xmlStr += "<ns2:portCallId>"      + portCallId        + "</ns2:portCallId>";
+        if(localPortCallId != null)
+            xmlStr += "<ns2:localPortCallId>" + localPortCallId   + "</ns2:localPortCallId>";
+        if(localJobId != null)
+            xmlStr += "<ns2:localJobId>"      + localJobId        + "</ns2:localJobId>";
+        if(vesselId != null)
+            xmlStr += "<ns2:vesselId>"        + vesselId          + "</ns2:vesselId>";
+        if(messageId != null)
+            xmlStr += "<ns2:messageId>"       + messageId         + "</ns2:messageId>";
+        if(groupWith != null)
+            xmlStr += "<ns2:groupWith>"       + groupWith         + "</ns2:groupWith>";
+        if(reportedAt != null)
+            xmlStr += "<ns2:reportedAt>"      + reportedAt        + "</ns2:reportedAt>";
+        if(reportedBy != null)
+            xmlStr += "<ns2:reportedBy>"      + reportedBy        + "</ns2:reportedBy>";
+        if(comment != null)
+            xmlStr += "<ns2:comment>"         + comment           + "</ns2:comment>";
+        if(messageOperation != null)
+            xmlStr += "<ns2:messageOperation>" + messageOperation + "</ns2:messageOperation>";
+        if (locationState != null)
+            xmlStr += "<ns2:locationState>" + locationState.toXml() + "</ns2:locationState>";
+        if (serviceState != null)
+            xmlStr += "<ns2:serviceState>" + serviceState.toXml() + "</ns2:serviceState>";
+
+        return xmlStr;
     }
 }

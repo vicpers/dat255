@@ -39,4 +39,13 @@ public class DepartureLocation {
         this.from = from;
         this.to = to;
     }
+
+    public String toXml() {
+        String xmlStr = "";
+        if (to != null)
+            xmlStr += "<ns2:to>" + to.toXml() + "</ns2:to>";
+        if (from != null)
+            xmlStr += "<ns2:from>" + from.toXml() + "</ns2:from>";
+        return xmlStr;
+    }
 }

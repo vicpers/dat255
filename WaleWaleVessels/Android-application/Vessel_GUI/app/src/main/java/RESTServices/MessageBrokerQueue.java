@@ -43,6 +43,20 @@ public class MessageBrokerQueue {
         return this.queue;
     }
 
+    public void createUnfilteredQueue(){
+        String url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_CREATE_QUEUE;
+
+        HashMap<String, String> headers = new HashMap<String, String>();
+
+        headers.put(API_HEADER_CONTENT_TYPE, API_HEADER_ACCEPT_XML);
+        headers.put(API_HEADER_USER_ID, API_DEV_USERNAME);
+        headers.put(API_HEADER_PASSWORD, API_DEV_PASSWORD);
+        headers.put(API_HEADER_API_KEY, API_DEV_KEY1);
+
+        this.queueId = WebRequest.makeWebServicePost(url, headers, null, "");
+        System.out.println(queueId);
+    }
+
     //TODO implement functionality for polling MessageBrokerQueue
     public void pollQueue(){
 
@@ -84,7 +98,12 @@ public class MessageBrokerQueue {
         String returnStr = "";
         for (PortCallMessage pcmObj : this.queue) {
             returnStr += pcmObj.toString() + "\n\n";
+            System.out.println(pcmObj.toXml());
         }
         return returnStr;
+    }
+
+    public String testToJson(){
+        return this.queue.get(0).toXml();
     }
 }

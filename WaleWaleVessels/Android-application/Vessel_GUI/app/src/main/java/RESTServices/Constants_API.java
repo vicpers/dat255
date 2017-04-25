@@ -18,15 +18,24 @@ public class Constants_API {
 
     // Constants for webRequests headernames
     public static final String API_HEADER_ACCEPT                    = "Accept";
+    public static final String API_HEADER_CONTENT_TYPE              = "Content-Type";
     public static final String API_HEADER_USER_ID                   = "X-PortCDM-UserId";
     public static final String API_HEADER_PASSWORD                  = "X-PortCDM-Password";
     public static final String API_HEADER_API_KEY                   = "X-PortCDM-APIKey";
     public static final String API_HEADER_ACCEPT_JSON               = "application/json";
-    public static final String API_HEADER_ACCEPT_XML                = "application/XML";
+    public static final String API_HEADER_ACCEPT_XML                = "application/xml";
 
     // Constants for backend services directories
     public static final String API_SERVICE_PORT_CALLS               = "/dmp/port_calls";
     public static final String API_SERVICE_POLL_QUEUE               = "/mb/mqs/";
+    public static final String API_SERVICE_AMSS_STATE_UPDATE        = "/amss/state_update";
+    public static final String API_SERVICE_CREATE_QUEUE             = "/mb/mqs";
+
+    // Constants for building PortCallMessage XML-structure.
+    public static final String API_XML_HEADER                       = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+    public static final String API_XML_PORT_CALL_MESSAGE_HEADER     = "<ns2:portCallMessage xmlns:ns2=\"urn:x-mrn:stm:schema:port-call-message:0.0.16\">";
+    public static final String API_XML_PORT_CALL_MESSAGE_END        = "</ns2:portCallMessage>";
+
 
 
 }

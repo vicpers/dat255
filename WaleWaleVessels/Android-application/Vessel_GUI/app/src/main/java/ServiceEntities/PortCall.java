@@ -9,7 +9,7 @@ import org.json.JSONObject;
 /**
  * Created by maxedman on 2017-04-20.
  */
-
+//TODO Göra om klassen så att den passar så som ett PortCall nu faktiskt ser ut.
 public class PortCall{
 
     private String id;
@@ -140,5 +140,19 @@ public class PortCall{
                 + "\nCreated at: " + getCreatedAt();
 
         return toStr;
+    }
+//TODO Ordna upp toJson(). Kan skapa Fatyal Exception med Null-pointer exception
+    public String toJson() {
+        String jsonStr = "{" +
+                "\"id\":\"" + id + "\"";
+        if (vessel != null)
+            jsonStr += ", \"vessel\":" + vessel.toJson();
+        return jsonStr + ", \"portUnLocode\":\"" + portUnLocode + "\"" +
+                ", \"arrDate\":\"" + arrDate + "\"" +
+                ", \"createdAt\":\"" + createdAt + "\"" +
+                ", \"lastUpdate\":\"" + lastUpdate + "\"" +
+                ", \"startTime\":\"" + startTime + "\"" +
+                ", \"endTime\":\"" + endTime + "\"" +
+                '}';
     }
 }

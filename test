@@ -20,7 +20,7 @@
 						"from": null,
 						"to":
 							{
-								locationType": "VESSEL",
+								"locationType": "VESSEL",
 								"position":
 									{"latitude": 0, "longitude": 0},
 								"name": "VESSEL"

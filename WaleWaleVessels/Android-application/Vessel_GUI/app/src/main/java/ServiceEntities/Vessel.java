@@ -124,8 +124,23 @@ public class Vessel {
         this.photoURL = photoURL;
     }
 
+    @Override
     public String toString(){
         return "VesselID: " + getId() +
                "\nVesselName: " + getName();
+    }
+
+    //TODO Ordna upp toJson(). Kan skapa Fatyal Exception med Null-pointer exception
+    public String toJson() {
+        return "{" +
+                "\"imo\":" + imo +
+                ", \"id\":" + id +
+                ", \"name\":" + name +
+                ", \"callSign\":" + callSign +
+                ", \"mmsi\":" + mmsi +
+                ", \"type\":" + type +
+                ", \"stmVesselId\":" + stmVesselId +
+                ", \"photoURL\":" + photoURL +
+                '}';
     }
 }

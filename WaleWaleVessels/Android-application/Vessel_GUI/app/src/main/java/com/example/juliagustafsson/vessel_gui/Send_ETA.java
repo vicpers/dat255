@@ -2,26 +2,17 @@ package com.example.juliagustafsson.vessel_gui;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
-//import HTTPRequest.PCM;
-
-import static android.R.attr.textCheckMark;
 
 public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
     private EditText dateEditText;
@@ -75,7 +66,9 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         }
 
     }
-    /*public void sendNewETA(View v) {
+
+  /*  public void sendNewETA(View v) {
+
         PCM pcm = new PCM();
         pcm.setArrivalDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(dateEditText.getText().toString()));
         pcm.setEndTime("");

@@ -13,21 +13,21 @@ public class Location {
 
     private String name;
     private Position position;
-    private String type;
+    private LocationType locationType;
 
     public Location(JSONObject locJsonObj){
         if (locJsonObj != null) {
             try {
 
-                String locationType = locJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_TYPE);
-                String name         = locJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_NAME);
+                LocationType locationType   = LocationType.valueOf(locJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_TYPE));
+                String name                 = locJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_NAME);
 
                 Position position;
                 try {
                     position = new Position(locJsonObj.getJSONObject(Constants_jsonParsing.TAG_LOCATION_POSITION));
                 } catch (JSONException e1) { position = null; }
 
-                this.type  = locationType;
+                this.locationType  = locationType;
                 this.position = position;
                 this.name = name;
 
@@ -39,10 +39,10 @@ public class Location {
         }
     }
 
-    public Location(String name, Position position, String type){
+    public Location(String name, Position position, LocationType locationType){
         setName(name);
         setPosition(position);
-        setType(type);
+        setLocationType(locationType);
     }
 
     public String getName() {
@@ -61,12 +61,22 @@ public class Location {
         this.position = position;
     }
 
-    public String getType() {
-        return type;
+    public LocationType getType() {
+        return locationType;
     }
 
-    private void setType(String type) {
-        this.type = type;
+    private void setLocationType(LocationType locationType) {
+        this.locationType = locationType;
     }
 
+    public String toXml() {
+        String xmlStr = "";
+        if(name != null)
+            xmlStr += "<ns2:name>" + name + "</ns2:name>";
+        if (position != null)
+            xmlStr += "<ns2:position>" + position.toXml() + "</ns2:position>";
+        if(locationType != null)
+            xmlStr += "<ns2:locationType>" + locationType + "</ns2:locationType>";
+        return xmlStr;
+    }
 }

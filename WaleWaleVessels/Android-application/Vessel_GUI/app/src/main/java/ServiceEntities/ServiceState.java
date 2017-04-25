@@ -15,6 +15,8 @@ public class ServiceState {
     private String at; //TODO När ServiceState dyker upp i något PCM så se om at är en Location
     private Between betweenLocations;
     private String performingActor;
+    private String time;
+    private String timeType;
 
     public ServiceState(JSONObject servStateJsonObj){
         if (servStateJsonObj != null) {
@@ -24,6 +26,8 @@ public class ServiceState {
                 String serviceTimeSequence  =    servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_TIME_SEQUENCE);
                 String at                   =    servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_AT);
                 String performingActor      =    servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_PERFORMING_ACTOR);
+                String time                 =    servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_TIME);
+                String timeType             =    servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_TIME_TYPE);
 
                 Between between;
                 try {
@@ -50,5 +54,21 @@ public class ServiceState {
         this.at = at;
         this.betweenLocations = betweenLocations;
         this.performingActor = performingActor;
+    }
+
+
+    public String toXml() {
+        String xmlStr = "";
+        if(serviceObject != null)
+            xmlStr += "<ns2:serviceObject>" + serviceObject + "</ns2:serviceObject>";
+        if(timeSequence != null)
+            xmlStr += "<ns2:timeSequence>" + timeSequence + "</ns2:timeSequence>";
+        if(at != null)
+            xmlStr += "<ns2:at>" + at + "</ns2:at>";
+        if (betweenLocations != null)
+            xmlStr += "<ns2:betweenLocations>" + betweenLocations.toXml() + "</ns2:betweenLocations>";
+        if(performingActor != null)
+            xmlStr += "<ns2:performingActor>" + performingActor + "</ns2:performingActor>";
+        return xmlStr;
     }
 }

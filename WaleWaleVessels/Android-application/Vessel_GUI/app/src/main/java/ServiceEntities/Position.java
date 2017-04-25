@@ -12,6 +12,7 @@ import org.json.JSONObject;
 public class Position {
     private long latitude;
     private long longitude;
+    private String name;
 
     public Position(JSONObject posJsonObj){
         if (posJsonObj != null) {
@@ -30,6 +31,12 @@ public class Position {
         } else {
             Log.e("Position Constructor", "param posJsonObj is null");
         }
+    }
+
+    public Position(long latitude, long longitude, String name){
+        setLatitude(latitude);
+        setLongitude(longitude);
+        setName(name);
     }
 
     public Position(long latitude, long longitude){
@@ -51,5 +58,18 @@ public class Position {
 
     private void setLatitude(long latitude) {
         this.latitude = latitude;
+    }
+
+    public String getName(){return name;}
+
+    public void setName(String name){this.name = name;}
+
+    public String toXml() {
+         String xmlStr = "<ns2:latitude>" + latitude + "</ns2:latitude>" +
+                        "<ns2:longitude>" + longitude + "</ns2:longitude>";
+        if(name != null)
+            xmlStr += "<ns2:name>" + name + "</ns2:name>";
+        return xmlStr;
+
     }
 }

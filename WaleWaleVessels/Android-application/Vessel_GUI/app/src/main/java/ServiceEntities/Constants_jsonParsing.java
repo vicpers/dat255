@@ -55,6 +55,8 @@ public class Constants_jsonParsing {
     public static final String TAG_SERVICE_STATE_AT                     = "at";
     public static final String TAG_SERVICE_STATE_BETWEEN_LOCATIONS      = "betweenLocations";
     public static final String TAG_SERVICE_STATE_PERFORMING_ACTOR       = "performingActor";
+    public static final String TAG_SERVICE_STATE_TIME_TYPE              = "timeType";
+    public static final String TAG_SERVICE_STATE_TIME                   = "time";
 
     // Constants for handling the tags in a Arrival, Departure and Between Json-response.
     public static final String TAG_LOCATION_TO                          = "to";

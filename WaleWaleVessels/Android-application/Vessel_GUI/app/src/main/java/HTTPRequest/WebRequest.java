@@ -104,7 +104,7 @@ public class WebRequest {
     }
 
 
-
+//TODO Implement this function into the makeWebServiceCall function.
     public static String makeWebServicePost(String urladdress, HashMap<String, String> headers, HashMap<String, String> params, String body){
 
         try {
@@ -137,9 +137,7 @@ public class WebRequest {
                         while ((line = br.readLine()) != null) {
                             response += line;
                         }
-                    } catch (Exception e) {
-                        response = "" + reqresponseCode;
-                    }
+                    } catch (Exception e) {}
                 } else if (reqresponseCode == HttpsURLConnection.HTTP_OK) {
                     String line;
                     try{
@@ -147,9 +145,8 @@ public class WebRequest {
                         while ((line = br.readLine()) != null) {
                             response += line;
                         }
-                    } catch (Exception e){
-                        response = "" + reqresponseCode;
-                    }
+                    } catch (Exception e){};
+
                 } else {
 //                    System.out.println("WebRequestHTTPConnection is not OK!");
                     System.out.println("ResponseCode: " + reqresponseCode);
@@ -167,6 +164,11 @@ public class WebRequest {
                     System.out.println("RESPONSE: " + response);
                 }
             } finally {
+                if (response == null){
+                    response = conn.getResponseCode() + " - " + conn.getResponseMessage();
+                } else if (response.length() == 0){
+                    response = conn.getResponseCode() + " - " + conn.getResponseMessage();
+                }
                 conn.disconnect();
             }
         } catch (ProtocolException e) {

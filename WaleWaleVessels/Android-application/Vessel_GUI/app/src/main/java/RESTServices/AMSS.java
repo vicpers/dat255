@@ -11,7 +11,7 @@ import static RESTServices.Constants_API.*;
  * Created by maxedman on 2017-04-24.
  */
 
-public class AMSS implements Runnable{
+public class AMSS /*implements Runnable*/{
 
     private PortCallMessage pcmObj;
     String url;
@@ -21,7 +21,7 @@ public class AMSS implements Runnable{
         this.pcmObj = pcmObj;
     }
 
-    public void submitStateUpdate(){
+    public String submitStateUpdate(){
         this.url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_AMSS_STATE_UPDATE;
 
         headers = new HashMap<String, String>();
@@ -32,16 +32,21 @@ public class AMSS implements Runnable{
         headers.put(API_HEADER_API_KEY, API_DEV_KEY1);
 
         // Runs the webrequest on a different Thread.
-        this.run();
+//        this.run();
+        String xmlPost = API_XML_HEADER + API_XML_PORT_CALL_MESSAGE_HEADER;
+        xmlPost += pcmObj.toXml();
+        xmlPost += API_XML_PORT_CALL_MESSAGE_END;
+
+        return WebRequest.makeWebServicePost(url, headers, null, xmlPost);
     }
 
 
-    @Override
+    /*@Override
     public void run() {
         String xmlPost = API_XML_HEADER + API_XML_PORT_CALL_MESSAGE_HEADER;
         xmlPost += pcmObj.toXml();
         xmlPost += API_XML_PORT_CALL_MESSAGE_END;
 
         String wrResponse = WebRequest.makeWebServicePost(url, headers, null, xmlPost);
-    }
+    }*/
 }

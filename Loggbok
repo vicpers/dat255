@@ -39,5 +39,10 @@ På kvällen gör vi vår första daily scrum. Vi kommer överens om att våra U
 Julia bygger vidare på sitt GUI och adderar knapparna PTA, ETA samt MAIL. Tanken är att man på knapparna PTA och ETA ska kunna skicka tidsstämplar till andra aktörer i systemet. Sätter upp ny aktivitet för att kunna skicka meddelanden. Backend ej påbörjad för dessa processer. 
 
 >> 24 APRIL
-Vi ser över och uppdaterar våra epics, user stories och tasks. 
+Vi ser över och uppdaterar våra epics, user stories och tasks.
+
+Julia fixar så att senast skickade ETA visas på appens hemskärm samt en lista där man kan välja mottagare när ETA ska skickas. Backend måste konfigureras för denna funktionalitet. 
+
+Julia försöker även fixa så att det är möjligt att logga in med Vessel_ID i appen. Sätter upp tillfällig databas för att hålla ett antal test ID. 
+
 

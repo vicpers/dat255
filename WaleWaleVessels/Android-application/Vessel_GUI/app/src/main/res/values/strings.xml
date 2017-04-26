@@ -11,15 +11,15 @@
     <string name="latest_ETA">Latest ETA sent:</string>
 
     <string-array name="ETArecipant">
-            <item>Pick recipant</item>
-            <item>Anchoring Area</item>
-            <item>Berth</item>
-            <item>Etug Zone</item>
-            <item>Loc</item>
-            <item>Pilot</item>
-            <item>Pilot Area</item>
-            <item>Rendez Area</item>
-            <item>Traffic Area</item>
-            <item>Tug Zone</item>
-        </string-array>
+        <item>Pick recipant</item>
+        <item>Anchoring Area</item>
+        <item>Berth</item>
+        <item>Etug Zone</item>
+        <item>Loc</item>
+        <item>Pilot</item>
+        <item>Pilot Area</item>
+        <item>Rendez Area</item>
+        <item>Traffic Area</item>
+        <item>Tug Zone</item>
+    </string-array>
 </resources>

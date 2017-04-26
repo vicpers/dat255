@@ -77,7 +77,6 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
         android:layout_weight="1">
 
         <Button
@@ -92,11 +91,11 @@
             android:textSize="24sp" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/logout"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:background="@android:color/holo_blue_dark"
             android:text="PTA"
@@ -109,8 +108,24 @@
             android:layout_marginLeft="8dp"
             android:layout_weight="1"
             android:background="@android:color/holo_blue_dark"
-            android:text="MAIL"
+            android:onClick="logoutAction"
+            android:text="Log out"
             android:textSize="24sp" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp">
+
+        <TextView
+            android:id="@+id/loggedIn"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:textAlignment="center"
+            android:textSize="10sp" />
+
     </TableRow>
 
 </TableLayout>

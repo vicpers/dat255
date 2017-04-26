@@ -18,7 +18,7 @@ public class ViewPCM extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.textView2);
 //        String wrTest = portCdmCon.getLatestPortCalls(4);
 //        String wrTest = portCdmCon.pollQueueTest();
-        MessageBrokerQueue msgBrokerQueue = new MessageBrokerQueue("19531434-b926-4a2a-aae0-949f8bec9442");
+        MessageBrokerQueue msgBrokerQueue = new MessageBrokerQueue("507fecd5-e35a-4461-ab01-57cfb22f8ca7");
 //        MessageBrokerQueue msgBrokerQueue = new MessageBrokerQueue();
 //        msgBrokerQueue.createUnfilteredQueue();
         msgBrokerQueue.pollQueue();

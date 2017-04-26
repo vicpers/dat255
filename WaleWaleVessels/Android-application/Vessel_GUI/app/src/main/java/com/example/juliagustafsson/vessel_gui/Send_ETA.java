@@ -2,17 +2,22 @@ package com.example.juliagustafsson.vessel_gui;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
@@ -25,6 +30,8 @@ import ServiceEntities.LocationType;
 import ServiceEntities.PortCallMessage;
 import ServiceEntities.Position;
 
+import static com.example.juliagustafsson.vessel_gui.R.layout.activity_main;
+
 
 public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
     private EditText dateEditText;
@@ -32,6 +39,8 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
     private SimpleDateFormat dateFormat;
     private DatePickerDialog datePicker;
     private TimePickerDialog timePicker;
+    public static String newETA ="";
+    public static String newDate ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +75,17 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
                 timeEditText.setText( selectedHour + ":" + selectedMinute);
             }
         }, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), true);
+
+
+        // Settings for Recipant spinner
+        Spinner spinner = (Spinner) findViewById(R.id.spinnerRecipant);
+// Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.ETArecipant, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
     }
 
     @Override
@@ -80,10 +100,12 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
     }
 
     public void sendNewETA(View v) {
-
         // Gets strings that represent the date and time from different Edit-fields.
         String etaDate = dateEditText.getText().toString();
         String etaTime = timeEditText.getText().toString();
+        // Lagt till publika variabler för att uppdatera ETA på hemskärm
+        newETA = etaTime;
+        newDate = etaDate;
 
         // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         // which PortCDM requires.
@@ -108,6 +130,7 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
         TextView etaResultView = (TextView) findViewById(R.id.etaConfirmView);
         etaResultView.setText("ETA-status: " + etaResult);
+
     }
 
 }

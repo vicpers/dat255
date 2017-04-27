@@ -11,8 +11,22 @@ import java.util.HashMap;
 
 import HTTPRequest.WebRequest;
 import ServiceEntities.PortCallMessage;
+import ServiceEntities.Vessel;
 
-import static RESTServices.Constants_API.*;
+import static RESTServices.Constants_API.API_DEV_BASE_URL;
+import static RESTServices.Constants_API.API_DEV_KEY1;
+import static RESTServices.Constants_API.API_DEV_PASSWORD;
+import static RESTServices.Constants_API.API_DEV_PORT1;
+import static RESTServices.Constants_API.API_DEV_USERNAME;
+import static RESTServices.Constants_API.API_HEADER_ACCEPT;
+import static RESTServices.Constants_API.API_HEADER_ACCEPT_JSON;
+import static RESTServices.Constants_API.API_HEADER_ACCEPT_XML;
+import static RESTServices.Constants_API.API_HEADER_API_KEY;
+import static RESTServices.Constants_API.API_HEADER_CONTENT_TYPE;
+import static RESTServices.Constants_API.API_HEADER_PASSWORD;
+import static RESTServices.Constants_API.API_HEADER_USER_ID;
+import static RESTServices.Constants_API.API_SERVICE_CREATE_QUEUE;
+import static RESTServices.Constants_API.API_SERVICE_POLL_QUEUE;
 
 /**
  * Created by maxedman on 2017-04-21.
@@ -54,6 +68,27 @@ public class MessageBrokerQueue {
         headers.put(API_HEADER_API_KEY, API_DEV_KEY1);
 
         this.queueId = WebRequest.makeWebServicePost(url, headers, null, "");
+        System.out.println(queueId);
+    }
+
+    public void createUnfilteredQueue(Vessel vessel){
+        String url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_CREATE_QUEUE;
+
+        HashMap<String, String> headers = new HashMap<String, String>();
+
+        headers.put(API_HEADER_CONTENT_TYPE, API_HEADER_ACCEPT_XML);
+        headers.put(API_HEADER_USER_ID, API_DEV_USERNAME);
+        headers.put(API_HEADER_PASSWORD, API_DEV_PASSWORD);
+        headers.put(API_HEADER_API_KEY, API_DEV_KEY1);
+
+        String body = "[" +
+                      "  {" +
+                      "    \"type\": \"VESSEL\"," +
+                      "    \"element\": \"" + vessel.getId() + "\"" +
+                      "  }" +
+                      "]";
+
+        this.queueId = WebRequest.makeWebServicePost(url, headers, null, body);
         System.out.println(queueId);
     }
 

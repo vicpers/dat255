@@ -30,6 +30,7 @@ public class Constants_API {
     public static final String API_SERVICE_POLL_QUEUE               = "/mb/mqs/";
     public static final String API_SERVICE_AMSS_STATE_UPDATE        = "/amss/state_update";
     public static final String API_SERVICE_CREATE_QUEUE             = "/mb/mqs";
+    public static final String API_SERVICE_GET_VESSEL               = "/vr/vessel/";
 
     // Constants for building PortCallMessage XML-structure.
     public static final String API_XML_HEADER                       = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";

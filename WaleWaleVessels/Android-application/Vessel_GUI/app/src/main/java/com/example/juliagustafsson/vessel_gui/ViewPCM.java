@@ -22,8 +22,11 @@ public class ViewPCM extends AppCompatActivity {
 //        MessageBrokerQueue msgBrokerQueue = new MessageBrokerQueue();
 //        msgBrokerQueue.createUnfilteredQueue();
         msgBrokerQueue.pollQueue();
-//        String wrTest = msgBrokerQueue.toString();
         String wrTest = msgBrokerQueue.toString();
+//        String wrTest = msgBrokerQueue.toString();
+
+//        String vesselInfo = msgBrokerQueue.getQueue().get(0).getVessel().toString();
+
         textView.setText(wrTest);
 
         /*ArrivalLocation arrLoc = new ArrivalLocation(null, new Location(null, new Position(0,0, "Gothenburg"), LocationType.TRAFFIC_AREA));

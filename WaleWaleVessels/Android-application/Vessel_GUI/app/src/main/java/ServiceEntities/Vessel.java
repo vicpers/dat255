@@ -10,36 +10,33 @@ import org.json.JSONObject;
  */
 
 public class Vessel {
-    private long imo;
+    private String imo;
     private String id;
     private String name;
     private String callSign;
-    private long mmsi;
-    private String type;
-    private long stmVesselId;
+    private String mmsi;
+    private VesselType vesselType;
+    private String stmVesselId;
     private String photoURL;
 
     public Vessel(JSONObject vesselJsonObj){
         if (vesselJsonObj != null) {
             try {
-
-                long imo            = vesselJsonObj.getLong(Constants_jsonParsing.TAG_VESSEL_IMO);
-                String id           = vesselJsonObj.getString(Constants_jsonParsing.TAG_VESSEL_ID);
-                String name         = vesselJsonObj.getString(Constants_jsonParsing.TAG_VESSEL_NAME);
-                String callSign     = vesselJsonObj.getString(Constants_jsonParsing.TAG_VESSEL_CALL_SIGN);
-                long mmsi           = vesselJsonObj.getLong(Constants_jsonParsing.TAG_VESSEL_MMSI);
-                String type         = vesselJsonObj.getString(Constants_jsonParsing.TAG_VESSEL_TYPE);
-                long stmVesselId    = vesselJsonObj.getLong(Constants_jsonParsing.TAG_VESSEL_STM_VESSEL_ID);
-                String photoURL     = vesselJsonObj.getString(Constants_jsonParsing.TAG_VESSEL_PHOTOURL);
-
-                this.imo            = imo;
-                this.id             = id;
-                this.name           = name;
-                this.callSign       = callSign;
-                this.mmsi           = mmsi;
-                this.type           = type;
-                this.stmVesselId    = stmVesselId;
-                this.photoURL       = photoURL;
+// All separate try-catch-blocks are because of avoiding method termination.
+                try {
+                    this.imo            = vesselJsonObj.getString(Constants_jsonParsing.TAG_VESSEL_IMO);
+                } catch (JSONException e){ this.imo = null;}
+                try {
+                    this.id = vesselJsonObj.getString(Constants_jsonParsing.TAG_VESSEL_ID);
+                } catch (JSONException e){ this.id = null;}
+                this.name         = vesselJsonObj.getString(Constants_jsonParsing.TAG_VESSEL_NAME);
+                this.callSign     = vesselJsonObj.getString(Constants_jsonParsing.TAG_VESSEL_CALL_SIGN);
+                this.mmsi         = vesselJsonObj.getString(Constants_jsonParsing.TAG_VESSEL_MMSI);
+                this.vesselType   = VesselType.valueOf(vesselJsonObj.getString(Constants_jsonParsing.TAG_VESSEL_TYPE));
+                try {
+                    this.stmVesselId  = vesselJsonObj.getString(Constants_jsonParsing.TAG_VESSEL_STM_VESSEL_ID);
+                } catch (JSONException e){ this.stmVesselId = null; }
+                this.photoURL     = vesselJsonObj.getString(Constants_jsonParsing.TAG_VESSEL_PHOTOURL);
 
             } catch (JSONException e) {
                 Log.e("Vessel Constructor", "Problem getting data - " + e.toString());
@@ -49,7 +46,7 @@ public class Vessel {
         }
     }
 
-    public Vessel(long imo, String id, String name, String callSign, long mmsi, String type, long stmVesselId, String photoURL){
+    public Vessel(String imo, String id, String name, String callSign, String mmsi, VesselType type, String stmVesselId, String photoURL){
         setImo(imo);
         setId(id);
         setName(name);
@@ -60,11 +57,11 @@ public class Vessel {
         setPhotoURL(photoURL);
     }
 
-    public long getImo() {
+    public String getImo() {
         return imo;
     }
 
-    private void setImo(long imo) {
+    private void setImo(String imo) {
         this.imo = imo;
     }
 
@@ -72,7 +69,7 @@ public class Vessel {
         return id;
     }
 
-    private void setId(String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -92,27 +89,27 @@ public class Vessel {
         this.callSign = callSign;
     }
 
-    public long getMmsi() {
+    public String getMmsi() {
         return mmsi;
     }
 
-    private void setMmsi(long mmsi) {
+    private void setMmsi(String mmsi) {
         this.mmsi = mmsi;
     }
 
-    public String getType() {
-        return type;
+    public VesselType getType() {
+        return vesselType;
     }
 
-    private void setType(String type) {
-        this.type = type;
+    private void setType(VesselType type) {
+        this.vesselType = type;
     }
 
-    public long getStmVesselId() {
+    public String getStmVesselId() {
         return stmVesselId;
     }
 
-    private void setStmVesselId(long stmVesselId) {
+    private void setStmVesselId(String stmVesselId) {
         this.stmVesselId = stmVesselId;
     }
 
@@ -130,17 +127,17 @@ public class Vessel {
                "\nVesselName: " + getName();
     }
 
-    //TODO Ordna upp toJson(). Kan skapa Fatyal Exception med Null-pointer exception
+    //TODO Ordna upp toJson() pch skapa to xml, om det nu kommer behövas. Kan skapa Fatal Exception med Null-pointer exception
     public String toJson() {
         return "{" +
-                "\"imo\":" + imo +
-                ", \"id\":" + id +
-                ", \"name\":" + name +
-                ", \"callSign\":" + callSign +
-                ", \"mmsi\":" + mmsi +
-                ", \"type\":" + type +
-                ", \"stmVesselId\":" + stmVesselId +
-                ", \"photoURL\":" + photoURL +
+                "\"imo\":"              + imo +
+                ", \"id\":"             + id +
+                ", \"name\":"           + name +
+                ", \"callSign\":"       + callSign +
+                ", \"mmsi\":"           + mmsi +
+                ", \"type\":"           + vesselType +
+                ", \"stmVesselId\":"    + stmVesselId +
+                ", \"photoURL\":"       + photoURL +
                 '}';
     }
 }

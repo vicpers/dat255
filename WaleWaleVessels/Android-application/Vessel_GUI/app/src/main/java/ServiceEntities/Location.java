@@ -19,17 +19,13 @@ public class Location {
         if (locJsonObj != null) {
             try {
 
-                LocationType locationType   = LocationType.valueOf(locJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_TYPE));
-                String name                 = locJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_NAME);
+                this.locationType   = LocationType.valueOf(locJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_TYPE));
+                this.name                 = locJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_NAME);
 
                 Position position;
                 try {
                     position = new Position(locJsonObj.getJSONObject(Constants_jsonParsing.TAG_LOCATION_POSITION));
                 } catch (JSONException e1) { position = null; }
-
-                this.locationType  = locationType;
-                this.position = position;
-                this.name = name;
 
             } catch (JSONException e2) {
                 Log.e("Location Constructor", "Problem getting strings - " + e2.toString());

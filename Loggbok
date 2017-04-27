@@ -48,4 +48,5 @@ Julia försöker även fixa så att det är möjligt att logga in med Vessel_ID 
 ————
 Inlogg med Vessel_ID nu möjlig. Databasen slopades då den är onödig eftersom den kommer vara helt onödig när backend kopplas på. Istället används ett statiskt inlogg ”WaleWale” tillfälligt. 
 
-
+>> 27 APRIL
+Vi planerade veckans sprint utefter de minimikrav som vi fått tilldelade från PortCDM-gänget. Nya user stories skapades och bröts ner i tasks. Tasksen tilldelades personer som ansvarar för att dessa skall utföras, på så sätt underlättar det kommunikationen inom teamet ifall någon task riskerar att påverkar en annan task. 

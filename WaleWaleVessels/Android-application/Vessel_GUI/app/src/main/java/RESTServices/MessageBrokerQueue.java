@@ -57,7 +57,6 @@ public class MessageBrokerQueue {
         System.out.println(queueId);
     }
 
-    //TODO implement functionality for polling MessageBrokerQueue
     public void pollQueue(){
 
         String url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_POLL_QUEUE + this.queueId;

@@ -78,6 +78,7 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
 
 
         // Settings for Recipant spinner
+        //TODO Fix methods that support sending messages to all the recipants in the list
         Spinner spinner = (Spinner) findViewById(R.id.spinnerRecipant);
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,

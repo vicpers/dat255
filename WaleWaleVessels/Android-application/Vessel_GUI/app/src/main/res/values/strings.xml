@@ -24,10 +24,10 @@
     </string-array>
     <string-array name="Timestamps">
         <item>Pick timestamp</item>
-        <item>ETA</item>
-        <item>PTA</item>
-        <item>ATA</item>
-        <item>TTA</item>
-        <item>CTA</item>
+        <item>Estimated</item>
+        <item>Planned</item>
+        <item>Actual</item>
+        <item>Recommended</item>
+        <item>Cancelled</item>
     </string-array>
 </resources>

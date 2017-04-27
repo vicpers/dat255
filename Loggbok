@@ -45,4 +45,7 @@ Julia fixar så att senast skickade ETA visas på appens hemskärm samt en lista
 
 Julia försöker även fixa så att det är möjligt att logga in med Vessel_ID i appen. Sätter upp tillfällig databas för att hålla ett antal test ID. 
 
+————
+Inlogg med Vessel_ID nu möjlig. Databasen slopades då den är onödig eftersom den kommer vara helt onödig när backend kopplas på. Istället används ett statiskt inlogg ”WaleWale” tillfälligt. 
+
 

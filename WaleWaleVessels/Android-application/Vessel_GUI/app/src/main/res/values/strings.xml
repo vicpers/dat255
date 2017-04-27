@@ -22,4 +22,12 @@
         <item>Traffic Area</item>
         <item>Tug Zone</item>
     </string-array>
+    <string-array name="Timestamps">
+        <item>Pick timestamp</item>
+        <item>ETA</item>
+        <item>PTA</item>
+        <item>ATA</item>
+        <item>TTA</item>
+        <item>CTA</item>
+    </string-array>
 </resources>

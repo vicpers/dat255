@@ -50,13 +50,14 @@
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/sendLocationState"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:background="@android:color/holo_green_light"
-            android:text="@string/towing_status"
+            android:onClick="sendLocationState"
+            android:text="Send Location State"
             android:textSize="24sp" />
 
         <Button
@@ -66,7 +67,8 @@
             android:layout_marginLeft="8dp"
             android:layout_weight="1"
             android:background="@android:color/holo_green_light"
-            android:text="@string/terminal_status"
+            android:onClick="sendServiceState"
+            android:text="Send Service State"
             android:textSize="24sp" />
     </TableRow>
 
@@ -80,7 +82,7 @@
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/GetPCM"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_marginRight="8dp"

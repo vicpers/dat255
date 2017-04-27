@@ -77,4 +77,14 @@ public class MainActivity extends AppCompatActivity  {
         Intent intent = new Intent(this, Send_ETA.class); //skapar en ny instans av klassen ViewPCM som initierar ett nytt blankt fönster
         startActivity(intent);
     }
+
+    public void sendLocationState(View view) {
+        Intent intent = new Intent(this, SendLocationState.class); //skapar en ny instans av klassen SendLocationState som initierar ett nytt blankt fönster
+        startActivity(intent);
+    }
+
+    public void sendServiceState(View view) {
+        Intent intent = new Intent(this, SendServiceState.class); //skapar en ny instans av klassen SendLocationState som initierar ett nytt blankt fönster
+        startActivity(intent);
+    }
 }

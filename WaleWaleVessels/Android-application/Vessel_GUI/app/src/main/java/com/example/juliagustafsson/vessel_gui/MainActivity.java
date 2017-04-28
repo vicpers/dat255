@@ -1,22 +1,29 @@
 package com.example.juliagustafsson.vessel_gui;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v7.app.ActionBar;
+import android.support.v4.widget.DrawerLayout;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity  {
 
    // private Button logout;
     private UserLocalStorage userLocalStore;
+    private ArrayAdapter<String> mAdapter;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +35,25 @@ public class MainActivity extends AppCompatActivity  {
         // Set customized toolbar
         Toolbar customToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(customToolbar);
-        ActionBar ab = getSupportActionBar();
-        ab.setTitle("  Port CDM");
-        ab.setIcon(R.drawable.ship);
+        getSupportActionBar().setTitle("Port CDM");
+        getSupportActionBar().setHomeButtonEnabled(true);
 
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, customToolbar, R.string.drawer_open, R.string.drawer_close);
+
+        mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+      //  mToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+      //      @Override
+      //      public void onClick(View v) {
+       //         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+       //         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        //        mToggle.setDrawerIndicatorEnabled(true);
+       //     }
+       // });
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -40,7 +62,6 @@ public class MainActivity extends AppCompatActivity  {
         //logout.setOnClickListener(this);
 
         userLocalStore = new UserLocalStorage(this);
-
     }
 
     @Override
@@ -97,4 +118,5 @@ public class MainActivity extends AppCompatActivity  {
         Intent intent = new Intent(this, SendServiceState.class); //skapar en ny instans av klassen SendLocationState som initierar ett nytt blankt fönster
         startActivity(intent);
     }
+
 }

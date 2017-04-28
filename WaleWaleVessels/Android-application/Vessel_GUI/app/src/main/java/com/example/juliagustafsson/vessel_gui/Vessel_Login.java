@@ -1,6 +1,7 @@
 package com.example.juliagustafsson.vessel_gui;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.support.v7.app.ActionBar;
+import android.widget.TextView;
 
 
 public class Vessel_Login extends AppCompatActivity implements View.OnClickListener {
@@ -20,6 +22,15 @@ public class Vessel_Login extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vessel__login);
+
+        // Import custom font
+        TextView myTextView = (TextView) findViewById(R.id.PortCDM);
+        Typeface typeface=Typeface.createFromAsset(getAssets(), "fonts/LEIXO.ttf");
+        myTextView.setTypeface(typeface);
+
+        Button myTextView2 = (Button) findViewById(R.id.Access_PortCDM);
+        Typeface typeface2=Typeface.createFromAsset(getAssets(), "fonts/Quicksand_Bold.otf");
+        myTextView2.setTypeface(typeface2);
 
         vesselID = (EditText) findViewById(R.id.vessel_ID);
         login = (Button) findViewById(R.id.Access_PortCDM);

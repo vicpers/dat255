@@ -9,6 +9,8 @@
     <string name="mooring_status">Mooring</string>
     <string name="terminal_status">Terminal</string>
     <string name="latest_ETA">Latest ETA sent:</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 
     <string-array name="ETArecipant">
         <item>Pick recipant</item>

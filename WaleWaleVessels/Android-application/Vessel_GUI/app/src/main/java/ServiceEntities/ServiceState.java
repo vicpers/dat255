@@ -48,6 +48,16 @@ public class ServiceState {
         }
     }
 
+    /**
+     * Constructor for creating ServiceState by data.
+     * @param String serviceObject
+     * @param String serviceTimeSequence
+     * @param String at
+     * @param Between betweenLocations
+     * @param String performingActor
+     */
+
+    // TODO TROR att service states ska ha antingen ett "at" för stationary states, ELLER ett "between" för nautical states
     public ServiceState(String serviceObject, String timeSequence, String at, Between betweenLocations, String performingActor) {
         this.serviceObject = serviceObject;
         this.timeSequence = timeSequence;

@@ -78,6 +78,16 @@ public class PortCallMessage {
         this.locationState = locationState;
     }
 
+    /**
+     * Lekt och lattjat lite för att få en pcmkonstruktur för att skicka service states.
+     */
+    public PortCallMessage(String vesselId, String messageId, String reportedBy, ServiceState serviceState) {
+        this.vessel = PortCDMServices.getVessel(vesselId);
+        this.messageId = messageId;
+        this.reportedBy = reportedBy;
+        this.serviceState = serviceState;
+    }
+
     public PortCallMessage(String portCallId, String localPortCallId, String localJobId,
                            String vesselId, String messageId, String groupWith, String reportedAt,
                            String reportedBy, String comment, String messageOperation,

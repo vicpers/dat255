@@ -6,8 +6,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -16,11 +18,15 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.support.v7.app.ActionBar;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 
 import RESTServices.AMSS;
@@ -40,6 +46,9 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
     private SimpleDateFormat dateFormat;
     private DatePickerDialog datePicker;
     private TimePickerDialog timePicker;
+    private Spinner spinner;
+    private String selectedRecipant;
+    private HashMap<LocationType, String> locMap;
     public static String newETA ="";
     public static String newDate ="";
 
@@ -77,8 +86,7 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
             }
         }, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), true);
 
-
-        // Settings for Recipant spinner
+        /* // Settings for Recipant spinner
         //TODO Fix methods that support sending messages to all the recipants in the list
         Spinner spinner = (Spinner) findViewById(R.id.spinnerRecipant);
 // Create an ArrayAdapter using the string array and a default spinner layout
@@ -87,8 +95,32 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
 // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner
+       // spinner.setAdapter(adapter);
+
+    */
+        /*
+        Har försökt koppla innehållet i spinnern till en hashmap som är baserad på LocationType.
+        Spinnern visar korrekt innehåll och sparar ner den valda mottagaren i selectedRecipant.
+        selectedRecipant används sen för att skapa ett Location-objekt som används för att skicka ETA.
+        Jag TROR att det funkar...
+          */
+        locMap = LocationType.toMap();
+        ArrayList<String> locations = new ArrayList<String>(locMap.values());
+        Collections.sort(locations);
+        spinner = (Spinner) findViewById(R.id.spinnerRecipant);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locations);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedRecipant = spinner.getSelectedItem().toString();
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -98,7 +130,6 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         else if(v==timeEditText){
             timePicker.show();
         }
-
     }
 
     public void sendNewETA(View v) {
@@ -108,7 +139,6 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         // Lagt till publika variabler för att uppdatera ETA på hemskärm
         newETA = etaTime;
         newDate = etaDate;
-
         // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         // which PortCDM requires.
         SimpleDateFormat etaOutput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -121,7 +151,11 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         }
         String formattedTime = etaOutput.format(date);
 
-        Location locObj = new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.TRAFFIC_AREA);
+        /*
+        Här använder jag det värdet som väljs i spinnern och passar in det i locObj som skickas vid nytt ETA.
+         */
+        //Location locObj = new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.TRAFFIC_AREA);
+        Location locObj = new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.fromString(selectedRecipant));
         ArrivalLocation arrLoc = new ArrivalLocation(null, locObj);
         LocationState locState = new LocationState("VESSEL", formattedTime, "ESTIMATED", arrLoc, null);
         PortCallMessage pcmObj = new PortCallMessage("urn:mrn:stm:vessel:IMO:9501368",

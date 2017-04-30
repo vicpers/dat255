@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -35,7 +36,7 @@ import ServiceEntities.TimeType;
 public class SendServiceState extends AppCompatActivity implements View.OnClickListener {
     private HashMap<TimeType, String> timeMap;
     private Spinner spinner;
-    private String selectedTimeType;
+    private String selectedTimeType = null;
     private EditText dateEditText;
     private EditText timeEditText;
     private SimpleDateFormat dateFormat;
@@ -82,10 +83,23 @@ public class SendServiceState extends AppCompatActivity implements View.OnClickL
         spinner = (Spinner) findViewById(R.id.spinnerTimeType);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, timeTypes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        //spinner.setAdapter(adapter);
+        spinner.setAdapter(
+                new NothingSelectedSpinnerAdapter(
+                        adapter,
+                        R.layout.contact_spinner_row_nothing_selected,
+                        // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
+                        this));
+        spinner.setPrompt("Select Time Type");
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedTimeType = spinner.getSelectedItem().toString();
+                try {
+                    selectedTimeType = spinner.getSelectedItem().toString();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+
+                Log.wtf("SELECTED TIMETYPE", selectedTimeType);
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }

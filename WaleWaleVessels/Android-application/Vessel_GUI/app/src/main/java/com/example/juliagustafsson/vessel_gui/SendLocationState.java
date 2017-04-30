@@ -42,10 +42,10 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
     private Spinner spinnerRefObj;
     private Spinner spinnerArrLoc;
     private Spinner spinnerDepLoc;
-    private String selectedTimeType;
-    private String selectedRefObj;
-    private String selectedArrLoc;
-    private String selectedDepLoc;
+    private String selectedTimeType = null;
+    private String selectedRefObj = null;
+    private String selectedArrLoc = null;
+    private String selectedDepLoc = null;
     private EditText dateEditText;
     private EditText timeEditText;
     private SimpleDateFormat dateFormat;
@@ -93,10 +93,30 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
         ArrayAdapter<String> adapterTimeType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, timeTypes);
         adapterTimeType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTimeType = (Spinner) findViewById(R.id.spinnerTimeType);
-        spinnerTimeType.setAdapter(adapterTimeType);
+        /*spinnerTimeType.setAdapter(adapterTimeType);
         spinnerTimeType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedTimeType = spinnerTimeType.getSelectedItem().toString();
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        }); */
+        spinnerTimeType.setAdapter(
+                new NothingSelectedSpinnerAdapter(
+                        adapterTimeType,
+                        R.layout.contact_spinner_row_nothing_selected,
+                        // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
+                        this));
+        spinnerTimeType.setPrompt("Select Time Type");
+        spinnerTimeType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    selectedTimeType = spinnerTimeType.getSelectedItem().toString();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+
+                Log.wtf("SELECTED TIMETYPE", selectedTimeType);
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -109,11 +129,31 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
         spinnerRefObj = (Spinner) findViewById(R.id.spinnerReference);
         ArrayAdapter<String> adapterRefObj = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, referenceObjects);
         adapterRefObj.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerRefObj.setAdapter(adapterRefObj);
+        /*spinnerRefObj.setAdapter(adapterRefObj);
         spinnerRefObj.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedRefObj = spinnerRefObj.getSelectedItem().toString();
                 Log.wtf("REFERENCE OBJECT", selectedRefObj);
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });*/
+        spinnerRefObj.setAdapter(
+                new NothingSelectedSpinnerAdapter(
+                        adapterRefObj,
+                        R.layout.contact_spinner_row_nothing_selected,
+                        // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
+                        this));
+        spinnerRefObj.setPrompt("Select Reference Object");
+        spinnerRefObj.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    selectedRefObj = spinnerRefObj.getSelectedItem().toString();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+
+                Log.wtf("SELECTED REFERENCE OBJECT", selectedRefObj);
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -126,11 +166,31 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
         spinnerArrLoc = (Spinner) findViewById(R.id.spinnerArrival);
         ArrayAdapter<String> adapterArrLoc = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locationTypes);
         adapterArrLoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerArrLoc.setAdapter(adapterArrLoc);
+        /*spinnerArrLoc.setAdapter(adapterArrLoc);
         spinnerArrLoc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedArrLoc = spinnerArrLoc.getSelectedItem().toString();
                 Log.wtf("ARRIVAL LOCATION", selectedArrLoc);
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });*/
+        spinnerArrLoc.setAdapter(
+                new NothingSelectedSpinnerAdapter(
+                        adapterArrLoc,
+                        R.layout.contact_spinner_row_nothing_selected,
+                        // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
+                        this));
+        spinnerArrLoc.setPrompt("Select Arrival Location");
+        spinnerArrLoc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    selectedArrLoc = spinnerArrLoc.getSelectedItem().toString();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+
+                Log.wtf("SELECTED ARRIVAL LOCATION", selectedArrLoc);
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -140,11 +200,31 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
         spinnerDepLoc = (Spinner) findViewById(R.id.spinnerDeparture);
         ArrayAdapter<String> adapterDepLoc = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locationTypes);
         adapterDepLoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerDepLoc.setAdapter(adapterDepLoc);
+        /*spinnerDepLoc.setAdapter(adapterDepLoc);
         spinnerDepLoc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedDepLoc = spinnerDepLoc.getSelectedItem().toString();
                 Log.wtf("DEPARTURE LOCATION", selectedDepLoc);
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });*/
+        spinnerDepLoc.setAdapter(
+                new NothingSelectedSpinnerAdapter(
+                        adapterDepLoc,
+                        R.layout.contact_spinner_row_nothing_selected,
+                        // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
+                        this));
+        spinnerDepLoc.setPrompt("Select Departure Location");
+        spinnerDepLoc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    selectedDepLoc = spinnerDepLoc.getSelectedItem().toString();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+
+                Log.wtf("SELECTED DEPARTURE LOCATION", selectedDepLoc);
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }

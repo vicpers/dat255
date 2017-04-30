@@ -103,7 +103,7 @@ public class SendServiceState extends AppCompatActivity implements View.OnClickL
     }
 
     //TODO Kopierade in från Send_ETA och försökt anpassa för hur ett service state ska se ut"
-    public void sendNewLocationState(View v) {
+    public void sendNewServiceState(View v) {
         // Gets strings that represent the date and time from different Edit-fields.
         String etaDate = dateEditText.getText().toString();
         String etaTime = timeEditText.getText().toString();

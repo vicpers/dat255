@@ -2,12 +2,9 @@ package com.example.juliagustafsson.vessel_gui;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,14 +13,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.support.v7.app.ActionBar;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -36,8 +30,6 @@ import ServiceEntities.LocationState;
 import ServiceEntities.LocationType;
 import ServiceEntities.PortCallMessage;
 import ServiceEntities.Position;
-
-import static com.example.juliagustafsson.vessel_gui.R.layout.activity_main;
 
 
 public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
@@ -107,7 +99,7 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         locMap = LocationType.toMap();
         ArrayList<String> locations = new ArrayList<String>(locMap.values());
         Collections.sort(locations);
-        spinner = (Spinner) findViewById(R.id.spinnerRecipant);
+        spinner = (Spinner) findViewById(R.id.spinnerTimeType);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locations);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);

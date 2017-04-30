@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.support.v7.app.ActionBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -26,17 +25,27 @@ import java.util.HashMap;
 import java.util.UUID;
 import RESTServices.AMSS;
 import ServiceEntities.ArrivalLocation;
+import ServiceEntities.DepartureLocation;
 import ServiceEntities.Location;
 import ServiceEntities.LocationState;
 import ServiceEntities.LocationType;
 import ServiceEntities.PortCallMessage;
 import ServiceEntities.Position;
+import ServiceEntities.ReferenceObject;
 import ServiceEntities.TimeType;
 
 public class SendLocationState extends AppCompatActivity implements View.OnClickListener {
     private HashMap<TimeType, String> timeMap;
-    private Spinner spinner;
+    private HashMap<ReferenceObject, String> refObjMap;
+    private HashMap<LocationType, String> locationMap;
+    private Spinner spinnerTimeType;
+    private Spinner spinnerRefObj;
+    private Spinner spinnerArrLoc;
+    private Spinner spinnerDepLoc;
     private String selectedTimeType;
+    private String selectedRefObj;
+    private String selectedArrLoc;
+    private String selectedDepLoc;
     private EditText dateEditText;
     private EditText timeEditText;
     private SimpleDateFormat dateFormat;
@@ -77,33 +86,70 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
             }
         }, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), true);
 
-        /*
-        // Settings for Recipant spinner
-        //TODO Fix methods that support sending messages to all the recipants in the list
-        Spinner spinner = (Spinner) findViewById(R.id.spinnerRecipant);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.Timestamps, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
-        */
-
+        // Spinner for selecting TimeType
         timeMap = TimeType.toMap();
         ArrayList<String> timeTypes = new ArrayList<String>(timeMap.values());
         Collections.sort(timeTypes);
-        spinner = (Spinner) findViewById(R.id.spinnerRecipant);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, timeTypes);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        ArrayAdapter<String> adapterTimeType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, timeTypes);
+        adapterTimeType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTimeType = (Spinner) findViewById(R.id.spinnerTimeType);
+        spinnerTimeType.setAdapter(adapterTimeType);
+        spinnerTimeType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedTimeType = spinner.getSelectedItem().toString();
+                selectedTimeType = spinnerTimeType.getSelectedItem().toString();
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        // Spinner for selecting ReferenceObject
+        refObjMap = ReferenceObject.toMap();
+        ArrayList<String> referenceObjects = new ArrayList<String>(refObjMap.values());
+        Collections.sort(referenceObjects);
+        spinnerRefObj = (Spinner) findViewById(R.id.spinnerReference);
+        ArrayAdapter<String> adapterRefObj = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, referenceObjects);
+        adapterRefObj.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRefObj.setAdapter(adapterRefObj);
+        spinnerRefObj.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedRefObj = spinnerRefObj.getSelectedItem().toString();
+                Log.wtf("REFERENCE OBJECT", selectedRefObj);
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        // Spinner for selecting ArrivalLocationType
+        locationMap = LocationType.toMap();
+        ArrayList<String> locationTypes = new ArrayList<String>(locationMap.values());
+        Collections.sort(locationTypes);
+        spinnerArrLoc = (Spinner) findViewById(R.id.spinnerArrival);
+        ArrayAdapter<String> adapterArrLoc = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locationTypes);
+        adapterArrLoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerArrLoc.setAdapter(adapterArrLoc);
+        spinnerArrLoc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedArrLoc = spinnerArrLoc.getSelectedItem().toString();
+                Log.wtf("ARRIVAL LOCATION", selectedArrLoc);
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        // Spinner for selecting DepartureLocationType
+        spinnerDepLoc = (Spinner) findViewById(R.id.spinnerDeparture);
+        ArrayAdapter<String> adapterDepLoc = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locationTypes);
+        adapterDepLoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerDepLoc.setAdapter(adapterDepLoc);
+        spinnerDepLoc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedDepLoc = spinnerDepLoc.getSelectedItem().toString();
+                Log.wtf("DEPARTURE LOCATION", selectedDepLoc);
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
     }
 
     @Override
@@ -134,9 +180,16 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
         }
         String formattedTime = etaOutput.format(date);
 
-        Location locObj = new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.TRAFFIC_AREA);
-        ArrivalLocation arrLoc = new ArrivalLocation(null, locObj);
-        LocationState locState = new LocationState("VESSEL", formattedTime, selectedTimeType.toUpperCase(), arrLoc, null);
+        //TODO Verkar som att det skickas LocationStates med antingen en arrival (då är departure = null), eller en departure (då är arrival = null). Hur Lösa?
+
+        //Creates location-objects based on the selected LocationTypes from the spinners
+        Location arrLocObj = new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.fromString(selectedArrLoc));
+        Location depLocObj = new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.fromString(selectedDepLoc));
+        ArrivalLocation arrLoc = new ArrivalLocation(null, arrLocObj);
+        DepartureLocation depLoc = new DepartureLocation(depLocObj, null);
+
+        //Creates an LocationState based on the selected input.
+        LocationState locState = new LocationState(selectedRefObj.toUpperCase(), formattedTime, selectedTimeType.toUpperCase(), arrLoc, depLoc);
         PortCallMessage pcmObj = new PortCallMessage("urn:mrn:stm:vessel:IMO:9501368",
                 "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
                 "VesselApplicationETAView",

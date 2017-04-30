@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.support.v7.app.ActionBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -25,15 +24,11 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import RESTServices.AMSS;
-import ServiceEntities.ArrivalLocation;
 import ServiceEntities.Between;
-import ServiceEntities.DepartureLocation;
 import ServiceEntities.Location;
-import ServiceEntities.LocationState;
 import ServiceEntities.LocationType;
 import ServiceEntities.PortCallMessage;
 import ServiceEntities.Position;
-import ServiceEntities.ServiceObject;
 import ServiceEntities.ServiceState;
 import ServiceEntities.TimeType;
 
@@ -84,7 +79,7 @@ public class SendServiceState extends AppCompatActivity implements View.OnClickL
         timeMap = TimeType.toMap();
         ArrayList<String> timeTypes = new ArrayList<String>(timeMap.values());
         Collections.sort(timeTypes);
-        spinner = (Spinner) findViewById(R.id.spinnerRecipant);
+        spinner = (Spinner) findViewById(R.id.spinnerTimeType);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, timeTypes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);

@@ -2,8 +2,10 @@ package com.example.juliagustafsson.vessel_gui;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -61,6 +63,23 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
         dateEditText = (EditText) findViewById(R.id.editText2);
         dateEditText.setInputType(InputType.TYPE_NULL);
         dateEditText.requestFocus();
+
+        //Set custom toolbar
+        Toolbar customToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(customToolbar);
+        getSupportActionBar().setTitle("Send Location State");
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        //Applies fonts
+        Typeface typeface=Typeface.createFromAsset(getAssets(), "fonts/BebasKai.otf");
+        TextView myTextView11 = (TextView) findViewById(R.id.textView11);
+        myTextView11.setTypeface(typeface);
+        TextView myTextView7 = (TextView) findViewById(R.id.textView7);
+        myTextView7.setTypeface(typeface);
+        TextView myTextView9 = (TextView) findViewById(R.id.textView9);
+        myTextView9.setTypeface(typeface);
+        TextView myTextView8 = (TextView) findViewById(R.id.textView8);
+        myTextView8.setTypeface(typeface);
 
         timeEditText = (EditText) findViewById(R.id.editText);
         timeEditText.setInputType(InputType.TYPE_NULL);

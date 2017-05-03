@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +18,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.widget.DrawerLayout;
 
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
    // private Button logout;
     private UserLocalStorage userLocalStore;
@@ -43,6 +44,9 @@ public class MainActivity extends AppCompatActivity  {
 
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -88,12 +92,6 @@ public class MainActivity extends AppCompatActivity  {
         textView.setText("Active Vessel: " + user.vesselID);
     }
 
-    public void logoutAction(View view) {
-            userLocalStore.clearUserData();
-            userLocalStore.setUserLoggedIn(false);
-            startActivity(new Intent(MainActivity.this, Vessel_Login.class ));
-    }
-
     public void viewPCM(View view) {
         Intent intent = new Intent(this, ViewPCM.class); //skapar en ny instans av klassen ViewPCM som initierar ett nytt blankt fönster
         // TODO Fixa källan till texten, dvs här ska ett PCM läsas is till ett textfält
@@ -117,6 +115,28 @@ public class MainActivity extends AppCompatActivity  {
     public void sendServiceState(View view) {
         Intent intent = new Intent(this, SendServiceState.class); //skapar en ny instans av klassen SendLocationState som initierar ett nytt blankt fönster
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.home_page:
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.nav_account:
+                return true;
+            case R.id.nav_settings:
+                return true;
+            case R.id.nav_logout:
+                userLocalStore.clearUserData();
+                userLocalStore.setUserLoggedIn(false);
+                startActivity(new Intent(MainActivity.this, Vessel_Login.class ));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

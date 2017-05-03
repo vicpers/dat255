@@ -52,7 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@android:color/holo_blue_dark"
+            android:background="@color/menuHeader"
             android:onClick="sendETA"
             android:text="ETA"
             android:textSize="24sp" />
@@ -73,7 +73,7 @@
             android:layout_height="fill_parent"
             android:layout_marginRight="8dp"
             android:layout_weight="1"
-            android:background="@android:color/holo_green_light"
+            android:background="@color/menuHeader"
             android:onClick="sendLocationState"
             android:text="Send Location State"
             android:textSize="24sp" />
@@ -84,7 +84,7 @@
             android:layout_height="fill_parent"
             android:layout_marginLeft="8dp"
             android:layout_weight="1"
-            android:background="@android:color/holo_green_light"
+            android:background="@color/menuHeader"
             android:onClick="sendServiceState"
             android:text="Send Service State"
             android:textSize="24sp" />
@@ -105,7 +105,7 @@
             android:layout_height="fill_parent"
             android:layout_marginRight="8dp"
             android:layout_weight="1"
-            android:background="@android:color/holo_blue_dark"
+            android:background="@color/menuHeader"
             android:onClick="viewPCM"
             android:text="@string/get_PCM"
             android:textSize="24sp" />
@@ -115,22 +115,12 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="0dp"
             android:layout_weight="1"
-            android:background="@android:color/holo_blue_dark"
+            android:background="@color/menuHeader"
             android:text="PTA"
             android:textSize="24sp" />
 
-        <Button
-            android:id="@+id/button6"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="8dp"
-            android:layout_weight="1"
-            android:background="@android:color/holo_blue_dark"
-            android:onClick="logoutAction"
-            android:text="Log out"
-            android:textSize="24sp" />
     </TableRow>
 
     <TableRow
@@ -151,6 +141,7 @@
 </TableLayout>
 
     <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
         android:layout_width="240dp"
         android:layout_height="match_parent"
         app:menu="@menu/navigation_menu"

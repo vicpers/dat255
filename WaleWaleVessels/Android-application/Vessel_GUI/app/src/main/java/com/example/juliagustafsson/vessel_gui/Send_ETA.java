@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
@@ -53,6 +54,12 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         dateEditText = (EditText) findViewById(R.id.editText2);
         dateEditText.setInputType(InputType.TYPE_NULL);
         dateEditText.requestFocus();
+
+        //Set custom toolbar
+        Toolbar customToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(customToolbar);
+        getSupportActionBar().setTitle("Send ETA");
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         timeEditText = (EditText) findViewById(R.id.editText);
         timeEditText.setInputType(InputType.TYPE_NULL);

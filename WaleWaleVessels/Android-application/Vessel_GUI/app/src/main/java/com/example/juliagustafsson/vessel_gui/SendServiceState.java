@@ -1,9 +1,12 @@
 package com.example.juliagustafsson.vessel_gui;
 
 import android.app.DatePickerDialog;
+import android.app.Service;
 import android.app.TimePickerDialog;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -30,13 +33,25 @@ import ServiceEntities.Location;
 import ServiceEntities.LocationType;
 import ServiceEntities.PortCallMessage;
 import ServiceEntities.Position;
+import ServiceEntities.ReferenceObject;
+import ServiceEntities.ServiceObject;
 import ServiceEntities.ServiceState;
+import ServiceEntities.ServiceTimeSequence;
 import ServiceEntities.TimeType;
 
 public class SendServiceState extends AppCompatActivity implements View.OnClickListener {
-    private HashMap<TimeType, String> timeMap;
-    private Spinner spinner;
+    private HashMap<String, TimeType> timeMap;
+    private HashMap<String, ServiceObject> serviceObjMap;
+    private HashMap<String, ServiceTimeSequence> timeSeqMap;
+    private HashMap<String, LocationType> locationMap;
+    private Spinner spinnerTimeType;
+    private Spinner spinnerServiceObj;
+    private Spinner spinnerPerfAct;
+    private Spinner spinnerTimeSeq;
     private String selectedTimeType = null;
+    private String selectedServiceObj = null;
+    private String selectedPerfAct = null;
+    private String selectedTimeSeq = null;
     private EditText dateEditText;
     private EditText timeEditText;
     private SimpleDateFormat dateFormat;
@@ -52,6 +67,21 @@ public class SendServiceState extends AppCompatActivity implements View.OnClickL
         dateEditText = (EditText) findViewById(R.id.editText2);
         dateEditText.setInputType(InputType.TYPE_NULL);
         dateEditText.requestFocus();
+
+        //Applies fonts
+        Typeface typeface=Typeface.createFromAsset(getAssets(), "fonts/BebasKai.otf");
+        TextView serviceObject = (TextView) findViewById(R.id.serviceObject);
+        serviceObject.setTypeface(typeface);
+        TextView timeSeq = (TextView) findViewById(R.id.timeSeq);
+        timeSeq.setTypeface(typeface);
+        TextView timeType = (TextView) findViewById(R.id.timeType);
+        timeType.setTypeface(typeface);
+
+        //Set custom toolbar
+        Toolbar customToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(customToolbar);
+        getSupportActionBar().setTitle("Send Service State");
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         timeEditText = (EditText) findViewById(R.id.editText);
         timeEditText.setInputType(InputType.TYPE_NULL);
@@ -77,24 +107,26 @@ public class SendServiceState extends AppCompatActivity implements View.OnClickL
             }
         }, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), true);
 
+
+        // Spinner for selecting TimeType
         timeMap = TimeType.toMap();
-        ArrayList<String> timeTypes = new ArrayList<String>(timeMap.values());
+        ArrayList<String> timeTypes = new ArrayList<String>(timeMap.keySet());
         Collections.sort(timeTypes);
-        spinner = (Spinner) findViewById(R.id.spinnerTimeType);
+        spinnerTimeType = (Spinner) findViewById(R.id.spinnerTimeType);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, timeTypes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //spinner.setAdapter(adapter);
-        spinner.setAdapter(
+        //spinnerTimeType.setAdapter(adapter);
+        spinnerTimeType.setAdapter(
                 new NothingSelectedSpinnerAdapter(
                         adapter,
                         R.layout.contact_spinner_row_nothing_selected,
                         // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
                         this));
-        spinner.setPrompt("Select Time Type");
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerTimeType.setPrompt("Select Time Type");
+        spinnerTimeType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try {
-                    selectedTimeType = spinner.getSelectedItem().toString();
+                    selectedTimeType = spinnerTimeType.getSelectedItem().toString();
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
@@ -104,6 +136,65 @@ public class SendServiceState extends AppCompatActivity implements View.OnClickL
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        //Spinner for selecting Service Object
+        serviceObjMap = ServiceObject.toMap();
+        ArrayList<String> serviceObjects = new ArrayList<String>(serviceObjMap.keySet());
+        Collections.sort(serviceObjects);
+        spinnerServiceObj = (Spinner) findViewById(R.id.spinnerServiceObj);
+        ArrayAdapter<String> adapterRefObj = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, serviceObjects);
+        adapterRefObj.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerServiceObj.setAdapter(
+                new NothingSelectedSpinnerAdapter(
+                        adapterRefObj,
+                        R.layout.contact_spinner_row_nothing_selected,
+                        // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
+                        this));
+        spinnerServiceObj.setPrompt("Select Service Object");
+        spinnerServiceObj.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    selectedServiceObj = spinnerServiceObj.getSelectedItem().toString();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+
+                Log.wtf("SELECTED SERVICE OBJECT", selectedServiceObj);
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        //Spinner for selecting Time Sequence
+        timeSeqMap = ServiceTimeSequence.toMap();
+        ArrayList<String> timeSequences = new ArrayList<String>(timeSeqMap.keySet());
+        Collections.sort(timeSequences);
+        spinnerTimeSeq = (Spinner) findViewById(R.id.spinnerTimeSeq);
+        ArrayAdapter<String> adapterTimeSeq = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, timeSequences);
+        adapterTimeSeq.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerTimeSeq.setAdapter(
+                new NothingSelectedSpinnerAdapter(
+                        adapterTimeSeq,
+                        R.layout.contact_spinner_row_nothing_selected,
+                        // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
+                        this));
+        spinnerTimeSeq.setPrompt("Select Time Sequence");
+        spinnerTimeSeq.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    selectedTimeSeq = spinnerTimeSeq.getSelectedItem().toString();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+
+                Log.wtf("SELECTED TIME SEQUENCE", selectedTimeSeq);
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.juliagustafsson.vessel_gui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
@@ -10,6 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.support.v7.app.ActionBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.NoSuchElementException;
+
+import ServiceEntities.Vessel;
+
+import static RESTServices.PortCDMServices.getVessel;
 
 
 public class Vessel_Login extends AppCompatActivity implements View.OnClickListener {
@@ -53,15 +61,40 @@ public class Vessel_Login extends AppCompatActivity implements View.OnClickListe
     }
 
     public void authenticate(User user) {
-        // TODO Lägg till riktig kod mot backend för att kolla om användaren finns i vår lista med användare
         // Provisorisk autentisering av användare för att testa funktionaliteten
-        String vID = user.vesselID;
-            if (vID.equals("WaleWale")) {
+
+        String vesselID = "urn:mrn:stm:vessel:IMO:" + user.vesselID;
+        System.out.println(vesselID);
+        try{
+            Vessel newVessel = getVessel(vesselID);
+            logUserIn(user);
+        }
+        catch(NoSuchElementException e){
+            Context context = getApplicationContext();
+            CharSequence text = "Felaktigt Vessel ID";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+
+        }
+        catch(IllegalArgumentException e){
+            Context context = getApplicationContext();
+            CharSequence text = "Felaktigt IMO";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
+
+        //Nedan är när vi inte vill kolla om IDt är korrekt
+       /* String vID = user.vesselID;
+            if (vID.equals("WaleWale") {
                 logUserIn(user);
             }
         if (userLocalStore.getUserLoggedIn() != true){
             showErrorMessage();
-        }
+        } */
     }
 
     private void showErrorMessage() {

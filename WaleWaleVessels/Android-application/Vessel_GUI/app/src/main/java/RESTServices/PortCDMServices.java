@@ -49,6 +49,7 @@ public class PortCDMServices {
             return  returnVessel;
         } catch (JSONException e){
             throw new NoSuchElementException("Vessel with ID " + vesselID + " not in registry");
+//            return new Vessel(vesselID);
         }
     }
 }

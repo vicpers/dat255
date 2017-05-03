@@ -1,11 +1,10 @@
 package com.example.juliagustafsson.vessel_gui;
 
 import android.app.DatePickerDialog;
-import android.app.Service;
 import android.app.TimePickerDialog;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
@@ -33,7 +32,6 @@ import ServiceEntities.Location;
 import ServiceEntities.LocationType;
 import ServiceEntities.PortCallMessage;
 import ServiceEntities.Position;
-import ServiceEntities.ReferenceObject;
 import ServiceEntities.ServiceObject;
 import ServiceEntities.ServiceState;
 import ServiceEntities.ServiceTimeSequence;
@@ -228,7 +226,7 @@ public class SendServiceState extends AppCompatActivity implements View.OnClickL
         Location from = new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.BERTH);
         Location to =  new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.BERTH);
         Between betweenLocations = new Between(from, to);
-        ServiceState servState = new ServiceState("DEPARTURE_BERTH", "COMPLETED", "Gothenburg Port", betweenLocations, "urn:mrn:stm:vessel:IMO:9501368");
+        ServiceState servState = new ServiceState(ServiceObject.DEPARTURE_BERTH, ServiceTimeSequence.COMPLETED, to, "urn:mrn:stm:vessel:IMO:9501368");
 
         PortCallMessage pcmObj = new PortCallMessage("urn:mrn:stm:vessel:IMO:9501368",
                 "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),

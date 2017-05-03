@@ -10,10 +10,10 @@ import org.json.JSONObject;
  */
 
 public class ServiceState {
-    private String serviceObject;
-    private String timeSequence;
-    private String at; //TODO När ServiceState dyker upp i något PCM så se om at är en Location
-    private Between betweenLocations;
+    private ServiceObject serviceObject;
+    private ServiceTimeSequence timeSequence;
+    private Location at;
+    private Between between;
     private String performingActor;
     private String time;
     private String timeType;
@@ -22,22 +22,25 @@ public class ServiceState {
         if (servStateJsonObj != null) {
             try {
 
-                String serviceObject        =    servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_SERVICE_OBJECT);
-                String serviceTimeSequence  =    servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_TIME_SEQUENCE);
-                String at                   =    servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_AT);
+                ServiceObject serviceObject              = ServiceObject.valueOf(servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_SERVICE_OBJECT));
+                ServiceTimeSequence serviceTimeSequence  =    ServiceTimeSequence.valueOf(servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_TIME_SEQUENCE));
                 String performingActor      =    servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_PERFORMING_ACTOR);
                 String time                 =    servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_TIME);
-                String timeType             =    servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_TIME_TYPE);
+                TimeType timeType             =    TimeType.valueOf(servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_TIME_TYPE));
 
                 Between between;
                 try {
                     between = new Between(servStateJsonObj.getJSONObject(Constants_jsonParsing.TAG_SERVICE_STATE_BETWEEN_LOCATIONS));
                 } catch (JSONException e){ between = null; }
+                Location at;
+                try {
+                    at = new Location(servStateJsonObj.getJSONObject(Constants_jsonParsing.TAG_SERVICE_STATE_AT));
+                } catch (JSONException e){ at = null; }
 
                 this.serviceObject      = serviceObject;
                 this.timeSequence       = serviceTimeSequence;
                 this.at                 = at;
-                this.betweenLocations   = between;
+                this.between            = between;
                 this.performingActor    = performingActor;
 
             } catch (JSONException e) {
@@ -50,19 +53,33 @@ public class ServiceState {
 
     /**
      * Constructor for creating ServiceState by data.
-     * @param String serviceObject
-     * @param String serviceTimeSequence
-     * @param String at
-     * @param Between betweenLocations
-     * @param String performingActor
+     * @param serviceObject ServiceObject
+     * @param timeSequence ServiceTimeSequence
+     * @param at Location
+     * @param performingActor String
      */
 
     // TODO TROR att service states ska ha antingen ett "at" för stationary states, ELLER ett "between" för nautical states
-    public ServiceState(String serviceObject, String timeSequence, String at, Between betweenLocations, String performingActor) {
+    public ServiceState(ServiceObject serviceObject, ServiceTimeSequence timeSequence, Location at, String performingActor) {
         this.serviceObject = serviceObject;
         this.timeSequence = timeSequence;
         this.at = at;
-        this.betweenLocations = betweenLocations;
+        this.performingActor = performingActor;
+    }
+
+    /**
+     * Constructor for creating ServiceState by data.
+     * @param serviceObject ServiceObject
+     * @param timeSequence ServiceTimeSequence
+     * @param between Between
+     * @param performingActor String
+     */
+
+    // TODO TROR att service states ska ha antingen ett "at" för stationary states, ELLER ett "between" för nautical states
+    public ServiceState(ServiceObject serviceObject, ServiceTimeSequence timeSequence, Between between, String performingActor) {
+        this.serviceObject = serviceObject;
+        this.timeSequence = timeSequence;
+        this.between = between;
         this.performingActor = performingActor;
     }
 
@@ -74,9 +91,9 @@ public class ServiceState {
         if(timeSequence != null)
             xmlStr += "<ns2:timeSequence>" + timeSequence + "</ns2:timeSequence>";
         if(at != null)
-            xmlStr += "<ns2:at>" + at + "</ns2:at>";
-        if (betweenLocations != null)
-            xmlStr += "<ns2:betweenLocations>" + betweenLocations.toXml() + "</ns2:betweenLocations>";
+            xmlStr += "<ns2:at>" + at.toXml() + "</ns2:at>";
+        if (between != null)
+            xmlStr += "<ns2:betweenLocations>" + between.toXml() + "</ns2:betweenLocations>";
         if(performingActor != null)
             xmlStr += "<ns2:performingActor>" + performingActor + "</ns2:performingActor>";
         return xmlStr;

@@ -57,6 +57,8 @@ public class Vessel {
         setPhotoURL(photoURL);
     }
 
+    public Vessel(String id){ setId(id); }
+
     public String getImo() {
         return imo;
     }

@@ -5,6 +5,8 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.NoSuchElementException;
+
 import RESTServices.PortCDMServices;
 
 /**
@@ -54,7 +56,6 @@ public class PortCallMessage {
                 this.portCallId         = portCallId;
                 this.localPortCallId    = localPortCallId;
                 this.localJobId         = localJobId;
-                this.vessel             = PortCDMServices.getVessel(vesselId);
                 this.messageId          = messageId;
                 this.groupWith          = groupWith;
                 this.reportedAt         = reportedAt;
@@ -63,6 +64,12 @@ public class PortCallMessage {
                 this.messageOperation   = messageOperation;
                 this.locationState      = locationState;
                 this.serviceState       = serviceState;
+
+                try {
+                    this.vessel = PortCDMServices.getVessel(vesselId);
+                } catch (NoSuchElementException e){
+                    this.vessel = new Vessel(vesselId);
+                }
             } catch (JSONException e3) {
                 Log.e("PortCallMessage Constr.", "Problem getting data - " + e3.toString());
             }

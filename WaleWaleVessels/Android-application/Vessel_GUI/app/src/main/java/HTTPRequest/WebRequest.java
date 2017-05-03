@@ -50,7 +50,7 @@ public class WebRequest {
      */
     public static String makeWebServiceCall(String urladdress, int requestmethod, HashMap<String, String> headers, HashMap<String, String> params) {
         URL url;
-        String response = "";
+        response = "";
 //         Adds parameters to the urladdress string for GETRequests
         boolean first = true;
         if ((params != null) && (requestmethod == 1)){

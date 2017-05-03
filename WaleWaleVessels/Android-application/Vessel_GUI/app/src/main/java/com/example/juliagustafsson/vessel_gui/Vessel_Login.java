@@ -80,7 +80,7 @@ public class Vessel_Login extends AppCompatActivity implements View.OnClickListe
         }
         catch(IllegalArgumentException e){
             Context context = getApplicationContext();
-            CharSequence text = "Felaktigt IMO";
+            CharSequence text = "Felaktigt Vessel ID";
             int duration = Toast.LENGTH_SHORT;
 
             Toast toast = Toast.makeText(context, text, duration);

@@ -111,7 +111,7 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
         spinnerTimeType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try {
-                    selectedTimeType = spinnerTimeType.getSelectedItem();
+                    selectedTimeType = spinnerTimeType.getSelectedItem().toString();
                 } catch(Exception e) {
                     e.printStackTrace();
                 }

@@ -34,7 +34,7 @@ import ServiceEntities.ServiceState;
 import ServiceEntities.TimeType;
 
 public class SendServiceState extends AppCompatActivity implements View.OnClickListener {
-    private HashMap<TimeType, String> timeMap;
+    private HashMap<String, TimeType> timeMap;
     private Spinner spinner;
     private String selectedTimeType = null;
     private EditText dateEditText;
@@ -78,7 +78,7 @@ public class SendServiceState extends AppCompatActivity implements View.OnClickL
         }, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), true);
 
         timeMap = TimeType.toMap();
-        ArrayList<String> timeTypes = new ArrayList<String>(timeMap.values());
+        ArrayList<String> timeTypes = new ArrayList<String>(timeMap.keySet());
         Collections.sort(timeTypes);
         spinner = (Spinner) findViewById(R.id.spinnerTimeType);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, timeTypes);

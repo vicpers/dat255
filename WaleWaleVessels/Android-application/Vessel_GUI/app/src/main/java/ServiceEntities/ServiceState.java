@@ -16,7 +16,7 @@ public class ServiceState {
     private Between between;
     private String performingActor;
     private String time;
-    private String timeType;
+    private TimeType timeType;
 
     public ServiceState(JSONObject servStateJsonObj){
         if (servStateJsonObj != null) {
@@ -60,9 +60,12 @@ public class ServiceState {
      */
 
     // TODO TROR att service states ska ha antingen ett "at" för stationary states, ELLER ett "between" för nautical states
-    public ServiceState(ServiceObject serviceObject, ServiceTimeSequence timeSequence, Location at, String performingActor) {
+    public ServiceState(ServiceObject serviceObject, ServiceTimeSequence timeSequence, TimeType timeType,
+                        String time, Location at, String performingActor) {
         this.serviceObject = serviceObject;
         this.timeSequence = timeSequence;
+        this.timeType = timeType;
+        this.time = time;
         this.at = at;
         this.performingActor = performingActor;
     }
@@ -76,9 +79,12 @@ public class ServiceState {
      */
 
     // TODO TROR att service states ska ha antingen ett "at" för stationary states, ELLER ett "between" för nautical states
-    public ServiceState(ServiceObject serviceObject, ServiceTimeSequence timeSequence, Between between, String performingActor) {
+    public ServiceState(ServiceObject serviceObject, ServiceTimeSequence timeSequence, TimeType timeType,
+                        String time, Between between, String performingActor) {
         this.serviceObject = serviceObject;
         this.timeSequence = timeSequence;
+        this.timeType = timeType;
+        this.time = time;
         this.between = between;
         this.performingActor = performingActor;
     }
@@ -90,6 +96,10 @@ public class ServiceState {
             xmlStr += "<ns2:serviceObject>" + serviceObject + "</ns2:serviceObject>";
         if(timeSequence != null)
             xmlStr += "<ns2:timeSequence>" + timeSequence + "</ns2:timeSequence>";
+        if(timeType != null)
+            xmlStr += "<ns2:timeType>" + timeType + "</ns2:timeType>";
+        if(time != null)
+            xmlStr += "<ns2:time>" + time + "</ns2:time>";
         if(at != null)
             xmlStr += "<ns2:at>" + at.toXml() + "</ns2:at>";
         if (between != null)

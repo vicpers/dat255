@@ -3,8 +3,9 @@ package com.example.juliagustafsson.vessel_gui;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
@@ -25,6 +26,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
+
 import RESTServices.AMSS;
 import ServiceEntities.ArrivalLocation;
 import ServiceEntities.DepartureLocation;
@@ -305,9 +307,13 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
 
 
         String locStateResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
-        TextView locStateResultView = (TextView) findViewById(R.id.etaConfirmView);
-        locStateResultView.setText("Location State-status: " + locStateResult);
+        //TextView locStateResultView = (TextView) findViewById(R.id.etaConfirmView);
+        //locStateResultView.setText("Location State-status: " + locStateResult);
 
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(SendLocationState.this);
+        dialogBuilder.setMessage(locStateResult);
+        dialogBuilder.setPositiveButton("Ok", null);
+        dialogBuilder.show();
 
     }
 }

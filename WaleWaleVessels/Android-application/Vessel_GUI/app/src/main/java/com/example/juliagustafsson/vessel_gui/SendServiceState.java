@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -226,7 +227,7 @@ public class SendServiceState extends AppCompatActivity implements View.OnClickL
         Location from = new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.BERTH);
         Location to =  new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.BERTH);
         Between betweenLocations = new Between(from, to);
-        ServiceState servState = new ServiceState(ServiceObject.DEPARTURE_BERTH, ServiceTimeSequence.COMPLETED, to, "urn:mrn:stm:vessel:IMO:9501368");
+        ServiceState servState = new ServiceState(ServiceObject.DEPARTURE_BERTH, ServiceTimeSequence.COMPLETED, TimeType.ACTUAL, formattedTime, to, "urn:mrn:stm:vessel:IMO:9501368");
 
         PortCallMessage pcmObj = new PortCallMessage("urn:mrn:stm:vessel:IMO:9501368",
                 "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
@@ -234,8 +235,13 @@ public class SendServiceState extends AppCompatActivity implements View.OnClickL
                 servState);
         AMSS amss = new AMSS(pcmObj);
         String servStateResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
-        TextView servStateResultView = (TextView) findViewById(R.id.etaConfirmView);
-        servStateResultView.setText("Service State-status: " + servStateResult);
+//        TextView servStateResultView = (TextView) findViewById(R.id.etaConfirmView);
+//        servStateResultView.setText("Service State-status: " + servStateResult);
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(SendServiceState.this);
+        dialogBuilder.setMessage(servStateResult);
+        dialogBuilder.setPositiveButton("Ok", null);
+        dialogBuilder.show();
 
     }
 }

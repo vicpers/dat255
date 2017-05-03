@@ -116,7 +116,7 @@ public class WebRequest {
 
 //TODO Implement this function into the makeWebServiceCall function.
     public static String makeWebServicePost(String urladdress, HashMap<String, String> headers, HashMap<String, String> params, String body){
-
+        response = "";
         try {
             URL url = new URL(urladdress);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();

@@ -29,10 +29,10 @@ public enum LocationTimeSequence {
         throw new IllegalArgumentException("No constant of Location Time Sequence with text: " + text);
     }
 
-    public static HashMap<LocationTimeSequence, String> toMap(){
-        HashMap<LocationTimeSequence, String> resMap = new HashMap<LocationTimeSequence, String>();
+    public static HashMap<String, LocationTimeSequence> toMap(){
+        HashMap<String, LocationTimeSequence> resMap = new HashMap<String, LocationTimeSequence>();
         for (LocationTimeSequence locTimeSeqObj : Arrays.asList(LocationTimeSequence.values())) {
-            resMap.put(locTimeSeqObj, locTimeSeqObj.getText());
+            resMap.put(locTimeSeqObj.getText(), locTimeSeqObj);
         }
         return resMap;
     }

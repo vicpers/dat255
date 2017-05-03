@@ -37,22 +37,23 @@ import ServiceEntities.ReferenceObject;
 import ServiceEntities.TimeType;
 
 public class SendLocationState extends AppCompatActivity implements View.OnClickListener {
-    private HashMap<TimeType, String> timeMap;
-    private HashMap<ReferenceObject, String> refObjMap;
-    private HashMap<LocationType, String> locationMap;
+    private HashMap<String, TimeType> timeMap;
+    private HashMap<String, ReferenceObject> refObjMap;
+    private HashMap<String, LocationType> locationMap;
     private Spinner spinnerTimeType;
     private Spinner spinnerRefObj;
-    private Spinner spinnerArrLoc;
-    private Spinner spinnerDepLoc;
+    private Spinner spinnerArrOrDep;
+    private Spinner spinnerLocationType;
     private String selectedTimeType = null;
     private String selectedRefObj = null;
-    private String selectedArrLoc = null;
-    private String selectedDepLoc = null;
+    private String selectedArrOrDep = null;
+    private String selectedLocType = null;
     private EditText dateEditText;
     private EditText timeEditText;
     private SimpleDateFormat dateFormat;
     private DatePickerDialog datePicker;
     private TimePickerDialog timePicker;
+    private LocationState locState = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +108,7 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
 
         // Spinner for selecting TimeType
         timeMap = TimeType.toMap();
-        ArrayList<String> timeTypes = new ArrayList<String>(timeMap.values());
+        ArrayList<String> timeTypes = new ArrayList<String>(timeMap.keySet());
         Collections.sort(timeTypes);
         ArrayAdapter<String> adapterTimeType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, timeTypes);
         adapterTimeType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -143,7 +144,7 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
 
         // Spinner for selecting ReferenceObject
         refObjMap = ReferenceObject.toMap();
-        ArrayList<String> referenceObjects = new ArrayList<String>(refObjMap.values());
+        ArrayList<String> referenceObjects = new ArrayList<String>(refObjMap.keySet());
         Collections.sort(referenceObjects);
         spinnerRefObj = (Spinner) findViewById(R.id.spinnerReference);
         ArrayAdapter<String> adapterRefObj = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, referenceObjects);
@@ -178,12 +179,12 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
             }
         });
 
-        // Spinner for selecting ArrivalLocationType
-        locationMap = LocationType.toMap();
-        ArrayList<String> locationTypes = new ArrayList<String>(locationMap.values());
-        Collections.sort(locationTypes);
-        spinnerArrLoc = (Spinner) findViewById(R.id.spinnerArrival);
-        ArrayAdapter<String> adapterArrLoc = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locationTypes);
+        // Spinner for selecting Arrival or Departure
+        spinnerArrOrDep = (Spinner) findViewById(R.id.spinnerArrOrDep);
+        ArrayList<String> arrivalOrDeparture = new ArrayList<String>();
+        arrivalOrDeparture.add(0, "Arrival");
+        arrivalOrDeparture.add(1, "Departure");
+        ArrayAdapter<String> adapterArrLoc = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrivalOrDeparture);
         adapterArrLoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         /*spinnerArrLoc.setAdapter(adapterArrLoc);
         spinnerArrLoc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -194,31 +195,34 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });*/
-        spinnerArrLoc.setAdapter(
+        spinnerArrOrDep.setAdapter(
                 new NothingSelectedSpinnerAdapter(
                         adapterArrLoc,
                         R.layout.contact_spinner_row_nothing_selected,
                         // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
                         this));
-        spinnerArrLoc.setPrompt("Select Arrival Location");
-        spinnerArrLoc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerArrOrDep.setPrompt("Select Arrival or Departure");
+        spinnerArrOrDep.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try {
-                    selectedArrLoc = spinnerArrLoc.getSelectedItem().toString();
+                    selectedArrOrDep = spinnerArrOrDep.getSelectedItem().toString();
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
 
-                Log.wtf("SELECTED ARRIVAL LOCATION", selectedArrLoc);
+                Log.wtf("SELECTED ARRIVAL LOCATION", selectedArrOrDep);
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
         // Spinner for selecting DepartureLocationType
-        spinnerDepLoc = (Spinner) findViewById(R.id.spinnerDeparture);
-        ArrayAdapter<String> adapterDepLoc = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locationTypes);
-        adapterDepLoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        locationMap = LocationType.toMap();
+        ArrayList<String> locationTypes = new ArrayList<String>(locationMap.keySet());
+        Collections.sort(locationTypes);
+        spinnerLocationType = (Spinner) findViewById(R.id.spinnerLocationType);
+        ArrayAdapter<String> adapterLocType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locationTypes);
+        adapterLocType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         /*spinnerDepLoc.setAdapter(adapterDepLoc);
         spinnerDepLoc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -228,22 +232,22 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });*/
-        spinnerDepLoc.setAdapter(
+        spinnerLocationType.setAdapter(
                 new NothingSelectedSpinnerAdapter(
-                        adapterDepLoc,
+                        adapterLocType,
                         R.layout.contact_spinner_row_nothing_selected,
                         // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
                         this));
-        spinnerDepLoc.setPrompt("Select Departure Location");
-        spinnerDepLoc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerLocationType.setPrompt("Select Location Type");
+        spinnerLocationType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try {
-                    selectedDepLoc = spinnerDepLoc.getSelectedItem().toString();
+                    selectedLocType = spinnerLocationType.getSelectedItem().toString();
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
 
-                Log.wtf("SELECTED DEPARTURE LOCATION", selectedDepLoc);
+                Log.wtf("SELECTED DEPARTURE LOCATION", selectedLocType);
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -282,21 +286,28 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
         //TODO Verkar som att det skickas LocationStates med antingen en arrival (då är departure = null), eller en departure (då är arrival = null). Hur Lösa?
 
         //Creates location-objects based on the selected LocationTypes from the spinners
-        Location arrLocObj = new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.fromString(selectedArrLoc));
-        Location depLocObj = new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.fromString(selectedDepLoc));
-        ArrivalLocation arrLoc = new ArrivalLocation(null, arrLocObj);
-        DepartureLocation depLoc = new DepartureLocation(depLocObj, null);
+        if(selectedArrOrDep.equals("Arrival")) {
+            Location arrLocObj = new Location(null, new Position(0, 0, "Gothenburg Port"), locationMap.get(selectedLocType));
+            ArrivalLocation arrLoc = new ArrivalLocation(null, arrLocObj);
+            locState = new LocationState(refObjMap.get(selectedRefObj), formattedTime, timeMap.get(selectedTimeType), arrLoc);
 
-        //Creates an LocationState based on the selected input.
-        LocationState locState = new LocationState(selectedRefObj.toUpperCase(), formattedTime, selectedTimeType.toUpperCase(), arrLoc, depLoc);
+        } else {
+            Location depLocObj = new Location(null, new Position(0, 0, "Gothenburg Port"), locationMap.get(selectedLocType));
+            DepartureLocation depLoc = new DepartureLocation(depLocObj, null);
+            locState = new LocationState(refObjMap.get(selectedRefObj), formattedTime, timeMap.get(selectedTimeType), depLoc);
+        }
+
         PortCallMessage pcmObj = new PortCallMessage("urn:mrn:stm:vessel:IMO:9501368",
                 "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
-                "VesselApplicationETAView",
+                "VesselAppLocationStateView",
                 locState);
         AMSS amss = new AMSS(pcmObj);
+
+
         String locStateResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
         TextView locStateResultView = (TextView) findViewById(R.id.etaConfirmView);
         locStateResultView.setText("Location State-status: " + locStateResult);
+
 
     }
 }

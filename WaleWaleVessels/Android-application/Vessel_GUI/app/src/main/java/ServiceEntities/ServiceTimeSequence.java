@@ -34,10 +34,10 @@ public enum ServiceTimeSequence {
         throw new IllegalArgumentException("No constant of Service Time Sequence with text: " + text);
     }
 
-    public static HashMap<ServiceTimeSequence, String> toMap(){
-        HashMap<ServiceTimeSequence, String> resMap = new HashMap<ServiceTimeSequence, String>();
+    public static HashMap<String, ServiceTimeSequence> toMap(){
+        HashMap<String, ServiceTimeSequence> resMap = new HashMap<String, ServiceTimeSequence>();
         for (ServiceTimeSequence servTimeSeqObj : Arrays.asList(ServiceTimeSequence.values())) {
-            resMap.put(servTimeSeqObj, servTimeSeqObj.getText());
+            resMap.put(servTimeSeqObj.getText(), servTimeSeqObj);
         }
         return resMap;
     }

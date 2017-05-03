@@ -31,6 +31,8 @@ import ServiceEntities.LocationState;
 import ServiceEntities.LocationType;
 import ServiceEntities.PortCallMessage;
 import ServiceEntities.Position;
+import ServiceEntities.ReferenceObject;
+import ServiceEntities.TimeType;
 
 
 public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
@@ -41,7 +43,7 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
     private TimePickerDialog timePicker;
     private Spinner spinner;
     private String selectedRecipant;
-    private HashMap<LocationType, String> locMap;
+    private HashMap<String, LocationType> locMap;
     public static String newETA ="";
     public static String newDate ="";
 
@@ -104,7 +106,7 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         Jag TROR att det funkar...
           */
         locMap = LocationType.toMap();
-        ArrayList<String> locations = new ArrayList<String>(locMap.values());
+        ArrayList<String> locations = new ArrayList<String>(locMap.keySet());
         Collections.sort(locations);
         spinner = (Spinner) findViewById(R.id.spinnerTimeType);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locations);
@@ -156,7 +158,7 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         //Location locObj = new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.TRAFFIC_AREA);
         Location locObj = new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.fromString(selectedRecipant));
         ArrivalLocation arrLoc = new ArrivalLocation(null, locObj);
-        LocationState locState = new LocationState("VESSEL", formattedTime, "ESTIMATED", arrLoc, null);
+        LocationState locState = new LocationState(ReferenceObject.VESSEL, formattedTime, TimeType.ESTIMATED, arrLoc);
         PortCallMessage pcmObj = new PortCallMessage("urn:mrn:stm:vessel:IMO:9501368",
                                                      "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
                                                      "VesselApplicationETAView",
@@ -164,7 +166,7 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         AMSS amss = new AMSS(pcmObj);
         String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
         TextView etaResultView = (TextView) findViewById(R.id.etaConfirmView);
-        etaResultView.setText("ETA-status: " + etaResult);
+        etaResultView.setText(etaResult);
 
     }
 

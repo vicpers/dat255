@@ -63,10 +63,10 @@ public enum ServiceObject {
         throw new IllegalArgumentException("No constant of Service Object with text: " + text);
     }
 
-    public static HashMap<ServiceObject, String> toMap(){
-        HashMap<ServiceObject, String> resMap = new HashMap<ServiceObject, String>();
+    public static HashMap<String, ServiceObject> toMap(){
+        HashMap<String, ServiceObject> resMap = new HashMap<String, ServiceObject>();
         for (ServiceObject serviceObj : Arrays.asList(ServiceObject.values())) {
-            resMap.put(serviceObj, serviceObj.getText());
+            resMap.put(serviceObj.getText(), serviceObj);
         }
         return resMap;
     }

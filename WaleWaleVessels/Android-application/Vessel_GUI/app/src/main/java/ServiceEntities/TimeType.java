@@ -31,10 +31,10 @@ public enum TimeType {
         throw new IllegalArgumentException("No constant of Time Type with text: " + text);
     }
 
-    public static HashMap<TimeType, String> toMap(){
-        HashMap<TimeType, String> resMap = new HashMap<TimeType, String>();
+    public static HashMap<String, TimeType> toMap(){
+        HashMap<String, TimeType> resMap = new HashMap<String, TimeType>();
         for (TimeType timeTypeObj : Arrays.asList(TimeType.values())) {
-            resMap.put(timeTypeObj, timeTypeObj.getText());
+            resMap.put(timeTypeObj.getText(), timeTypeObj);
         }
         return resMap;
     }

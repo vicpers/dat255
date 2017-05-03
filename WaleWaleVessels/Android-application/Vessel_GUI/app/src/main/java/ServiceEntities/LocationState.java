@@ -11,9 +11,9 @@ import org.json.JSONObject;
 
 public class LocationState {
 
-    private String referenceObject;
+    private ReferenceObject referenceObject;
     private String time;
-    private String timeType;
+    private TimeType timeType;
     private ArrivalLocation arrivalLocation;
     private DepartureLocation departureLocation;
 
@@ -21,9 +21,9 @@ public class LocationState {
         if (locStateJsonObj != null) {
             try {
 
-                String referenceObject              = locStateJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_STATE_REFERENCE_OBJECT);
-                String time                         = locStateJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_STATE_TIME);
-                String timeType                     = locStateJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_STATE_TIME_TYPE);
+                ReferenceObject referenceObject         = ReferenceObject.valueOf(locStateJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_STATE_REFERENCE_OBJECT));
+                String time                             = locStateJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_STATE_TIME);
+                TimeType timeType                       = TimeType.valueOf(locStateJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_STATE_TIME_TYPE));
 
                 ArrivalLocation arrivalLocation;
                 try {
@@ -58,7 +58,7 @@ public class LocationState {
      * @param arrivalLocation
      * @param departureLocation
      */
-    public LocationState(String referenceObject, String time, String timeType, ArrivalLocation arrivalLocation, DepartureLocation departureLocation) {
+    public LocationState(ReferenceObject referenceObject, String time, TimeType timeType, ArrivalLocation arrivalLocation, DepartureLocation departureLocation) {
         this.referenceObject = referenceObject;
         this.time = time;
         this.timeType = timeType;

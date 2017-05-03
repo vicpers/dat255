@@ -171,10 +171,10 @@ public class WebRequest {
 
                 } else {
 //                    System.out.println("WebRequestHTTPConnection is not OK!");
-                    System.out.println("ResponseCode: " + reqresponseCode);
-                    System.out.println("URL: " + urladdress);
-                    System.out.println("BODY: " + body);
-                    System.out.println("HEADERS: " + headers);
+                    Log.e("ResponseCode", "" + reqresponseCode);
+                    Log.e("URL", urladdress);
+                    Log.e("BODY", body);
+                    Log.e("HEADERS", headers.toString());
                     /*response = "WebRequestHTTPConnection is not OK!" +
                             "\nResponseCode: " + reqresponseCode +
                             "\nURL: " + urladdress;*/
@@ -183,7 +183,7 @@ public class WebRequest {
                     while ((line = br.readLine()) != null) {
                         response += line;
                     }
-                    System.out.println("RESPONSE: " + response);
+                    Log.e("RESPONSE: ", response);
                 }
             } finally {
                 if (response == null){

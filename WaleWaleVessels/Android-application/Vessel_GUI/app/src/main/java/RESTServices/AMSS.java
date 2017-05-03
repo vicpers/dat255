@@ -5,7 +5,20 @@ import java.util.HashMap;
 import HTTPRequest.WebRequest;
 import ServiceEntities.PortCallMessage;
 
-import static RESTServices.Constants_API.*;
+import static RESTServices.Constants_API.API_DEV_BASE_URL;
+import static RESTServices.Constants_API.API_DEV_KEY1;
+import static RESTServices.Constants_API.API_DEV_PASSWORD;
+import static RESTServices.Constants_API.API_DEV_PORT1;
+import static RESTServices.Constants_API.API_DEV_USERNAME;
+import static RESTServices.Constants_API.API_HEADER_ACCEPT_XML;
+import static RESTServices.Constants_API.API_HEADER_API_KEY;
+import static RESTServices.Constants_API.API_HEADER_CONTENT_TYPE;
+import static RESTServices.Constants_API.API_HEADER_PASSWORD;
+import static RESTServices.Constants_API.API_HEADER_USER_ID;
+import static RESTServices.Constants_API.API_SERVICE_AMSS_STATE_UPDATE;
+import static RESTServices.Constants_API.API_XML_HEADER;
+import static RESTServices.Constants_API.API_XML_PORT_CALL_MESSAGE_END;
+import static RESTServices.Constants_API.API_XML_PORT_CALL_MESSAGE_HEADER;
 
 /**
  * Created by maxedman on 2017-04-24.
@@ -36,6 +49,8 @@ public class AMSS /*implements Runnable*/{
         String xmlPost = API_XML_HEADER + API_XML_PORT_CALL_MESSAGE_HEADER;
         xmlPost += pcmObj.toXml();
         xmlPost += API_XML_PORT_CALL_MESSAGE_END;
+
+//        Log.e("AMSS", xmlPost);
 
         return WebRequest.makeWebServicePost(url, headers, null, xmlPost);
     }

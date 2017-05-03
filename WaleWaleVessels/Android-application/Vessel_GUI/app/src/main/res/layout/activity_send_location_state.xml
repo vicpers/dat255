@@ -107,14 +107,12 @@
 
     <TextView
         android:id="@+id/etaConfirmView"
-        android:layout_width="92dp"
-        android:layout_height="44dp"
+        android:layout_width="352dp"
+        android:layout_height="172dp"
         android:text=""
-        app:layout_constraintLeft_toRightOf="@+id/button"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        android:layout_marginStart="14dp" />
+        android:layout_marginStart="14dp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="383dp" />
 
     <Spinner
         android:id="@+id/spinnerTimeType"

@@ -39,10 +39,10 @@ public enum LocationType {
         throw new IllegalArgumentException("No constant of Location Type with text: " + text);
     }
 
-    public static HashMap<LocationType, String> toMap(){
-        HashMap<LocationType, String> resMap = new HashMap<LocationType, String>();
+    public static HashMap<String, LocationType> toMap(){
+        HashMap<String, LocationType> resMap = new HashMap<String, LocationType>();
         for (LocationType locTypeObj : Arrays.asList(LocationType.values())) {
-            resMap.put(locTypeObj, locTypeObj.getText());
+            resMap.put(locTypeObj.getText(), locTypeObj);
         }
         return resMap;
     }

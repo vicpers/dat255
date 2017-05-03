@@ -40,10 +40,10 @@ public enum ReferenceObject {
         throw new IllegalArgumentException("No constant of Reference Object with text: " + text);
     }
 
-    public static HashMap<ReferenceObject, String> toMap(){
-        HashMap<ReferenceObject, String> resMap = new HashMap<ReferenceObject, String>();
+    public static HashMap<String, ReferenceObject> toMap(){
+        HashMap<String, ReferenceObject> resMap = new HashMap<String, ReferenceObject>();
         for (ReferenceObject refObj : Arrays.asList(ReferenceObject.values())) {
-            resMap.put(refObj, refObj.getText());
+            resMap.put(refObj.getText(), refObj);
         }
         return resMap;
     }

@@ -269,7 +269,7 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
         DepartureLocation depLoc = new DepartureLocation(depLocObj, null);
 
         //Creates an LocationState based on the selected input.
-        LocationState locState = new LocationState(refObjMap.get(selectedRefObj), formattedTime, timeMap.get(selectedTimeType), arrLoc, depLoc);
+        LocationState locState = new LocationState(refObjMap.get(selectedRefObj), formattedTime, timeMap.get(selectedTimeType), arrLoc);
         PortCallMessage pcmObj = new PortCallMessage("urn:mrn:stm:vessel:IMO:9501368",
                 "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
                 "VesselApplicationETAView",

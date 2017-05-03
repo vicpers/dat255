@@ -35,9 +35,9 @@ import ServiceEntities.ReferenceObject;
 import ServiceEntities.TimeType;
 
 public class SendLocationState extends AppCompatActivity implements View.OnClickListener {
-    private HashMap<TimeType, String> timeMap;
-    private HashMap<ReferenceObject, String> refObjMap;
-    private HashMap<LocationType, String> locationMap;
+    private HashMap<String, TimeType> timeMap;
+    private HashMap<String, ReferenceObject> refObjMap;
+    private HashMap<String, LocationType> locationMap;
     private Spinner spinnerTimeType;
     private Spinner spinnerRefObj;
     private Spinner spinnerArrLoc;
@@ -88,7 +88,7 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
 
         // Spinner for selecting TimeType
         timeMap = TimeType.toMap();
-        ArrayList<String> timeTypes = new ArrayList<String>(timeMap.values());
+        ArrayList<String> timeTypes = new ArrayList<String>(timeMap.keySet());
         Collections.sort(timeTypes);
         ArrayAdapter<String> adapterTimeType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, timeTypes);
         adapterTimeType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -111,7 +111,7 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
         spinnerTimeType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try {
-                    selectedTimeType = spinnerTimeType.getSelectedItem().toString();
+                    selectedTimeType = spinnerTimeType.getSelectedItem();
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
@@ -124,7 +124,7 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
 
         // Spinner for selecting ReferenceObject
         refObjMap = ReferenceObject.toMap();
-        ArrayList<String> referenceObjects = new ArrayList<String>(refObjMap.values());
+        ArrayList<String> referenceObjects = new ArrayList<String>(refObjMap.keySet());
         Collections.sort(referenceObjects);
         spinnerRefObj = (Spinner) findViewById(R.id.spinnerReference);
         ArrayAdapter<String> adapterRefObj = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, referenceObjects);
@@ -161,7 +161,7 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
 
         // Spinner for selecting ArrivalLocationType
         locationMap = LocationType.toMap();
-        ArrayList<String> locationTypes = new ArrayList<String>(locationMap.values());
+        ArrayList<String> locationTypes = new ArrayList<String>(locationMap.keySet());
         Collections.sort(locationTypes);
         spinnerArrLoc = (Spinner) findViewById(R.id.spinnerArrival);
         ArrayAdapter<String> adapterArrLoc = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locationTypes);
@@ -263,21 +263,23 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
         //TODO Verkar som att det skickas LocationStates med antingen en arrival (då är departure = null), eller en departure (då är arrival = null). Hur Lösa?
 
         //Creates location-objects based on the selected LocationTypes from the spinners
-        Location arrLocObj = new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.fromString(selectedArrLoc));
-        Location depLocObj = new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.fromString(selectedDepLoc));
+        Location arrLocObj = new Location(null, new Position(0,0, "Gothenburg Port"), locationMap.get(selectedArrLoc));
+        Location depLocObj = new Location(null, new Position(0,0, "Gothenburg Port"), locationMap.get(selectedDepLoc));
         ArrivalLocation arrLoc = new ArrivalLocation(null, arrLocObj);
         DepartureLocation depLoc = new DepartureLocation(depLocObj, null);
 
         //Creates an LocationState based on the selected input.
-        LocationState locState = new LocationState(selectedRefObj.toUpperCase(), formattedTime, selectedTimeType.toUpperCase(), arrLoc, depLoc);
+        LocationState locState = new LocationState(refObjMap.get(selectedRefObj), formattedTime, timeMap.get(selectedTimeType), arrLoc, depLoc);
         PortCallMessage pcmObj = new PortCallMessage("urn:mrn:stm:vessel:IMO:9501368",
                 "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
                 "VesselApplicationETAView",
                 locState);
         AMSS amss = new AMSS(pcmObj);
+
         String locStateResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
         TextView locStateResultView = (TextView) findViewById(R.id.etaConfirmView);
         locStateResultView.setText("Location State-status: " + locStateResult);
+
 
     }
 }

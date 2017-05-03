@@ -40,7 +40,7 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
     private TimePickerDialog timePicker;
     private Spinner spinner;
     private String selectedRecipant;
-    private HashMap<LocationType, String> locMap;
+    private HashMap<String, LocationType> locMap;
     public static String newETA ="";
     public static String newDate ="";
 
@@ -97,7 +97,7 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         Jag TROR att det funkar...
           */
         locMap = LocationType.toMap();
-        ArrayList<String> locations = new ArrayList<String>(locMap.values());
+        ArrayList<String> locations = new ArrayList<String>(locMap.keySet());
         Collections.sort(locations);
         spinner = (Spinner) findViewById(R.id.spinnerTimeType);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locations);

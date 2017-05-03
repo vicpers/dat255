@@ -36,16 +36,11 @@
         android:layout_marginRight="17dp"
         android:layout_marginTop="1dp"
         android:spinnerMode="dialog"
-<<<<<<< HEAD
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@+id/textView9"
         android:layout_marginStart="8dp" />
-=======
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
->>>>>>> origin/master
+
 
     <Spinner
         android:id="@+id/spinnerArrOrDep"
@@ -79,18 +74,11 @@
         android:inputType="date"
         android:text="Date"
         android:layout_marginStart="16dp"
-<<<<<<< HEAD
         android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerDeparture" />
-=======
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="285dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerArrOrDep"
-        app:layout_constraintVertical_bias="0.064" />
->>>>>>> origin/master
+         />
+
 
     <Button
         android:id="@+id/button"
@@ -121,19 +109,12 @@
         android:layout_width="352dp"
         android:layout_height="172dp"
         android:text=""
-<<<<<<< HEAD
         app:layout_constraintLeft_toRightOf="@+id/button"
         android:layout_marginLeft="14dp"
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@+id/editText"
         android:layout_marginStart="14dp" />
-=======
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
->>>>>>> origin/master
+
 
     <Spinner
         android:id="@+id/spinnerTimeType"
@@ -164,41 +145,23 @@
         android:layout_height="22dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-<<<<<<< HEAD
         android:text="Arrival Location"
         android:textSize="24sp"
-        android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@+id/spinnerReference" />
-=======
-        android:layout_marginTop="50dp"
-        android:text="Arrival / Departure"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
->>>>>>> origin/master
+
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="160dp"
         android:layout_height="22dp"
-<<<<<<< HEAD
         android:text="Departure Location"
         android:textSize="24sp"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerArrival"
         android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="16dp" />
-=======
-        android:layout_marginLeft="200dp"
-        android:layout_marginTop="50dp"
-        android:text="Location Type"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
->>>>>>> origin/master
 
     <Spinner
         android:id="@+id/spinnerReference"

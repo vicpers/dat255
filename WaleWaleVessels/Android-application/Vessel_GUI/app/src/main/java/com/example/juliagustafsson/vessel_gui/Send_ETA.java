@@ -157,7 +157,7 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         AMSS amss = new AMSS(pcmObj);
         String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
         TextView etaResultView = (TextView) findViewById(R.id.etaConfirmView);
-        etaResultView.setText("ETA-status: " + etaResult);
+        etaResultView.setText(etaResult);
 
     }
 

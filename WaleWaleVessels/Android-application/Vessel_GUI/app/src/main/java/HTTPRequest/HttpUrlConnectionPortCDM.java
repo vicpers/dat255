@@ -13,14 +13,14 @@ public class HttpUrlConnectionPortCDM {
 
     private static String testQueueJson = "[{\"portCallId\":\"urn:mrn:stm:portcdm:port_call:SEGOT:a07913a3-04a1-43db-9ca1-4c12bb86646a\",\"localPortCallId\":null,\"localJobId\":null,\"vesselId\":\"urn:mrn:stm:vessel:IMO:9259501\",\"messageId\":\"urn:mrn:stm:portcdm:message:936740d3-13c1-4250-8c7c-144ca1eff7d0\",\"groupWith\":null,\"reportedAt\":\"2017-04-21T19:44:26Z\",\"reportedBy\":\"urn:mrn:legacy:user:SSPA\",\"comment\":null,\"messageOperation\":null,\"locationState\":{\"referenceObject\":\"VESSEL\",\"time\":\"2017-04-21T19:44:10Z\",\"timeType\":\"ACTUAL\",\"arrivalLocation\":null,\"departureLocation\":{\"from\":{\"locationType\":\"TRAFFIC_AREA\",\"position\":{\"latitude\":0.0,\"longitude\":0.0},\"name\":\"Port of Gothenburg's traffic area\"},\"to\":null}},\"serviceState\":null},{\"portCallId\":\"urn:mrn:stm:portcdm:port_call:SEGOT:9319431a-c87b-41df-9392-07c381dd80ee\",\"localPortCallId\":null,\"localJobId\":null,\"vesselId\":\"urn:mrn:stm:vessel:IMO:9262089\",\"messageId\":\"urn:mrn:stm:portcdm:message:4bf0e334-ea5c-4e19-89e6-616b99f2879a\",\"groupWith\":null,\"reportedAt\":\"2017-04-21T19:55:06Z\",\"reportedBy\":\"urn:mrn:legacy:user:SSPA\",\"comment\":null,\"messageOperation\":null,\"locationState\":{\"referenceObject\":\"VESSEL\",\"time\":\"2017-04-21T19:51:50Z\",\"timeType\":\"ACTUAL\",\"arrivalLocation\":{\"from\":null,\"to\":{\"locationType\":\"BERTH\",\"position\":{\"latitude\":0.0,\"longitude\":0.0},\"name\":\"Älvsborg Harbour 712\"}},\"departureLocation\":null},\"serviceState\":null},{\"portCallId\":\"urn:mrn:stm:portcdm:port_call:SEGOT:5a378dfc-1d82-4d1d-a8ec-2f6db9656eb1\",\"localPortCallId\":null,\"localJobId\":null,\"vesselId\":\"urn:mrn:stm:vessel:IMO:9125944\",\"messageId\":\"urn:mrn:stm:portcdm:message:5a465dff-4211-434c-b435-23d183a6c479\",\"groupWith\":null,\"reportedAt\":\"2017-04-21T20:14:35Z\",\"reportedBy\":\"urn:mrn:legacy:user:SSPA\",\"comment\":null,\"messageOperation\":null,\"locationState\":{\"referenceObject\":\"VESSEL\",\"time\":\"2017-04-21T20:14:18Z\",\"timeType\":\"ACTUAL\",\"arrivalLocation\":{\"from\":null,\"to\":{\"locationType\":\"TRAFFIC_AREA\",\"position\":{\"latitude\":0.0,\"longitude\":0.0},\"name\":\"Port of Gothenburg's traffic area\"}},\"departureLocation\":null},\"serviceState\":null},{\"portCallId\":\"urn:mrn:stm:portcdm:port_call:SEGOT:9319431a-c87b-41df-9392-07c381dd80ee\",\"localPortCallId\":null,\"localJobId\":null,\"vesselId\":\"urn:mrn:stm:vessel:IMO:9262089\",\"messageId\":\"urn:mrn:stm:portcdm:message:d639b0cc-02ce-4846-b4cc-aedff0b982c2\",\"groupWith\":null,\"reportedAt\":\"2017-04-21T20:21:46Z\",\"reportedBy\":\"urn:mrn:legacy:user:SSPA\",\"comment\":null,\"messageOperation\":null,\"locationState\":{\"referenceObject\":\"TUG\",\"time\":\"2017-04-21T20:21:29Z\",\"timeType\":\"ACTUAL\",\"arrivalLocation\":null,\"departureLocation\":{\"from\":{\"locationType\":\"VESSEL\",\"position\":{\"latitude\":0.0,\"longitude\":0.0},\"name\":\"VESSEL\"},\"to\":null}},\"serviceState\":null}]";
 
-    public static void main(String[] args){
+/*    public static void main(String[] args){
 
 
 
         HttpUrlConnectionPortCDM portCdmCon = new HttpUrlConnectionPortCDM();
 
 
-    }
+    }*/
 
     public static String getLatestPortCalls(int count){
 

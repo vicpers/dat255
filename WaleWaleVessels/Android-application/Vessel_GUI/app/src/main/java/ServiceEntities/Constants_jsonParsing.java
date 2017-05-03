@@ -38,7 +38,7 @@ public class Constants_jsonParsing {
     public static final String TAG_VESSEL_NAME                          = "name";
     public static final String TAG_VESSEL_CALL_SIGN                     = "callSign";
     public static final String TAG_VESSEL_MMSI                          = "mmsi";
-    public static final String TAG_VESSEL_TYPE                          = "type";
+    public static final String TAG_VESSEL_TYPE                          = "vesselType";
     public static final String TAG_VESSEL_STM_VESSEL_ID                 = "stmVesselId";
     public static final String TAG_VESSEL_PHOTOURL                      = "photoURL";
 

@@ -5,6 +5,8 @@ package HTTPRequest;
  */
 
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -21,7 +23,7 @@ import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 
 public class WebRequest {
-    static String response = null;
+    static String response = "";
     public final static int GETRequest = 1;
     public final static int POSTRequest = 2;
 
@@ -82,10 +84,18 @@ public class WebRequest {
 
             if (reqresponseCode == HttpsURLConnection.HTTP_OK) {
                 String line;
-                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                while ((line = br.readLine()) != null) {
-                    response += line;
+                try {
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    if (br != null) {
+                        while ((line = br.readLine()) != null) {
+                            response += line;
+                        }
+                    }
+                } catch (Exception e){
+                    Log.e("Exception - WebRequest", e.toString());
+                    response = "" + reqresponseCode;
                 }
+
             } else {
                 System.out.println("WebRequestHTTPConnection is not OK!");
                 System.out.println("ResponseCode: " + reqresponseCode);
@@ -132,6 +142,7 @@ public class WebRequest {
                 int reqresponseCode = conn.getResponseCode();
                 if (reqresponseCode == HttpsURLConnection.HTTP_CREATED) {
                     String line;
+                    response += "Status - Created\n";
                     try {
                         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                         while ((line = br.readLine()) != null) {
@@ -140,6 +151,17 @@ public class WebRequest {
                     } catch (Exception e) {}
                 } else if (reqresponseCode == HttpsURLConnection.HTTP_OK) {
                     String line;
+                    response += "Status - OK\n";
+                    try{
+                        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        while ((line = br.readLine()) != null) {
+                            response += line;
+                        }
+                    } catch (Exception e){};
+
+                } else if (reqresponseCode == HttpsURLConnection.HTTP_ACCEPTED) {
+                    String line;
+                    response += "Status - Accepted\n";
                     try{
                         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                         while ((line = br.readLine()) != null) {

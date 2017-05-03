@@ -15,6 +15,7 @@ public class Constants_API {
     public static final String API_DEV_PASSWORD                     = "vik123";
     public static final String API_DEV_KEY1                         = "eeee";
     public static final String API_DEV_KEY2                         = "dhc";
+    public static final String API_ACTUAL_PORT                      = "SEGOT"; // Port of Gothenburg
 
     // Constants for webRequests headernames
     public static final String API_HEADER_ACCEPT                    = "Accept";
@@ -32,6 +33,7 @@ public class Constants_API {
     public static final String API_SERVICE_CREATE_QUEUE             = "/mb/mqs";
     public static final String API_SERVICE_GET_VESSEL               = "/vr/vessel/";
     public static final String API_SERVICE_GET_STATE_DEFINITIONS    = "/dmp/state_definition_catalogue";
+    public static final String API_SERVICE_GET_PORT                 = "/dmp/ports/";
 
     // Constants for building PortCallMessage XML-structure.
     public static final String API_XML_HEADER                       = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";

@@ -13,6 +13,7 @@ import java.util.NoSuchElementException;
 import HTTPRequest.WebRequest;
 import ServiceEntities.*;
 
+import static RESTServices.Constants_API.API_ACTUAL_PORT;
 import static RESTServices.Constants_API.API_DEV_BASE_URL;
 import static RESTServices.Constants_API.API_DEV_KEY1;
 import static RESTServices.Constants_API.API_DEV_PASSWORD;
@@ -23,8 +24,15 @@ import static RESTServices.Constants_API.API_HEADER_ACCEPT_JSON;
 import static RESTServices.Constants_API.API_HEADER_API_KEY;
 import static RESTServices.Constants_API.API_HEADER_PASSWORD;
 import static RESTServices.Constants_API.API_HEADER_USER_ID;
+import static RESTServices.Constants_API.API_SERVICE_GET_PORT;
 import static RESTServices.Constants_API.API_SERVICE_GET_STATE_DEFINITIONS;
 import static RESTServices.Constants_API.API_SERVICE_GET_VESSEL;
+import static ServiceEntities.Constants_jsonParsing.TAG_LOCATION_TYPE;
+import static ServiceEntities.Constants_jsonParsing.TAG_PORT_LOCATIONS;
+import static ServiceEntities.Constants_jsonParsing.TAG_PORT_LOCATIONS_NAME;
+import static ServiceEntities.Constants_jsonParsing.TAG_PORT_LOCATIONS_POSITION;
+import static ServiceEntities.Constants_jsonParsing.TAG_STATE_DEFINITION_LOCATION;
+import static ServiceEntities.Constants_jsonParsing.TAG_STATE_DEFINITION_SERVICE;
 
 /**
  * Created by maxedman on 2017-04-27.
@@ -34,6 +42,8 @@ public class PortCDMServices {
 
     public static HashMap<LocationTimeSequence, ArrayList<LocationType>> locationStateDefinitions = new HashMap<>();
     public static HashMap<ServiceObject, ArrayList<ServiceTimeSequence>> serviceStateDefinitions = new HashMap<>();
+
+    public static HashMap<LocationType, HashMap<String, Position>> portData = new HashMap<>();
 
 
     /**
@@ -66,13 +76,24 @@ public class PortCDMServices {
         }
     }
 
+
+    /**
+     * @param locationTimeSequence
+     * @return
+     */
     public ArrayList<LocationType> getStateDefinitions(LocationTimeSequence locationTimeSequence){
         return locationStateDefinitions.get(locationTimeSequence);
     }
 
+
+    /**
+     * @param serviceObject
+     * @return
+     */
     public ArrayList<ServiceTimeSequence> getStateDefinitions(ServiceObject serviceObject){
         return serviceStateDefinitions.get(serviceObject);
     }
+
 
     /**
      * Fetches all state definitions in PortCDM and saves them in a static hashmap
@@ -100,10 +121,10 @@ public class PortCDMServices {
                     JSONObject locStateDef = null;
                     JSONObject servStateDef = null;
                     try {
-                        locStateDef = jsonObj.getJSONObject(Constants_jsonParsing.TAG_STATE_DEFINITION_LOCATION);
+                        locStateDef = jsonObj.getJSONObject(TAG_STATE_DEFINITION_LOCATION);
                     } catch (JSONException e1){ }
                     try {
-                        servStateDef = jsonObj.getJSONObject(Constants_jsonParsing.TAG_STATE_DEFINITION_SERVICE);
+                        servStateDef = jsonObj.getJSONObject(TAG_STATE_DEFINITION_SERVICE);
                     } catch (JSONException e1){ }
 
                     if(locStateDef != null){
@@ -144,5 +165,66 @@ public class PortCDMServices {
         } catch (JSONException e2){
             Log.e("GetStateDef - Outer", e2.toString());
         }
+    }
+
+
+    /**
+     *
+     */
+    public static void getActualPortData(){
+
+        String url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_GET_PORT + API_ACTUAL_PORT;
+
+        HashMap<String, String> headers = new HashMap<String, String>();
+
+        headers.put(API_HEADER_ACCEPT, API_HEADER_ACCEPT_JSON);
+        headers.put(API_HEADER_USER_ID, API_DEV_USERNAME);
+        headers.put(API_HEADER_PASSWORD, API_DEV_PASSWORD);
+        headers.put(API_HEADER_API_KEY, API_DEV_KEY1);
+
+        String wrResponse = WebRequest.makeWebServiceCall(url, 1, headers, null);
+
+        try {
+            JSONObject jsonObj  = new JSONObject(wrResponse);
+            JSONArray jsonArr   = jsonObj.getJSONArray(TAG_PORT_LOCATIONS);
+            for (int i = 0 ; i < jsonArr.length(); i++) {
+                try {
+                    JSONObject portLoc = jsonArr.getJSONObject(i);
+
+                    LocationType locationType   = LocationType.valueOf(portLoc.getString(TAG_LOCATION_TYPE));
+                    String portLocationName     = portLoc.getString(TAG_PORT_LOCATIONS_NAME);
+                    Position portLocPosition    = null;
+                    try {
+                        portLocPosition = new Position(portLoc.getJSONObject(TAG_PORT_LOCATIONS_POSITION));
+                    } catch (JSONException e){}
+
+
+                    HashMap<String, Position> tempPortLocMap = portData.get(locationType);
+                    if (tempPortLocMap == null) {
+                        tempPortLocMap = new HashMap<String, Position>();
+                        tempPortLocMap.put(portLocationName, portLocPosition);
+                        portData.put(locationType, tempPortLocMap);
+                    } else {
+                        tempPortLocMap.put(portLocationName, portLocPosition);
+                    }
+
+
+                } catch (JSONException e1){
+                    Log.e("GetPortData - Inner", e1.toString());
+                }
+            }
+
+        } catch (JSONException e2){
+            Log.e("GetPortData - Outer", e2.toString());
+        }
+    }
+
+
+    /**
+     * @param locationType
+     * @return
+     */
+    public static HashMap<String, Position> getPortLocations(LocationType locationType){
+        return portData.get(locationType);
     }
 }

@@ -40,8 +40,8 @@
         android:text="Date"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerTimeType" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerLocationType" />
 
     <Button
         android:id="@+id/button"
@@ -90,7 +90,22 @@
         app:layout_constraintHorizontal_bias="0.0"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="17dp"
         app:layout_constraintTop_toBottomOf="@+id/my_toolbar" />
+
+    <Spinner
+        android:id="@+id/spinnerLocationType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerTimeType" />
 
 </android.support.constraint.ConstraintLayout>

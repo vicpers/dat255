@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +26,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import RESTServices.AMSS;
+import RESTServices.PortCDMServices;
 import ServiceEntities.ArrivalLocation;
 import ServiceEntities.Location;
 import ServiceEntities.LocationState;
@@ -42,8 +44,11 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
     private DatePickerDialog datePicker;
     private TimePickerDialog timePicker;
     private Spinner spinner;
+    private Spinner locationSpinner;
     private String selectedRecipant;
+    private String selectedPortLoc;
     private HashMap<String, LocationType> locMap;
+    private HashMap<String, Position> portLocMap;
     public static String newETA ="";
     public static String newDate ="";
 
@@ -115,7 +120,30 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedRecipant = spinner.getSelectedItem().toString();
+                setPortLocationSpinnerContent();
             }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+    }
+
+    private void setPortLocationSpinnerContent() {
+        portLocMap = PortCDMServices.getPortLocations(LocationType.fromString(selectedRecipant));
+        ArrayList<String> portLocations = new ArrayList<>();
+        try {
+            portLocations = new ArrayList<String>(portLocMap.keySet());
+        } catch (NullPointerException e) {Log.e("PortLocSpinner", e.toString());}
+        Collections.sort(portLocations);
+        locationSpinner = (Spinner) findViewById(R.id.spinnerLocationType);
+        ArrayAdapter<String> portLocadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, portLocations);
+        portLocadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        locationSpinner.setAdapter(portLocadapter);
+        locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedPortLoc = locationSpinner.getSelectedItem().toString();
+            }
+
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });

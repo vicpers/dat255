@@ -10,16 +10,16 @@ import org.json.JSONObject;
  */
 
 public class Position {
-    private long latitude;
-    private long longitude;
+    private double latitude;
+    private double longitude;
     private String name;
 
     public Position(JSONObject posJsonObj){
         if (posJsonObj != null) {
             try {
 
-                long latitude   =  posJsonObj.getLong(Constants_jsonParsing.TAG_POSITION_LATITUDE);
-                long longitude  =  posJsonObj.getLong(Constants_jsonParsing.TAG_POSITION_LONGITUDE);
+                double latitude   =  posJsonObj.getDouble(Constants_jsonParsing.TAG_POSITION_LATITUDE);
+                double longitude  =  posJsonObj.getDouble(Constants_jsonParsing.TAG_POSITION_LONGITUDE);
 
 // Initiate new instance of PortCallMessage
                 this.latitude = latitude;
@@ -33,30 +33,30 @@ public class Position {
         }
     }
 
-    public Position(long latitude, long longitude, String name){
+    public Position(double latitude, double longitude, String name){
         setLatitude(latitude);
         setLongitude(longitude);
         setName(name);
     }
 
-    public Position(long latitude, long longitude){
+    public Position(double latitude, double longitude){
         setLatitude(latitude);
         setLongitude(longitude);
     }
 
-    public long getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    private void setLongitude(long longitude) {
+    private void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public long getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    private void setLatitude(long latitude) {
+    private void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 

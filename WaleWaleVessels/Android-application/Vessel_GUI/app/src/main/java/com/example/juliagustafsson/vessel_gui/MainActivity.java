@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import static RESTServices.PortCDMServices.getActualPortData;
 import static RESTServices.PortCDMServices.getStateDefinitions;
 
 
@@ -66,9 +67,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         userLocalStore = new UserLocalStorage(this);
 
 
-        // Calls method for fetching att the state definitions in PortCDM and saves them in a
+        // Calls method for fetching all the state definitions in PortCDM and saves them in a
         // static map for later use when sending PortCallMessages
         getStateDefinitions();
+
+        // Calls method for fetching the data about portLocations for actual port.
+        // Atm Port of Gothenburg - SEGOT. Specified in API-constants.
+        getActualPortData();
+
     }
 
     @Override

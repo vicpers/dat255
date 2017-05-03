@@ -151,7 +151,7 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         //Location locObj = new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.TRAFFIC_AREA);
         Location locObj = new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.fromString(selectedRecipant));
         ArrivalLocation arrLoc = new ArrivalLocation(null, locObj);
-        LocationState locState = new LocationState(ReferenceObject.VESSEL, formattedTime, TimeType.ESTIMATED, arrLoc, null);
+        LocationState locState = new LocationState(ReferenceObject.VESSEL, formattedTime, TimeType.ESTIMATED, arrLoc);
         PortCallMessage pcmObj = new PortCallMessage("urn:mrn:stm:vessel:IMO:9501368",
                                                      "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
                                                      "VesselApplicationETAView",

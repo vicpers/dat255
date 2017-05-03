@@ -280,7 +280,7 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
 
         PortCallMessage pcmObj = new PortCallMessage("urn:mrn:stm:vessel:IMO:9501368",
                 "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
-                "VesselApplicationETAView",
+                "VesselAppLocationStateView",
                 locState);
         AMSS amss = new AMSS(pcmObj);
 

@@ -17,6 +17,10 @@ public enum ReferenceObject {
     PILOT_BOAT("Pilot Boat"),
     TUG("Tug"),
     VESSEL("Vessel"),
+    BUNKER_VESSEL("Bunker Vessel"),
+    FRESH_WATER_VESSEL("Fresh-water Vessel"),
+    SLOP_VESSEL("Slop Vessel"),
+    SLUDGE_VESSEL("Sludge Vessel"),
     ICEBREAKER("Icebreaker"),
     SECURITY("Security"),
     PONTOONS_AND_FENDERS("Pontoons and Fenders");

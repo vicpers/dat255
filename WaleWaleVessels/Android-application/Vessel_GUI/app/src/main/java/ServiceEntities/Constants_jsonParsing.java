@@ -48,6 +48,7 @@ public class Constants_jsonParsing {
     public static final String TAG_LOCATION_STATE_TIME_TYPE             = "timeType";
     public static final String TAG_LOCATION_STATE_ARRIVAL_LOCATION      = "arrivalLocation";
     public static final String TAG_LOCATION_STATE_DEPARTURE_LOCATION    = "departureLocation";
+    public static final String TAG_LOCATION_STATE_TIME_SEQUENCE         = "timeSequence";
 
     // Constants for handling the tags in a ServiceState Json-response.
     public static final String TAG_SERVICE_STATE_SERVICE_OBJECT         = "serviceObject";
@@ -70,4 +71,8 @@ public class Constants_jsonParsing {
     // Constants for handling the tags in a Arrival, Departure and Between Json-response.
     public static final String TAG_POSITION_LATITUDE                    = "latitude";
     public static final String TAG_POSITION_LONGITUDE                   = "longitude";
+
+    // Constants for handling the tags StateDefinition Json-response.
+    public static final String TAG_STATE_DEFINITION_LOCATION                   = "locationStateDefinition";
+    public static final String TAG_STATE_DEFINITION_SERVICE                   = "serviceStateDefinition";
 }

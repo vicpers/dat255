@@ -1,21 +1,19 @@
 package com.example.juliagustafsson.vessel_gui;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.support.v7.app.ActionBar;
-import android.support.v4.widget.DrawerLayout;
+
+import static RESTServices.PortCDMServices.getStateDefinitions;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -66,6 +64,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //logout.setOnClickListener(this);
 
         userLocalStore = new UserLocalStorage(this);
+
+
+        // Calls method for fetching att the state definitions in PortCDM and saves them in a
+        // static map for later use when sending PortCallMessages
+        getStateDefinitions();
     }
 
     @Override

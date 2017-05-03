@@ -18,11 +18,12 @@ public enum ServiceObject {
     BUNKERING_OPERATION("Bunkering operation"),
     CARGO_OPERATION("Cargo operation"),
     DEPARTURE_ANCHORING_AREA("Departure from anchoring area"),
+    DEPARTURE_ANCHORING_OPERATION("Departure from anchoring operation"),
     DEPARTURE_BERTH("Departure from berth"),
     DEPARTURE_PORTAREA("Departure from port area"),
     DEPARTURE_VTSAREA("Departure from VTS-area"),
     ESCORT_TOWAGE("Escort towage"),
-    GARBARGE_OPERATION("Garbage operation"),//TODO Dubbelkolla så att det är verkligen är GARBARGE i portCDM
+    GARBAGE_OPERATION("Garbage operation"),
     ICEBREAKING_OPERATION("Icebreaking operation"),
     LUBEOIL_OPERATION("Lube-oil operation"),
     ARRIVAL_MOORING_OPERATION("Arrival to mooring operation"),
@@ -41,7 +42,10 @@ public enum ServiceObject {
     PONTOONS_AND_FENDERS("Pontoons and fenders"),
     SECURITY("Security"),
     TOURS("Tours"),
-    FORKLIFT("Forklift")
+    FORKLIFT("Forklift"),
+    PROVISION_OPERATION("Provision operation"),
+    POSTCARGOSURVEY("Post-cargo survey"),
+    PRECARGOSURVEY("Pre-cargo survey")
     ;
 
     private String serviceObjText;

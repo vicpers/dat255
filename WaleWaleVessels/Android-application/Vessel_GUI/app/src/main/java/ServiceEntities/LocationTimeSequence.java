@@ -8,7 +8,8 @@ import java.util.HashMap;
  */
 
 public enum LocationTimeSequence {
-    ARRIVAL_TO("Arrival to"), DEPAPRTURE_FROM("Departure from");
+    ARRIVAL_TO("Arrival to"),
+    DEPARTURE_FROM("Departure from");
 
     private String locTimeSeqText;
 

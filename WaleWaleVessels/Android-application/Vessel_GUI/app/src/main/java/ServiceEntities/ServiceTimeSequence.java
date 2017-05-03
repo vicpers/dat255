@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public enum ServiceTimeSequence {
     REQUESTED("Requested"),
-    REQUEST_RECIEVED("Request Recieved"),
+    REQUEST_RECEIVED("Request Received"),
     CONFIRMED("Confirmed"),
     DENIED("Denied"),
     COMMENCED("Commenced"),

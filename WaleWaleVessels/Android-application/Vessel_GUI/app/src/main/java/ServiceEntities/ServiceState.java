@@ -22,11 +22,11 @@ public class ServiceState {
         if (servStateJsonObj != null) {
             try {
 
-                ServiceObject serviceObject              = ServiceObject.valueOf(servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_SERVICE_OBJECT));
+                ServiceObject serviceObject              =    ServiceObject.valueOf(servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_SERVICE_OBJECT));
                 ServiceTimeSequence serviceTimeSequence  =    ServiceTimeSequence.valueOf(servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_TIME_SEQUENCE));
-                String performingActor      =    servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_PERFORMING_ACTOR);
-                String time                 =    servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_TIME);
-                TimeType timeType             =    TimeType.valueOf(servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_TIME_TYPE));
+                String performingActor                   =    servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_PERFORMING_ACTOR);
+                String time                              =    servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_TIME);
+                TimeType timeType                        =    TimeType.valueOf(servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_TIME_TYPE));
 
                 Between between;
                 try {

@@ -80,7 +80,6 @@ public class WebRequest {
             }
 
             int reqresponseCode = conn.getResponseCode();
-            System.out.println(reqresponseCode);
 
             if (reqresponseCode == HttpsURLConnection.HTTP_OK) {
                 String line;

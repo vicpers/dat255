@@ -51,18 +51,30 @@ public class LocationState {
     }
 
     /**
-     * Constructor for creating LocationState by data.
+     * Constructor for creating LocationState by data with arrivalLocation.
      * @param referenceObject
      * @param time
      * @param timeType
      * @param arrivalLocation
-     * @param departureLocation
      */
-    public LocationState(ReferenceObject referenceObject, String time, TimeType timeType, ArrivalLocation arrivalLocation, DepartureLocation departureLocation) {
+    public LocationState(ReferenceObject referenceObject, String time, TimeType timeType, ArrivalLocation arrivalLocation) {
         this.referenceObject = referenceObject;
         this.time = time;
         this.timeType = timeType;
         this.arrivalLocation = arrivalLocation;
+    }
+
+    /**
+     * Constructor for creating LocationState by data with depLocation.
+     * @param referenceObject
+     * @param time
+     * @param timeType
+     * @param departureLocation
+     */
+    public LocationState(ReferenceObject referenceObject, String time, TimeType timeType, DepartureLocation departureLocation) {
+        this.referenceObject = referenceObject;
+        this.time = time;
+        this.timeType = timeType;
         this.departureLocation = departureLocation;
     }
 

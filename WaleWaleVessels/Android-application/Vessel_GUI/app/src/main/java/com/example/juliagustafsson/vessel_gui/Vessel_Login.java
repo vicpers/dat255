@@ -56,11 +56,9 @@ public class Vessel_Login extends AppCompatActivity implements View.OnClickListe
         // TODO Lägg till riktig kod mot backend för att kolla om användaren finns i vår lista med användare
         // Provisorisk autentisering av användare för att testa funktionaliteten
         String vID = user.vesselID;
-        //for (String vesselID : vesselIDStorage) {
             if (vID.equals("WaleWale")) {
                 logUserIn(user);
             }
-       // }
         if (userLocalStore.getUserLoggedIn() != true){
             showErrorMessage();
         }

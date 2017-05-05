@@ -75,7 +75,7 @@
             android:layout_weight="1"
             android:background="@color/menuHeader"
             android:onClick="sendLocationState"
-            android:text="Send Location State"
+            android:text="Report Update"
             android:textSize="24sp" />
 
         <Button
@@ -86,7 +86,7 @@
             android:layout_weight="1"
             android:background="@color/menuHeader"
             android:onClick="sendServiceState"
-            android:text="Send Service State"
+            android:text="Check status"
             android:textSize="24sp" />
     </TableRow>
 
@@ -107,7 +107,7 @@
             android:layout_weight="1"
             android:background="@color/menuHeader"
             android:onClick="viewPCM"
-            android:text="@string/get_PCM"
+            android:text="View ETA"
             android:textSize="24sp" />
 
         <Button
@@ -118,7 +118,7 @@
             android:layout_marginRight="0dp"
             android:layout_weight="1"
             android:background="@color/menuHeader"
-            android:text="PTA"
+            android:text="Statements of facts"
             android:textSize="24sp" />
 
     </TableRow>

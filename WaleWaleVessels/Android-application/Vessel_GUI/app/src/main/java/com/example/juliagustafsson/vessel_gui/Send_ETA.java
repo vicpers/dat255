@@ -36,6 +36,8 @@ import ServiceEntities.Position;
 import ServiceEntities.ReferenceObject;
 import ServiceEntities.TimeType;
 
+import static RESTServices.Constants_API.API_ACTUAL_PORT;
+
 
 public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
     private EditText dateEditText;
@@ -44,11 +46,14 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
     private DatePickerDialog datePicker;
     private TimePickerDialog timePicker;
     private Spinner spinner;
+    private Spinner depArrSpinner;
     private Spinner locationSpinner;
     private String selectedRecipant;
+    private String selectedArrDep;
     private String selectedPortLoc;
     private HashMap<String, LocationType> locMap;
     private HashMap<String, Position> portLocMap;
+    private ArrayList<LocationType> allowedSubLocations = new ArrayList<>();
     public static String newETA ="";
     public static String newDate ="";
 
@@ -112,7 +117,15 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
           */
         locMap = LocationType.toMap();
         ArrayList<String> locations = new ArrayList<String>(locMap.keySet());
+        locations.remove(LocationType.VESSEL.getText()); //Vessel cannot arrive to vessel
         Collections.sort(locations);
+
+        // Removes all LocationTypes that do not have a sublocation.
+        allowedSubLocations = new ArrayList<LocationType>(locMap.values());
+        allowedSubLocations.remove(LocationType.VESSEL);
+        allowedSubLocations.remove(LocationType.LOC);
+        allowedSubLocations.remove(LocationType.TRAFFIC_AREA);
+
         spinner = (Spinner) findViewById(R.id.spinnerTimeType);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locations);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -125,6 +138,23 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+// Spinner for selecting Arrival or Departure
+        // Atm the choice is always Arrival. ETA = Estimated time of ARRIVAL.
+        /*ArrayList<String> depArrivalArr = new ArrayList<String>();
+        depArrivalArr.add("Arrival");
+        depArrivalArr.add("Departure");
+        depArrSpinner = (Spinner) findViewById(R.id.spinnerDepArr);
+        ArrayAdapter<String> arrDepAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, depArrivalArr);
+        arrDepAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        depArrSpinner.setAdapter(arrDepAdapter);
+        depArrSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedArrDep = depArrSpinner.getSelectedItem().toString();
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });*/
 
     }
 
@@ -173,23 +203,50 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         SimpleDateFormat etaOutput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         SimpleDateFormat etaInput = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = null;
+        String formattedTime = "";
         try {
             date = etaInput.parse(etaDate + " " + etaTime);
-        } catch (ParseException e) {
-            e.printStackTrace();
+            formattedTime = etaOutput.format(date);
+        } catch (ParseException e1) {
+            Log.e("DateProblem Parsing", e1.toString());
+        } catch (NullPointerException e2){
+            Log.e("DateProblem Null", e2.toString());
         }
-        String formattedTime = etaOutput.format(date);
 
         /*
         Här använder jag det värdet som väljs i spinnern och passar in det i locObj som skickas vid nytt ETA.
          */
         //Location locObj = new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.TRAFFIC_AREA);
-        Location locObj = new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.fromString(selectedRecipant));
+        // Called in a try-catch because iti is not sure that a subcategory of PortLocation exists. 
+        Position position = new Position(0, 0);
+        try{
+            position = portLocMap.get(selectedPortLoc);
+        } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
+
+        //Location locObj = new Location(null, position, locMap.get(selectedRecipant)); //Old version 0.0.16 XML
+        String locationMRN;
+        if (allowedSubLocations.contains(locMap.get(selectedRecipant))) //TODO Add correct ending to locationMRN if subLocation exists.
+            locationMRN = "urn:mrn:stm:location:" + API_ACTUAL_PORT + ":" + locMap.get(selectedRecipant);// + ":" + position.getShortName();
+        else
+            locationMRN = "urn:mrn:stm:location:" + API_ACTUAL_PORT + ":" + locMap.get(selectedRecipant);
+        Location locObj = new Location(null, position, locationMRN);  //New version 0.6
         ArrivalLocation arrLoc = new ArrivalLocation(null, locObj);
         LocationState locState = new LocationState(ReferenceObject.VESSEL, formattedTime, TimeType.ESTIMATED, arrLoc);
+
+        // Bortkommenterat är sådant som används om val för Arrival eller Departure ska väljas.
+        /*DepartureLocation depLoc;
+        LocationState locState;
+        if (selectedArrDep.equals("Arrival")) {
+            arrLoc = new ArrivalLocation(null, locObj);
+            locState = new LocationState(ReferenceObject.VESSEL, formattedTime, TimeType.ESTIMATED, arrLoc);
+        }else {
+            depLoc = new DepartureLocation(locObj, null);
+            locState = new LocationState(ReferenceObject.VESSEL, formattedTime, TimeType.ESTIMATED, depLoc);
+        }*/
+
         PortCallMessage pcmObj = new PortCallMessage("urn:mrn:stm:vessel:IMO:9501368",
                                                      "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
-                                                     "VesselApplicationETAView",
+                                                     "VesselAppSendETA",
                                                      locState);
         AMSS amss = new AMSS(pcmObj);
         String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.

@@ -13,6 +13,7 @@ public class Position {
     private double latitude;
     private double longitude;
     private String name;
+    private String shortName;
 
     public Position(JSONObject posJsonObj){
         if (posJsonObj != null) {
@@ -64,11 +65,21 @@ public class Position {
 
     public void setName(String name){this.name = name;}
 
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
+
     public String toXml() {
          String xmlStr = "<ns2:latitude>" + latitude + "</ns2:latitude>" +
                         "<ns2:longitude>" + longitude + "</ns2:longitude>";
-        if(name != null)
-            xmlStr += "<ns2:name>" + name + "</ns2:name>";
+//        Not included in version 0.6 of portCallMessage XML
+//        if(name != null)
+//            xmlStr += "<ns2:name>" + name + "</ns2:name>";
         return xmlStr;
 
     }

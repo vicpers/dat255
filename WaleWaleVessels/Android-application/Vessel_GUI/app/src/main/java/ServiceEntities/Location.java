@@ -14,6 +14,7 @@ public class Location {
     private String name;
     private Position position;
     private LocationType locationType;
+    private String locationMRN;
 
     public Location(JSONObject locJsonObj){
         if (locJsonObj != null) {
@@ -41,6 +42,12 @@ public class Location {
         setLocationType(locationType);
     }
 
+    public Location(String name, Position position, String locationMRN){
+        setName(name);
+        setPosition(position);
+        setLocationMRN(locationMRN);
+    }
+
     public String getName() {
         return name;
     }
@@ -65,6 +72,14 @@ public class Location {
         this.locationType = locationType;
     }
 
+    public String getLocationMRN() {
+        return locationMRN;
+    }
+
+    private void setLocationMRN(String locationMRN) {
+        this.locationMRN = locationMRN;
+    }
+
     public String toXml() {
         String xmlStr = "";
         if(name != null)
@@ -73,6 +88,7 @@ public class Location {
             xmlStr += "<ns2:position>" + position.toXml() + "</ns2:position>";
         if(locationType != null)
             xmlStr += "<ns2:locationType>" + locationType + "</ns2:locationType>";
+        xmlStr += "<ns2:locationMRN>" + locationMRN + "</ns2:locationMRN>";
         return xmlStr;
     }
 }

@@ -37,7 +37,9 @@ public class Constants_API {
 
     // Constants for building PortCallMessage XML-structure.
     public static final String API_XML_HEADER                       = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-    public static final String API_XML_PORT_CALL_MESSAGE_HEADER     = "<ns2:portCallMessage xmlns:ns2=\"urn:x-mrn:stm:schema:port-call-message:0.0.16\">";
+    // Old version
+    // public static final String API_XML_PORT_CALL_MESSAGE_HEADER     = "<ns2:portCallMessage xmlns:ns2=\"urn:x-mrn:stm:schema:port-call-message:0.0.16\">";
+    public static final String API_XML_PORT_CALL_MESSAGE_HEADER     = "<ns2:portCallMessage xmlns:ns2=\"urn:mrn:stm:schema:port-call-message:0.6\">";
     public static final String API_XML_PORT_CALL_MESSAGE_END        = "</ns2:portCallMessage>";
 
 

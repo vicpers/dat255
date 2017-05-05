@@ -31,6 +31,7 @@ import static ServiceEntities.Constants_jsonParsing.TAG_LOCATION_TYPE;
 import static ServiceEntities.Constants_jsonParsing.TAG_PORT_LOCATIONS;
 import static ServiceEntities.Constants_jsonParsing.TAG_PORT_LOCATIONS_NAME;
 import static ServiceEntities.Constants_jsonParsing.TAG_PORT_LOCATIONS_POSITION;
+import static ServiceEntities.Constants_jsonParsing.TAG_PORT_LOCATIONS_SHORT_NAME;
 import static ServiceEntities.Constants_jsonParsing.TAG_STATE_DEFINITION_LOCATION;
 import static ServiceEntities.Constants_jsonParsing.TAG_STATE_DEFINITION_SERVICE;
 
@@ -191,11 +192,14 @@ public class PortCDMServices {
                 try {
                     JSONObject portLoc = jsonArr.getJSONObject(i);
 
-                    LocationType locationType   = LocationType.valueOf(portLoc.getString(TAG_LOCATION_TYPE));
-                    String portLocationName     = portLoc.getString(TAG_PORT_LOCATIONS_NAME);
-                    Position portLocPosition    = null;
+                    LocationType locationType       = LocationType.valueOf(portLoc.getString(TAG_LOCATION_TYPE));
+                    String portLocationName         = portLoc.getString(TAG_PORT_LOCATIONS_NAME);
+                    String portLocationShortName    = portLoc.getString(TAG_PORT_LOCATIONS_SHORT_NAME);
+                    Position portLocPosition        = null;
                     try {
                         portLocPosition = new Position(portLoc.getJSONObject(TAG_PORT_LOCATIONS_POSITION));
+                        portLocPosition.setName(portLocationName);
+                        portLocPosition.setShortName(portLocationShortName);
                     } catch (JSONException e){}
 
 

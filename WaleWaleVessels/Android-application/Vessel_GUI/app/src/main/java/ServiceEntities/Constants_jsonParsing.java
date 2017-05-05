@@ -79,5 +79,6 @@ public class Constants_jsonParsing {
     // Constants for handling tags in dmp/ports/.
     public static final String TAG_PORT_LOCATIONS                       = "portLocations";
     public static final String TAG_PORT_LOCATIONS_NAME                  = "name";
+    public static final String TAG_PORT_LOCATIONS_SHORT_NAME            = "shortName";
     public static final String TAG_PORT_LOCATIONS_POSITION              = "position";
 }

@@ -10,7 +10,7 @@ import java.util.HashMap;
 public enum LocationType {
     ANCHORING_AREA("Anchoring Area"),
     BERTH("Berth"),
-    ETUG_ZONE("Tug Zone"),
+    ETUG_ZONE("Escort tug Zone"),
     LOC("Loc"),
     PILOT_BOARDING_AREA("Pilot Boarding Area"),
     RENDEZV_AREA("Rendez-vous Area"),

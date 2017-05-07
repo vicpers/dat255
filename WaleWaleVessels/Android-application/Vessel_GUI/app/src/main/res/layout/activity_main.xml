@@ -68,13 +68,13 @@
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/sendLocationState"
+            android:id="@+id/reportUpdate"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:background="@color/menuHeader"
-            android:onClick="sendLocationState"
+            android:onClick="reportUpdate"
             android:text="Report Update"
             android:textSize="24sp" />
 

@@ -47,7 +47,9 @@
         <activity
             android:name=".SendServiceState"
             android:parentActivityName=".MainActivity" />
-
+        <activity
+            android:name=".Report_Update"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

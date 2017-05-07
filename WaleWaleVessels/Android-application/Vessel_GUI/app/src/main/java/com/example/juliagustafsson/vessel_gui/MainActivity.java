@@ -126,6 +126,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
+    public void reportUpdate(View view) {
+        Intent intent = new Intent(this, Report_Update.class); //skapar en ny instans av klassen Report_Update som initierar ett nytt blankt fönster
+        startActivity(intent);
+    }
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle item selection

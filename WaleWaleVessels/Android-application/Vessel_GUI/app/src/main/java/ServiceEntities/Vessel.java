@@ -5,11 +5,13 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * Created by maxedman on 2017-04-20.
  */
 
-public class Vessel {
+public class Vessel implements Serializable {
     private String imo;
     private String id;
     private String name;

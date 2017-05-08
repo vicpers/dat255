@@ -67,6 +67,7 @@ public class Vessel_Login extends AppCompatActivity implements View.OnClickListe
         System.out.println(vesselID);
         try{
             Vessel newVessel = getVessel(vesselID);
+            userLocalStore.setVessel(newVessel);
             logUserIn(user);
         }
         catch(NoSuchElementException e){

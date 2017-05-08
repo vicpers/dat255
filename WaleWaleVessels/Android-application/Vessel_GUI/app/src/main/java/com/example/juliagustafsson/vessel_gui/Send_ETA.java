@@ -2,6 +2,7 @@ package com.example.juliagustafsson.vessel_gui;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -244,7 +245,9 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
             locState = new LocationState(ReferenceObject.VESSEL, formattedTime, TimeType.ESTIMATED, depLoc);
         }*/
 
-        PortCallMessage pcmObj = new PortCallMessage("urn:mrn:stm:vessel:IMO:9501368",
+        Intent intent = getIntent();
+        String vesselID = intent.getExtras().getString("vesselID"); //Hämta VesselIMO skickat från mainactivity
+        PortCallMessage pcmObj = new PortCallMessage(vesselID,
                                                      "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
                                                      "VesselAppSendETA",
                                                      locState);

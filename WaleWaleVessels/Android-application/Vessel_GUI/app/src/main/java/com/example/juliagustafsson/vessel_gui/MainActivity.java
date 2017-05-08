@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void displayVesselID() {
         User user = userLocalStore.getLoggedInUser();
         TextView textView = (TextView) findViewById(R.id.loggedIn);
-        textView.setText("Active Vessel: " + user.vesselID);
+        textView.setText("Active Vessel: " + userLocalStore.getVessel().getName() + " ID: " + userLocalStore.getVessel().getImo());
     }
 
     public void viewPCM(View view) {
@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void sendETA(View view) {
         Intent intent = new Intent(this, Send_ETA.class); //skapar en ny instans av klassen ViewPCM som initierar ett nytt blankt fönster
+        intent.putExtra("vesselID", userLocalStore.getVessel().getId());//skicka med VesselID till nästa aktivitet
         startActivity(intent);
     }
 

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -42,11 +43,35 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
     private Spinner spinnerServiceObject;
     private Spinner spinnerTimeSequence;
     private View anchoringView;
+    private SimpleDateFormat dateFormat;
+    private EditText dateEditText;
+    private EditText timeEditText;
+    private DatePickerDialog datePicker;
+    private TimePickerDialog timePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_update);
+        }
+
+    public void sendNewPilotage(View v){
+            //Creates an AlertDialog when the Anchoring-button is pressed.
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Report_Update.this);
+            anchoringView = getLayoutInflater().inflate(R.layout.dialog_pilotage, null);
+
+          setTimeSequenceSpinnerContent("Pilotage");
+
+            dialogBuilder.setTitle("Pilotage");
+            dialogBuilder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+        setTimeAndDate();
+            dialogBuilder.setNegativeButton("Cancel", null);
+            dialogBuilder.setView(anchoringView);
+            dialogBuilder.show();
         }
 
 
@@ -140,6 +165,41 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        if (v==dateEditText){
+            datePicker.show();
+        }
+        else if(v==timeEditText){
+            timePicker.show();
+        }
+    }
+    public void setTimeAndDate(){
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateEditText = (EditText) anchoringView.findViewById(R.id.editTextDate);
+        dateEditText.requestFocus();
+
+        timeEditText = (EditText) anchoringView.findViewById(R.id.editTextTime);
+        timeEditText.setInputType(InputType.TYPE_NULL);
+
+        dateEditText.setOnClickListener(this);
+
+        timeEditText.setOnClickListener(this);
+        Calendar calendar = Calendar.getInstance();
+        datePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Calendar newCalendar = Calendar.getInstance();
+                newCalendar.set(year,month,dayOfMonth);
+                dateEditText.setText(dateFormat.format(newCalendar.getTime()));
+                timeEditText.requestFocus();
+            }
+        },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+
+        timePicker = new TimePickerDialog(this,android.R.style.Theme_Holo_Light_Dialog, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                timeEditText.setText( selectedHour + ":" + selectedMinute);
+            }
+        }, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), true);
 
     }
 

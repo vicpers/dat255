@@ -66,6 +66,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
             dialogBuilder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    //TODO Koppla till backend
                 }
             });
         setTimeAndDate();
@@ -197,7 +198,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
         timePicker = new TimePickerDialog(this,android.R.style.Theme_Holo_Light_Dialog, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                timeEditText.setText( selectedHour + ":" + selectedMinute);
+                timeEditText.setText( String.format("%02d", selectedHour) + ":" + String.format("%02d", selectedMinute));
             }
         }, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), true);
 

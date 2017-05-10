@@ -30,7 +30,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         TextView textView = (TextView) findViewById(R.id.textView4);
-        textView.setText("Current ETA: " + Send_ETA.newDate + "\n" + Send_ETA.newETA);
+        //Hårdkodat för att visa nuvarande hamn överst på hemskärmen.
+        //TODO Skapa möjlighet att själv välja hamn
+        textView.setText("Current Port: SEGOT");
 
         // Set customized toolbar
         Toolbar customToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -99,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void displayVesselID() {
         User user = userLocalStore.getLoggedInUser();
         TextView textView = (TextView) findViewById(R.id.loggedIn);
-        textView.setText("Active Vessel: " + userLocalStore.getVessel().getName() + " ID: " + userLocalStore.getVessel().getImo());
+        textView.setText("Active Vessel: " + userLocalStore.getVessel().getName());
     }
 
     public void viewPCM(View view) {

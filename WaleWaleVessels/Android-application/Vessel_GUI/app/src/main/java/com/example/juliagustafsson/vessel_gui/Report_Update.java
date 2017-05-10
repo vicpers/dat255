@@ -29,6 +29,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
+import RESTServices.PortCDMServices;
 import ServiceEntities.ServiceObject;
 import ServiceEntities.ServiceTimeSequence;
 import ServiceEntities.TimeType;
@@ -48,11 +49,15 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
     private EditText timeEditText;
     private DatePickerDialog datePicker;
     private TimePickerDialog timePicker;
+    private int towageID;
+    private ServiceObject currentServiceObject;
+    private View serviceStateView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_update);
+        //towageID = R.id.Towage;
         }
 
     public void sendNewPilotage(View v){
@@ -74,6 +79,32 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
             dialogBuilder.setView(anchoringView);
             dialogBuilder.show();
         }
+
+    public void sendNewSericeState(View v){
+        serviceStateView = getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
+        switch( v.getId() ) {
+            case R.id.Towage: {
+                currentServiceObject = ServiceObject.TOWAGE;
+                spinnerServiceObject = (Spinner) serviceStateView.findViewById(R.id.spinnerServiceObject);
+                setTimeSequenceSpinnerContent(selectedServiceObject);
+            }
+
+        }
+        Log.wtf("ID", "" + v.getId());
+        //Creates an AlertDialog when the Towage-button is pressed.
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Report_Update.this);
+
+        dialogBuilder.setTitle(currentServiceObject.getText());
+
+        dialogBuilder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        dialogBuilder.setNegativeButton("Cancel", null);
+        dialogBuilder.setView(serviceStateView);
+        dialogBuilder.show();
+    }
 
 
     public void sendNewAnchoring(View v) {
@@ -119,6 +150,31 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
         dialogBuilder.setNegativeButton("Cancel", null);
         dialogBuilder.setView(anchoringView);
         dialogBuilder.show();
+    }
+
+    private void setTimeSequenceSpinnerContent(ServiceObject selectedServiceObject) {
+        spinnerTimeSequence = (Spinner) serviceStateView.findViewById(R.id.spinnerTimeSequence);
+        ArrayList<ServiceTimeSequence> timeSequences = new ArrayList<ServiceTimeSequence>();
+        timeSequences = PortCDMServices.getStateDefinitions(currentServiceObject);
+        ArrayAdapter<ServiceTimeSequence> adapterTimeSequences = new ArrayAdapter<ServiceTimeSequence>(this, android.R.layout.simple_spinner_item, timeSequences);
+        spinnerTimeSequence.setAdapter(
+                new NothingSelectedSpinnerAdapter(
+                        adapterTimeSequences,
+                        R.layout.contact_spinner_row_nothing_selected,
+                        // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
+                        this));
+        spinnerTimeSequence.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    selectedTimeSequence = spinnerTimeSequence.getSelectedItem().toString();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+                Log.wtf("TIME SEQUENCE", selectedTimeSequence);
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     //Creates spinner for selecting Service Time Sequence based on the selected service object

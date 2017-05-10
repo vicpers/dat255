@@ -74,7 +74,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
-                android:onClick="Towage"
+                android:onClick="sendNewSericeState"
                 android:text="Towage"
                 android:textSize="24sp" />
 

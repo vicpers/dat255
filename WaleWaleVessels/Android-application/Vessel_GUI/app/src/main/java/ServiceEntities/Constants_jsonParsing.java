@@ -67,6 +67,7 @@ public class Constants_jsonParsing {
     public static final String TAG_LOCATION_TYPE                        = "locationType";
     public static final String TAG_LOCATION_POSITION                    = "position";
     public static final String TAG_LOCATION_NAME                        = "name";
+    public static final String TAG_LOCATIONS_URN                        = "URN";
 
     // Constants for handling the tags in a Arrival, Departure and Between Json-response.
     public static final String TAG_POSITION_LATITUDE                    = "latitude";

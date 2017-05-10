@@ -14,14 +14,18 @@ public class Location {
     private String name;
     private Position position;
     private LocationType locationType;
-    private String locationMRN;
+    private String URN = null;
+    private String shortName;
+    private String portUnlocode = "SEGOT";
 
     public Location(JSONObject locJsonObj){
         if (locJsonObj != null) {
             try {
 
                 this.locationType   = LocationType.valueOf(locJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_TYPE));
-                this.name                 = locJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_NAME);
+                this.name           = locJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_NAME);
+                this.shortName      = locJsonObj.getString(Constants_jsonParsing.TAG_PORT_LOCATIONS_SHORT_NAME);
+                this.URN            = locJsonObj.getString(Constants_jsonParsing.TAG_LOCATIONS_URN);
 
                 Position position;
                 try {
@@ -42,10 +46,10 @@ public class Location {
         setLocationType(locationType);
     }
 
-    public Location(String name, Position position, String locationMRN){
+    public Location(String name, Position position, String URN){
         setName(name);
         setPosition(position);
-        setLocationMRN(locationMRN);
+        setURN(URN);
     }
 
     public String getName() {
@@ -72,23 +76,39 @@ public class Location {
         this.locationType = locationType;
     }
 
-    public String getLocationMRN() {
-        return locationMRN;
+    public String getURN() {
+        return URN;
     }
 
-    private void setLocationMRN(String locationMRN) {
-        this.locationMRN = locationMRN;
+    private void setURN(String URN) {
+        this.URN = URN;
     }
 
-    public String toXml() {
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
+
+
+    public String toXml() { // May not be in use anymore.
         String xmlStr = "";
-        if(name != null)
-            xmlStr += "<ns2:name>" + name + "</ns2:name>";
+
+        /*if(name != null)
+            xmlStr += "<ns2:name>" + name + "</ns2:name>";*/
+        /*if(locationType != null)
+            xmlStr += "<ns2:locationType>" + locationType + "</ns2:locationType>";*/
+
         if (position != null)
             xmlStr += "<ns2:position>" + position.toXml() + "</ns2:position>";
-        if(locationType != null)
-            xmlStr += "<ns2:locationType>" + locationType + "</ns2:locationType>";
-        xmlStr += "<ns2:locationMRN>" + locationMRN + "</ns2:locationMRN>";
+
+        if(URN != null){
+            xmlStr += "<ns2:locationMRN>" + URN + "</ns2:locationMRN>";
+        } else {
+            xmlStr += "<ns2:locationMRN>urn:mrn:stm:location:" + portUnlocode + ":" + locationType + "</ns2:locationMRN>";
+        }
         return xmlStr;
     }
 }

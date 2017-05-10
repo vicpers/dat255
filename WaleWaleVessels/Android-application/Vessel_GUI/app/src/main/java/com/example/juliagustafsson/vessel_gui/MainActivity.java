@@ -13,8 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import static RESTServices.PortCDMServices.getActualPortData;
-import static RESTServices.PortCDMServices.getStateDefinitions;
+import static RESTServices.PortCDMServices.*;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

@@ -37,8 +37,6 @@ import ServiceEntities.Position;
 import ServiceEntities.ReferenceObject;
 import ServiceEntities.TimeType;
 
-import static RESTServices.Constants_API.API_ACTUAL_PORT;
-
 
 public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
     private EditText dateEditText;
@@ -53,7 +51,7 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
     private String selectedArrDep;
     private String selectedPortLoc;
     private HashMap<String, LocationType> locMap;
-    private HashMap<String, Position> portLocMap;
+    private HashMap<String, Location> portLocMap;
     private ArrayList<LocationType> allowedSubLocations = new ArrayList<>();
     public static String newETA ="";
     public static String newDate ="";
@@ -119,13 +117,10 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         locMap = LocationType.toMap();
         ArrayList<String> locations = new ArrayList<String>(locMap.keySet());
         locations.remove(LocationType.VESSEL.getText()); //Vessel cannot arrive to vessel
+        // Next and previous ports are currently not in use on server side
+        locations.remove(LocationType.NEXT_PORT.getText());
+        locations.remove(LocationType.PREVIOUS_PORT.getText());
         Collections.sort(locations);
-
-        // Removes all LocationTypes that do not have a sublocation.
-        allowedSubLocations = new ArrayList<LocationType>(locMap.values());
-        allowedSubLocations.remove(LocationType.VESSEL);
-        allowedSubLocations.remove(LocationType.LOC);
-        allowedSubLocations.remove(LocationType.TRAFFIC_AREA);
 
         spinner = (Spinner) findViewById(R.id.spinnerTimeType);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locations);
@@ -219,19 +214,19 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
          */
         //Location locObj = new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.TRAFFIC_AREA);
         // Called in a try-catch because iti is not sure that a subcategory of PortLocation exists. 
-        Position position = new Position(0, 0);
+        Location location = new Location(selectedPortLoc, new Position(0, 0), locMap.get(selectedRecipant));
         try{
-            position = portLocMap.get(selectedPortLoc);
+            location = portLocMap.get(selectedPortLoc);
         } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
 
         //Location locObj = new Location(null, position, locMap.get(selectedRecipant)); //Old version 0.0.16 XML
-        String locationMRN;
+        /*String locationMRN;
         if (allowedSubLocations.contains(locMap.get(selectedRecipant))) //TODO Add correct ending to locationMRN if subLocation exists.
             locationMRN = "urn:mrn:stm:location:" + API_ACTUAL_PORT + ":" + locMap.get(selectedRecipant);// + ":" + position.getShortName();
         else
-            locationMRN = "urn:mrn:stm:location:" + API_ACTUAL_PORT + ":" + locMap.get(selectedRecipant);
-        Location locObj = new Location(null, position, locationMRN);  //New version 0.6
-        ArrivalLocation arrLoc = new ArrivalLocation(null, locObj);
+            locationMRN = "urn:mrn:stm:location:" + API_ACTUAL_PORT + ":" + locMap.get(selectedRecipant);*/
+        //Location locObj = new Location(null, position, locationMRN);  //New version 0.6
+        ArrivalLocation arrLoc = new ArrivalLocation(null, location);
         LocationState locState = new LocationState(ReferenceObject.VESSEL, formattedTime, TimeType.ESTIMATED, arrLoc);
 
         // Bortkommenterat är sådant som används om val för Arrival eller Departure ska väljas.

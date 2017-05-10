@@ -34,6 +34,7 @@ public class Constants_API {
     public static final String API_SERVICE_GET_VESSEL               = "/vr/vessel/";
     public static final String API_SERVICE_GET_STATE_DEFINITIONS    = "/dmp/state_definition_catalogue";
     public static final String API_SERVICE_GET_PORT                 = "/dmp/ports/";
+    public static final String API_SERVICE_FIND_LOCATIONS           = "/location-registry/locations";
 
     // Constants for building PortCallMessage XML-structure.
     public static final String API_XML_HEADER                       = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";

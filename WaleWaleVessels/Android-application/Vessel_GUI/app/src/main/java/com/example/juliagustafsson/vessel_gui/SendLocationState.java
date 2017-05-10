@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -18,35 +17,25 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.UUID;
 
-import RESTServices.AMSS;
 import RESTServices.PortCDMServices;
-import ServiceEntities.ArrivalLocation;
-import ServiceEntities.DepartureLocation;
 import ServiceEntities.Location;
 import ServiceEntities.LocationState;
 import ServiceEntities.LocationType;
-import ServiceEntities.PortCallMessage;
-import ServiceEntities.Position;
 import ServiceEntities.ReferenceObject;
 import ServiceEntities.TimeType;
-
-import static RESTServices.Constants_API.API_ACTUAL_PORT;
 
 public class SendLocationState extends AppCompatActivity implements View.OnClickListener {
     private HashMap<String, TimeType> timeMap;
     private HashMap<String, ReferenceObject> refObjMap;
     private HashMap<String, LocationType> locationMap;
     private ArrayList<LocationType> allowedSubLocations;
-    private HashMap<String, Position> portLocMap;
+    private HashMap<String, Location> portLocMap;
     private Spinner spinnerTimeType;
     private Spinner spinnerRefObj;
     private Spinner spinnerArrOrDep;
@@ -264,7 +253,8 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
     }
 
     //TODO Kopierade in från Send_ETA, kraschar hela skiten just "java.lang.IllegalStateException: Could not find method sendNewETA(View)"
-    public void sendNewLocationState(View v) {
+//    Kommenterat ut då det inte används längre. Finns kopplingar till portData som inte funkar just nu.
+/*    public void sendNewLocationState(View v) {
         // Gets strings that represent the date and time from different Edit-fields.
         String etaDate = dateEditText.getText().toString();
         String etaTime = timeEditText.getText().toString();
@@ -284,10 +274,10 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
             Log.e("DateProblem Null", e2.toString());
         }
 
-        Position position = new Position(0, 0);
+        *//*Position position = new Position(0, 0);
         try{
             position = portLocMap.get(selectedPortLoc);
-        } catch (NullPointerException e){Log.e("PortLocationLocState", e.toString());}
+        } catch (NullPointerException e){Log.e("PortLocationLocState", e.toString());}*//*
 
 
         String locationMRN;
@@ -299,7 +289,7 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
         //Creates location-objects based on the selected LocationTypes from the spinners
         if(selectedArrOrDep.equals("Arrival")) {
 //            Location arrLocObj = new Location(null, position, locationMap.get(selectedLocType));//Old version 0.0.16 XML
-            Location arrLocObj = new Location(null, position, locationMRN);  //New version 0.6
+            Location arrLocObj = //new Location(null, position, locationMRN);  //New version 0.6
             ArrivalLocation arrLoc = new ArrivalLocation(null, arrLocObj);
             locState = new LocationState(ReferenceObject.VESSEL, formattedTime, timeMap.get(selectedTimeType), arrLoc);
 
@@ -326,7 +316,7 @@ public class SendLocationState extends AppCompatActivity implements View.OnClick
         dialogBuilder.setPositiveButton("Ok", null);
         dialogBuilder.show();
 
-    }
+    }*/
 }
 
 

@@ -11,36 +11,18 @@ import java.util.NoSuchElementException;
 
 import HTTPRequest.WebRequest;
 import ServiceEntities.Constants_jsonParsing;
+import ServiceEntities.Location;
 import ServiceEntities.LocationTimeSequence;
 import ServiceEntities.LocationType;
-import ServiceEntities.Position;
 import ServiceEntities.ReferenceObject;
 import ServiceEntities.ServiceObject;
 import ServiceEntities.ServiceTimeSequence;
 import ServiceEntities.ServiceType;
 import ServiceEntities.Vessel;
 
-import static RESTServices.Constants_API.API_ACTUAL_PORT;
-import static RESTServices.Constants_API.API_DEV_BASE_URL;
-import static RESTServices.Constants_API.API_DEV_KEY1;
-import static RESTServices.Constants_API.API_DEV_PASSWORD;
-import static RESTServices.Constants_API.API_DEV_PORT1;
-import static RESTServices.Constants_API.API_DEV_USERNAME;
-import static RESTServices.Constants_API.API_HEADER_ACCEPT;
-import static RESTServices.Constants_API.API_HEADER_ACCEPT_JSON;
-import static RESTServices.Constants_API.API_HEADER_API_KEY;
-import static RESTServices.Constants_API.API_HEADER_PASSWORD;
-import static RESTServices.Constants_API.API_HEADER_USER_ID;
-import static RESTServices.Constants_API.API_SERVICE_GET_PORT;
-import static RESTServices.Constants_API.API_SERVICE_GET_STATE_DEFINITIONS;
-import static RESTServices.Constants_API.API_SERVICE_GET_VESSEL;
-import static ServiceEntities.Constants_jsonParsing.TAG_LOCATION_TYPE;
-import static ServiceEntities.Constants_jsonParsing.TAG_PORT_LOCATIONS;
-import static ServiceEntities.Constants_jsonParsing.TAG_PORT_LOCATIONS_NAME;
-import static ServiceEntities.Constants_jsonParsing.TAG_PORT_LOCATIONS_POSITION;
-import static ServiceEntities.Constants_jsonParsing.TAG_PORT_LOCATIONS_SHORT_NAME;
-import static ServiceEntities.Constants_jsonParsing.TAG_STATE_DEFINITION_LOCATION;
-import static ServiceEntities.Constants_jsonParsing.TAG_STATE_DEFINITION_SERVICE;
+import static RESTServices.Constants_API.*;
+import static ServiceEntities.Constants_jsonParsing.*;
+
 
 /**
  * Created by maxedman on 2017-04-27.
@@ -53,7 +35,7 @@ public class PortCDMServices {
 
     public static HashMap<ServiceObject, ServiceType> serviceStateType = new HashMap<>();
 
-    public static HashMap<LocationType, HashMap<String, Position>> portData = new HashMap<>();
+    public static HashMap<LocationType, HashMap<String, Location>> portData;
 
 
     /**
@@ -195,8 +177,10 @@ public class PortCDMServices {
      *
      */
     public static void getActualPortData(){
+        // Clears previous port data
+        portData = new HashMap<>();
 
-        String url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_GET_PORT + API_ACTUAL_PORT;
+        String url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_FIND_LOCATIONS;
 
         HashMap<String, String> headers = new HashMap<String, String>();
 
@@ -208,30 +192,34 @@ public class PortCDMServices {
         String wrResponse = WebRequest.makeWebServiceCall(url, 1, headers, null);
 
         try {
-            JSONObject jsonObj  = new JSONObject(wrResponse);
-            JSONArray jsonArr   = jsonObj.getJSONArray(TAG_PORT_LOCATIONS);
+//            JSONObject jsonObj  = new JSONObject(wrResponse);
+//            JSONArray jsonArr   = jsonObj.getJSONArray(TAG_PORT_LOCATIONS);
+            JSONArray jsonArr   = new JSONArray(wrResponse);
             for (int i = 0 ; i < jsonArr.length(); i++) {
                 try {
-                    JSONObject portLoc = jsonArr.getJSONObject(i);
+                    JSONObject portLocObj = jsonArr.getJSONObject(i);
+                    Location portLocation = new Location(portLocObj);
 
-                    LocationType locationType       = LocationType.valueOf(portLoc.getString(TAG_LOCATION_TYPE));
+                    /*LocationType locationType       = LocationType.valueOf(portLoc.getString(TAG_LOCATION_TYPE));
                     String portLocationName         = portLoc.getString(TAG_PORT_LOCATIONS_NAME);
-                    String portLocationShortName    = portLoc.getString(TAG_PORT_LOCATIONS_SHORT_NAME);
-                    Position portLocPosition        = null;
+                    String portLocationShortName    = portLoc.getString(TAG_PORT_LOCATIONS_SHORT_NAME);*/
+
+/*
                     try {
-                        portLocPosition = new Position(portLoc.getJSONObject(TAG_PORT_LOCATIONS_POSITION));
-                        portLocPosition.setName(portLocationName);
-                        portLocPosition.setShortName(portLocationShortName);
-                    } catch (JSONException e){}
+//                        portLocation = new Location(portLoc.getJSONObject(TAG_PORT_LOCATIONS_));
+
+//                        portLocation.setShortName(portLocationShortName);
+                    } catch (JSONException e){ Log.e("GetPortData", e.toString()); }
+*/
 
 
-                    HashMap<String, Position> tempPortLocMap = portData.get(locationType);
+                    HashMap<String, Location> tempPortLocMap = portData.get(portLocation.getType());
                     if (tempPortLocMap == null) {
-                        tempPortLocMap = new HashMap<String, Position>();
-                        tempPortLocMap.put(portLocationName, portLocPosition);
-                        portData.put(locationType, tempPortLocMap);
+                        tempPortLocMap = new HashMap<String, Location>();
+                        tempPortLocMap.put(portLocation.getName(), portLocation);
+                        portData.put(portLocation.getType(), tempPortLocMap);
                     } else {
-                        tempPortLocMap.put(portLocationName, portLocPosition);
+                        tempPortLocMap.put(portLocation.getName(), portLocation);
                     }
 
 
@@ -248,9 +236,10 @@ public class PortCDMServices {
 
     /**
      * @param locationType
-     * @return
+     * @return Hashmap or null if LocationType is not found.
      */
-    public static HashMap<String, Position> getPortLocations(LocationType locationType){
+    public static HashMap<String, Location> getPortLocations(LocationType locationType){
+
         return portData.get(locationType);
     }
 }

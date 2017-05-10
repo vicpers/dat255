@@ -176,7 +176,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateEditText = (EditText) anchoringView.findViewById(R.id.editTextDate);
         dateEditText.requestFocus();
-
+        dateEditText.setInputType(InputType.TYPE_NULL);
         timeEditText = (EditText) anchoringView.findViewById(R.id.editTextTime);
         timeEditText.setInputType(InputType.TYPE_NULL);
 

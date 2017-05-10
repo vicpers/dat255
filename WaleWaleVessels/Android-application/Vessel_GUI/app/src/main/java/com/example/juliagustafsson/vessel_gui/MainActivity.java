@@ -66,6 +66,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         userLocalStore = new UserLocalStorage(this);
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //If someone is logged in access MainActivity page
+        if (authenticate()) {
+            displayVesselID();
+        }
+        //If noone is logged in access Login page
+        else {
+            startActivity(new Intent(MainActivity.this, Vessel_Login.class ));
+        }
+
+
 
         // Calls method for fetching all the state definitions in PortCDM and saves them in a
         // static map for later use when sending PortCallMessages
@@ -74,21 +90,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Calls method for fetching the data about portLocations for actual port.
         // Atm Port of Gothenburg - SEGOT. Specified in API-constants.
         getActualPortData();
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        //If someone is logged in access MainActivity page
-        if (authenticate() == true) {
-        displayVesselID();
-        }
-        //If noone is logged in access Login page
-        else {
-            startActivity(new Intent(MainActivity.this, Vessel_Login.class ));
-        }
     }
 
     private boolean authenticate() {

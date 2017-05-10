@@ -41,8 +41,10 @@ import static ServiceEntities.Constants_jsonParsing.TAG_STATE_DEFINITION_SERVICE
 
 public class PortCDMServices {
 
-    public static HashMap<LocationTimeSequence, ArrayList<LocationType>> locationStateDefinitions = new HashMap<>();
-    public static HashMap<ServiceObject, ArrayList<ServiceTimeSequence>> serviceStateDefinitions = new HashMap<>();
+    public static HashMap<LocationTimeSequence, ArrayList<LocationType>> locationStateLocationTypes = new HashMap<>();
+    public static HashMap<ServiceObject, ArrayList<ServiceTimeSequence>> serviceStateTimeSequences = new HashMap<>();
+
+    public static HashMap<ServiceObject, ServiceType> serviceStateType = new HashMap<>();
 
     public static HashMap<LocationType, HashMap<String, Position>> portData = new HashMap<>();
 
@@ -82,8 +84,8 @@ public class PortCDMServices {
      * @param locationTimeSequence
      * @return
      */
-    public ArrayList<LocationType> getStateDefinitions(LocationTimeSequence locationTimeSequence){
-        return locationStateDefinitions.get(locationTimeSequence);
+    public static ArrayList<LocationType> getStateDefinitions(LocationTimeSequence locationTimeSequence){
+        return locationStateLocationTypes.get(locationTimeSequence);
     }
 
 
@@ -91,8 +93,16 @@ public class PortCDMServices {
      * @param serviceObject
      * @return
      */
-    public ArrayList<ServiceTimeSequence> getStateDefinitions(ServiceObject serviceObject){
-        return serviceStateDefinitions.get(serviceObject);
+    public static ArrayList<ServiceTimeSequence> getStateDefinitions(ServiceObject serviceObject){
+        return serviceStateTimeSequences.get(serviceObject);
+    }
+
+    /**
+     * @param serviceObject
+     * @return
+     */
+    public static ServiceType getServiceType(ServiceObject serviceObject){
+        return serviceStateType.get(serviceObject);
     }
 
 
@@ -123,10 +133,10 @@ public class PortCDMServices {
                     JSONObject servStateDef = null;
                     try {
                         locStateDef = jsonObj.getJSONObject(TAG_STATE_DEFINITION_LOCATION);
-                    } catch (JSONException e1){ }
+                    } catch (JSONException e){ }
                     try {
                         servStateDef = jsonObj.getJSONObject(TAG_STATE_DEFINITION_SERVICE);
-                    } catch (JSONException e1){ }
+                    } catch (JSONException e){ }
 
                     if(locStateDef != null){
                         //System.out.println(locStateDef.toString());
@@ -134,11 +144,11 @@ public class PortCDMServices {
                             if (ReferenceObject.VESSEL == ReferenceObject.valueOf(locStateDef.getString(Constants_jsonParsing.TAG_LOCATION_STATE_REFERENCE_OBJECT))) {
                                 LocationTimeSequence locTimeSeq = LocationTimeSequence.valueOf(locStateDef.getString(Constants_jsonParsing.TAG_LOCATION_STATE_TIME_SEQUENCE));
                                 LocationType locType = LocationType.valueOf(locStateDef.getString(Constants_jsonParsing.TAG_LOCATION_TYPE));
-                                ArrayList<LocationType> tempArrLocType = locationStateDefinitions.get(locTimeSeq);
+                                ArrayList<LocationType> tempArrLocType = locationStateLocationTypes.get(locTimeSeq);
                                 if (tempArrLocType == null) {
                                     tempArrLocType = new ArrayList<LocationType>();
                                     tempArrLocType.add(locType);
-                                    locationStateDefinitions.put(locTimeSeq, tempArrLocType);
+                                    locationStateLocationTypes.put(locTimeSeq, tempArrLocType);
                                 } else
                                     tempArrLocType.add(locType);
                             }
@@ -149,13 +159,18 @@ public class PortCDMServices {
                         try {
                             ServiceObject servObj = ServiceObject.valueOf(servStateDef.getString(Constants_jsonParsing.TAG_SERVICE_STATE_SERVICE_OBJECT));
                             ServiceTimeSequence servTimeSeq = ServiceTimeSequence.valueOf(servStateDef.getString(Constants_jsonParsing.TAG_SERVICE_STATE_TIME_SEQUENCE));
-                            ArrayList<ServiceTimeSequence> tempArrServTimeSeq = serviceStateDefinitions.get(servObj);
+                            ArrayList<ServiceTimeSequence> tempArrServTimeSeq = serviceStateTimeSequences.get(servObj);
                             if (tempArrServTimeSeq == null) {
                                 tempArrServTimeSeq = new ArrayList<ServiceTimeSequence>();
                                 tempArrServTimeSeq.add(servTimeSeq);
-                                serviceStateDefinitions.put(servObj, tempArrServTimeSeq);
-                            } else
+                                serviceStateTimeSequences.put(servObj, tempArrServTimeSeq);
+                            } else {
                                 tempArrServTimeSeq.add(servTimeSeq);
+                            }
+
+                            ServiceType servType = ServiceType.valueOf(servStateDef.getString(Constants_jsonParsing.TAG_STATE_DEFINITION_SERVICE_TYPE));
+                            serviceStateType.put(servObj, servType);
+
                         }catch (Exception e){Log.e("ServStateDef", e.toString());}
                     }
                 } catch (JSONException e1){

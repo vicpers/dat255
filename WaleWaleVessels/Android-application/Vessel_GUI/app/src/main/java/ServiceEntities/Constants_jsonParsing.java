@@ -75,6 +75,7 @@ public class Constants_jsonParsing {
     // Constants for handling the tags StateDefinition Json-response.
     public static final String TAG_STATE_DEFINITION_LOCATION            = "locationStateDefinition";
     public static final String TAG_STATE_DEFINITION_SERVICE             = "serviceStateDefinition";
+    public static final String TAG_STATE_DEFINITION_SERVICE_TYPE        = "serviceType";
 
     // Constants for handling tags in dmp/ports/.
     public static final String TAG_PORT_LOCATIONS                       = "portLocations";

@@ -249,7 +249,7 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         String vesselID = intent.getExtras().getString("vesselID"); //Hämta VesselIMO skickat från mainactivity
         PortCallMessage pcmObj = new PortCallMessage(vesselID,
                                                      "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
-                                                     "VesselAppSendETA",
+                                                     null,
                                                      locState);
         AMSS amss = new AMSS(pcmObj);
         String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.

@@ -213,8 +213,8 @@ public class PortCallMessage {
 
     @Override
     public String toString() {
-        return "PortCallMessage{" +
-                "portCallId='" + portCallId + "'}";
+        return "PortCallID : " + portCallId +
+                "Vessel : " + vessel.getId();
     }
 
     public String toXml() {

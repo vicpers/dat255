@@ -3,13 +3,13 @@ package com.example.juliagustafsson.vessel_gui;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.support.v7.app.ActionBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 import RESTServices.MessageBrokerQueue;
+import ServiceEntities.ServiceObject;
 import ServiceEntities.Vessel;
 
 import static RESTServices.PortCDMServices.getVessel;
@@ -70,13 +71,6 @@ public class Vessel_Login extends AppCompatActivity implements View.OnClickListe
         try{
             Vessel newVessel = getVessel(vesselID);
             userLocalStore.setVessel(newVessel);
-            MessageBrokerQueue mbq = new MessageBrokerQueue("vessel");
-            mbq.createUnfilteredQueue(userLocalStore.getVessel());
-
-            HashMap<String, MessageBrokerQueue> hashMap = new HashMap<>();
-            hashMap.put("vessel",mbq);
-            userLocalStore.setMessageBrokerMap(hashMap);
-            logUserIn(user);
         }
         catch(NoSuchElementException e){
             Context context = getApplicationContext();
@@ -96,6 +90,34 @@ public class Vessel_Login extends AppCompatActivity implements View.OnClickListe
             toast.show();
         }
 
+        Vessel myVessel = userLocalStore.getVessel();
+        HashMap<String, MessageBrokerQueue> hashMap = new HashMap<>();
+
+        MessageBrokerQueue tempMbq = new MessageBrokerQueue();
+        tempMbq.createUnfilteredQueue(myVessel);
+        hashMap.put("vessel",tempMbq);
+
+        tempMbq = new MessageBrokerQueue();
+        tempMbq.createUnfilteredQueue(myVessel, ServiceObject.ANCHORING);
+        hashMap.put(ServiceObject.ANCHORING.getText(),tempMbq);
+
+        tempMbq = new MessageBrokerQueue();
+        tempMbq.createUnfilteredQueue(myVessel, ServiceObject.BERTH_SHIFTING);
+        hashMap.put(ServiceObject.BERTH_SHIFTING.getText(),tempMbq);
+
+        tempMbq = new MessageBrokerQueue();
+        tempMbq.createUnfilteredQueue(myVessel, ServiceObject.TOWAGE);
+        hashMap.put(ServiceObject.TOWAGE.getText(),tempMbq);
+
+        tempMbq = new MessageBrokerQueue();
+        tempMbq.createUnfilteredQueue(myVessel, ServiceObject.ICEBREAKING_OPERATION);
+        hashMap.put(ServiceObject.ICEBREAKING_OPERATION.getText(),tempMbq);
+
+        Log.wtf("Queues", hashMap.toString());
+        userLocalStore.setMessageBrokerMap(hashMap);
+        logUserIn(user);
+
+        
         //Nedan är när vi inte vill kolla om IDt är korrekt
        /* String vID = user.vesselID;
             if (vID.equals("WaleWale") {

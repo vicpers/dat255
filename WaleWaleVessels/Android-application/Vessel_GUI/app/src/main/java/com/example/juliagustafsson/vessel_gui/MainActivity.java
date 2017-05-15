@@ -1,6 +1,5 @@
 package com.example.juliagustafsson.vessel_gui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,19 +9,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import RESTServices.MessageBrokerQueue;
-import ServiceEntities.Vessel;
+import ServiceEntities.PortCallMessage;
 
-import static RESTServices.PortCDMServices.*;
+import static RESTServices.PortCDMServices.getActualPortData;
+import static RESTServices.PortCDMServices.getStateDefinitions;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -80,24 +80,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         if(firstTimeInMainActivity = true){
-            handler = new Handler();
+            //handler = new Handler();
             Thread thread = new Thread() {
                 @Override
                 public void run() {
                     try {
                         while(true) {
                             HashMap<String, MessageBrokerQueue> hej = userLocalStore.getMessageBrokerMap();
-                            /*hej.get("vessel").pollQueue();
-                           if(!(newMessages.size() == 0)){
-                                Context context = getApplicationContext();
-                                CharSequence text = "OBS: Nytt PortCallMessage";
-                                int duration = Toast.LENGTH_SHORT;
+                            ArrayList<PortCallMessage> newMessages = hej.get("vessel").pollQueue();
+                           if(newMessages.size() > 0) {
+                               for (PortCallMessage newMessage : newMessages) {
+                                   /*Context context = getApplicationContext();
+                                   CharSequence text = "Nytt PortCallMessage: " + newMessage.toString();
+                                   int duration = Toast.LENGTH_SHORT;*/
+                                   Log.e("NyttPCM", newMessage.toString());
 
-                                Toast toast = Toast.makeText(context, text, duration);
-                                toast.show();
-                            }*/
-                            sleep(60000);
-                            handler.post(this);
+                                   /*Toast toast = Toast.makeText(context, text, duration);
+                                   toast.show();*/
+                               }
+                           }
+                            sleep(6000);
+                            //handler.post(this);
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();

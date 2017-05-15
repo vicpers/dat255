@@ -10,7 +10,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import HTTPRequest.WebRequest;
-import ServiceEntities.*;
+import ServiceEntities.LocationType;
+import ServiceEntities.PortCallMessage;
+import ServiceEntities.ServiceObject;
+import ServiceEntities.ServiceState;
+import ServiceEntities.Vessel;
 
 import static RESTServices.Constants_API.API_DEV_BASE_URL;
 import static RESTServices.Constants_API.API_DEV_KEY1;
@@ -19,7 +23,6 @@ import static RESTServices.Constants_API.API_DEV_PORT1;
 import static RESTServices.Constants_API.API_DEV_USERNAME;
 import static RESTServices.Constants_API.API_HEADER_ACCEPT;
 import static RESTServices.Constants_API.API_HEADER_ACCEPT_JSON;
-import static RESTServices.Constants_API.API_HEADER_ACCEPT_XML;
 import static RESTServices.Constants_API.API_HEADER_API_KEY;
 import static RESTServices.Constants_API.API_HEADER_CONTENT_TYPE;
 import static RESTServices.Constants_API.API_HEADER_PASSWORD;
@@ -71,7 +74,7 @@ public class MessageBrokerQueue {
 
         HashMap<String, String> headers = new HashMap<String, String>();
 
-        headers.put(API_HEADER_CONTENT_TYPE, API_HEADER_ACCEPT_XML);
+        headers.put(API_HEADER_CONTENT_TYPE, API_HEADER_ACCEPT_JSON);
         headers.put(API_HEADER_USER_ID, API_DEV_USERNAME);
         headers.put(API_HEADER_PASSWORD, API_DEV_PASSWORD);
         headers.put(API_HEADER_API_KEY, API_DEV_KEY1);
@@ -88,7 +91,7 @@ public class MessageBrokerQueue {
 
         HashMap<String, String> headers = new HashMap<String, String>();
 
-        headers.put(API_HEADER_CONTENT_TYPE, API_HEADER_ACCEPT_XML);
+        headers.put(API_HEADER_CONTENT_TYPE, API_HEADER_ACCEPT_JSON);
         headers.put(API_HEADER_USER_ID, API_DEV_USERNAME);
         headers.put(API_HEADER_PASSWORD, API_DEV_PASSWORD);
         headers.put(API_HEADER_API_KEY, API_DEV_KEY1);
@@ -113,7 +116,7 @@ public class MessageBrokerQueue {
 
         HashMap<String, String> headers = new HashMap<String, String>();
 
-        headers.put(API_HEADER_CONTENT_TYPE, API_HEADER_ACCEPT_XML);
+        headers.put(API_HEADER_CONTENT_TYPE, API_HEADER_ACCEPT_JSON);
         headers.put(API_HEADER_USER_ID, API_DEV_USERNAME);
         headers.put(API_HEADER_PASSWORD, API_DEV_PASSWORD);
         headers.put(API_HEADER_API_KEY, API_DEV_KEY1);
@@ -144,7 +147,7 @@ public class MessageBrokerQueue {
 
         HashMap<String, String> headers = new HashMap<String, String>();
 
-        headers.put(API_HEADER_CONTENT_TYPE, API_HEADER_ACCEPT_XML);
+        headers.put(API_HEADER_CONTENT_TYPE, API_HEADER_ACCEPT_JSON);
         headers.put(API_HEADER_USER_ID, API_DEV_USERNAME);
         headers.put(API_HEADER_PASSWORD, API_DEV_PASSWORD);
         headers.put(API_HEADER_API_KEY, API_DEV_KEY1);
@@ -153,7 +156,7 @@ public class MessageBrokerQueue {
                 "  {" +
                 "    \"type\": \"VESSEL\"," +
                 "    \"element\": \"" + vessel.getId() + "\"" +
-                "  }," +
+                "  }" +
                 "]";
 
         this.queueId = WebRequest.makeWebServicePost(url, headers, null, body);

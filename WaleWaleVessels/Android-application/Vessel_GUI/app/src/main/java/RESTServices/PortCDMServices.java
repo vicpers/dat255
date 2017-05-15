@@ -68,7 +68,6 @@ public class PortCDMServices {
         }
     }
 
-
     /**
      * @param locationTimeSequence
      * @return
@@ -76,7 +75,6 @@ public class PortCDMServices {
     public static HashMap<String, LocationType> getStateDefinitions(LocationTimeSequence locationTimeSequence){
         return locationStateLocationTypes.get(locationTimeSequence);
     }
-
 
     /**
      * @param serviceObject

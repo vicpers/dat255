@@ -96,19 +96,18 @@ public class WebRequest {
                 }
 
             } else {
-                System.out.println("WebRequestHTTPConnection is not OK!");
-                System.out.println("ResponseCode: " + reqresponseCode);
-                System.out.println("URL: " + urladdress);
+                Log.e("WebRequestHTTPConn", "Not OK!");
+                Log.e("ResponseCode", "" + reqresponseCode);
+                Log.e("URL", urladdress);
                 response = "WebRequestHTTPConnection is not OK!" +
                             "\nResponseCode: " + reqresponseCode +
                             "\nURL: " + urladdress;
             }
-            if (requestmethod == 2)
-                response = reqresponseCode + "";
         } catch (Exception e) {
             e.printStackTrace();
             response = e.toString();
         }
+        Log.e("ResponseStr", response);
         return response;
     }
 
@@ -141,7 +140,7 @@ public class WebRequest {
                 int reqresponseCode = conn.getResponseCode();
                 if (reqresponseCode == HttpsURLConnection.HTTP_CREATED) {
                     String line;
-                    response += "Status - Created\n";
+                    response = "";
                     try {
                         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                         while ((line = br.readLine()) != null) {
@@ -185,11 +184,11 @@ public class WebRequest {
                     Log.e("RESPONSE: ", response);
                 }
             } finally {
-                if (response == null){
+                /*if (response == null){
                     response = conn.getResponseCode() + " - " + conn.getResponseMessage();
                 } else if (response.length() == 0){
                     response = conn.getResponseCode() + " - " + conn.getResponseMessage();
-                }
+                }*/
                 conn.disconnect();
             }
         } catch (ProtocolException e) {
@@ -200,6 +199,8 @@ public class WebRequest {
             e.printStackTrace();
         }
 
+        Log.wtf("Response", response);
+        Log.wtf("Body", body);
         return response;
     }
 }

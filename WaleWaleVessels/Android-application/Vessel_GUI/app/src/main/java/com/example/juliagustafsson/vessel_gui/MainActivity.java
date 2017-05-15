@@ -179,6 +179,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void reportUpdate(View view) {
         Intent intent = new Intent(this, Report_Update.class); //skapar en ny instans av klassen Report_Update som initierar ett nytt blankt fönster
+        intent.putExtra("vesselID", userLocalStore.getVessel().getId());//skicka med VesselID till nästa aktivitet
         startActivity(intent);
     }
 

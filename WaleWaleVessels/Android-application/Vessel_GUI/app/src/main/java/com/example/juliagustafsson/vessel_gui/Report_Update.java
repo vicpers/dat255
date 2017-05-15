@@ -19,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ import java.util.UUID;
 import RESTServices.AMSS;
 import RESTServices.PortCDMServices;
 import ServiceEntities.ArrivalLocation;
+import ServiceEntities.DepartureLocation;
 import ServiceEntities.Location;
 import ServiceEntities.LocationState;
 import ServiceEntities.LocationType;
@@ -67,7 +69,15 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
     private String selectedFromLocation;
     private String selectedtoLocation;
     private String selectedAtLocation;
-    private String selectedTimeType;
+    private TimeType selectedTimeType;
+    private String selectedPortLoc;
+    private LocationType selectedLocationType;
+    private Boolean isServiceState;
+    private Boolean isArrival;
+    private HashMap<String, TimeType> timeTypeMap;
+    private ArrivalLocation arrLoc;
+    private DepartureLocation depLoc;
+    private LocationState locState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +96,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
     }
 
     public void sendNewServiceState(View v) {
+        isServiceState = true;
         serviceStateView = getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
         switch( v.getId() ) {
             case R.id.Anchoring: {
@@ -227,10 +238,12 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
     }
 
     public void sendNewLocationState(View v) {
+        isServiceState = false;
         locationstateView = getLayoutInflater().inflate(R.layout.dialog_location_state_update, null);
-
         switch( v.getId() ) {
             case R.id.ArrivalAnchoringArea: {
+                isArrival = true;
+                selectedLocationType = LocationType.ANCHORING_AREA;
                 createAlertDialog(locationstateView);
                 setTimeAndDate(locationstateView);
                 setTimeTypeSpinner();
@@ -238,6 +251,8 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
             }
 
             case R.id.DepartureAnchoringArea: {
+                isArrival = false;
+                selectedLocationType = LocationType.ANCHORING_AREA;
                 createAlertDialog(locationstateView);
                 setTimeAndDate(locationstateView);
                 setTimeTypeSpinner();
@@ -245,6 +260,8 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
             }
 
             case R.id.ArrivalBerth: {
+                isArrival = true;
+                selectedLocationType = LocationType.BERTH;
                 createAlertDialog(locationstateView);
                 setTimeAndDate(locationstateView);
                 setTimeTypeSpinner();
@@ -252,6 +269,8 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
             }
 
             case R.id.DepartureBerth: {
+                isArrival = false;
+                selectedLocationType = LocationType.BERTH;
                 createAlertDialog(locationstateView);
                 setTimeAndDate(locationstateView);
                 setTimeTypeSpinner();
@@ -259,6 +278,8 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
             }
 
             case R.id.ArrivalPilotBoardingArea: {
+                isArrival = true;
+                selectedLocationType = LocationType.PILOT_BOARDING_AREA;
                 createAlertDialog(locationstateView);
                 setTimeAndDate(locationstateView);
                 setTimeTypeSpinner();
@@ -266,6 +287,8 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
             }
 
             case R.id.ArrivalTrafficArea: {
+                isArrival = true;
+                selectedLocationType = LocationType.TRAFFIC_AREA;
                 createAlertDialog(locationstateView);
                 setTimeAndDate(locationstateView);
                 setTimeTypeSpinner();
@@ -273,6 +296,8 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
             }
 
             case R.id.DepartureTrafficArea: {
+                isArrival = false;
+                selectedLocationType = LocationType.TRAFFIC_AREA;
                 createAlertDialog(locationstateView);
                 setTimeAndDate(locationstateView);
                 setTimeTypeSpinner();
@@ -288,7 +313,58 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
         dialogBuilder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                //send a service state port call message
+                if(isServiceState) {
 
+                //send a location state port call message
+                } else {
+
+
+                    // Gets strings that represent the date and time from different Edit-fields.
+                    String etaDate = dateEditText.getText().toString();
+                    String etaTime = timeEditText.getText().toString();
+
+                    // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+                    // which PortCDM requires.
+                    SimpleDateFormat etaOutput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                    SimpleDateFormat etaInput = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    Date date = null;
+                    String formattedTime = "";
+                    try {
+                        date = etaInput.parse(etaDate + " " + etaTime);
+                        formattedTime = etaOutput.format(date);
+                    } catch (ParseException e1) {
+                        Log.e("DateProblem Parsing", e1.toString());
+                    } catch (NullPointerException e2){
+                        Log.e("DateProblem Null", e2.toString());
+                    }
+
+                    //testar med null, tror att det ska vara "sub-platsen"
+                    Location location = new Location(null, new Position(0, 0), selectedLocationType);
+                    /*try{
+                        location = portLocMap.get(selectedPortLoc);
+                    } catch (NullPointerException e){Log.e("PortLocation", e.toString());} */
+
+                    if (isArrival) {
+                        arrLoc = new ArrivalLocation(null, location);
+                        locState = new LocationState(ReferenceObject.VESSEL, formattedTime, selectedTimeType, arrLoc);
+                    } else {
+                        depLoc = new DepartureLocation(location, null);
+                        locState = new LocationState(ReferenceObject.VESSEL, formattedTime, selectedTimeType, depLoc);
+                    }
+
+                    Intent intent = getIntent();
+                    String vesselID = intent.getExtras().getString("vesselID"); //Hämta VesselIMO skickat från mainactivity
+                    PortCallMessage pcmObj = new PortCallMessage(vesselID,
+                            "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
+                            null,
+                            locState);
+                    AMSS amss = new AMSS(pcmObj);
+                    String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
+                    //TextView etaResultView = (TextView) findViewById(R.id.etaConfirmView);
+                    //etaResultView.setText(etaResult);
+
+                }
             }
         });
         dialogBuilder.setNegativeButton("Cancel", null);
@@ -349,7 +425,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
 
     private void setTimeTypeSpinner() {
         spinnerTimeType = (Spinner) locationstateView.findViewById(R.id.spinnerTimeType);
-        HashMap<String, TimeType> timeTypeMap = TimeType.toMap();
+        timeTypeMap = TimeType.toMap();
         ArrayList<String> timeTypes = new ArrayList<String>(timeTypeMap.keySet());
         Collections.sort(timeTypes);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, timeTypes);
@@ -358,7 +434,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
         spinnerTimeType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try {
-                    selectedTimeType = spinnerTimeType.getSelectedItem().toString();
+                    selectedTimeType = timeTypeMap.get(spinnerTimeType.getSelectedItem().toString());
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
@@ -447,6 +523,8 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
             setAtLocationSpinner();
         }
     }
+
+
 
 
 

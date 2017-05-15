@@ -161,6 +161,10 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    public void sendNewLocationState(View v) {
+
+    }
+
     private void createAlertDialog() {
         dialogBuilder = new AlertDialog.Builder(Report_Update.this);
         //dialogBuilder.setPositiveButton("Send", null );

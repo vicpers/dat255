@@ -5,6 +5,8 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static RESTServices.Constants_API.API_ACTUAL_PORT;
+
 /**
  * Created by maxedman on 2017-04-21.
  */
@@ -16,21 +18,23 @@ public class Location {
     private LocationType locationType;
     private String URN = null;
     private String shortName;
-    private String portUnlocode = "SEGOT";
+    private String portUnlocode = API_ACTUAL_PORT;
 
     public Location(JSONObject locJsonObj){
         if (locJsonObj != null) {
             try {
 
-                //this.locationType   = LocationType.valueOf(locJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_TYPE));
                 this.name           = locJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_NAME);
                 this.shortName      = locJsonObj.getString(Constants_jsonParsing.TAG_PORT_LOCATIONS_SHORT_NAME);
                 this.URN            = locJsonObj.getString(Constants_jsonParsing.TAG_LOCATIONS_URN);
 
-                Position position;
+                Position position = null;
                 try {
                     position = new Position(locJsonObj.getJSONObject(Constants_jsonParsing.TAG_LOCATION_POSITION));
-                } catch (JSONException e1) { position = null; }
+                } catch (JSONException e1) {}
+                try {
+                    this.locationType   = LocationType.valueOf(locJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_TYPE));
+                } catch (JSONException e1) {}
 
             } catch (JSONException e2) {
                 Log.e("Location Constructor", "Problem getting strings - " + e2.toString());
@@ -106,8 +110,10 @@ public class Location {
 
         if(URN != null){
             xmlStr += "<ns2:locationMRN>" + URN + "</ns2:locationMRN>";
-        } else {
+        } else if(locationType != null){
             xmlStr += "<ns2:locationMRN>urn:mrn:stm:location:" + portUnlocode + ":" + locationType + "</ns2:locationMRN>";
+        } else {
+            xmlStr += "<ns2:locationMRN>urn:mrn:stm:location:" + portUnlocode + "</ns2:locationMRN>";
         }
         return xmlStr;
     }

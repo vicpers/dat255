@@ -61,7 +61,7 @@ public class ServiceState {
 
     // TODO TROR att service states ska ha antingen ett "at" för stationary states, ELLER ett "between" för nautical states
     public ServiceState(ServiceObject serviceObject, ServiceTimeSequence timeSequence, TimeType timeType,
-                        String time, Location at, String performingActor) {
+                         String time, Location at, String performingActor) {
         this.serviceObject = serviceObject;
         this.timeSequence = timeSequence;
         this.timeType = timeType;
@@ -101,18 +101,18 @@ public class ServiceState {
         String xmlStr = "";
         if(serviceObject != null)
             xmlStr += "<ns2:serviceObject>" + serviceObject + "</ns2:serviceObject>";
+        if(performingActor != null)
+            xmlStr += "<ns2:performingActor>" + performingActor + "</ns2:performingActor>";
         if(timeSequence != null)
             xmlStr += "<ns2:timeSequence>" + timeSequence + "</ns2:timeSequence>";
-        if(timeType != null)
-            xmlStr += "<ns2:timeType>" + timeType + "</ns2:timeType>";
         if(time != null)
             xmlStr += "<ns2:time>" + time + "</ns2:time>";
+        if(timeType != null)
+            xmlStr += "<ns2:timeType>" + timeType + "</ns2:timeType>";
         if(at != null)
             xmlStr += "<ns2:at>" + at.toXml() + "</ns2:at>";
         if (between != null)
-            xmlStr += "<ns2:betweenLocations>" + between.toXml() + "</ns2:betweenLocations>";
-        if(performingActor != null)
-            xmlStr += "<ns2:performingActor>" + performingActor + "</ns2:performingActor>";
+            xmlStr += "<ns2:between>" + between.toXml() + "</ns2:between>";
         return xmlStr;
     }
 }

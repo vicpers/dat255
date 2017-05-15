@@ -140,7 +140,6 @@ public class WebRequest {
                 int reqresponseCode = conn.getResponseCode();
                 if (reqresponseCode == HttpsURLConnection.HTTP_CREATED) {
                     String line;
-                    response = "";
                     try {
                         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                         while ((line = br.readLine()) != null) {

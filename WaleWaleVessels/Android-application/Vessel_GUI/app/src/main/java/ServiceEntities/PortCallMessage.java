@@ -19,6 +19,7 @@ public class PortCallMessage {
     private String localPortCallId;
     private String localJobId;
     private Vessel vessel; //TODO Eventuellt ändra detta till ett VesselObjekt. Kan däremot skapa problem vid konvertering till json.
+    //private final String vesselId;
     private String messageId;
     private String groupWith;
     private String reportedAt; //TODO Convert to a DateTime format.
@@ -88,6 +89,7 @@ public class PortCallMessage {
 
     /**
      * Lekt och lattjat lite för att få en pcmkonstruktur för att skicka service states.
+     * Bra lekt och lattjat.
      */
     public PortCallMessage(String vesselId, String messageId, String reportedBy, ServiceState serviceState) {
         this.vessel = PortCDMServices.getVessel(vesselId);

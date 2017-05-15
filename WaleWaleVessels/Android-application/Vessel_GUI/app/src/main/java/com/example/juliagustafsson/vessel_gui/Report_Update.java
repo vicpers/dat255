@@ -1,7 +1,6 @@
 package com.example.juliagustafsson.vessel_gui;
 
 import android.app.DatePickerDialog;
-import android.app.Service;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,7 +18,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,6 +30,7 @@ import java.util.UUID;
 import RESTServices.AMSS;
 import RESTServices.PortCDMServices;
 import ServiceEntities.ArrivalLocation;
+import ServiceEntities.Between;
 import ServiceEntities.DepartureLocation;
 import ServiceEntities.Location;
 import ServiceEntities.LocationState;
@@ -44,6 +43,8 @@ import ServiceEntities.ServiceState;
 import ServiceEntities.ServiceTimeSequence;
 import ServiceEntities.ServiceType;
 import ServiceEntities.TimeType;
+
+import static RESTServices.PortCDMServices.getServiceType;
 
 /**
  * Created by MattiasLundell on 2017-05-03.
@@ -334,9 +335,46 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                         Log.e("DateProblem Null", e2.toString());
                     }
 
+                    Intent intent = getIntent();
+                    String vesselID = intent.getExtras().getString("vesselID"); //Hämta VesselIMO skickat från mainactivity
+
+                    ServiceState serviceState;
+                    //TODO Se till så att at och between används utifrån val.
+                    //TODO Implementera att en TimeType ska väljas.
+                    if(getServiceType(currentServiceObject) == ServiceType.STATIONARY){
+                        Location at = new Location(null,
+                                                    new Position(0, 0),
+                                                    LocationType.fromString(selectedAtLocation));
+                        serviceState = new ServiceState(currentServiceObject,
+                                ServiceTimeSequence.fromString(selectedTimeSequence),
+                                TimeType.ESTIMATED,
+                                formattedTime,
+                                at,
+                                null); //performingActor ev. vesselId
+                    } else {
+                        Location from = new Location(null, new Position(0, 0),
+                                LocationType.fromString(selectedFromLocation));
+                        Location to = new Location(null, new Position(0, 0),
+                                LocationType.fromString(selectedtoLocation));
+                        Between between = new Between(from, to);
+                        serviceState = new ServiceState(currentServiceObject,
+                                ServiceTimeSequence.fromString(selectedTimeSequence),
+                                TimeType.ESTIMATED,
+                                formattedTime,
+                                between,
+                                null); //performingActor ev. vesselId
+                    }
+
+                    PortCallMessage pcmObj = new PortCallMessage(vesselID,
+                            "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
+                            null,
+                            serviceState);
+                    AMSS amss = new AMSS(pcmObj);
+                    String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
 
 
-                //send a location state port call message
+
+                    //send a location state port call message
                 } else {
 
                     // Gets strings that represent the date and time from different Edit-fields.
@@ -380,8 +418,6 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                             locState);
                     AMSS amss = new AMSS(pcmObj);
                     String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
-                    //TextView etaResultView = (TextView) findViewById(R.id.etaConfirmView);
-                    //etaResultView.setText(etaResult);
 
                 }
             }
@@ -483,7 +519,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
         });
     }
 
-    private void setFromLocaionSpinner() {
+    private void setFromLocationSpinner() {
         HashMap<String, LocationType> locationTypeMap = LocationType.toMap();
         ArrayList<String> locationTypes = new ArrayList<String>(locationTypeMap.keySet());
         Collections.sort(locationTypes);
@@ -524,7 +560,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
     }
 
     private void setDialogView(ServiceObject serviceObject) {
-        ServiceType currentServiceType = PortCDMServices.getServiceType(serviceObject);
+        ServiceType currentServiceType = getServiceType(serviceObject);
         TextView atFromLocationText = (TextView) serviceStateView.findViewById(R.id.AtFromLocationText);
         TextView toLocation = (TextView) serviceStateView.findViewById(R.id.ToLocation);
         spinnerAtOrFromLocation = (Spinner) serviceStateView.findViewById(R.id.spinnerAtOrFromLocation);
@@ -532,7 +568,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
 
         if (currentServiceType == ServiceType.NAUTICAL ) {
             atFromLocationText.setText("From Location");
-            setFromLocaionSpinner();
+            setFromLocationSpinner();
             setToLocationSpinner();
 
         } else {

@@ -12,7 +12,10 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="16dp" >
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp">
 
             <Button
                 android:id="@+id/Anchoring"
@@ -23,25 +26,28 @@
                 android:background="@color/menuHeader"
                 android:onClick="sendNewServiceState"
                 android:text="Anchoring"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/ArrivalAnchoringOperation"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
                 android:onClick="sendNewServiceState"
                 android:text="Arrival Anchoring Operation"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="16dp" >
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
             <Button
                 android:id="@+id/ArrivalAnchoringArea"
@@ -52,25 +58,28 @@
                 android:background="@color/menuHeader"
                 android:onClick="sendNewLocationState"
                 android:text="Arrival Anchoring Area"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/DepartureAnchoringArea"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
                 android:onClick="sendNewLocationState"
                 android:text="Departure Anchoring Area"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="16dp" >
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
             <Button
                 android:id="@+id/ArrivalBerth"
@@ -81,27 +90,31 @@
                 android:background="@color/menuHeader"
                 android:onClick="sendNewLocationState"
                 android:text="Arrival Berth"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/DepartureBerth"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
                 android:onClick="sendNewLocationState"
                 android:text="Departure Berth"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="16dp" >
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
-            <Button
+
+        <Button
                 android:id="@+id/BerthShifting"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
@@ -110,27 +123,31 @@
                 android:background="@color/menuHeader"
                 android:onClick="sendNewServiceState"
                 android:text="Berth Shifting"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/BunkeringOperation"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
                 android:onClick="sendNewServiceState"
                 android:text="Bunkering Operation"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="16dp" >
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
-            <Button
+
+        <Button
                 android:id="@+id/CargoOperation"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
@@ -139,27 +156,31 @@
                 android:background="@color/menuHeader"
                 android:onClick="sendNewServiceState"
                 android:text="Cargo Operation"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/IceBreakingOperation"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
                 android:onClick="sendNewServiceState"
                 android:text="Icebreaking Operation"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="16dp" >
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
-            <Button
+
+        <Button
                 android:id="@+id/EscortTowage"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
@@ -168,27 +189,31 @@
                 android:background="@color/menuHeader"
                 android:onClick="sendNewServiceState"
                 android:text="Escort Towage"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/Towage"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
                 android:onClick="sendNewServiceState"
                 android:text="Towage"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="16dp" >
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp" >
 
-            <Button
+
+        <Button
                 android:id="@+id/ArrivalPilotBoardingArea"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
@@ -197,18 +222,18 @@
                 android:background="@color/menuHeader"
                 android:onClick="sendNewLocationState"
                 android:text="Arrival Pilot Boarding Area"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/Pilotage"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
                 android:onClick="sendNewServiceState"
                 android:text="Pilotage"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
         </TableRow>
 
@@ -216,9 +241,13 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="16dp" >
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
-            <Button
+
+        <Button
                 android:id="@+id/VTSAreaArrival"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
@@ -226,19 +255,19 @@
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
                 android:onClick="sendNewServiceState"
-                android:text="VTS Area Arrival"
-                android:textSize="24sp" />
+                android:text="Arrival VTS Area"
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/VTSAreaDeparture"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
                 android:onClick="sendNewServiceState"
-                android:text="VTS Area Departure"
-                android:textSize="24sp" />
+                android:text="Departure VTS Area "
+                android:textSize="18sp" />
 
 
         </TableRow>
@@ -246,9 +275,13 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="16dp" >
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
-            <Button
+
+        <Button
                 android:id="@+id/ArrivalMooringOperation"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
@@ -257,27 +290,31 @@
                 android:background="@color/menuHeader"
                 android:onClick="sendNewServiceState"
                 android:text="Arrival Mooring Operation"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/DepartureMooringOperation"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
                 android:onClick="sendNewServiceState"
                 android:text="Departure Mooring Operation"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="16dp" >
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp">
 
-            <Button
+
+        <Button
                 android:id="@+id/ArrivalTrafficArea"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
@@ -286,18 +323,18 @@
                 android:background="@color/menuHeader"
                 android:onClick="sendNewLocationState"
                 android:text="Arrival Traffic Area"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/DepartureTrafficArea"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
                 android:onClick="sendNewLocationState"
                 android:text="Departure Traffic Area"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
         </TableRow>
 
     </TableLayout>

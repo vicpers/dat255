@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         userLocalStore = new UserLocalStorage(this);
 
-        if(firstTimeInMainActivity = true && userLocalStore.getUserLoggedIn()){
+        /*if(firstTimeInMainActivity = true && userLocalStore.getUserLoggedIn()){
             //handler = new Handler();
             thread = new Thread() {
                 @Override
@@ -94,13 +94,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     userLocalStore.setPortCallID(newMessages.get(0).getPortCallId());
                                 }
                                 for (PortCallMessage newMessage : newMessages) {
-                                   /*Context context = getApplicationContext();
+                                   *//**//*Context context = getApplicationContext();
                                    CharSequence text = "Nytt PortCallMessage: " + newMessage.toString();
-                                   int duration = Toast.LENGTH_SHORT;*/
+                                   int duration = Toast.LENGTH_SHORT;*//**//*
                                     Log.e("NyttPCM", newMessage.toString());
 
-                                   /*Toast toast = Toast.makeText(context, text, duration);
-                                   toast.show();*/
+                                   *//**//*Toast toast = Toast.makeText(context, text, duration);
+                                   toast.show();*//**//*
                                 }
                             }
                             sleep(6000);
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             thread.start();
         }
-        firstTimeInMainActivity = false;
+        firstTimeInMainActivity = false;*/
 
     }
 
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //If someone is logged in access MainActivity page
         if (authenticate()) {
-            displayVesselID();
+           displayVesselID();
 
         }
         //If noone is logged in access Login page

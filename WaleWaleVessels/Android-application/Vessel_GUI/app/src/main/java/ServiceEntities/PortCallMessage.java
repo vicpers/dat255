@@ -71,7 +71,8 @@ public class PortCallMessage {
                     this.vessel = new Vessel(vesselId);
                 }
             } catch (JSONException e3) {
-                Log.e("PortCallMessage Constr.", "Problem getting data - " + e3.toString());
+                Log.e("PortCallMessage Constr.", "Problem getting data - " + e3.toString() +
+                        "\n" + pcmJsonObj.toString());
             }
         } else {
             Log.e("PortCallMessage Constr.", "param pcmJsonObj is null");

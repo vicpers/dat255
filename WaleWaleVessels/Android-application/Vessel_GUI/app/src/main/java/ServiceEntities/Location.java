@@ -22,7 +22,7 @@ public class Location {
         if (locJsonObj != null) {
             try {
 
-                this.locationType   = LocationType.valueOf(locJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_TYPE));
+                //this.locationType   = LocationType.valueOf(locJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_TYPE));
                 this.name           = locJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_NAME);
                 this.shortName      = locJsonObj.getString(Constants_jsonParsing.TAG_PORT_LOCATIONS_SHORT_NAME);
                 this.URN            = locJsonObj.getString(Constants_jsonParsing.TAG_LOCATIONS_URN);

@@ -23,7 +23,7 @@ import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 
 public class WebRequest {
-    static String response = "";
+    //static String response = "";
     public final static int GETRequest = 1;
     public final static int POSTRequest = 2;
 
@@ -50,7 +50,7 @@ public class WebRequest {
      */
     public static String makeWebServiceCall(String urladdress, int requestmethod, HashMap<String, String> headers, HashMap<String, String> params) {
         URL url;
-        response = "";
+        String response = "";
 //         Adds parameters to the urladdress string for GETRequests
         boolean first = true;
         if ((params != null) && (requestmethod == 1)){
@@ -114,7 +114,7 @@ public class WebRequest {
 
 //TODO Implement this function into the makeWebServiceCall function.
     public static String makeWebServicePost(String urladdress, HashMap<String, String> headers, HashMap<String, String> params, String body){
-        response = "";
+        String response = "";
         try {
             URL url = new URL(urladdress);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();

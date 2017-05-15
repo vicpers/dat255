@@ -168,6 +168,7 @@ public class PortCDMServices {
         } catch (JSONException e2){
             Log.e("GetStateDef - Outer", e2.toString());
         }
+        Log.wtf("ServiceStates", serviceStateTimeSequences.toString());
     }
 
 

@@ -82,8 +82,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(MainActivity.this, Vessel_Login.class ));
         }
 
-
-
         // Calls method for fetching all the state definitions in PortCDM and saves them in a
         // static map for later use when sending PortCallMessages
         getStateDefinitions();

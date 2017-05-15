@@ -89,6 +89,13 @@ public class ServiceState {
         this.performingActor = performingActor;
     }
 
+    public ServiceObject getServiceObject() {
+        return serviceObject;
+    }
+
+    public void setServiceObject(ServiceObject serviceObject) {
+        this.serviceObject = serviceObject;
+    }
 
     public String toXml() {
         String xmlStr = "";

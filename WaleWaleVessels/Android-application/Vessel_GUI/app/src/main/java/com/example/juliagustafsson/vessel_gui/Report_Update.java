@@ -315,10 +315,29 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
             public void onClick(DialogInterface dialog, int which) {
                 //send a service state port call message
                 if(isServiceState) {
+                    // Gets strings that represent the date and time from different Edit-fields.
+                    String etaDate = dateEditText.getText().toString();
+                    String etaTime = timeEditText.getText().toString();
+
+                    // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+                    // which PortCDM requires.
+                    SimpleDateFormat etaOutput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                    SimpleDateFormat etaInput = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    Date date = null;
+                    String formattedTime = "";
+                    try {
+                        date = etaInput.parse(etaDate + " " + etaTime);
+                        formattedTime = etaOutput.format(date);
+                    } catch (ParseException e1) {
+                        Log.e("DateProblem Parsing", e1.toString());
+                    } catch (NullPointerException e2){
+                        Log.e("DateProblem Null", e2.toString());
+                    }
+
+
 
                 //send a location state port call message
                 } else {
-
 
                     // Gets strings that represent the date and time from different Edit-fields.
                     String etaDate = dateEditText.getText().toString();

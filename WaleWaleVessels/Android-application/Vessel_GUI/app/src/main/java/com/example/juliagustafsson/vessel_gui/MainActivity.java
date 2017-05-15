@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle mToggle;
     private boolean firstTimeInMainActivity = true;
     private Handler handler;
+    private Thread thread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,13 +79,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         userLocalStore = new UserLocalStorage(this);
 
-        if(firstTimeInMainActivity = true){
+        if(firstTimeInMainActivity = true && userLocalStore.getUserLoggedIn()){
             //handler = new Handler();
-            Thread thread = new Thread() {
+            thread = new Thread() {
                 @Override
                 public void run() {
                     try {
-                        while(true) {
+                        while(true && userLocalStore.getUserLoggedIn()) {
                             HashMap<String, MessageBrokerQueue> hej = userLocalStore.getMessageBrokerMap();
                             ArrayList<PortCallMessage> newMessages = hej.get("vessel").pollQueue();
                             if(newMessages.size() > 0) {
@@ -193,6 +194,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 userLocalStore.clearUserData();
                 userLocalStore.setUserLoggedIn(false);
                 startActivity(new Intent(MainActivity.this, Vessel_Login.class ));
+                thread.interrupt();
+                firstTimeInMainActivity = true;
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

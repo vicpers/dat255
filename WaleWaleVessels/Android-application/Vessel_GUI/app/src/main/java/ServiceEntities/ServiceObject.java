@@ -17,7 +17,6 @@ public enum ServiceObject {
     BERTH_SHIFTING("Shift of berth"),
     BUNKERING_OPERATION("Bunkering operation"),
     CARGO_OPERATION("Cargo operation"),
-    DEPARTURE_ANCHORING_AREA("Departure from anchoring area"),
     DEPARTURE_ANCHORING_OPERATION("Departure from anchoring operation"),
     DEPARTURE_BERTH("Departure from berth"),
     DEPARTURE_PORTAREA("Departure from port area"),
@@ -29,9 +28,8 @@ public enum ServiceObject {
     ARRIVAL_MOORING_OPERATION("Arrival to mooring operation"),
     DEPARTURE_MOORING_OPERATION("Departure from mooring operation"),
     PILOTAGE("Pilotage"),
-    PORTCARGOOPERATION("Port cargo operation"),
-    PRECARGOOPERATION("Pre-cargo operation"),
-    PROVISIONING_OPERATION("Provisioning operation"),
+    POSTCARGOSURVEY("Post-cargo survey"),
+    PRECARGOSURVEY("Pre-cargo survey"),
     SLOP_OPERATION("Slop operation"),
     SLUDGE_OPERATION("Sludge operation"),
     TOWAGE("Towage"),
@@ -43,9 +41,7 @@ public enum ServiceObject {
     SECURITY("Security"),
     TOURS("Tours"),
     FORKLIFT("Forklift"),
-    PROVISION_OPERATION("Provision operation"),
-    POSTCARGOSURVEY("Post-cargo survey"),
-    PRECARGOSURVEY("Pre-cargo survey")
+    PROVISION_OPERATION("Provision operation")
     ;
 
     private String serviceObjText;

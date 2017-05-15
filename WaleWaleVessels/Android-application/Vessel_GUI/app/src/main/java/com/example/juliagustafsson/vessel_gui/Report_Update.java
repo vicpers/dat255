@@ -49,6 +49,7 @@ import ServiceEntities.TimeType;
 
 public class Report_Update extends AppCompatActivity implements View.OnClickListener {
     private View serviceStateView;
+    private View locationstateView;
     private int towageID;
     private ServiceObject currentServiceObject;
     private Spinner spinnerTimeSequence;
@@ -92,7 +93,33 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 createAlertDialog();
                 setTimeAndDate();
                 setDialogView(currentServiceObject);
+                break;
+            }
 
+            case R.id.ArrivalAnchoringOperation: {
+                currentServiceObject = ServiceObject.ARRIVAL_ANCHORING_OPERATION;
+                setTimeSequenceSpinner(currentServiceObject);
+                createAlertDialog();
+                setTimeAndDate();
+                setDialogView(currentServiceObject);
+                break;
+            }
+
+            case R.id.ArrivalBerth: {
+                currentServiceObject = ServiceObject.ARRIVAL_BERTH;
+                setTimeSequenceSpinner(currentServiceObject);
+                createAlertDialog();
+                setTimeAndDate();
+                setDialogView(currentServiceObject);
+                break;
+            }
+
+            case R.id.VTSAreaArrival: {
+                currentServiceObject = ServiceObject.ARRIVAL_VTSAREA;
+                setTimeSequenceSpinner(currentServiceObject);
+                createAlertDialog();
+                setTimeAndDate();
+                setDialogView(currentServiceObject);
                 break;
             }
 
@@ -123,8 +150,8 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 break;
             }
 
-            case R.id.Towage: {
-                currentServiceObject = ServiceObject.TOWAGE;
+            case R.id.DepartureBerth: {
+                currentServiceObject = ServiceObject.DEPARTURE_BERTH;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog();
                 setTimeAndDate();
@@ -132,8 +159,8 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 break;
             }
 
-            case R.id.Pilotage: {
-                currentServiceObject = ServiceObject.PILOTAGE;
+            case R.id.VTSAreaDeparture: {
+                currentServiceObject = ServiceObject.DEPARTURE_VTSAREA;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog();
                 setTimeAndDate();
@@ -158,10 +185,57 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 setDialogView(currentServiceObject);
                 break;
             }
+
+            case R.id.ArrivalMooringOperation: {
+                currentServiceObject = ServiceObject.ARRIVAL_MOORING_OPERATION;
+                setTimeSequenceSpinner(currentServiceObject);
+                createAlertDialog();
+                setTimeAndDate();
+                setDialogView(currentServiceObject);
+                break;
+            }
+
+            case R.id.DepartureMooringOperation: {
+                currentServiceObject = ServiceObject.DEPARTURE_MOORING_OPERATION;
+                setTimeSequenceSpinner(currentServiceObject);
+                createAlertDialog();
+                setTimeAndDate();
+                setDialogView(currentServiceObject);
+                break;
+            }
+
+            case R.id.Pilotage: {
+                currentServiceObject = ServiceObject.PILOTAGE;
+                setTimeSequenceSpinner(currentServiceObject);
+                createAlertDialog();
+                setTimeAndDate();
+                setDialogView(currentServiceObject);
+                break;
+            }
+
+            case R.id.Towage: {
+                currentServiceObject = ServiceObject.TOWAGE;
+                setTimeSequenceSpinner(currentServiceObject);
+                createAlertDialog();
+                setTimeAndDate();
+                setDialogView(currentServiceObject);
+                break;
+            }
+
         }
     }
 
     public void sendNewLocationState(View v) {
+        locationstateView = getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
+
+        switch( v.getId() ) {
+            case R.id.ArrivalAnchoringArea: {
+
+                break;
+            }
+
+            
+        }
 
     }
 
@@ -224,7 +298,6 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
-                Log.wtf("TIME SEQUENCE", selectedTimeSequence);
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -245,7 +318,6 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
-                Log.wtf("AT LOCATION", selectedAtLocation);
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -266,7 +338,6 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
-                Log.wtf("FROM LOCATION", selectedFromLocation);
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -287,7 +358,6 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
-                Log.wtf("TO LOCATION", selectedtoLocation);
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }

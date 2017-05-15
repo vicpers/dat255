@@ -26,7 +26,7 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/AnchoringOperation"
+                android:id="@+id/ArrivalAnchoringOperation"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_marginRight="8dp"
@@ -195,7 +195,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
-                android:onClick="sendNewServiceState"
+                android:onClick="sendNewLocationState"
                 android:text="Arrival Pilot Boarding Area"
                 android:textSize="24sp" />
 
@@ -284,7 +284,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
-                android:onClick="sendNewServiceState"
+                android:onClick="sendNewLocationState"
                 android:text="Arrival Traffic Area"
                 android:textSize="24sp" />
 
@@ -295,7 +295,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
-                android:onClick="sendNewServiceState"
+                android:onClick="sendNewLocationState"
                 android:text="Departure Traffic Area"
                 android:textSize="24sp" />
         </TableRow>

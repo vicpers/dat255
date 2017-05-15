@@ -11,25 +11,4 @@
     <string name="latest_ETA">Latest ETA sent:</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-
-    <string-array name="ETArecipant">
-        <item>Pick recipant</item>
-        <item>Anchoring Area</item>
-        <item>Berth</item>
-        <item>Etug Zone</item>
-        <item>Loc</item>
-        <item>Pilot</item>
-        <item>Pilot Area</item>
-        <item>Rendez Area</item>
-        <item>Traffic Area</item>
-        <item>Tug Zone</item>
-    </string-array>
-    <string-array name="Timestamps">
-        <item>Pick timestamp</item>
-        <item>Estimated</item>
-        <item>Planned</item>
-        <item>Actual</item>
-        <item>Recommended</item>
-        <item>Cancelled</item>
-    </string-array>
 </resources>

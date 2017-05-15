@@ -5,16 +5,27 @@
         android:icon="@drawable/ic_home_black_24dp"
         android:title="Home page"/>
 
+    <item android:id="@+id/nav_sendETA"
+        android:icon="@drawable/ic_update_black_24dp"
+        android:title="Send ETA"/>
+
+    <item android:id="@+id/nav_reportUpdate"
+        android:icon="@drawable/ic_content_paste_black_24dp"
+        android:title="Report update"/>
+
+    <item android:id="@+id/nav_checkStatus"
+        android:icon="@drawable/ic_directions_boat_black_24dp"
+        android:title="Check status"/>
+
     <item android:id="@+id/nav_account"
         android:icon="@drawable/ic_description_black_24dp"
         android:title="My account"/>
 
     <item android:id="@+id/nav_settings"
         android:icon="@drawable/ic_settings_black_24dp"
-        android:title="Setting"/>
+        android:title="Settings"/>
 
     <item android:id="@+id/nav_logout"
         android:icon="@drawable/ic_exit_to_app_black_24dp"
         android:title="Logout"/>
-
 </menu>

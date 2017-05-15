@@ -190,7 +190,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 return true;
-            case R.id.nav_account:
+            case R.id.nav_checkStatus:
+                return true;
+            case R.id.nav_sendETA:
+                Intent intent2 = new Intent(this, Send_ETA.class);
+                startActivity(intent2);
+                return true;
+            case R.id.nav_reportUpdate:
+                Intent intent3 = new Intent(this, Report_Update.class);
+                startActivity(intent3);
                 return true;
             case R.id.nav_settings:
                 return true;

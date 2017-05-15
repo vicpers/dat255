@@ -88,7 +88,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         while(true && userLocalStore.getUserLoggedIn()) {
                             HashMap<String, MessageBrokerQueue> hej = userLocalStore.getMessageBrokerMap();
                             ArrayList<PortCallMessage> newMessages = hej.get("vessel").pollQueue();
+
                             if(newMessages.size() > 0) {
+                                if(!(userLocalStore.getPortCallID().equals(newMessages.get(0).getPortCallId()))){
+                                    userLocalStore.setPortCallID(newMessages.get(0).getPortCallId());
+                                }
                                 for (PortCallMessage newMessage : newMessages) {
                                    /*Context context = getApplicationContext();
                                    CharSequence text = "Nytt PortCallMessage: " + newMessage.toString();

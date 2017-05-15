@@ -7,6 +7,9 @@ import android.util.Base64;
 import android.util.Base64InputStream;
 import android.util.Base64OutputStream;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -24,6 +27,7 @@ import ServiceEntities.Vessel;
  */
 
 public class UserLocalStorage {
+    private Gson gson;
 
 
     public static final String SP_NAME = "userDetails";
@@ -32,6 +36,7 @@ public class UserLocalStorage {
     public UserLocalStorage(Context context) {
         userLocalDatabase = context.getSharedPreferences(SP_NAME, 0);
     }
+
 
     public void storeUserData(User user) {
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
@@ -108,22 +113,11 @@ public class UserLocalStorage {
         }
     }
     public HashMap<String, MessageBrokerQueue> getMessageBrokerMap() {
-        byte[] bytes = userLocalDatabase.getString("messageMap", "{}").getBytes();
-        if (bytes.length == 0) {
-            return null;
-        }
-        ByteArrayInputStream byteArray = new ByteArrayInputStream(bytes);
-        Base64InputStream base64InputStream = new Base64InputStream(byteArray, Base64.DEFAULT);
-        ObjectInputStream in;
-        try {
-            in = new ObjectInputStream(base64InputStream);
-            HashMap<String, MessageBrokerQueue> queue = (HashMap<String, MessageBrokerQueue>) in.readObject();
-            return queue;
-        } catch (IOException e) {
-            return null;
-        } catch (ClassNotFoundException e) {
-            return null;
-        }
+        gson = new Gson();
+        String storedHashMapString = userLocalDatabase.getString("messageMap", "oopsDintWork");
+        java.lang.reflect.Type type = new TypeToken<HashMap<String, MessageBrokerQueue>>(){}.getType();
+        HashMap<String, MessageBrokerQueue> messageBrokerMap = gson.fromJson(storedHashMapString, type);
+        return messageBrokerMap;
     }
 
     public void addMessageBrokerQueue(String key, MessageBrokerQueue queue)   {
@@ -133,29 +127,20 @@ public class UserLocalStorage {
     }
 
     public void setMessageBrokerMap(HashMap<String, MessageBrokerQueue> hashMap){
+        gson = new Gson();
+        String hashMapString = gson.toJson(hashMap);
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
-        ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+        spEditor.putString("messageMap", hashMapString);
+        spEditor.commit();
+    }
 
-        ObjectOutputStream objectOutput;
-        try {
-            objectOutput = new ObjectOutputStream(arrayOutputStream);
-            objectOutput.writeObject(hashMap);
-            byte[] data = arrayOutputStream.toByteArray();
-            objectOutput.close();
-            arrayOutputStream.close();
-
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            Base64OutputStream b64 = new Base64OutputStream(out, Base64.DEFAULT);
-            b64.write(data);
-            b64.close();
-            out.close();
-
-            spEditor.putString("messageMap", new String(out.toByteArray()));
-
-            spEditor.commit();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    public void setPortCallID(String ID){
+        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        spEditor.putString("PortCallID", ID);
+        spEditor.commit();
+    }
+    public String getPortCallID(){
+        String portCallID = userLocalDatabase.getString("PortCallID","");
+        return portCallID;
     }
 }

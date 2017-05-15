@@ -75,6 +75,7 @@ public class Vessel_Login extends AppCompatActivity implements View.OnClickListe
 
             HashMap<String, MessageBrokerQueue> hashMap = new HashMap<>();
             hashMap.put("vessel",mbq);
+            userLocalStore.setMessageBrokerMap(hashMap);
             logUserIn(user);
         }
         catch(NoSuchElementException e){

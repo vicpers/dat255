@@ -1,7 +1,9 @@
 package com.example.juliagustafsson.vessel_gui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -12,6 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import RESTServices.MessageBrokerQueue;
+import ServiceEntities.Vessel;
 
 import static RESTServices.PortCDMServices.*;
 
@@ -23,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ArrayAdapter<String> mAdapter;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+    private boolean firstTimeInMainActivity = true;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +77,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //logout.setOnClickListener(this);
 
         userLocalStore = new UserLocalStorage(this);
+
+
+        if(firstTimeInMainActivity = true){
+            handler = new Handler();
+            Thread thread = new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        while(true) {
+                            HashMap<String, MessageBrokerQueue> hej = userLocalStore.getMessageBrokerMap();
+                            /*hej.get("vessel").pollQueue();
+                           if(!(newMessages.size() == 0)){
+                                Context context = getApplicationContext();
+                                CharSequence text = "OBS: Nytt PortCallMessage";
+                                int duration = Toast.LENGTH_SHORT;
+
+                                Toast toast = Toast.makeText(context, text, duration);
+                                toast.show();
+                            }*/
+                            sleep(60000);
+                            handler.post(this);
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            thread.start();
+        }
+        firstTimeInMainActivity = false;
 
     }
 

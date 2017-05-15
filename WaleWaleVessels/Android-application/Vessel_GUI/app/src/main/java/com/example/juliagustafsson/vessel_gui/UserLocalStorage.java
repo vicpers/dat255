@@ -29,7 +29,6 @@ import ServiceEntities.Vessel;
 public class UserLocalStorage {
     private Gson gson;
 
-
     public static final String SP_NAME = "userDetails";
     SharedPreferences userLocalDatabase;
 
@@ -63,46 +62,18 @@ public class UserLocalStorage {
     }
     public void setVessel(Vessel vessel){
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
-        ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
-
-        ObjectOutputStream objectOutput;
-        try {
-            objectOutput = new ObjectOutputStream(arrayOutputStream);
-            objectOutput.writeObject(vessel);
-            byte[] data = arrayOutputStream.toByteArray();
-            objectOutput.close();
-            arrayOutputStream.close();
-
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            Base64OutputStream b64 = new Base64OutputStream(out, Base64.DEFAULT);
-            b64.write(data);
-            b64.close();
-            out.close();
-
-            spEditor.putString("vessel", new String(out.toByteArray()));
-
-            spEditor.commit();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        gson = new Gson();
+        String vesselString = gson.toJson(vessel);
+        spEditor.putString("vessel", vesselString);
+        spEditor.commit();
     }
+
     public Vessel getVessel(){
-        byte[] bytes = userLocalDatabase.getString("vessel", "{}").getBytes();
-        if (bytes.length == 0) {
-            return null;
-        }
-        ByteArrayInputStream byteArray = new ByteArrayInputStream(bytes);
-        Base64InputStream base64InputStream = new Base64InputStream(byteArray, Base64.DEFAULT);
-        ObjectInputStream in;
-        try {
-            in = new ObjectInputStream(base64InputStream);
-            Vessel vessel = (Vessel) in.readObject();
-            return vessel;
-        }catch (IOException e) {
-            return null;
-        }catch (ClassNotFoundException e){
-            return null;
-        }
+        gson = new Gson();
+        String storedVesselString = userLocalDatabase.getString("vessel", "oopsDintWork");
+        java.lang.reflect.Type type = new TypeToken<Vessel>(){}.getType();
+        Vessel vessel = gson.fromJson(storedVesselString, type);
+        return vessel;
     }
 
     public boolean getUserLoggedIn () {

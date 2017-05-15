@@ -21,7 +21,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
-                android:onClick="sendNewAnchoring"
+                android:onClick="sendNewServiceState"
                 android:text="Anchoring"
                 android:textSize="24sp" />
 
@@ -32,6 +32,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
+                android:onClick="sendNewServiceState"
                 android:text="Berth Shifting"
                 android:textSize="24sp" />
         </TableRow>
@@ -48,6 +49,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
+                android:onClick="sendNewServiceState"
                 android:text="Bunkering Operation"
                 android:textSize="24sp" />
 
@@ -58,6 +60,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
+                android:onClick="sendNewServiceState"
                 android:text="Cargo Operation"
                 android:textSize="24sp" />
         </TableRow>
@@ -74,7 +77,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
-                android:onClick="sendNewSericeState"
+                android:onClick="sendNewServiceState"
                 android:text="Towage"
                 android:textSize="24sp" />
 
@@ -85,7 +88,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
-                android:onClick="sendNewPilotage"
+                android:onClick="sendNewServiceState"
                 android:text="Pilotage"
                 android:textSize="24sp" />
 
@@ -103,16 +106,18 @@
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
+                android:onClick="sendNewServiceState"
                 android:text="Escort Towage"
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/DepartureBerth"
+                android:id="@+id/IceBreakingOperation"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
+                android:onClick="sendNewServiceState"
                 android:text="Icebreaking Operation"
                 android:textSize="24sp" />
         </TableRow>

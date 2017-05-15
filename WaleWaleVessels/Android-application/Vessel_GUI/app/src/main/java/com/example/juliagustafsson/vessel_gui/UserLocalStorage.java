@@ -1,5 +1,6 @@
 package com.example.juliagustafsson.vessel_gui;
 
+import android.app.Notification;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Base64;
@@ -11,7 +12,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
 
+import RESTServices.MessageBrokerQueue;
 import ServiceEntities.Vessel;
 
 
@@ -98,11 +101,61 @@ public class UserLocalStorage {
     }
 
     public boolean getUserLoggedIn () {
-         if(userLocalDatabase.getBoolean("Logged In", false) == true) {
-             return true;
-         }
-         else {
-         return false;
-         }
+        if (userLocalDatabase.getBoolean("Logged In", false) == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public HashMap<String, MessageBrokerQueue> getMessageBrokerMap() {
+        byte[] bytes = userLocalDatabase.getString("messageMap", "{}").getBytes();
+        if (bytes.length == 0) {
+            return null;
+        }
+        ByteArrayInputStream byteArray = new ByteArrayInputStream(bytes);
+        Base64InputStream base64InputStream = new Base64InputStream(byteArray, Base64.DEFAULT);
+        ObjectInputStream in;
+        try {
+            in = new ObjectInputStream(base64InputStream);
+            HashMap<String, MessageBrokerQueue> queue = (HashMap<String, MessageBrokerQueue>) in.readObject();
+            return queue;
+        } catch (IOException e) {
+            return null;
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
+    }
+
+    public void addMessageBrokerQueue(String key, MessageBrokerQueue queue)   {
+        HashMap<String, MessageBrokerQueue> map = getMessageBrokerMap();
+        map.put(key, queue);
+        setMessageBrokerMap(map);
+    }
+
+    public void setMessageBrokerMap(HashMap<String, MessageBrokerQueue> hashMap){
+        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+
+        ObjectOutputStream objectOutput;
+        try {
+            objectOutput = new ObjectOutputStream(arrayOutputStream);
+            objectOutput.writeObject(hashMap);
+            byte[] data = arrayOutputStream.toByteArray();
+            objectOutput.close();
+            arrayOutputStream.close();
+
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            Base64OutputStream b64 = new Base64OutputStream(out, Base64.DEFAULT);
+            b64.write(data);
+            b64.close();
+            out.close();
+
+            spEditor.putString("messageMap", new String(out.toByteArray()));
+
+            spEditor.commit();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

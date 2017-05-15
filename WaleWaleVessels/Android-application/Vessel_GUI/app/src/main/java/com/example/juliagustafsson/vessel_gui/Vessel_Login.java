@@ -13,8 +13,10 @@ import android.support.v7.app.ActionBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.NoSuchElementException;
 
+import RESTServices.MessageBrokerQueue;
 import ServiceEntities.Vessel;
 
 import static RESTServices.PortCDMServices.getVessel;
@@ -68,6 +70,11 @@ public class Vessel_Login extends AppCompatActivity implements View.OnClickListe
         try{
             Vessel newVessel = getVessel(vesselID);
             userLocalStore.setVessel(newVessel);
+            MessageBrokerQueue mbq = new MessageBrokerQueue("vessel");
+            mbq.createUnfilteredQueue(userLocalStore.getVessel());
+
+            HashMap<String, MessageBrokerQueue> hashMap = new HashMap<>();
+            hashMap.put("vessel",mbq);
             logUserIn(user);
         }
         catch(NoSuchElementException e){

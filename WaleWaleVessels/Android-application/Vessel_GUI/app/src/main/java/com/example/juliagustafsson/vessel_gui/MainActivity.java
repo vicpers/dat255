@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (authenticate()) {
             displayVesselID();
             if(firstTimeInMainActivity = true){
-                //handler = new Handler();
+                handler = new Handler();
                 Thread thread = new Thread() {
                     @Override
                     public void run() {
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     }
                                 }
                                 sleep(6000);
-                                //handler.post(this);
+                                handler.post(this);
                             }
                         } catch (InterruptedException e) {
                             e.printStackTrace();

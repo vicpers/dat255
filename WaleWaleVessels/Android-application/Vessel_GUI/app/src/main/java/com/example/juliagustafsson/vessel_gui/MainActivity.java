@@ -79,39 +79,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         userLocalStore = new UserLocalStorage(this);
 
 
-        if(firstTimeInMainActivity = true){
-            //handler = new Handler();
-            Thread thread = new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        while(true) {
-                            HashMap<String, MessageBrokerQueue> hej = userLocalStore.getMessageBrokerMap();
-                            ArrayList<PortCallMessage> newMessages = hej.get("vessel").pollQueue();
-                           if(newMessages.size() > 0) {
-                               for (PortCallMessage newMessage : newMessages) {
-                                   /*Context context = getApplicationContext();
-                                   CharSequence text = "Nytt PortCallMessage: " + newMessage.toString();
-                                   int duration = Toast.LENGTH_SHORT;*/
-                                   Log.e("NyttPCM", newMessage.toString());
-
-                                   /*Toast toast = Toast.makeText(context, text, duration);
-                                   toast.show();*/
-                               }
-                           }
-                            sleep(6000);
-                            //handler.post(this);
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-
-            thread.start();
-        }
-        firstTimeInMainActivity = false;
-
     }
 
     @Override
@@ -121,6 +88,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //If someone is logged in access MainActivity page
         if (authenticate()) {
             displayVesselID();
+            if(firstTimeInMainActivity = true){
+                //handler = new Handler();
+                Thread thread = new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            while(true) {
+                                HashMap<String, MessageBrokerQueue> hej = userLocalStore.getMessageBrokerMap();
+                                ArrayList<PortCallMessage> newMessages = hej.get("vessel").pollQueue();
+                                if(newMessages.size() > 0) {
+                                    for (PortCallMessage newMessage : newMessages) {
+                                   /*Context context = getApplicationContext();
+                                   CharSequence text = "Nytt PortCallMessage: " + newMessage.toString();
+                                   int duration = Toast.LENGTH_SHORT;*/
+                                        Log.e("NyttPCM", newMessage.toString());
+
+                                   /*Toast toast = Toast.makeText(context, text, duration);
+                                   toast.show();*/
+                                    }
+                                }
+                                sleep(6000);
+                                //handler.post(this);
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+                thread.start();
+            }
+            firstTimeInMainActivity = false;
         }
         //If noone is logged in access Login page
         else {

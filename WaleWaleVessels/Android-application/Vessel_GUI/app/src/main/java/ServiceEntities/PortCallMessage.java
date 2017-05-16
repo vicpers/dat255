@@ -249,13 +249,13 @@ public class PortCallMessage {
 
     @Override
     public String toString() {
-        return "PortCallID : " + portCallId +
+        return "PortCallID : " + portCallId + "\n" +
                 "Vessel : " + vessel.getId();
     }
 
     public String toXml() {
         String xmlStr = "";
-        if((portCallId != null) || (portCallId != ""))
+        if((portCallId != null) && (portCallId != "") && (portCallId != "null"))
             xmlStr += "<ns2:portCallId>"        + portCallId        + "</ns2:portCallId>";
         if(localPortCallId != null)
             xmlStr += "<ns2:localPortCallId>"   + localPortCallId   + "</ns2:localPortCallId>";

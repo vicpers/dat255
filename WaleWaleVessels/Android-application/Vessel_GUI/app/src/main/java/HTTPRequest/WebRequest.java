@@ -107,7 +107,7 @@ public class WebRequest {
             e.printStackTrace();
             response = e.toString();
         }
-        Log.e("ResponseStr", response);
+//        Log.e("ResponseStr", response);
         return response;
     }
 
@@ -198,8 +198,8 @@ public class WebRequest {
             e.printStackTrace();
         }
 
-        Log.wtf("Response", response);
-        Log.wtf("Body", body);
+        /*Log.wtf("Response", response);
+        Log.wtf("Body", body);*/
         return response;
     }
 }

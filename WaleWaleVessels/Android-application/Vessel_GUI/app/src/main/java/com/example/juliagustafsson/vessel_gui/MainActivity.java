@@ -70,51 +70,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //logout = (Button) findViewById(R.id.logout);
         //logout.setOnClickListener(this);
+        new UserLocalStorage(this);
 
-
-        /*if(firstTimeInMainActivity = true && userLocalStore.getUserLoggedIn()){
-            //handler = new Handler();
-            thread = new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        while(true && userLocalStore.getUserLoggedIn()) {
-                            HashMap<String, MessageBrokerQueue> hej = userLocalStore.getMessageBrokerMap();
-                            ArrayList<PortCallMessage> newMessages = hej.get("vessel").pollQueue();
-
-                            if(newMessages.size() > 0) {
-                                if(!(userLocalStore.getPortCallID().equals(newMessages.get(0).getPortCallId()))){
-                                    userLocalStore.setPortCallID(newMessages.get(0).getPortCallId());
-                                }
-                                for (PortCallMessage newMessage : newMessages) {
-                                   *//**//*Context context = getApplicationContext();
-                                   CharSequence text = "Nytt PortCallMessage: " + newMessage.toString();
-                                   int duration = Toast.LENGTH_SHORT;*//**//*
-                                    Log.e("NyttPCM", newMessage.toString());
-
-                                   *//**//*Toast toast = Toast.makeText(context, text, duration);
-                                   toast.show();*//**//*
-                                }
-                            }
-                            sleep(6000);
-                            //handler.post(this);
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-
-            thread.start();
-        }
-        firstTimeInMainActivity = false;*/
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        new UserLocalStorage(this);
 
         //If someone is logged in access MainActivity page
         if (authenticate()) {
@@ -211,11 +174,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             case R.id.nav_logout:
                 user.clearUser();
-                user.setUserLoggedIn(false);
+                user.interrupt();
                 startActivity(new Intent(MainActivity.this, Vessel_Login.class ));
-                if(thread != null)
-                    thread.interrupt();
-                firstTimeInMainActivity = true;
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

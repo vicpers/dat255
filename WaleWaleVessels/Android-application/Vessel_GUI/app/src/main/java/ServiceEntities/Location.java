@@ -23,17 +23,19 @@ public class Location {
     public Location(JSONObject locJsonObj){
         if (locJsonObj != null) {
             try {
-
-                this.name           = locJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_NAME);
-                this.shortName      = locJsonObj.getString(Constants_jsonParsing.TAG_PORT_LOCATIONS_SHORT_NAME);
                 this.URN            = locJsonObj.getString(Constants_jsonParsing.TAG_LOCATIONS_URN);
-
                 Position position = null;
                 try {
                     position = new Position(locJsonObj.getJSONObject(Constants_jsonParsing.TAG_LOCATION_POSITION));
                 } catch (JSONException e1) {}
                 try {
                     this.locationType   = LocationType.valueOf(locJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_TYPE));
+                } catch (JSONException e1) {}
+                try {
+                    this.name           = locJsonObj.getString(Constants_jsonParsing.TAG_LOCATION_NAME);
+                } catch (JSONException e1) {}
+                try {
+                    this.shortName      = locJsonObj.getString(Constants_jsonParsing.TAG_PORT_LOCATIONS_SHORT_NAME);
                 } catch (JSONException e1) {}
 
             } catch (JSONException e2) {

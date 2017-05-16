@@ -52,6 +52,7 @@ public class Vessel_Login extends AppCompatActivity implements View.OnClickListe
                     startActivity(new Intent(this, MainActivity.class ));
                 } catch(NoSuchElementException | IllegalArgumentException e){
                     Log.e("LoginExc", e.toString());
+                    //TODO Ordna så att en pop-up dyker upp.
                 }
                 break;
 

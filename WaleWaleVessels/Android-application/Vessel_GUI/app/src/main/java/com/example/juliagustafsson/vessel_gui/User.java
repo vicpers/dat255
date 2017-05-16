@@ -5,26 +5,32 @@ import android.util.Log;
 import android.util.NoSuchPropertyException;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 import RESTServices.MessageBrokerQueue;
 import RESTServices.PortCDMServices;
+import ServiceEntities.PortCallMessage;
 import ServiceEntities.ServiceObject;
 import ServiceEntities.TimeType;
 import ServiceEntities.Vessel;
+
+import static RESTServices.PortCDMServices.getActualPortData;
+import static RESTServices.PortCDMServices.getStateDefinitions;
 
 /**
  * Created by juliagustafsson on 2017-04-26.
  */
 
-public class User implements Serializable{
+public class User implements Serializable, Runnable{
 
     private Vessel vessel = null;
     private Context context;
     private boolean userLoggedIn = false;
     private HashMap<String, MessageBrokerQueue> messageBrokerMap = new HashMap<>();
     private String portCallID = null;
+    private Thread thread;
 
     /**
      * @param context
@@ -41,7 +47,13 @@ public class User implements Serializable{
         setVessel(this.vessel);
 
         getMessageBrokerMap();
+        getPortCallID();
         createDefaultQueues();
+        getActualPortData();
+        getStateDefinitions();
+
+        this.thread = new Thread(this);
+        this.thread.start();
     }
 
     public User(Context context, Vessel vessel) throws NullPointerException{
@@ -52,7 +64,13 @@ public class User implements Serializable{
         setVessel(this.vessel);
 
         getMessageBrokerMap();
+        getPortCallID();
         createDefaultQueues();
+        getActualPortData();
+        getStateDefinitions();
+
+        this.thread = new Thread(this);
+        this.thread.start();
     }
 
     public Vessel getVessel() {
@@ -152,6 +170,46 @@ public class User implements Serializable{
 
         Log.wtf("Queues", messageBrokerMap.toString());
         setMessageBrokerMap(messageBrokerMap);
+    }
+
+    public void run(){
+        try {
+            while(true) {
+
+                MessageBrokerQueue messageBrokerQueue = messageBrokerMap.get("vessel");
+                if(messageBrokerQueue != null) {
+                    ArrayList<PortCallMessage> pcmArray = messageBrokerQueue.pollQueue();
+                    for (PortCallMessage pcm : pcmArray) {
+                        if (portCallID == null) {
+                            Log.e("Got PortCallID", pcm.getPortCallId());
+                            setPortCallID(pcm.getPortCallId());
+                        }
+                        Log.e("NyttPCM", pcm.toString());
+                    }
+                }
+                messageBrokerQueue = messageBrokerMap.get("portcall");
+                if(messageBrokerQueue != null) {
+                    ArrayList<PortCallMessage> pcmArray = messageBrokerQueue.pollQueue();
+                    for (PortCallMessage pcm : pcmArray) {
+                        if (portCallID == null) {
+                            Log.e("Got PortCallID", pcm.getPortCallId());
+                            setPortCallID(pcm.getPortCallId());
+                        }
+                        Log.e("NyttPCM", pcm.toString());
+                    }
+                }
+
+                this.thread.sleep(2000);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void interrupt(){
+        if(this.thread.isAlive())
+            this.thread.interrupt();
     }
 
 }

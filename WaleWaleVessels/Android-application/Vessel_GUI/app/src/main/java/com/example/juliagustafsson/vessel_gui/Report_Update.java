@@ -58,6 +58,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
     private Spinner spinnerAtOrFromLocation;
     private Spinner spinnerToLocation;
     private Spinner spinnerTimeType;
+    private Spinner spinnerSubLocation;
 
     private EditText dateEditText;
     private EditText timeEditText;
@@ -70,6 +71,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
     private String selectedFromLocation;
     private String selectedtoLocation;
     private String selectedAtLocation;
+    private String selectedSubLocation;
     private TimeType selectedTimeType;
     private String selectedPortLoc;
     private LocationType selectedLocationType;
@@ -79,6 +81,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
     private ArrivalLocation arrLoc;
     private DepartureLocation depLoc;
     private LocationState locState;
+    HashMap<String, Location> subLocationsMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,49 +105,45 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
         switch( v.getId() ) {
             case R.id.Anchoring: {
                 currentServiceObject = ServiceObject.ANCHORING;
+                selectedLocationType = LocationType.ANCHORING_AREA;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
-                setDialogView(currentServiceObject);
+                setAtServiceStateView(selectedLocationType);
                 break;
             }
 
             case R.id.ArrivalAnchoringOperation: {
                 currentServiceObject = ServiceObject.ARRIVAL_ANCHORING_OPERATION;
+                selectedLocationType = LocationType.ANCHORING_AREA;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
-                setDialogView(currentServiceObject);
-                break;
-            }
-
-            case R.id.ArrivalBerth: {
-                currentServiceObject = ServiceObject.ARRIVAL_BERTH;
-                setTimeSequenceSpinner(currentServiceObject);
-                createAlertDialog(serviceStateView);
-                setTimeAndDate(serviceStateView);
-                setDialogView(currentServiceObject);
+                setAtServiceStateView(selectedLocationType);
                 break;
             }
 
             case R.id.VTSAreaArrival: {
                 currentServiceObject = ServiceObject.ARRIVAL_VTSAREA;
+                selectedLocationType = LocationType.TRAFFIC_AREA;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
-                setDialogView(currentServiceObject);
+                setAtServiceStateView(selectedLocationType);
                 break;
             }
 
             case R.id.BerthShifting: {
                 currentServiceObject = ServiceObject.BERTH_SHIFTING;
+                selectedLocationType = LocationType.BERTH;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
-                setDialogView(currentServiceObject);
+                setBetweenServiceStateView(selectedLocationType, selectedLocationType);
                 break;
             }
 
+            //TODO At which location?
             case R.id.BunkeringOperation: {
                 currentServiceObject = ServiceObject.BUNKERING_OPERATION;
                 setTimeSequenceSpinner(currentServiceObject);
@@ -154,6 +153,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 break;
             }
 
+            //TODO At which location?
             case R.id.CargoOperation: {
                 currentServiceObject = ServiceObject.CARGO_OPERATION;
                 setTimeSequenceSpinner(currentServiceObject);
@@ -163,24 +163,17 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 break;
             }
 
-            case R.id.DepartureBerth: {
-                currentServiceObject = ServiceObject.DEPARTURE_BERTH;
-                setTimeSequenceSpinner(currentServiceObject);
-                createAlertDialog(serviceStateView);
-                setTimeAndDate(serviceStateView);
-                setDialogView(currentServiceObject);
-                break;
-            }
-
             case R.id.VTSAreaDeparture: {
                 currentServiceObject = ServiceObject.DEPARTURE_VTSAREA;
+                selectedLocationType = LocationType.TRAFFIC_AREA;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
-                setDialogView(currentServiceObject);
+                setAtServiceStateView(selectedLocationType);
                 break;
             }
 
+            //TODO Between which locations?
             case R.id.EscortTowage: {
                 currentServiceObject = ServiceObject.ESCORT_TOWAGE;
                 setTimeSequenceSpinner(currentServiceObject);
@@ -190,6 +183,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 break;
             }
 
+            //TODO Between which locations?
             case R.id.IceBreakingOperation: {
                 currentServiceObject = ServiceObject.ICEBREAKING_OPERATION;
                 setTimeSequenceSpinner(currentServiceObject);
@@ -199,6 +193,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 break;
             }
 
+            //TODO At which location?
             case R.id.ArrivalMooringOperation: {
                 currentServiceObject = ServiceObject.ARRIVAL_MOORING_OPERATION;
                 setTimeSequenceSpinner(currentServiceObject);
@@ -208,6 +203,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 break;
             }
 
+            //TODO At which location?
             case R.id.DepartureMooringOperation: {
                 currentServiceObject = ServiceObject.DEPARTURE_MOORING_OPERATION;
                 setTimeSequenceSpinner(currentServiceObject);
@@ -217,6 +213,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 break;
             }
 
+            //TODO Between which locations?
             case R.id.Pilotage: {
                 currentServiceObject = ServiceObject.PILOTAGE;
                 setTimeSequenceSpinner(currentServiceObject);
@@ -226,6 +223,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 break;
             }
 
+            //TODO Between which locations?
             case R.id.Towage: {
                 currentServiceObject = ServiceObject.TOWAGE;
                 setTimeSequenceSpinner(currentServiceObject);
@@ -234,7 +232,6 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 setDialogView(currentServiceObject);
                 break;
             }
-
         }
     }
 
@@ -247,7 +244,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 selectedLocationType = LocationType.ANCHORING_AREA;
                 createAlertDialog(locationstateView);
                 setTimeAndDate(locationstateView);
-                setTimeTypeSpinner();
+                setLocationstateView(selectedLocationType);
                 break;
             }
 
@@ -256,7 +253,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 selectedLocationType = LocationType.ANCHORING_AREA;
                 createAlertDialog(locationstateView);
                 setTimeAndDate(locationstateView);
-                setTimeTypeSpinner();
+                setLocationstateView(selectedLocationType);
                 break;
             }
 
@@ -265,7 +262,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 selectedLocationType = LocationType.BERTH;
                 createAlertDialog(locationstateView);
                 setTimeAndDate(locationstateView);
-                setTimeTypeSpinner();
+                setLocationstateView(selectedLocationType);
                 break;
             }
 
@@ -274,7 +271,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 selectedLocationType = LocationType.BERTH;
                 createAlertDialog(locationstateView);
                 setTimeAndDate(locationstateView);
-                setTimeTypeSpinner();
+                setLocationstateView(selectedLocationType);
                 break;
             }
 
@@ -283,7 +280,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 selectedLocationType = LocationType.PILOT_BOARDING_AREA;
                 createAlertDialog(locationstateView);
                 setTimeAndDate(locationstateView);
-                setTimeTypeSpinner();
+                setLocationstateView(selectedLocationType);
                 break;
             }
 
@@ -292,7 +289,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 selectedLocationType = LocationType.TRAFFIC_AREA;
                 createAlertDialog(locationstateView);
                 setTimeAndDate(locationstateView);
-                setTimeTypeSpinner();
+                setLocationstateView(selectedLocationType);
                 break;
             }
 
@@ -301,7 +298,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                 selectedLocationType = LocationType.TRAFFIC_AREA;
                 createAlertDialog(locationstateView);
                 setTimeAndDate(locationstateView);
-                setTimeTypeSpinner();
+                setLocationstateView(selectedLocationType);
                 break;
             }
         }
@@ -310,7 +307,6 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
 
     private void createAlertDialog(View v) {
         dialogBuilder = new AlertDialog.Builder(Report_Update.this);
-        //dialogBuilder.setPositiveButton("Send", null );
         dialogBuilder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -342,24 +338,30 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                     //TODO Se till så att at och between används utifrån val.
                     //TODO Implementera att en TimeType ska väljas.
                     if(getServiceType(currentServiceObject) == ServiceType.STATIONARY){
-                        Location at = new Location(null,
-                                                    new Position(0, 0),
-                                                    LocationType.fromString(selectedAtLocation));
+                        Location at = new Location(selectedAtLocation,
+                                                    new Position(0, 0), selectedLocationType);
+                        try{
+                            at = subLocationsMap.get(selectedAtLocation);
+                        } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
                         serviceState = new ServiceState(currentServiceObject,
                                 ServiceTimeSequence.fromString(selectedTimeSequence),
-                                TimeType.ESTIMATED,
+                                selectedTimeType,
                                 formattedTime,
                                 at,
                                 null); //performingActor ev. vesselId
                     } else {
-                        Location from = new Location(null, new Position(0, 0),
-                                LocationType.fromString(selectedFromLocation));
-                        Location to = new Location(null, new Position(0, 0),
-                                LocationType.fromString(selectedtoLocation));
+                        Location from = new Location(selectedFromLocation, new Position(0, 0), selectedLocationType);
+                        try{
+                            from = subLocationsMap.get(selectedFromLocation);
+                        } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
+                        Location to = new Location(selectedtoLocation, new Position(0, 0), selectedLocationType);
+                        try{
+                            to = subLocationsMap.get(selectedtoLocation);
+                        } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
                         Between between = new Between(from, to);
                         serviceState = new ServiceState(currentServiceObject,
                                 ServiceTimeSequence.fromString(selectedTimeSequence),
-                                TimeType.ESTIMATED,
+                                selectedTimeType,
                                 formattedTime,
                                 between,
                                 null); //performingActor ev. vesselId
@@ -372,9 +374,6 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                     AMSS amss = new AMSS(pcmObj);
                     String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
 
-
-
-                    //send a location state port call message
                 } else {
 
                     // Gets strings that represent the date and time from different Edit-fields.
@@ -396,11 +395,10 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                         Log.e("DateProblem Null", e2.toString());
                     }
 
-                    //testar med null, tror att det ska vara "sub-platsen"
-                    Location location = new Location(null, new Position(0, 0), selectedLocationType);
-                    /*try{
-                        location = portLocMap.get(selectedPortLoc);
-                    } catch (NullPointerException e){Log.e("PortLocation", e.toString());} */
+                    Location location = new Location(selectedSubLocation, new Position(0, 0), selectedLocationType);
+                    try{
+                        location = subLocationsMap.get(selectedSubLocation);
+                    } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
 
                     if (isArrival) {
                         arrLoc = new ArrivalLocation(null, location);
@@ -478,8 +476,8 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
         });
     }
 
-    private void setTimeTypeSpinner() {
-        spinnerTimeType = (Spinner) locationstateView.findViewById(R.id.spinnerTimeType);
+    private void setTimeTypeSpinner(View v) {
+        spinnerTimeType = (Spinner) v.findViewById(R.id.spinnerTimeType);
         timeTypeMap = TimeType.toMap();
         ArrayList<String> timeTypes = new ArrayList<String>(timeTypeMap.keySet());
         Collections.sort(timeTypes);
@@ -559,6 +557,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
         });
     }
 
+
     private void setDialogView(ServiceObject serviceObject) {
         ServiceType currentServiceType = getServiceType(serviceObject);
         TextView atFromLocationText = (TextView) serviceStateView.findViewById(R.id.AtFromLocationText);
@@ -578,6 +577,99 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
             setAtLocationSpinner();
         }
     }
+
+    private void setBetweenServiceStateView(LocationType from, LocationType to) {
+        setTimeTypeSpinner(serviceStateView);
+        TextView atFromLocationText = (TextView) serviceStateView.findViewById(R.id.AtFromLocationText);
+        spinnerAtOrFromLocation = (Spinner) serviceStateView.findViewById(R.id.spinnerAtOrFromLocation);
+        spinnerToLocation = (Spinner) serviceStateView.findViewById(R.id.spinnerToLocation);
+        atFromLocationText.setText("From Location");
+
+        HashMap<String, Location> subLocationsMap = PortCDMServices.getPortLocations(from);
+        ArrayList<String> subLocations = new ArrayList<String>(subLocationsMap.keySet());
+        Collections.sort(subLocations);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subLocations);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAtOrFromLocation.setAdapter(arrayAdapter);
+        spinnerAtOrFromLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    selectedFromLocation = spinnerAtOrFromLocation.getSelectedItem().toString();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        spinnerToLocation.setAdapter(arrayAdapter);
+        spinnerToLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    selectedtoLocation = spinnerToLocation.getSelectedItem().toString();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+    }
+
+    private void setAtServiceStateView (LocationType at) {
+        setTimeTypeSpinner(serviceStateView);
+        TextView atFromLocationText = (TextView) serviceStateView.findViewById(R.id.AtFromLocationText);
+        TextView toLocation = (TextView) serviceStateView.findViewById(R.id.ToLocation);
+        spinnerAtOrFromLocation = (Spinner) serviceStateView.findViewById(R.id.spinnerAtOrFromLocation);
+        spinnerToLocation = (Spinner) serviceStateView.findViewById(R.id.spinnerToLocation);
+        atFromLocationText.setText("At Location");
+        toLocation.setVisibility(View.INVISIBLE);
+        spinnerToLocation.setVisibility(View.INVISIBLE);
+
+        HashMap<String, Location> subLocationsMap = PortCDMServices.getPortLocations(at);
+        ArrayList<String> subLocations = new ArrayList<String>(subLocationsMap.keySet());
+        Collections.sort(subLocations);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subLocations);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAtOrFromLocation.setAdapter(arrayAdapter);
+        spinnerAtOrFromLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    selectedAtLocation = spinnerAtOrFromLocation.getSelectedItem().toString();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+    }
+
+    private void setLocationstateView (LocationType locationType) {
+        setTimeTypeSpinner(locationstateView);
+        spinnerSubLocation = (Spinner) locationstateView.findViewById(R.id.spinnerSubLocation);
+        subLocationsMap = PortCDMServices.getPortLocations(locationType);
+        ArrayList<String> subLocations = new ArrayList<String>(subLocationsMap.keySet());
+        Collections.sort(subLocations);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subLocations);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerSubLocation.setAdapter(arrayAdapter);
+        spinnerSubLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    selectedSubLocation = spinnerSubLocation.getSelectedItem().toString();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
 
 
 

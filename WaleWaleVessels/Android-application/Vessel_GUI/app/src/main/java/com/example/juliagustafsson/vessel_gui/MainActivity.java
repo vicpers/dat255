@@ -147,6 +147,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void viewPCM(View view) {
         Intent intent = new Intent(this, ViewPCM.class); //skapar en ny instans av klassen ViewPCM som initierar ett nytt blankt fönster
         // TODO Fixa källan till texten, dvs här ska ett PCM läsas is till ett textfält
+        ArrayList<PortCallMessage> portCallList = userLocalStore.getMessageBrokerMap().get("vessel").getQueue();
+
+        ArrayList<String> stringList = new ArrayList<>();
+
+        for(PortCallMessage pcm : portCallList){
+            stringList.add(pcm.toXml());
+        }
+        stringList.add("hej");
+
+        intent.putStringArrayListExtra("portcalls", stringList);//skicka med VesselID till nästa aktivitet
 
         startActivity(intent);
 

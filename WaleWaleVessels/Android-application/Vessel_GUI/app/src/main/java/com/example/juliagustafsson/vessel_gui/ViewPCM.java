@@ -1,18 +1,48 @@
 package com.example.juliagustafsson.vessel_gui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v7.app.ActionBar;
 
+import java.util.ArrayList;
+
 import RESTServices.MessageBrokerQueue;
+import ServiceEntities.PortCallMessage;
 
 public class ViewPCM extends AppCompatActivity {
-
+    UserLocalStorage userLocalStore;
+    //private String[] lv_arr = {};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pcm);
+        Intent intent = getIntent();
+
+        ArrayList<String> stringList = intent.getStringArrayListExtra("portcalls"); //Hämta userLocalStore skickat från mainactivity
+
+
+
+        // Get a handle to the list view
+        ListView lv = (ListView) findViewById(R.id.listView);
+
+
+        ArrayAdapter<String> itemsAdapter =
+                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, stringList);
+        lv.setAdapter(itemsAdapter);
+
+
+
+
+
+
+
+
+        /*
         // Get the Intent that started this activity and extract the string
 
 //        HttpUrlConnectionPortCDM portCdmCon = new HttpUrlConnectionPortCDM();
@@ -39,9 +69,6 @@ public class ViewPCM extends AppCompatActivity {
         System.out.println(pcm.toXml());
         AMSS amss = new AMSS(pcm);
         amss.submitStateUpdate();*/
-
-
-
 
 
     }

@@ -71,53 +71,45 @@ public class Vessel_Login extends AppCompatActivity implements View.OnClickListe
         try{
             Vessel newVessel = getVessel(vesselID);
             userLocalStore.setVessel(newVessel);
+            Vessel myVessel = userLocalStore.getVessel();
+            HashMap<String, MessageBrokerQueue> hashMap = new HashMap<>();
+
+            MessageBrokerQueue tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(myVessel);
+            hashMap.put("vessel",tempMbq);
+
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(myVessel, ServiceObject.ANCHORING);
+            hashMap.put(ServiceObject.ANCHORING.getText(),tempMbq);
+
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(myVessel, ServiceObject.BERTH_SHIFTING);
+            hashMap.put(ServiceObject.BERTH_SHIFTING.getText(),tempMbq);
+
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(myVessel, ServiceObject.TOWAGE);
+            hashMap.put(ServiceObject.TOWAGE.getText(),tempMbq);
+
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(myVessel, ServiceObject.ICEBREAKING_OPERATION);
+            hashMap.put(ServiceObject.ICEBREAKING_OPERATION.getText(),tempMbq);
+
+            Log.wtf("Queues", hashMap.toString());
+            userLocalStore.setMessageBrokerMap(hashMap);
+            logUserIn(user);
         }
-        catch(NoSuchElementException e){
+        catch(NoSuchElementException | IllegalArgumentException e){
             Context context = getApplicationContext();
             CharSequence text = "Felaktigt Vessel ID";
             int duration = Toast.LENGTH_SHORT;
 
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
-
-        }
-        catch(IllegalArgumentException e){
-            Context context = getApplicationContext();
-            CharSequence text = "Felaktigt Vessel ID";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
         }
 
-        Vessel myVessel = userLocalStore.getVessel();
-        HashMap<String, MessageBrokerQueue> hashMap = new HashMap<>();
 
-        MessageBrokerQueue tempMbq = new MessageBrokerQueue();
-        tempMbq.createUnfilteredQueue(myVessel);
-        hashMap.put("vessel",tempMbq);
 
-        tempMbq = new MessageBrokerQueue();
-        tempMbq.createUnfilteredQueue(myVessel, ServiceObject.ANCHORING);
-        hashMap.put(ServiceObject.ANCHORING.getText(),tempMbq);
 
-        tempMbq = new MessageBrokerQueue();
-        tempMbq.createUnfilteredQueue(myVessel, ServiceObject.BERTH_SHIFTING);
-        hashMap.put(ServiceObject.BERTH_SHIFTING.getText(),tempMbq);
-
-        tempMbq = new MessageBrokerQueue();
-        tempMbq.createUnfilteredQueue(myVessel, ServiceObject.TOWAGE);
-        hashMap.put(ServiceObject.TOWAGE.getText(),tempMbq);
-
-        tempMbq = new MessageBrokerQueue();
-        tempMbq.createUnfilteredQueue(myVessel, ServiceObject.ICEBREAKING_OPERATION);
-        hashMap.put(ServiceObject.ICEBREAKING_OPERATION.getText(),tempMbq);
-
-        Log.wtf("Queues", hashMap.toString());
-        userLocalStore.setMessageBrokerMap(hashMap);
-        logUserIn(user);
-
-        
         //Nedan är när vi inte vill kolla om IDt är korrekt
        /* String vID = user.vesselID;
             if (vID.equals("WaleWale") {

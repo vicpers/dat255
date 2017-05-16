@@ -128,7 +128,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private boolean authenticate() {
         if(user != null)
             return true;
-        user = new User(this, UserLocalStorage.getVessel());
+        try {
+            user = new User(this, UserLocalStorage.getVessel());
+        } catch (NullPointerException e){
+            return false;
+        }
         if(user != null)
             return true;
         return false;

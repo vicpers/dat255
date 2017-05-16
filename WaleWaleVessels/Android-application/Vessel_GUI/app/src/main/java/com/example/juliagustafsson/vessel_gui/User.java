@@ -26,7 +26,6 @@ public class User implements Serializable{
     private HashMap<String, MessageBrokerQueue> messageBrokerMap = new HashMap<>();
     private String portCallID = null;
 
-    public User(){}
     /**
      * @param context
      * @param vesselID
@@ -39,17 +38,18 @@ public class User implements Serializable{
             throw e;
         }
         this.context = context;
-        UserLocalStorage.setVessel(this.vessel);
+        setVessel(this.vessel);
 
         getMessageBrokerMap();
         createDefaultQueues();
     }
 
-    public User(Context context, Vessel vessel) throws NoSuchElementException{
-
+    public User(Context context, Vessel vessel) throws NullPointerException{
+        if (vessel == null)
+            throw new NullPointerException("vessel is null");
         this.vessel = vessel;
         this.context = context;
-        UserLocalStorage.setVessel(this.vessel);
+        setVessel(this.vessel);
 
         getMessageBrokerMap();
         createDefaultQueues();
@@ -115,9 +115,9 @@ public class User implements Serializable{
     }
 
     public void createDefaultQueues() throws NoSuchPropertyException{
-        if(vessel == null) {
+        if(this.vessel == null) {
             getVessel();
-            if(vessel == null)
+            if(this.vessel == null)
                 throw new NoSuchPropertyException("No vessel for current user found");
         }
 

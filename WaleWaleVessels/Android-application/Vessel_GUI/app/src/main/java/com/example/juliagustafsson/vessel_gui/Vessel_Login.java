@@ -45,6 +45,7 @@ public class Vessel_Login extends AppCompatActivity implements View.OnClickListe
             case R.id.Access_PortCDM:
                 EditText vID =  (EditText) findViewById(R.id.vessel_ID);
                 String vesselIMO = "urn:mrn:stm:vessel:IMO:" + vID.getText().toString();
+                UserLocalStorage.clearUserData();
                 User user;
                 try{
                     new User(this, vesselIMO);

@@ -16,14 +16,14 @@ public class Location {
     private String name;
     private Position position;
     private LocationType locationType;
-    private String URN = null;
+    private String locationMRN = null;
     private String shortName;
     private String portUnlocode = API_ACTUAL_PORT;
 
     public Location(JSONObject locJsonObj){
         if (locJsonObj != null) {
             try {
-                this.URN            = locJsonObj.getString(Constants_jsonParsing.TAG_LOCATIONS_URN);
+                this.locationMRN = locJsonObj.getString(Constants_jsonParsing.TAG_LOCATIONS_URN);
                 Position position = null;
                 try {
                     position = new Position(locJsonObj.getJSONObject(Constants_jsonParsing.TAG_LOCATION_POSITION));
@@ -52,10 +52,10 @@ public class Location {
         setLocationType(locationType);
     }
 
-    public Location(String name, Position position, String URN){
+    public Location(String name, Position position, String locationMRN){
         setName(name);
         setPosition(position);
-        setURN(URN);
+        setLocationMRN(locationMRN);
     }
 
     public String getName() {
@@ -82,12 +82,12 @@ public class Location {
         this.locationType = locationType;
     }
 
-    public String getURN() {
-        return URN;
+    public String getLocationMRN() {
+        return locationMRN;
     }
 
-    private void setURN(String URN) {
-        this.URN = URN;
+    private void setLocationMRN(String locationMRN) {
+        this.locationMRN = locationMRN;
     }
 
     public String getShortName() {
@@ -110,8 +110,8 @@ public class Location {
         if (position != null)
             xmlStr += "<ns2:position>" + position.toXml() + "</ns2:position>";
 
-        if(URN != null){
-            xmlStr += "<ns2:locationMRN>" + URN + "</ns2:locationMRN>";
+        if(locationMRN != null){
+            xmlStr += "<ns2:locationMRN>" + locationMRN + "</ns2:locationMRN>";
         } else if(locationType != null){
             xmlStr += "<ns2:locationMRN>urn:mrn:stm:location:" + portUnlocode + ":" + locationType + "</ns2:locationMRN>";
         } else {

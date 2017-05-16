@@ -50,9 +50,11 @@
         <activity
             android:name=".Report_Update"
             android:parentActivityName=".MainActivity" />
-
         <activity
             android:name=".StatementsOfFacts"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".CheckStatus"
             android:parentActivityName=".MainActivity" />
     </application>
 

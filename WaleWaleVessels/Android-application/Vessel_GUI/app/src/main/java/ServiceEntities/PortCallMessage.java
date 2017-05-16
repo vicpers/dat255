@@ -18,8 +18,7 @@ public class PortCallMessage {
     private String portCallId;
     private String localPortCallId;
     private String localJobId;
-    private Vessel vessel; //TODO Eventuellt ändra detta till ett VesselObjekt. Kan däremot skapa problem vid konvertering till json.
-    //private final String vesselId;
+    private Vessel vessel;
     private String messageId;
     private String groupWith;
     private String reportedAt; //TODO Convert to a DateTime format.

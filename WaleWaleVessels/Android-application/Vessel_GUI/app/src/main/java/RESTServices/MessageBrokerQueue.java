@@ -65,7 +65,7 @@ public class MessageBrokerQueue implements Serializable{
     }
 
     public ArrayList<PortCallMessage> getQueue(){
-        return this.queue;
+        return (ArrayList<PortCallMessage>) this.queue.clone();
     }
 
     /**
@@ -110,10 +110,10 @@ public class MessageBrokerQueue implements Serializable{
     }
 
     /**
-     * @param vessel
+     * @param portCallID
      * @param locationType
      */
-    public void createUnfilteredQueue(Vessel vessel, LocationType locationType){
+    public void createUnfilteredQueue(String portCallID, LocationType locationType){
         String url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_CREATE_QUEUE;
 
         HashMap<String, String> headers = new HashMap<String, String>();
@@ -125,8 +125,8 @@ public class MessageBrokerQueue implements Serializable{
 
         String body = "[" +
                 "  {" +
-                "    \"type\": \"VESSEL\"," +
-                "    \"element\": \"" + vessel.getId() + "\"" +
+                "    \"type\": \"PORT_CALL\"," +
+                "    \"element\": \"" + portCallID + "\"" +
                 "  }," +
                 "  {" +
                 "    \"type\": \"LOCATION_TYPE\"," +
@@ -139,10 +139,10 @@ public class MessageBrokerQueue implements Serializable{
     }
 
     /**
-     * @param vessel
+     * @param portCallID
      * @param timeType
      */
-    public void createUnfilteredQueue(Vessel vessel, TimeType timeType){
+    public void createUnfilteredQueue(String portCallID, TimeType timeType){
         String url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_CREATE_QUEUE;
 
         HashMap<String, String> headers = new HashMap<String, String>();
@@ -154,8 +154,8 @@ public class MessageBrokerQueue implements Serializable{
 
         String body = "[" +
                 "  {" +
-                "    \"type\": \"VESSEL\"," +
-                "    \"element\": \"" + vessel.getId() + "\"" +
+                "    \"type\": \"PORT_CALL\"," +
+                "    \"element\": \"" + portCallID + "\"" +
                 "  }," +
                 "  {" +
                 "    \"type\": \"TIME_TYPE\"," +
@@ -168,10 +168,10 @@ public class MessageBrokerQueue implements Serializable{
     }
 
     /**
-     * @param vessel
+     * @param portCallID
      * @param serviceObject
      */
-    public void createUnfilteredQueue(Vessel vessel, ServiceObject serviceObject){
+    public void createUnfilteredQueue(String portCallID, ServiceObject serviceObject){
         this.serviceObject = serviceObject;
 
         String url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_CREATE_QUEUE;
@@ -185,8 +185,8 @@ public class MessageBrokerQueue implements Serializable{
 
         String body = "[" +
                 "  {" +
-                "    \"type\": \"VESSEL\"," +
-                "    \"element\": \"" + vessel.getId() + "\"" +
+                "    \"type\": \"PORT_CALL\"," +
+                "    \"element\": \"" + portCallID + "\"" +
                 "  }" +
                 "]";
 
@@ -258,27 +258,8 @@ public class MessageBrokerQueue implements Serializable{
         return returnStr;
     }
 
-    public String testToJson(){
-        return this.queue.get(0).toXml();
-    }
-
-    public void setQueue(ArrayList<PortCallMessage> queue) {
-        this.queue = queue;
-    }
-
     public ArrayList<PortCallMessage> getTempQueue() {
         return tempQueue;
     }
 
-    public void setTempQueue(ArrayList<PortCallMessage> tempQueue) {
-        this.tempQueue = tempQueue;
-    }
-
-    public ServiceObject getServiceObject() {
-        return serviceObject;
-    }
-
-    public void setServiceObject(ServiceObject serviceObject) {
-        this.serviceObject = serviceObject;
-    }
 }

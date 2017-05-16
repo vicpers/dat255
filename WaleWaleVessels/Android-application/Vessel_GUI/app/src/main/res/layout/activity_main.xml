@@ -87,7 +87,7 @@
             android:layout_marginLeft="8dp"
             android:layout_weight="1"
             android:background="@color/menuHeader"
-            android:onClick="sendServiceState"
+            android:onClick="checkStatus"
             android:text="Check status"
             android:textSize="24sp" />
     </TableRow>

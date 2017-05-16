@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onStart() {
         super.onStart();
-
         //If someone is logged in access MainActivity page
         if (authenticate()) {
             displayVesselID();
@@ -133,8 +132,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
-    public void sendServiceState(View view) {
-        Intent intent = new Intent(this, SendServiceState.class); //skapar en ny instans av klassen SendLocationState som initierar ett nytt blankt fönster
+    public void checkStatus(View view) {
+        Intent intent = new Intent(this, CheckStatus.class); //skapar en ny instans av klassen SendLocationState som initierar ett nytt blankt fönster
         startActivity(intent);
     }
 

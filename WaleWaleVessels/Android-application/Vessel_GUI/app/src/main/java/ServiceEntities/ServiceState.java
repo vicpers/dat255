@@ -59,7 +59,6 @@ public class ServiceState {
      * @param performingActor String
      */
 
-    // TODO TROR att service states ska ha antingen ett "at" för stationary states, ELLER ett "between" för nautical states
     public ServiceState(ServiceObject serviceObject, ServiceTimeSequence timeSequence, TimeType timeType,
                          String time, Location at, String performingActor) {
         this.serviceObject = serviceObject;
@@ -78,7 +77,6 @@ public class ServiceState {
      * @param performingActor String
      */
 
-    // TODO TROR att service states ska ha antingen ett "at" för stationary states, ELLER ett "between" för nautical states
     public ServiceState(ServiceObject serviceObject, ServiceTimeSequence timeSequence, TimeType timeType,
                         String time, Between between, String performingActor) {
         this.serviceObject = serviceObject;
@@ -95,6 +93,10 @@ public class ServiceState {
 
     public void setServiceObject(ServiceObject serviceObject) {
         this.serviceObject = serviceObject;
+    }
+
+    public String toString(){
+        return "Sequence: " + timeSequence + " - TimeType: " + timeType + " - Time: " + time;
     }
 
     public String toXml() {

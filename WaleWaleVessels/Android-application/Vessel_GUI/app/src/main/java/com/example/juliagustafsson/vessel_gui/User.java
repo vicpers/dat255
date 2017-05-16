@@ -46,11 +46,8 @@ public class User implements Serializable{
     }
 
     public User(Context context, Vessel vessel) throws NoSuchElementException{
-        try{
-            this.vessel = vessel;
-        } catch (NoSuchElementException e){
-            throw e;
-        }
+
+        this.vessel = vessel;
         this.context = context;
         UserLocalStorage.setVessel(this.vessel);
 
@@ -118,8 +115,11 @@ public class User implements Serializable{
     }
 
     public void createDefaultQueues() throws NoSuchPropertyException{
-        if(vessel == null)
-            throw new NoSuchPropertyException("No vessel for current user found");
+        if(vessel == null) {
+            getVessel();
+            if(vessel == null)
+                throw new NoSuchPropertyException("No vessel for current user found");
+        }
 
         MessageBrokerQueue tempMbq = new MessageBrokerQueue();
 

@@ -1,6 +1,6 @@
 package com.example.juliagustafsson.vessel_gui;
 
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.NoSuchElementException;
 
@@ -48,21 +47,10 @@ public class Vessel_Login extends AppCompatActivity implements View.OnClickListe
                 String vesselIMO = "urn:mrn:stm:vessel:IMO:" + vID.getText().toString();
                 User user;
                 try{
-                    user = new User(this, vesselIMO);
-                    user.setUserLoggedIn(true);
-                    UserLocalStorage userLocalStorage = new UserLocalStorage(this);
-                    userLocalStorage.setUser(user);
-                    Log.e("user 1", user.toString());
-                    user = userLocalStorage.getUser();
-                    Log.e("user 2", user.toString());
-                    finish();
-
+                    new User(this, vesselIMO);
+                    startActivity(new Intent(this, MainActivity.class ));
                 } catch(NoSuchElementException | IllegalArgumentException e){
-                    Context context = getApplicationContext();
-                    CharSequence text = e.toString();
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
+                    Log.e("LoginExc", e.toString());
                 }
                 break;
 

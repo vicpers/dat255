@@ -114,11 +114,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onStart() {
         super.onStart();
+        new UserLocalStorage(this);
 
         //If someone is logged in access MainActivity page
         if (authenticate()) {
             displayVesselID();
-            //user.createDefaultQueues();
         } else { //If noone is logged in access Login page
             startActivity(new Intent(MainActivity.this, Vessel_Login.class ));
         }
@@ -128,8 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private boolean authenticate() {
         if(user != null)
             return true;
-        UserLocalStorage userLocalStorage = new UserLocalStorage(this);
-        this.user = userLocalStorage.getUser();
+        user = new User(this, UserLocalStorage.getVessel());
         if(user != null)
             return true;
         return false;

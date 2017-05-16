@@ -35,12 +35,26 @@ public class User implements Serializable{
     public User(Context context, String vesselID) throws NoSuchElementException{
         try{
             this.vessel = PortCDMServices.getVessel(vesselID);
-        } catch (NoSuchElementException e){ throw e; }
+        } catch (NoSuchElementException e){
+            throw e;
+        }
         this.context = context;
-        UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
-        userLocalStorage.setVessel(this.vessel);
-        userLocalStorage.setUser(this);
+        UserLocalStorage.setVessel(this.vessel);
 
+        getMessageBrokerMap();
+        createDefaultQueues();
+    }
+
+    public User(Context context, Vessel vessel) throws NoSuchElementException{
+        try{
+            this.vessel = vessel;
+        } catch (NoSuchElementException e){
+            throw e;
+        }
+        this.context = context;
+        UserLocalStorage.setVessel(this.vessel);
+
+        getMessageBrokerMap();
         createDefaultQueues();
     }
 

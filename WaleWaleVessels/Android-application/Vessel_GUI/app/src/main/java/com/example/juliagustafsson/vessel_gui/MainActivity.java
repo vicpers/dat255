@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //If someone is logged in access MainActivity page
         if (authenticate()) {
             displayVesselID();
-            user.createDefaultQueues();
+            //user.createDefaultQueues();
         } else { //If noone is logged in access Login page
             startActivity(new Intent(MainActivity.this, Vessel_Login.class ));
         }
@@ -181,8 +181,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void statementsOfFacts(View view) {
         Intent intent = new Intent(this, StatementsOfFacts.class); //skapar en ny instans av klassen Report_Update som initierar ett nytt blankt fönster
-        intent.putExtra("vesselID", userLocalStore.getVessel().getId());//skicka med VesselID till nästa aktivitet
-        intent.putExtra("portCallID", userLocalStore.getPortCallID());//skicka med portCallID till nästa aktivitet
+        intent.putExtra("vesselID", user.getVessel().getId());//skicka med VesselID till nästa aktivitet
+        intent.putExtra("portCallID", user.getPortCallID());//skicka med portCallID till nästa aktivitet
         startActivity(intent);
     }
 

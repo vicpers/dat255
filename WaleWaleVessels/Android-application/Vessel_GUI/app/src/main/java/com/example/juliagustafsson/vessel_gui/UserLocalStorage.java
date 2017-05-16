@@ -2,7 +2,6 @@ package com.example.juliagustafsson.vessel_gui;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -69,7 +68,7 @@ public class UserLocalStorage implements Serializable{
     public User getUser(){
         Gson gson = new Gson();
         String storedUserString = userLocalDatabase.getString("user", null);
-        Log.e("storedUserStr", storedUserString);
+        //Log.e("storedUserStr", storedUserString);
         //java.lang.reflect.Type type = new TypeToken<User>(){}.getType();
         return gson.fromJson(storedUserString, User.class);
     }

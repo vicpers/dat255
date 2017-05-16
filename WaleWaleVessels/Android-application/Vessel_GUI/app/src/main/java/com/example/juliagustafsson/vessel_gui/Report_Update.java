@@ -56,22 +56,30 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
     private ServiceObject currentServiceObject;
     private Spinner spinnerTimeSequence;
     private Spinner spinnerAtOrFromLocation;
+    private Spinner spinnerFromLocation;
+    private Spinner spinnerFromSubLocation;
+    private Spinner spinnerToSubLocation;
+
+
     private Spinner spinnerToLocation;
     private Spinner spinnerTimeType;
     private Spinner spinnerSubLocation;
 
     private EditText dateEditText;
     private EditText timeEditText;
-    private View dialogView;
     private SimpleDateFormat dateFormat;
     private DatePickerDialog datePicker;
     private TimePickerDialog timePicker;
     AlertDialog.Builder dialogBuilder;
     private String selectedTimeSequence;
-    private String selectedFromLocation;
-    private String selectedtoLocation;
-    private String selectedAtLocation;
+    private LocationType selectedFromLocation;
+    private LocationType selectedtoLocation;
+    private LocationType selectedAtLocation;
+    private String selectedAtSubLocation;
     private String selectedSubLocation;
+    private String selectedFromSubLocation;
+    private String selectedToSubLocation;
+
     private TimeType selectedTimeType;
     private String selectedPortLoc;
     private LocationType selectedLocationType;
@@ -82,6 +90,9 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
     private DepartureLocation depLoc;
     private LocationState locState;
     HashMap<String, Location> subLocationsMap;
+    HashMap<String, Location> toSubLocationMap;
+    HashMap<String, Location> fromSubLocationMap;
+    HashMap<String, Location> atSubLocationMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,135 +112,152 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
 
     public void sendNewServiceState(View v) {
         isServiceState = true;
-        serviceStateView = getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
         switch( v.getId() ) {
             case R.id.Anchoring: {
+                serviceStateView = getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
                 currentServiceObject = ServiceObject.ANCHORING;
-                selectedLocationType = LocationType.ANCHORING_AREA;
+                selectedAtLocation = LocationType.ANCHORING_AREA;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
-                setAtServiceStateView(selectedLocationType);
+                setAtServiceStateView(selectedAtLocation);
                 break;
             }
 
             case R.id.ArrivalAnchoringOperation: {
+                serviceStateView = getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
                 currentServiceObject = ServiceObject.ARRIVAL_ANCHORING_OPERATION;
-                selectedLocationType = LocationType.ANCHORING_AREA;
+                selectedAtLocation = LocationType.ANCHORING_AREA;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
-                setAtServiceStateView(selectedLocationType);
+                setAtServiceStateView(selectedAtLocation);
                 break;
             }
 
             case R.id.VTSAreaArrival: {
+                serviceStateView = getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
                 currentServiceObject = ServiceObject.ARRIVAL_VTSAREA;
-                selectedLocationType = LocationType.TRAFFIC_AREA;
+                selectedAtLocation = LocationType.TRAFFIC_AREA;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
-                setAtServiceStateView(selectedLocationType);
+                setAtServiceStateView(selectedAtLocation);
                 break;
             }
 
             case R.id.BerthShifting: {
+                serviceStateView = getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
                 currentServiceObject = ServiceObject.BERTH_SHIFTING;
-                selectedLocationType = LocationType.BERTH;
+                selectedFromLocation = LocationType.BERTH;
+                selectedtoLocation = LocationType.BERTH;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
-                setBetweenServiceStateView(selectedLocationType, selectedLocationType);
+                setBetweenServiceStateView(selectedFromLocation, selectedtoLocation);
                 break;
             }
 
             //TODO At which location?
             case R.id.BunkeringOperation: {
+                serviceStateView = getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
+                selectedAtLocation = LocationType.BERTH;
                 currentServiceObject = ServiceObject.BUNKERING_OPERATION;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
-                setDialogView(currentServiceObject);
+                setAtServiceStateView(selectedAtLocation);
                 break;
             }
 
             //TODO At which location?
             case R.id.CargoOperation: {
+                serviceStateView = getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
+                selectedAtLocation = LocationType.BERTH;
                 currentServiceObject = ServiceObject.CARGO_OPERATION;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
-                setDialogView(currentServiceObject);
+                setAtServiceStateView(selectedAtLocation);
                 break;
             }
 
             case R.id.VTSAreaDeparture: {
+                serviceStateView = getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
                 currentServiceObject = ServiceObject.DEPARTURE_VTSAREA;
-                selectedLocationType = LocationType.TRAFFIC_AREA;
+                selectedAtLocation = LocationType.TRAFFIC_AREA;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
-                setAtServiceStateView(selectedLocationType);
+                setAtServiceStateView(selectedAtLocation);
                 break;
             }
 
             //TODO Between which locations?
             case R.id.EscortTowage: {
+                serviceStateView = getLayoutInflater().inflate(R.layout.dialog_between_service_state, null);
                 currentServiceObject = ServiceObject.ESCORT_TOWAGE;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
-                setDialogView(currentServiceObject);
+                setBetweenServiceStateView();
                 break;
             }
 
             //TODO Between which locations?
             case R.id.IceBreakingOperation: {
+                serviceStateView = getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
                 currentServiceObject = ServiceObject.ICEBREAKING_OPERATION;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
-                setDialogView(currentServiceObject);
+                setBetweenServiceStateView();
                 break;
             }
 
             //TODO At which location?
             case R.id.ArrivalMooringOperation: {
+                serviceStateView = getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
+                selectedAtLocation = LocationType.BERTH;
                 currentServiceObject = ServiceObject.ARRIVAL_MOORING_OPERATION;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
-                setDialogView(currentServiceObject);
+                setAtServiceStateView(selectedAtLocation);
                 break;
             }
 
             //TODO At which location?
             case R.id.DepartureMooringOperation: {
+                serviceStateView = getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
+                selectedAtLocation = LocationType.BERTH;
                 currentServiceObject = ServiceObject.DEPARTURE_MOORING_OPERATION;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
-                setDialogView(currentServiceObject);
+                setAtServiceStateView(selectedAtLocation);
                 break;
             }
 
             //TODO Between which locations?
             case R.id.Pilotage: {
+                serviceStateView = getLayoutInflater().inflate(R.layout.dialog_between_service_state, null);
                 currentServiceObject = ServiceObject.PILOTAGE;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
-                setDialogView(currentServiceObject);
+                setBetweenServiceStateView();
                 break;
             }
 
             //TODO Between which locations?
             case R.id.Towage: {
+                serviceStateView = getLayoutInflater().inflate(R.layout.dialog_between_service_state, null);
                 currentServiceObject = ServiceObject.TOWAGE;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
-                setDialogView(currentServiceObject);
+                setBetweenServiceStateView();
                 break;
             }
         }
@@ -341,10 +369,10 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                     //TODO Se till så att at och between används utifrån val.
                     //TODO Implementera att en TimeType ska väljas.
                     if(getServiceType(currentServiceObject) == ServiceType.STATIONARY){
-                        Location at = new Location(selectedAtLocation,
-                                                    new Position(0, 0), selectedLocationType);
+                        Location at = new Location(selectedAtSubLocation,
+                                                    new Position(0, 0), selectedAtLocation);
                         try{
-                            at = subLocationsMap.get(selectedAtLocation);
+                            at = atSubLocationMap.get(selectedAtSubLocation);
                         } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
                         serviceState = new ServiceState(currentServiceObject,
                                 ServiceTimeSequence.fromString(selectedTimeSequence),
@@ -353,13 +381,13 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                                 at,
                                 null); //performingActor ev. vesselId
                     } else {
-                        Location from = new Location(selectedFromLocation, new Position(0, 0), selectedLocationType);
+                        Location from = new Location(selectedFromSubLocation, new Position(0, 0), selectedFromLocation);
                         try{
-                            from = subLocationsMap.get(selectedFromLocation);
+                            from = fromSubLocationMap.get(selectedFromSubLocation);
                         } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
-                        Location to = new Location(selectedtoLocation, new Position(0, 0), selectedLocationType);
+                        Location to = new Location(selectedToSubLocation, new Position(0, 0), selectedtoLocation);
                         try{
-                            to = subLocationsMap.get(selectedtoLocation);
+                            to = toSubLocationMap.get(selectedToSubLocation);
                         } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
                         Between between = new Between(from, to);
                         serviceState = new ServiceState(currentServiceObject,
@@ -482,87 +510,6 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
         });
     }
 
-    private void setAtLocationSpinner() {
-        HashMap<String, LocationType> locationTypeMap = LocationType.toMap();
-        ArrayList<String> locationTypes = new ArrayList<String>(locationTypeMap.keySet());
-        Collections.sort(locationTypes);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locationTypes);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerAtOrFromLocation.setAdapter(arrayAdapter);
-        spinnerAtOrFromLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    selectedAtLocation = spinnerAtOrFromLocation.getSelectedItem().toString();
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
-
-    private void setFromLocationSpinner() {
-        HashMap<String, LocationType> locationTypeMap = LocationType.toMap();
-        ArrayList<String> locationTypes = new ArrayList<String>(locationTypeMap.keySet());
-        Collections.sort(locationTypes);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locationTypes);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerAtOrFromLocation.setAdapter(arrayAdapter);
-        spinnerAtOrFromLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    selectedFromLocation = spinnerAtOrFromLocation.getSelectedItem().toString();
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
-
-    private void setToLocationSpinner() {
-        HashMap<String, LocationType> locationTypeMap = LocationType.toMap();
-        ArrayList<String> locationTypes = new ArrayList<String>(locationTypeMap.keySet());
-        Collections.sort(locationTypes);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locationTypes);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerToLocation.setAdapter(arrayAdapter);
-        spinnerToLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    selectedtoLocation = spinnerToLocation.getSelectedItem().toString();
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
-
-
-    private void setDialogView(ServiceObject serviceObject) {
-        ServiceType currentServiceType = getServiceType(serviceObject);
-        TextView atFromLocationText = (TextView) serviceStateView.findViewById(R.id.AtFromLocationText);
-        TextView toLocation = (TextView) serviceStateView.findViewById(R.id.ToLocation);
-        spinnerAtOrFromLocation = (Spinner) serviceStateView.findViewById(R.id.spinnerAtOrFromLocation);
-        spinnerToLocation = (Spinner) serviceStateView.findViewById(R.id.spinnerToLocation);
-
-        if (currentServiceType == ServiceType.NAUTICAL ) {
-            atFromLocationText.setText("From Location");
-            setFromLocationSpinner();
-            setToLocationSpinner();
-
-        } else {
-            atFromLocationText.setText("At Location");
-            toLocation.setVisibility(View.INVISIBLE);
-            spinnerToLocation.setVisibility(View.INVISIBLE);
-            setAtLocationSpinner();
-        }
-    }
-
     private void setBetweenServiceStateView(LocationType from, LocationType to) {
         setTimeTypeSpinner(serviceStateView);
         TextView atFromLocationText = (TextView) serviceStateView.findViewById(R.id.AtFromLocationText);
@@ -579,7 +526,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
         spinnerAtOrFromLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try {
-                    selectedFromLocation = spinnerAtOrFromLocation.getSelectedItem().toString();
+                    selectedFromSubLocation = spinnerAtOrFromLocation.getSelectedItem().toString();
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
@@ -592,7 +539,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
         spinnerToLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try {
-                    selectedtoLocation = spinnerToLocation.getSelectedItem().toString();
+                    selectedToSubLocation = spinnerToLocation.getSelectedItem().toString();
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
@@ -601,6 +548,89 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
             }
         });
 
+    }
+
+    private void setBetweenServiceStateView() {
+        setTimeTypeSpinner(serviceStateView);
+
+        spinnerFromLocation = (Spinner) serviceStateView.findViewById(R.id.spinnerFromLocation);
+        spinnerToLocation = (Spinner) serviceStateView.findViewById(R.id.spinnerToLocation);
+        spinnerFromSubLocation = (Spinner) serviceStateView.findViewById(R.id.spinnerFromSubLocation);
+        spinnerToSubLocation = (Spinner) serviceStateView.findViewById(R.id.spinnerToSubLocation);
+
+        HashMap<String, LocationType> locationTypeMap = LocationType.toMap();
+        ArrayList<String> locations = new ArrayList<String>(locationTypeMap.keySet());
+        Collections.sort(locations);
+        ArrayAdapter<String> locationArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locations);
+        locationArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerFromLocation.setAdapter(locationArrayAdapter);
+        spinnerFromLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    selectedFromLocation = LocationType.fromString(spinnerFromLocation.getSelectedItem().toString());
+                    setFromSubLocationSpinner(selectedFromLocation);
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        spinnerToLocation.setAdapter(locationArrayAdapter);
+        spinnerToLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    selectedtoLocation = LocationType.fromString(spinnerToLocation.getSelectedItem().toString());
+                    setToSubLocationSpinner(selectedtoLocation);
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
+    private void setFromSubLocationSpinner(LocationType location) {
+        fromSubLocationMap = PortCDMServices.getPortLocations(location);
+        ArrayList<String> portLocations = new ArrayList<>();
+        try {
+            portLocations = new ArrayList<String>(fromSubLocationMap.keySet());
+        } catch (NullPointerException e) {Log.e("PortLocSpinner", e.toString());}
+        Collections.sort(portLocations);
+        ArrayAdapter<String> portLocadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, portLocations);
+        portLocadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFromSubLocation.setAdapter(portLocadapter);
+        spinnerFromSubLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedFromSubLocation = spinnerFromSubLocation.getSelectedItem().toString();
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
+    private void setToSubLocationSpinner(LocationType location) {
+        toSubLocationMap = PortCDMServices.getPortLocations(location);
+        ArrayList<String> portLocations = new ArrayList<>();
+        try {
+            portLocations = new ArrayList<String>(toSubLocationMap.keySet());
+        } catch (NullPointerException e) {Log.e("PortLocSpinner", e.toString());}
+        Collections.sort(portLocations);
+        ArrayAdapter<String> portLocadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, portLocations);
+        portLocadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerToSubLocation.setAdapter(portLocadapter);
+        spinnerToSubLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedToSubLocation = spinnerToSubLocation.getSelectedItem().toString();
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     private void setAtServiceStateView (LocationType at) {
@@ -613,8 +643,8 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
         toLocation.setVisibility(View.INVISIBLE);
         spinnerToLocation.setVisibility(View.INVISIBLE);
 
-        HashMap<String, Location> subLocationsMap = PortCDMServices.getPortLocations(at);
-        ArrayList<String> subLocations = new ArrayList<String>(subLocationsMap.keySet());
+        atSubLocationMap = PortCDMServices.getPortLocations(at);
+        ArrayList<String> subLocations = new ArrayList<String>(atSubLocationMap.keySet());
         Collections.sort(subLocations);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subLocations);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -622,7 +652,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
         spinnerAtOrFromLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try {
-                    selectedAtLocation = spinnerAtOrFromLocation.getSelectedItem().toString();
+                    selectedAtSubLocation = spinnerAtOrFromLocation.getSelectedItem().toString();
                 } catch(Exception e) {
                     e.printStackTrace();
                 }

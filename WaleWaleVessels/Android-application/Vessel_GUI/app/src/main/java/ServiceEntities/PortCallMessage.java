@@ -255,7 +255,7 @@ public class PortCallMessage {
 
     public String toXml() {
         String xmlStr = "";
-        if(portCallId != null)
+        if((portCallId != null) || (portCallId != ""))
             xmlStr += "<ns2:portCallId>"        + portCallId        + "</ns2:portCallId>";
         if(localPortCallId != null)
             xmlStr += "<ns2:localPortCallId>"   + localPortCallId   + "</ns2:localPortCallId>";

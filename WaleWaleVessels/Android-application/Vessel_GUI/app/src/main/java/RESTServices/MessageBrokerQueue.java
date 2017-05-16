@@ -14,6 +14,7 @@ import ServiceEntities.LocationType;
 import ServiceEntities.PortCallMessage;
 import ServiceEntities.ServiceObject;
 import ServiceEntities.ServiceState;
+import ServiceEntities.TimeType;
 import ServiceEntities.Vessel;
 
 import static RESTServices.Constants_API.API_DEV_BASE_URL;
@@ -129,6 +130,35 @@ public class MessageBrokerQueue {
                 "  {" +
                 "    \"type\": \"LOCATION_TYPE\"," +
                 "    \"element\": \"" + locationType + "\"" +
+                "  }" +
+                "]";
+
+        this.queueId = WebRequest.makeWebServicePost(url, headers, null, body);
+        Log.e("queueID", queueId);
+    }
+
+    /**
+     * @param vessel
+     * @param timeType
+     */
+    public void createUnfilteredQueue(Vessel vessel, TimeType timeType){
+        String url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_CREATE_QUEUE;
+
+        HashMap<String, String> headers = new HashMap<String, String>();
+
+        headers.put(API_HEADER_CONTENT_TYPE, API_HEADER_ACCEPT_JSON);
+        headers.put(API_HEADER_USER_ID, API_DEV_USERNAME);
+        headers.put(API_HEADER_PASSWORD, API_DEV_PASSWORD);
+        headers.put(API_HEADER_API_KEY, API_DEV_KEY1);
+
+        String body = "[" +
+                "  {" +
+                "    \"type\": \"VESSEL\"," +
+                "    \"element\": \"" + vessel.getId() + "\"" +
+                "  }," +
+                "  {" +
+                "    \"type\": \"TIME_TYPE\"," +
+                "    \"element\": \"" + timeType + "\"" +
                 "  }" +
                 "]";
 

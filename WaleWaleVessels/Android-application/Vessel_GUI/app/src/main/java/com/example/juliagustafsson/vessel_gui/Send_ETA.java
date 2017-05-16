@@ -209,36 +209,15 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
             Log.e("DateProblem Null", e2.toString());
         }
 
-        /*
-        Här använder jag det värdet som väljs i spinnern och passar in det i locObj som skickas vid nytt ETA.
-         */
-        //Location locObj = new Location(null, new Position(0,0, "Gothenburg Port"), LocationType.TRAFFIC_AREA);
-        // Called in a try-catch because iti is not sure that a subcategory of PortLocation exists. 
+
+//        Här använder jag det värdet som väljs i spinnern och passar in det i locObj som skickas vid nytt ETA.
         Location location = new Location(selectedPortLoc, new Position(0, 0), locMap.get(selectedRecipant));
         try{
             location = portLocMap.get(selectedPortLoc);
         } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
 
-        //Location locObj = new Location(null, position, locMap.get(selectedRecipant)); //Old version 0.0.16 XML
-        /*String locationMRN;
-        if (allowedSubLocations.contains(locMap.get(selectedRecipant))) //TODO Add correct ending to locationMRN if subLocation exists.
-            locationMRN = "urn:mrn:stm:location:" + API_ACTUAL_PORT + ":" + locMap.get(selectedRecipant);// + ":" + position.getShortName();
-        else
-            locationMRN = "urn:mrn:stm:location:" + API_ACTUAL_PORT + ":" + locMap.get(selectedRecipant);*/
-        //Location locObj = new Location(null, position, locationMRN);  //New version 0.6
         ArrivalLocation arrLoc = new ArrivalLocation(null, location);
         LocationState locState = new LocationState(ReferenceObject.VESSEL, formattedTime, TimeType.ESTIMATED, arrLoc);
-
-        // Bortkommenterat är sådant som används om val för Arrival eller Departure ska väljas.
-        /*DepartureLocation depLoc;
-        LocationState locState;
-        if (selectedArrDep.equals("Arrival")) {
-            arrLoc = new ArrivalLocation(null, locObj);
-            locState = new LocationState(ReferenceObject.VESSEL, formattedTime, TimeType.ESTIMATED, arrLoc);
-        }else {
-            depLoc = new DepartureLocation(locObj, null);
-            locState = new LocationState(ReferenceObject.VESSEL, formattedTime, TimeType.ESTIMATED, depLoc);
-        }*/
 
         Intent intent = getIntent();
         String vesselID = intent.getExtras().getString("vesselID"); //Hämta VesselIMO skickat från mainactivity

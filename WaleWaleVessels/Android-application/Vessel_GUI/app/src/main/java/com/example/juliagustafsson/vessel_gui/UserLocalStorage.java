@@ -1,20 +1,11 @@
 package com.example.juliagustafsson.vessel_gui;
 
-import android.app.Notification;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Base64;
-import android.util.Base64InputStream;
-import android.util.Base64OutputStream;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
 import RESTServices.MessageBrokerQueue;
@@ -77,6 +68,8 @@ public class UserLocalStorage {
     }
 
     public boolean getUserLoggedIn () {
+        // Går att använda enbart;
+        // return userLocalDatabase.getBoolean("Logged In", false);
         if (userLocalDatabase.getBoolean("Logged In", false) == true) {
             return true;
         } else {

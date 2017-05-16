@@ -188,6 +188,9 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
     }
 
     public void sendNewETA(View v) {
+
+        TextView etaResultView = (TextView) findViewById(R.id.etaConfirmView);
+        etaResultView.setText(" ");
         // Gets strings that represent the date and time from different Edit-fields.
         String etaDate = dateEditText.getText().toString();
         String etaTime = timeEditText.getText().toString();
@@ -221,13 +224,14 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
 
         Intent intent = getIntent();
         String vesselID = intent.getExtras().getString("vesselID"); //Hämta VesselIMO skickat från mainactivity
-        PortCallMessage pcmObj = new PortCallMessage(vesselID,
+        String portCallID = intent.getExtras().getString("portCallID"); //Hämta aktuellt portCallID skickat från mainactivity
+        PortCallMessage pcmObj = new PortCallMessage(portCallID,
+                                                     vesselID,
                                                      "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
                                                      null,
                                                      locState);
         AMSS amss = new AMSS(pcmObj);
         String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
-        TextView etaResultView = (TextView) findViewById(R.id.etaConfirmView);
         etaResultView.setText(etaResult);
 
     }

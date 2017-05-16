@@ -21,7 +21,7 @@ import static RESTServices.PortCDMServices.getStateDefinitions;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
    // private Button logout;
-    private UserLocalStorage userLocalStore;
+    private UserLocalStorage userLocalStore = null;
     private ArrayAdapter<String> mAdapter;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
@@ -183,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void reportUpdate(View view) {
         Intent intent = new Intent(this, Report_Update.class); //skapar en ny instans av klassen Report_Update som initierar ett nytt blankt fönster
         intent.putExtra("vesselID", userLocalStore.getVessel().getId());//skicka med VesselID till nästa aktivitet
+        intent.putExtra("portCallID", userLocalStore.getPortCallID());//skicka med portCallID till nästa aktivitet
         startActivity(intent);
     }
 

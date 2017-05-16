@@ -87,11 +87,44 @@ public class PortCallMessage {
         this.locationState = locationState;
     }
 
+    /** Same functionality as the constructor above despite the fact that this constructor also
+     *  keeps track of the portCallId
+     *
+     * @param portCallId
+     * @param vesselId
+     * @param messageId
+     * @param reportedBy
+     * @param locationState
+     */
+    public PortCallMessage(String portCallId, String vesselId, String messageId, String reportedBy, LocationState locationState) {
+        this.portCallId = portCallId;
+        this.vessel = PortCDMServices.getVessel(vesselId);
+        this.messageId = messageId;
+        this.reportedBy = reportedBy;
+        this.locationState = locationState;
+    }
+
     /**
      * Lekt och lattjat lite för att få en pcmkonstruktur för att skicka service states.
      * Bra lekt och lattjat.
      */
     public PortCallMessage(String vesselId, String messageId, String reportedBy, ServiceState serviceState) {
+        this.vessel = PortCDMServices.getVessel(vesselId);
+        this.messageId = messageId;
+        this.reportedBy = reportedBy;
+        this.serviceState = serviceState;
+    }
+
+    /** Same functionality as the constructor above despite the fact that this constructor also
+     *  keeps track of the portCallId
+     * @param portCallId
+     * @param vesselId
+     * @param messageId
+     * @param reportedBy
+     * @param serviceState
+     */
+    public PortCallMessage(String portCallId, String vesselId, String messageId, String reportedBy, ServiceState serviceState) {
+        this.portCallId = portCallId;
         this.vessel = PortCDMServices.getVessel(vesselId);
         this.messageId = messageId;
         this.reportedBy = reportedBy;

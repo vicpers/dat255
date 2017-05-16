@@ -14,6 +14,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import ServiceEntities.PortCallMessage;
+
 import static RESTServices.PortCDMServices.getActualPortData;
 import static RESTServices.PortCDMServices.getStateDefinitions;
 

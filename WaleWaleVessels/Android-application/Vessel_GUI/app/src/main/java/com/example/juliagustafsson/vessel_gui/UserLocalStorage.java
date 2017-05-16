@@ -2,10 +2,12 @@ package com.example.juliagustafsson.vessel_gui;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import RESTServices.MessageBrokerQueue;
@@ -17,33 +19,22 @@ import ServiceEntities.Vessel;
  * Created by juliagustafsson on 2017-04-26.
  */
 
-public class UserLocalStorage {
+public class UserLocalStorage implements Serializable{
     private Gson gson;
-    private User user = null;
-    private String portCallID = null;
-    private HashMap<String, MessageBrokerQueue> messageBrokerMap = null;
-    private Vessel vessel = null;
 
     public static final String SP_NAME = "userDetails";
     SharedPreferences userLocalDatabase;
+
+    public UserLocalStorage(){}
 
     public UserLocalStorage(Context context) {
         userLocalDatabase = context.getSharedPreferences(SP_NAME, 0);
     }
 
-
-    public void storeUserData(User user) {
+    public void clearUserData () {
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
-        spEditor.putString("Vessel ID", user.vesselID);
+        spEditor.clear();
         spEditor.commit();
-        this.user = user;
-    }
-
-    public User getLoggedInUser() {
-        if (user == null){
-            user = new User(userLocalDatabase.getString("Vessel ID",""));
-        }
-            return user;
     }
 
     public void setUserLoggedIn (boolean loggedIn) {
@@ -52,57 +43,46 @@ public class UserLocalStorage {
         spEditor.commit();
     }
 
-    public void clearUserData () {
-        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
-        spEditor.clear();
-        spEditor.commit();
-        user = null;
-        portCallID = null;
-        messageBrokerMap = null;
-        vessel = null;
-    }
     public void setVessel(Vessel vessel){
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
         gson = new Gson();
         String vesselString = gson.toJson(vessel);
         spEditor.putString("vessel", vesselString);
         spEditor.commit();
-        this.vessel = vessel;
     }
 
     public Vessel getVessel(){
-        if (vessel == null){
-            gson = new Gson();
-            String storedVesselString = userLocalDatabase.getString("vessel", "oopsDintWork");
-            java.lang.reflect.Type type = new TypeToken<Vessel>(){}.getType();
-            vessel = gson.fromJson(storedVesselString, type);
-        }
-        return vessel;
+        gson = new Gson();
+        String storedVesselString = userLocalDatabase.getString("vessel", null);
+        java.lang.reflect.Type type = new TypeToken<Vessel>(){}.getType();
+        return gson.fromJson(storedVesselString, type);
+    }
+
+    public void setUser(User user){
+        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        Gson gson = new Gson();
+        String userString = gson.toJson(user);
+        spEditor.putString("user", userString);
+        spEditor.commit();
+    }
+
+    public User getUser(){
+        Gson gson = new Gson();
+        String storedUserString = userLocalDatabase.getString("user", null);
+        Log.e("storedUserStr", storedUserString);
+        //java.lang.reflect.Type type = new TypeToken<User>(){}.getType();
+        return gson.fromJson(storedUserString, User.class);
     }
 
     public boolean getUserLoggedIn () {
-        // Går att använda enbart;
-        // return userLocalDatabase.getBoolean("Logged In", false);
-        if (userLocalDatabase.getBoolean("Logged In", false) == true) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public HashMap<String, MessageBrokerQueue> getMessageBrokerMap() {
-        if (messageBrokerMap == null){
-            gson = new Gson();
-            String storedHashMapString = userLocalDatabase.getString("messageMap", "oopsDintWork");
-            java.lang.reflect.Type type = new TypeToken<HashMap<String, MessageBrokerQueue>>(){}.getType();
-            messageBrokerMap = gson.fromJson(storedHashMapString, type);
-        }
-        return messageBrokerMap;
+        return userLocalDatabase.getBoolean("Logged In", false);
     }
 
-    public void addMessageBrokerQueue(String key, MessageBrokerQueue queue)   {
-        HashMap<String, MessageBrokerQueue> map = getMessageBrokerMap();
-        map.put(key, queue);
-        setMessageBrokerMap(map);
+    public HashMap<String, MessageBrokerQueue> getMessageBrokerMap() {
+        gson = new Gson();
+        String storedHashMapString = userLocalDatabase.getString("messageMap", null);
+        java.lang.reflect.Type type = new TypeToken<HashMap<String, MessageBrokerQueue>>(){}.getType();
+        return gson.fromJson(storedHashMapString, type);
     }
 
     public void setMessageBrokerMap(HashMap<String, MessageBrokerQueue> hashMap){
@@ -111,19 +91,36 @@ public class UserLocalStorage {
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
         spEditor.putString("messageMap", hashMapString);
         spEditor.commit();
-        messageBrokerMap = hashMap;
     }
 
-    public void setPortCallID(String ID){
+    public void setPortCallID(String portCallID){
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
-        portCallID = ID;
         spEditor.putString("PortCallID", portCallID);
         spEditor.commit();
     }
+
     public String getPortCallID(){
-        if (portCallID == null){
-            portCallID = userLocalDatabase.getString("PortCallID","");
-        }
-        return portCallID;
+        return userLocalDatabase.getString("PortCallID", null);
     }
+
+    public Gson getGson() {
+        return gson;
+    }
+
+    public void setGson(Gson gson) {
+        this.gson = gson;
+    }
+
+    public static String getSpName() {
+        return SP_NAME;
+    }
+
+    public SharedPreferences getUserLocalDatabase() {
+        return userLocalDatabase;
+    }
+
+    public void setUserLocalDatabase(SharedPreferences userLocalDatabase) {
+        this.userLocalDatabase = userLocalDatabase;
+    }
+
 }

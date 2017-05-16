@@ -18,14 +18,11 @@ import java.util.ArrayList;
 
 import ServiceEntities.PortCallMessage;
 
-import static RESTServices.PortCDMServices.getActualPortData;
-import static RESTServices.PortCDMServices.getStateDefinitions;
-
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
    // private Button logout;
-    private UserLocalStorage userLocalStore = null;
+    private User user = null;
     private ArrayAdapter<String> mAdapter;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
@@ -74,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //logout = (Button) findViewById(R.id.logout);
         //logout.setOnClickListener(this);
 
-        userLocalStore = new UserLocalStorage(this);
 
         /*if(firstTimeInMainActivity = true && userLocalStore.getUserLoggedIn()){
             //handler = new Handler();
@@ -121,37 +117,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //If someone is logged in access MainActivity page
         if (authenticate()) {
-           displayVesselID();
-
-        }
-        //If noone is logged in access Login page
-        else {
+            displayVesselID();
+            user.createDefaultQueues();
+        } else { //If noone is logged in access Login page
             startActivity(new Intent(MainActivity.this, Vessel_Login.class ));
         }
 
-        // Calls method for fetching all the state definitions in PortCDM and saves them in a
-        // static map for later use when sending PortCallMessages
-        getStateDefinitions();
-
-        // Calls method for fetching the data about portLocations for actual port.
-        // Atm Port of Gothenburg - SEGOT. Specified in API-constants.
-        getActualPortData();
     }
 
     private boolean authenticate() {
-        return userLocalStore.getUserLoggedIn();
+        if(user != null)
+            return true;
+        UserLocalStorage userLocalStorage = new UserLocalStorage(this);
+        this.user = userLocalStorage.getUser();
+        if(user != null)
+            return true;
+        return false;
     }
 
     public void displayVesselID() {
-        User user = userLocalStore.getLoggedInUser();
         TextView textView = (TextView) findViewById(R.id.loggedIn);
-        textView.setText("Active Vessel: " + userLocalStore.getVessel().getName());
+        textView.setText("Active Vessel: " + user.getVessel().getName());
     }
 
     public void viewPCM(View view) {
         Intent intent = new Intent(this, ViewPCM.class); //skapar en ny instans av klassen ViewPCM som initierar ett nytt blankt fönster
         // TODO Fixa källan till texten, dvs här ska ett PCM läsas is till ett textfält
-        ArrayList<PortCallMessage> portCallList = userLocalStore.getMessageBrokerMap().get("vessel").getQueue();
+        ArrayList<PortCallMessage> portCallList = user.getMessageBrokerMap().get("vessel").getQueue();
 
         ArrayList<String> stringList = new ArrayList<>();
 
@@ -170,12 +162,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void sendETA(View view) {
         Intent intent = new Intent(this, Send_ETA.class); //skapar en ny instans av klassen ViewPCM som initierar ett nytt blankt fönster
-        intent.putExtra("vesselID", userLocalStore.getVessel().getId());//skicka med VesselID till nästa aktivitet
-        startActivity(intent);
-    }
-
-    public void sendLocationState(View view) {
-        Intent intent = new Intent(this, SendLocationState.class); //skapar en ny instans av klassen SendLocationState som initierar ett nytt blankt fönster
+        intent.putExtra("vesselID", user.getVessel().getId());//skicka med VesselID till nästa aktivitet
+        intent.putExtra("portCallIDID", user.getPortCallID());//skicka med VesselID till nästa aktivitet
         startActivity(intent);
     }
 
@@ -186,8 +174,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void reportUpdate(View view) {
         Intent intent = new Intent(this, Report_Update.class); //skapar en ny instans av klassen Report_Update som initierar ett nytt blankt fönster
-        intent.putExtra("vesselID", userLocalStore.getVessel().getId());//skicka med VesselID till nästa aktivitet
-        intent.putExtra("portCallID", userLocalStore.getPortCallID());//skicka med portCallID till nästa aktivitet
+        intent.putExtra("vesselID", user.getVessel().getId());//skicka med VesselID till nästa aktivitet
+        intent.putExtra("portCallID", user.getPortCallID());//skicka med portCallID till nästa aktivitet
         startActivity(intent);
     }
 
@@ -219,10 +207,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_settings:
                 return true;
             case R.id.nav_logout:
-                userLocalStore.clearUserData();
-                userLocalStore.setUserLoggedIn(false);
+                user.clearUser();
+                user.setUserLoggedIn(false);
                 startActivity(new Intent(MainActivity.this, Vessel_Login.class ));
-                thread.interrupt();
+                if(thread != null)
+                    thread.interrupt();
                 firstTimeInMainActivity = true;
                 return true;
             default:

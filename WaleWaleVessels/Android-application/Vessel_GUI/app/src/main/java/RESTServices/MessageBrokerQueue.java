@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -35,7 +36,7 @@ import static RESTServices.Constants_API.API_SERVICE_POLL_QUEUE;
  * Created by maxedman on 2017-04-21.
  */
 
-public class MessageBrokerQueue {
+public class MessageBrokerQueue implements Serializable{
 
     private String queueId;
     private ArrayList<PortCallMessage> queue = new ArrayList<PortCallMessage>();
@@ -259,5 +260,25 @@ public class MessageBrokerQueue {
 
     public String testToJson(){
         return this.queue.get(0).toXml();
+    }
+
+    public void setQueue(ArrayList<PortCallMessage> queue) {
+        this.queue = queue;
+    }
+
+    public ArrayList<PortCallMessage> getTempQueue() {
+        return tempQueue;
+    }
+
+    public void setTempQueue(ArrayList<PortCallMessage> tempQueue) {
+        this.tempQueue = tempQueue;
+    }
+
+    public ServiceObject getServiceObject() {
+        return serviceObject;
+    }
+
+    public void setServiceObject(ServiceObject serviceObject) {
+        this.serviceObject = serviceObject;
     }
 }

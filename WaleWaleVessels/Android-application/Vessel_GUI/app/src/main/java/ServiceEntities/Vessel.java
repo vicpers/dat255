@@ -21,6 +21,8 @@ public class Vessel implements Serializable {
     private String stmVesselId;
     private String photoURL;
 
+    public Vessel(){}
+
     public Vessel(JSONObject vesselJsonObj){
         if (vesselJsonObj != null) {
             try {
@@ -59,7 +61,9 @@ public class Vessel implements Serializable {
         setPhotoURL(photoURL);
     }
 
-    public Vessel(String id){ setId(id); }
+    public Vessel(String id){
+        setId(id);
+    }
 
     public String getImo() {
         return imo;
@@ -125,23 +129,22 @@ public class Vessel implements Serializable {
         this.photoURL = photoURL;
     }
 
+
+    public VesselType getVesselType() {
+        return vesselType;
+    }
+
+    public void setVesselType(VesselType vesselType) {
+        this.vesselType = vesselType;
+    }
+
+
+
     @Override
     public String toString(){
         return "VesselID: " + getId() +
                "\nVesselName: " + getName();
     }
 
-    //TODO Ordna upp toJson() pch skapa to xml, om det nu kommer behövas. Kan skapa Fatal Exception med Null-pointer exception
-    public String toJson() {
-        return "{" +
-                "\"imo\":"              + imo +
-                ", \"id\":"             + id +
-                ", \"name\":"           + name +
-                ", \"callSign\":"       + callSign +
-                ", \"mmsi\":"           + mmsi +
-                ", \"type\":"           + vesselType +
-                ", \"stmVesselId\":"    + stmVesselId +
-                ", \"photoURL\":"       + photoURL +
-                '}';
-    }
+
 }

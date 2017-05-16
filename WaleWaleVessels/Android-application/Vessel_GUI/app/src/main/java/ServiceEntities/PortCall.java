@@ -141,18 +141,5 @@ public class PortCall{
 
         return toStr;
     }
-//TODO Ordna upp toJson(). Kan skapa Fatyal Exception med Null-pointer exception
-    public String toJson() {
-        String jsonStr = "{" +
-                "\"id\":\"" + id + "\"";
-        if (vessel != null)
-            jsonStr += ", \"vessel\":" + vessel.toJson();
-        return jsonStr + ", \"portUnLocode\":\"" + portUnLocode + "\"" +
-                ", \"arrDate\":\"" + arrDate + "\"" +
-                ", \"createdAt\":\"" + createdAt + "\"" +
-                ", \"lastUpdate\":\"" + lastUpdate + "\"" +
-                ", \"startTime\":\"" + startTime + "\"" +
-                ", \"endTime\":\"" + endTime + "\"" +
-                '}';
-    }
+
 }

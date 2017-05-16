@@ -310,30 +310,33 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
         dialogBuilder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
+                // Gets strings that represent the date and time from different Edit-fields.
+                String etaDate = dateEditText.getText().toString();
+                String etaTime = timeEditText.getText().toString();
+
+                // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+                // which PortCDM requires.
+                SimpleDateFormat etaOutput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                SimpleDateFormat etaInput = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                Date date = null;
+                String formattedTime = "";
+                try {
+                    date = etaInput.parse(etaDate + " " + etaTime);
+                    formattedTime = etaOutput.format(date);
+                } catch (ParseException e1) {
+                    Log.e("DateProblem Parsing", e1.toString());
+                } catch (NullPointerException e2){
+                    Log.e("DateProblem Null", e2.toString());
+                }
+
+                // TODO Max ska skriva om så att en ny user initieras när den klassen är klar.
+                Intent intent = getIntent();
+                String vesselID = intent.getExtras().getString("vesselID"); //Hämta VesselIMO skickat från mainactivity
+                String portCallID = intent.getExtras().getString("portCallID"); //Hämta portCallID skickat från mainactivity
+
                 //send a service state port call message
                 if(isServiceState) {
-                    // Gets strings that represent the date and time from different Edit-fields.
-                    String etaDate = dateEditText.getText().toString();
-                    String etaTime = timeEditText.getText().toString();
-
-                    // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-                    // which PortCDM requires.
-                    SimpleDateFormat etaOutput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                    SimpleDateFormat etaInput = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                    Date date = null;
-                    String formattedTime = "";
-                    try {
-                        date = etaInput.parse(etaDate + " " + etaTime);
-                        formattedTime = etaOutput.format(date);
-                    } catch (ParseException e1) {
-                        Log.e("DateProblem Parsing", e1.toString());
-                    } catch (NullPointerException e2){
-                        Log.e("DateProblem Null", e2.toString());
-                    }
-
-                    Intent intent = getIntent();
-                    String vesselID = intent.getExtras().getString("vesselID"); //Hämta VesselIMO skickat från mainactivity
-
                     ServiceState serviceState;
                     //TODO Se till så att at och between används utifrån val.
                     //TODO Implementera att en TimeType ska väljas.
@@ -367,33 +370,17 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                                 null); //performingActor ev. vesselId
                     }
 
-                    PortCallMessage pcmObj = new PortCallMessage(vesselID,
-                            "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
-                            null,
-                            serviceState);
+                    PortCallMessage pcmObj = new PortCallMessage(portCallID,
+                                                                 vesselID,
+                                                                 "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
+                                                                 null,
+                                                                 serviceState);
                     AMSS amss = new AMSS(pcmObj);
+
                     String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
 
+                    //send a location state port call message
                 } else {
-
-                    // Gets strings that represent the date and time from different Edit-fields.
-                    String etaDate = dateEditText.getText().toString();
-                    String etaTime = timeEditText.getText().toString();
-
-                    // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-                    // which PortCDM requires.
-                    SimpleDateFormat etaOutput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                    SimpleDateFormat etaInput = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                    Date date = null;
-                    String formattedTime = "";
-                    try {
-                        date = etaInput.parse(etaDate + " " + etaTime);
-                        formattedTime = etaOutput.format(date);
-                    } catch (ParseException e1) {
-                        Log.e("DateProblem Parsing", e1.toString());
-                    } catch (NullPointerException e2){
-                        Log.e("DateProblem Null", e2.toString());
-                    }
 
                     Location location = new Location(selectedSubLocation, new Position(0, 0), selectedLocationType);
                     try{
@@ -408,15 +395,13 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
                         locState = new LocationState(ReferenceObject.VESSEL, formattedTime, selectedTimeType, depLoc);
                     }
 
-                    Intent intent = getIntent();
-                    String vesselID = intent.getExtras().getString("vesselID"); //Hämta VesselIMO skickat från mainactivity
-                    PortCallMessage pcmObj = new PortCallMessage(vesselID,
-                            "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
-                            null,
-                            locState);
+                    PortCallMessage pcmObj = new PortCallMessage(portCallID,
+                                                                 vesselID,
+                                                                 "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
+                                                                 null,
+                                                                 locState);
                     AMSS amss = new AMSS(pcmObj);
-                    String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
-
+                    String wrResponse = amss.submitStateUpdate(); // Submits the PortCallMessage to PortCDM through the AMSS.
                 }
             }
         });
@@ -669,12 +654,6 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
             }
         });
     }
-
-
-
-
-
-
 }
 
 

@@ -1,5 +1,7 @@
 package RESTServices;
 
+import android.util.Log;
+
 import java.util.HashMap;
 
 import HTTPRequest.WebRequest;
@@ -16,6 +18,7 @@ import static RESTServices.Constants_API.API_HEADER_CONTENT_TYPE;
 import static RESTServices.Constants_API.API_HEADER_PASSWORD;
 import static RESTServices.Constants_API.API_HEADER_USER_ID;
 import static RESTServices.Constants_API.API_SERVICE_AMSS_STATE_UPDATE;
+import static RESTServices.Constants_API.API_SERVICE_MSS_STATE_UPDATE;
 import static RESTServices.Constants_API.API_XML_HEADER;
 import static RESTServices.Constants_API.API_XML_PORT_CALL_MESSAGE_END;
 import static RESTServices.Constants_API.API_XML_PORT_CALL_MESSAGE_HEADER;
@@ -35,7 +38,17 @@ public class AMSS /*implements Runnable*/{
     }
 
     public String submitStateUpdate(){
-        this.url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_AMSS_STATE_UPDATE;
+
+        // If the portCallMessage includes a PortCallID then send the message to MSS. If the
+        // portCallMessage does not include a PortCallID then it is sent to the AMSS for pairing to
+        // other portCallMessages.
+        if(pcmObj.getPortCallId() == null) {
+            this.url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_AMSS_STATE_UPDATE;
+            Log.e("AMSS", "Sent to AMSS - No portCallID");
+        }else{
+            this.url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_MSS_STATE_UPDATE;
+            Log.e("MSS", "Sent to MSS - Included portCallID: " + pcmObj.getPortCallId());
+        }
 
         headers = new HashMap<String, String>();
 
@@ -44,24 +57,10 @@ public class AMSS /*implements Runnable*/{
         headers.put(API_HEADER_PASSWORD, API_DEV_PASSWORD);
         headers.put(API_HEADER_API_KEY, API_DEV_KEY1);
 
-        // Runs the webrequest on a different Thread.
-//        this.run();
         String xmlPost = API_XML_HEADER + API_XML_PORT_CALL_MESSAGE_HEADER;
         xmlPost += pcmObj.toXml();
         xmlPost += API_XML_PORT_CALL_MESSAGE_END;
-
-//        Log.e("AMSS", xmlPost);
 
         return WebRequest.makeWebServicePost(url, headers, null, xmlPost);
     }
-
-
-    /*@Override
-    public void run() {
-        String xmlPost = API_XML_HEADER + API_XML_PORT_CALL_MESSAGE_HEADER;
-        xmlPost += pcmObj.toXml();
-        xmlPost += API_XML_PORT_CALL_MESSAGE_END;
-
-        String wrResponse = WebRequest.makeWebServicePost(url, headers, null, xmlPost);
-    }*/
 }

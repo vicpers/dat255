@@ -1,20 +1,11 @@
 package com.example.juliagustafsson.vessel_gui;
 
-import android.app.Notification;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Base64;
-import android.util.Base64InputStream;
-import android.util.Base64OutputStream;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
 import RESTServices.MessageBrokerQueue;
@@ -28,6 +19,10 @@ import ServiceEntities.Vessel;
 
 public class UserLocalStorage {
     private Gson gson;
+    private User user = null;
+    private String portCallID = null;
+    private HashMap<String, MessageBrokerQueue> messageBrokerMap = null;
+    private Vessel vessel = null;
 
     public static final String SP_NAME = "userDetails";
     SharedPreferences userLocalDatabase;
@@ -41,12 +36,14 @@ public class UserLocalStorage {
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
         spEditor.putString("Vessel ID", user.vesselID);
         spEditor.commit();
+        this.user = user;
     }
 
     public User getLoggedInUser() {
-        String vID = userLocalDatabase.getString("Vessel ID","");
-        User storedUser = new User(vID);
-            return storedUser;
+        if (user == null){
+            user = new User(userLocalDatabase.getString("Vessel ID",""));
+        }
+            return user;
     }
 
     public void setUserLoggedIn (boolean loggedIn) {
@@ -59,6 +56,10 @@ public class UserLocalStorage {
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
         spEditor.clear();
         spEditor.commit();
+        user = null;
+        portCallID = null;
+        messageBrokerMap = null;
+        vessel = null;
     }
     public void setVessel(Vessel vessel){
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
@@ -66,17 +67,22 @@ public class UserLocalStorage {
         String vesselString = gson.toJson(vessel);
         spEditor.putString("vessel", vesselString);
         spEditor.commit();
+        this.vessel = vessel;
     }
 
     public Vessel getVessel(){
-        gson = new Gson();
-        String storedVesselString = userLocalDatabase.getString("vessel", "oopsDintWork");
-        java.lang.reflect.Type type = new TypeToken<Vessel>(){}.getType();
-        Vessel vessel = gson.fromJson(storedVesselString, type);
+        if (vessel == null){
+            gson = new Gson();
+            String storedVesselString = userLocalDatabase.getString("vessel", "oopsDintWork");
+            java.lang.reflect.Type type = new TypeToken<Vessel>(){}.getType();
+            vessel = gson.fromJson(storedVesselString, type);
+        }
         return vessel;
     }
 
     public boolean getUserLoggedIn () {
+        // Går att använda enbart;
+        // return userLocalDatabase.getBoolean("Logged In", false);
         if (userLocalDatabase.getBoolean("Logged In", false) == true) {
             return true;
         } else {
@@ -84,10 +90,12 @@ public class UserLocalStorage {
         }
     }
     public HashMap<String, MessageBrokerQueue> getMessageBrokerMap() {
-        gson = new Gson();
-        String storedHashMapString = userLocalDatabase.getString("messageMap", "oopsDintWork");
-        java.lang.reflect.Type type = new TypeToken<HashMap<String, MessageBrokerQueue>>(){}.getType();
-        HashMap<String, MessageBrokerQueue> messageBrokerMap = gson.fromJson(storedHashMapString, type);
+        if (messageBrokerMap == null){
+            gson = new Gson();
+            String storedHashMapString = userLocalDatabase.getString("messageMap", "oopsDintWork");
+            java.lang.reflect.Type type = new TypeToken<HashMap<String, MessageBrokerQueue>>(){}.getType();
+            messageBrokerMap = gson.fromJson(storedHashMapString, type);
+        }
         return messageBrokerMap;
     }
 
@@ -103,15 +111,19 @@ public class UserLocalStorage {
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
         spEditor.putString("messageMap", hashMapString);
         spEditor.commit();
+        messageBrokerMap = hashMap;
     }
 
     public void setPortCallID(String ID){
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
-        spEditor.putString("PortCallID", ID);
+        portCallID = ID;
+        spEditor.putString("PortCallID", portCallID);
         spEditor.commit();
     }
     public String getPortCallID(){
-        String portCallID = userLocalDatabase.getString("PortCallID","");
+        if (portCallID == null){
+            portCallID = userLocalDatabase.getString("PortCallID","");
+        }
         return portCallID;
     }
 }

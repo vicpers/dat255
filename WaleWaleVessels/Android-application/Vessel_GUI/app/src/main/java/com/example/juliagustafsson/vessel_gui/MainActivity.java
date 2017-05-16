@@ -191,6 +191,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
+    public void statementsOfFacts(View view) {
+        Intent intent = new Intent(this, StatementsOfFacts.class); //skapar en ny instans av klassen Report_Update som initierar ett nytt blankt fönster
+        intent.putExtra("vesselID", userLocalStore.getVessel().getId());//skicka med VesselID till nästa aktivitet
+        intent.putExtra("portCallID", userLocalStore.getPortCallID());//skicka med portCallID till nästa aktivitet
+        startActivity(intent);
+    }
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle item selection

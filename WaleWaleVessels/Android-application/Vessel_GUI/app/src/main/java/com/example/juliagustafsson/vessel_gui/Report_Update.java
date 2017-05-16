@@ -59,12 +59,9 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
     private Spinner spinnerFromLocation;
     private Spinner spinnerFromSubLocation;
     private Spinner spinnerToSubLocation;
-
-
     private Spinner spinnerToLocation;
     private Spinner spinnerTimeType;
     private Spinner spinnerSubLocation;
-
     private EditText dateEditText;
     private EditText timeEditText;
     private SimpleDateFormat dateFormat;
@@ -79,9 +76,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
     private String selectedSubLocation;
     private String selectedFromSubLocation;
     private String selectedToSubLocation;
-
     private TimeType selectedTimeType;
-    private String selectedPortLoc;
     private LocationType selectedLocationType;
     private Boolean isServiceState;
     private Boolean isArrival;
@@ -93,6 +88,9 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
     HashMap<String, Location> toSubLocationMap;
     HashMap<String, Location> fromSubLocationMap;
     HashMap<String, Location> atSubLocationMap;
+    HashMap<String, ServiceTimeSequence> timeSequenceMap;
+
+    //TODO NullPointerException för spinners ifall den inte lyckas hämta hem saker från servern
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -470,7 +468,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
 
     private void setTimeSequenceSpinner(ServiceObject serviceObject) {
         spinnerTimeSequence = (Spinner) serviceStateView.findViewById(R.id.spinnerTimeSequence);
-        HashMap<String, ServiceTimeSequence> timeSequenceMap = PortCDMServices.getStateDefinitions(serviceObject);
+        timeSequenceMap = PortCDMServices.getStateDefinitions(serviceObject);
         ArrayList<String> timeSequences = new ArrayList<String>(timeSequenceMap.keySet());
         Collections.sort(timeSequences);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, timeSequences);

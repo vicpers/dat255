@@ -120,6 +120,7 @@
             android:layout_marginRight="0dp"
             android:layout_weight="1"
             android:background="@color/menuHeader"
+            android:onClick="statementsOfFacts"
             android:text="Statements of facts"
             android:textSize="24sp" />
 

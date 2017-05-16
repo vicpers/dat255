@@ -206,7 +206,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
 
             //TODO Between which locations?
             case R.id.IceBreakingOperation: {
-                serviceStateView = getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
+                serviceStateView = getLayoutInflater().inflate(R.layout.dialog_between_service_state, null);
                 currentServiceObject = ServiceObject.ICEBREAKING_OPERATION;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
@@ -517,12 +517,12 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
         spinnerToLocation = (Spinner) serviceStateView.findViewById(R.id.spinnerToLocation);
         atFromLocationText.setText("From Location");
 
-        HashMap<String, Location> subLocationsMap = PortCDMServices.getPortLocations(from);
-        ArrayList<String> subLocations = new ArrayList<String>(subLocationsMap.keySet());
-        Collections.sort(subLocations);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subLocations);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerAtOrFromLocation.setAdapter(arrayAdapter);
+        fromSubLocationMap = PortCDMServices.getPortLocations(from);
+        ArrayList<String> fromSubLocations = new ArrayList<String>(fromSubLocationMap.keySet());
+        Collections.sort(fromSubLocations);
+        ArrayAdapter<String> fromSubLocationsArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, fromSubLocations);
+        fromSubLocationsArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAtOrFromLocation.setAdapter(fromSubLocationsArrayAdapter);
         spinnerAtOrFromLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try {
@@ -535,7 +535,12 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
             }
         });
 
-        spinnerToLocation.setAdapter(arrayAdapter);
+        toSubLocationMap = PortCDMServices.getPortLocations(to);
+        ArrayList<String> toSubLocations = new ArrayList<String>(toSubLocationMap.keySet());
+        Collections.sort(toSubLocations);
+        ArrayAdapter<String> toSubLocationsArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, toSubLocations);
+        toSubLocationsArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerToLocation.setAdapter(toSubLocationsArrayAdapter);
         spinnerToLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try {

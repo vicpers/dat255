@@ -1,62 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    tools:context="com.example.juliagustafsson.vessel_gui.StatementsOfFacts">
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:weightSum="1">
 
+    <ListView
+        android:id="@+id/statusView"
+        android:layout_height="551dp"
+        android:layout_width="wrap_content"
+        android:layout_weight="0.25" />
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp">
-
-            <TextView
-                android:id="@+id/anchoringCommenced"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Anchoring Commenced:"
-                android:layout_marginRight="50dp"/>
-
-            <TextView
-                android:id="@+id/actualAnchoringCommenced"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp">
-
-            <TextView
-                android:id="@+id/anchoringCompleted"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Anchoring Completed:"
-                android:layout_marginRight="50dp"/>
-
-            <TextView
-                android:id="@+id/actualAnchoringCompleted"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="" />
-        </TableRow>
-
-
-
-
-
-    </TableLayout>
-</ScrollView>
+</LinearLayout>

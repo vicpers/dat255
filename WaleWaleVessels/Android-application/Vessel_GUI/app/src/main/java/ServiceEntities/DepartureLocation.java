@@ -40,6 +40,14 @@ public class DepartureLocation {
         this.to = to;
     }
 
+    @Override
+    public String toString() {
+        if(to != null)
+            return to.toString();
+        else
+            return from.toString();
+    }
+
     public String toXml() {
         String xmlStr = "";
         if (to != null)

@@ -248,8 +248,17 @@ public class PortCallMessage {
 
     @Override
     public String toString() {
-        return "PortCallID : " + portCallId + "\n" +
-                "Vessel : " + vessel.getId();
+        String returnString = "";
+        if(serviceState != null)
+            returnString = serviceState.toString();
+        else if (locationState != null)
+            returnString = locationState.toString();
+        else
+            returnString ="No state found!";
+
+        if(comment != null)
+            returnString += "\nComment: " + comment;
+        return returnString;
     }
 
     public String toXml() {

@@ -100,6 +100,15 @@ public class Location {
         this.shortName = shortName;
     }
 
+    @Override
+    public String toString() {
+        if(locationMRN != null)
+            return locationMRN;
+        else if(name != null)
+            return name;
+        else
+            return locationType.getText();
+    }
 
     public String toXml() { // May not be in use anymore.
         String xmlStr = "";

@@ -39,6 +39,13 @@ public class ArrivalLocation {
         this.from = from;
     }
 
+    @Override
+    public String toString() {
+        if(to != null)
+            return to.toString();
+        else
+            return from.toString();
+    }
 
     public String toXml() {
         String xmlStr = "";

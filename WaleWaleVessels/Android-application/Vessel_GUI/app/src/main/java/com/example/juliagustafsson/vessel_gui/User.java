@@ -128,36 +128,44 @@ public class User implements Runnable{
 
         MessageBrokerQueue tempMbq = new MessageBrokerQueue();
 
-            tempMbq.createUnfilteredQueue(vessel);
-            messageBrokerMap.put("vessel", tempMbq);
+        tempMbq.createUnfilteredQueue(vessel);
+        tempMbq.pollQueue();
+        messageBrokerMap.put("vessel", tempMbq);
 
         if(this.portCallID != null) {
             tempMbq = new MessageBrokerQueue();
             tempMbq.createUnfilteredQueue(portCallID);
+            tempMbq.pollQueue();
             messageBrokerMap.put("portcall", tempMbq);
 
             tempMbq = new MessageBrokerQueue();
             tempMbq.createUnfilteredQueue(portCallID, TimeType.ESTIMATED);
+            tempMbq.pollQueue();
             messageBrokerMap.put(TimeType.ESTIMATED.getText(), tempMbq);
 
             tempMbq = new MessageBrokerQueue();
             tempMbq.createUnfilteredQueue(portCallID, TimeType.ACTUAL);
+            tempMbq.pollQueue();
             messageBrokerMap.put(TimeType.ACTUAL.getText(), tempMbq);
 
             tempMbq = new MessageBrokerQueue();
             tempMbq.createUnfilteredQueue(portCallID, ServiceObject.ANCHORING);
+            tempMbq.pollQueue();
             messageBrokerMap.put(ServiceObject.ANCHORING.getText(), tempMbq);
 
             tempMbq = new MessageBrokerQueue();
             tempMbq.createUnfilteredQueue(portCallID, ServiceObject.BERTH_SHIFTING);
+            tempMbq.pollQueue();
             messageBrokerMap.put(ServiceObject.BERTH_SHIFTING.getText(), tempMbq);
 
             tempMbq = new MessageBrokerQueue();
             tempMbq.createUnfilteredQueue(portCallID, ServiceObject.TOWAGE);
+            tempMbq.pollQueue();
             messageBrokerMap.put(ServiceObject.TOWAGE.getText(), tempMbq);
 
             tempMbq = new MessageBrokerQueue();
             tempMbq.createUnfilteredQueue(portCallID, ServiceObject.ICEBREAKING_OPERATION);
+            tempMbq.pollQueue();
             messageBrokerMap.put(ServiceObject.ICEBREAKING_OPERATION.getText(), tempMbq);
 
         }

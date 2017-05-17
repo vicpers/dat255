@@ -27,7 +27,7 @@ public class ViewPCM extends AppCompatActivity {
         ArrayList<String> stringList = new ArrayList<>();
 
         for(PortCallMessage pcm : portCallList){
-            stringList.add(pcm.toXml());
+            stringList.add(pcm.toString());
         }
 
 

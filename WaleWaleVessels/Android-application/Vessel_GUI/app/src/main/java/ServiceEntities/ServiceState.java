@@ -93,7 +93,7 @@ public class ServiceState {
     }
 
     public String toString(){
-        return "Sequence: " + timeSequence + " - TimeType: " + timeType + " - Time: " + time;
+        return "Sequence: " + timeSequence + "\nTimeType: " + timeType + "\nTime: " + time;
     }
 
     public String toXml() {

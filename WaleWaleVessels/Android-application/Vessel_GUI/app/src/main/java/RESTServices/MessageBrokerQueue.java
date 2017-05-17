@@ -37,7 +37,7 @@ import static RESTServices.Constants_API.API_SERVICE_POLL_QUEUE;
  */
 
 public class MessageBrokerQueue implements Serializable{
-    private final String date = "?fromTime=2017-05-16T14:20:21Z";
+    private final String date = "";//"?fromTime=2017-05-16T14:20:21Z";
 
     private String queueId;
     private ArrayList<PortCallMessage> queue = new ArrayList<PortCallMessage>();

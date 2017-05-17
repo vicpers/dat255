@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -53,7 +52,6 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
                 selectedAtLocation = LocationType.ANCHORING_AREA;
                 ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.statusView);
                 ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
-                Log.e("List", statusStringList.toString());
                 ArrayAdapter<String> itemsAdapter =
                         new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
                 dialogListView.setAdapter(itemsAdapter);
@@ -217,6 +215,7 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
     private ArrayList<String> serviceObjectQueueToString(ServiceObject serviceObject){
         HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
         MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
+        actualQueue.pollQueue();
         ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
         ArrayList<String> stringList = new ArrayList<>();

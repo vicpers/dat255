@@ -91,7 +91,7 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         timePicker = new TimePickerDialog(this,android.R.style.Theme_Holo_Light_Dialog, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                timeEditText.setText( selectedHour + ":" + selectedMinute);
+                timeEditText.setText( String.format("%02d", selectedHour) + ":" + String.format("%02d", selectedMinute));
             }
         }, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), true);
 

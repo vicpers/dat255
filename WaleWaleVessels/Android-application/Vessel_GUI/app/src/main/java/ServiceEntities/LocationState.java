@@ -78,6 +78,17 @@ public class LocationState {
         this.departureLocation = departureLocation;
     }
 
+    public String toString(){
+        String returnString = "TimeType: " + timeType + "\nTime: " + time;
+        if(arrivalLocation != null)
+            returnString += "\nArrivalLocation: " + arrivalLocation.toString();
+        else if (departureLocation != null)
+            returnString += "\nDepartureLocation: " + departureLocation.toString();
+        else
+            returnString += "\nLocation: No location found!";
+        return returnString;
+    }
+
     public String toXml() {
         String xmlStr = "";
         if(referenceObject != null)

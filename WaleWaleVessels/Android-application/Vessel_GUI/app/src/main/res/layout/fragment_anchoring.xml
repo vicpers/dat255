@@ -1,0 +1,81 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.juliagustafsson.vessel_gui.Anchoring">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp">
+
+            <Button
+                android:id="@+id/Anchoring"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginRight="4dp"
+                android:padding="8dp"
+                android:layout_weight="1"
+                android:background="@color/menuHeader"
+                android:onClick="sendNewServiceState"
+                android:text="Anchoring"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/ArrivalAnchoringOperation"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="4dp"
+                android:padding="8dp"
+                android:layout_weight="1"
+                android:background="@color/menuHeader"
+                android:onClick="sendNewServiceState"
+                android:text="Arrival Anchoring Operation"
+                android:textSize="18sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/ArrivalAnchoringArea"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginRight="4dp"
+                android:padding="8dp"
+                android:layout_weight="1"
+                android:background="@color/menuHeader"
+                android:onClick="sendNewLocationState"
+                android:text="Arrival Anchoring Area"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/DepartureAnchoringArea"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="4dp"
+                android:padding="8dp"
+                android:layout_weight="1"
+                android:background="@color/menuHeader"
+                android:onClick="sendNewLocationState"
+                android:text="Departure Anchoring Area"
+                android:textSize="18sp" />
+
+            </TableRow>
+    </TableLayout>
+</FrameLayout>

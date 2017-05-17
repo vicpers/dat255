@@ -1,0 +1,48 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.juliagustafsson.vessel_gui.Pilotage">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp">
+
+            <Button
+                android:id="@+id/ArrivalMooring"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginRight="8dp"
+                android:padding="8dp"
+                android:layout_weight="1"
+                android:background="@color/menuHeader"
+                android:onClick="sendNewServiceState"
+                android:text="Arrival Mooring Operation"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/DepartureMooring"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="8dp"
+                android:padding="8dp"
+                android:layout_weight="1"
+                android:background="@color/menuHeader"
+                android:onClick="sendNewServiceState"
+                android:text="Departure Mooring Operation"
+                android:textSize="18sp" />
+
+        </TableRow>
+
+    </TableLayout>
+</FrameLayout>

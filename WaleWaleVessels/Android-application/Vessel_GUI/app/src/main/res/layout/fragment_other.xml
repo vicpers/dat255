@@ -1,0 +1,82 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.juliagustafsson.vessel_gui.Pilotage">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp">
+
+            <Button
+                android:id="@+id/IceBreaking"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginRight="8dp"
+                android:padding="8dp"
+                android:layout_weight="1"
+                android:background="@color/menuHeader"
+                android:onClick="sendNewServiceState"
+                android:text="Ice Breaking"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/CargoOp"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="8dp"
+                android:padding="8dp"
+                android:layout_weight="1"
+                android:background="@color/menuHeader"
+                android:onClick="sendNewServiceState"
+                android:text="Cargo Operation"
+                android:textSize="18sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp">
+
+            <Button
+                android:id="@+id/Bunkering"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginRight="8dp"
+                android:padding="8dp"
+                android:layout_weight="1"
+                android:background="@color/menuHeader"
+                android:onClick="sendNewServiceState"
+                android:text="Bunkering Operation"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/Empty"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:background="?android:attr/colorBackground"
+                android:onClick="sendNewServiceState"
+                android:padding="8dp"
+                android:text=""
+                android:textSize="18sp" />
+
+        </TableRow>
+
+    </TableLayout>
+</FrameLayout>

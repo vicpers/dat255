@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -167,6 +168,11 @@ public class BerthFragment extends android.app.Fragment implements View.OnClickL
                 String etaDate = dateEditText.getText().toString();
                 String etaTime = timeEditText.getText().toString();
 
+                String message = "Berth update regarding: " + etaDate + ", " + etaTime + " sent!";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(), message, duration);
+                toast.show();
+
                 // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
                 // which PortCDM requires.
                 SimpleDateFormat etaOutput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -181,7 +187,7 @@ public class BerthFragment extends android.app.Fragment implements View.OnClickL
                 } catch (NullPointerException e2){
                     Log.e("DateProblem Null", e2.toString());
                 }
-
+                // TODO Kontrollera att man faktiskt valt ett datum och en tid
                 // TODO Max ska skriva om så att en ny user initieras när den klassen är klar.
                 Intent intent = getActivity().getIntent();
                 String vesselID = intent.getExtras().getString("vesselID"); //Hämta VesselIMO skickat från mainactivity
@@ -283,7 +289,7 @@ public class BerthFragment extends android.app.Fragment implements View.OnClickL
             }
         },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
 
-        timePicker = new TimePickerDialog(this,android.R.style.Theme_Holo_Light_Dialog, new TimePickerDialog.OnTimeSetListener() {
+        timePicker = new TimePickerDialog(getActivity(),android.R.style.Theme_Holo_Light_Dialog, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 timeEditText.setText( String.format("%02d", selectedHour) + ":" + String.format("%02d", selectedMinute));

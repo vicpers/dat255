@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.NoSuchElementException;
 
@@ -52,7 +53,9 @@ public class Vessel_Login extends AppCompatActivity implements View.OnClickListe
                     startActivity(new Intent(this, MainActivity.class ));
                 } catch(NoSuchElementException | IllegalArgumentException e){
                     Log.e("LoginExc", e.toString());
-                    //TODO Ordna så att en pop-up dyker upp.
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(getApplicationContext(), "Incorrect VesselIMO, try again! ", duration);
+                    toast.show();
                 }
                 break;
 

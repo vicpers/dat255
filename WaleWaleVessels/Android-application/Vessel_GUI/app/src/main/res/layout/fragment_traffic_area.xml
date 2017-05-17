@@ -13,16 +13,16 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
 
             <Button
                 android:id="@+id/ArrivalTrafficA"
                 android:layout_width="0dp"
                 android:layout_height="80dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginRight="4dp"
                 android:padding="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
@@ -34,7 +34,7 @@
                 android:id="@+id/DepartureTrafficA"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="4dp"
                 android:padding="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"

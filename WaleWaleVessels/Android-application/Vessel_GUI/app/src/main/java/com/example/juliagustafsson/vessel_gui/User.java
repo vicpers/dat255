@@ -11,6 +11,7 @@ import java.util.NoSuchElementException;
 
 import RESTServices.MessageBrokerQueue;
 import RESTServices.PortCDMServices;
+import ServiceEntities.LocationType;
 import ServiceEntities.PortCallMessage;
 import ServiceEntities.ServiceObject;
 import ServiceEntities.TimeType;
@@ -129,44 +130,98 @@ public class User implements Runnable{
         MessageBrokerQueue tempMbq = new MessageBrokerQueue();
 
         tempMbq.createUnfilteredQueue(vessel);
-        tempMbq.pollQueue();
         messageBrokerMap.put("vessel", tempMbq);
 
         if(this.portCallID != null) {
             tempMbq = new MessageBrokerQueue();
             tempMbq.createUnfilteredQueue(portCallID);
-            tempMbq.pollQueue();
             messageBrokerMap.put("portcall", tempMbq);
 
             tempMbq = new MessageBrokerQueue();
             tempMbq.createUnfilteredQueue(portCallID, TimeType.ESTIMATED);
-            tempMbq.pollQueue();
             messageBrokerMap.put(TimeType.ESTIMATED.getText(), tempMbq);
 
             tempMbq = new MessageBrokerQueue();
             tempMbq.createUnfilteredQueue(portCallID, TimeType.ACTUAL);
-            tempMbq.pollQueue();
             messageBrokerMap.put(TimeType.ACTUAL.getText(), tempMbq);
 
+//  Creates all ServiceObject queues.
             tempMbq = new MessageBrokerQueue();
             tempMbq.createUnfilteredQueue(portCallID, ServiceObject.ANCHORING);
-            tempMbq.pollQueue();
             messageBrokerMap.put(ServiceObject.ANCHORING.getText(), tempMbq);
 
             tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, ServiceObject.ARRIVAL_ANCHORING_OPERATION);
+            messageBrokerMap.put(ServiceObject.ARRIVAL_ANCHORING_OPERATION.getText(), tempMbq);
+
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, ServiceObject.ARRIVAL_BERTH);
+            messageBrokerMap.put(ServiceObject.ARRIVAL_BERTH.getText(), tempMbq);
+
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, ServiceObject.DEPARTURE_BERTH);
+            messageBrokerMap.put(ServiceObject.DEPARTURE_BERTH.getText(), tempMbq);
+
+            tempMbq = new MessageBrokerQueue();
             tempMbq.createUnfilteredQueue(portCallID, ServiceObject.BERTH_SHIFTING);
-            tempMbq.pollQueue();
             messageBrokerMap.put(ServiceObject.BERTH_SHIFTING.getText(), tempMbq);
 
             tempMbq = new MessageBrokerQueue();
-            tempMbq.createUnfilteredQueue(portCallID, ServiceObject.TOWAGE);
-            tempMbq.pollQueue();
-            messageBrokerMap.put(ServiceObject.TOWAGE.getText(), tempMbq);
+            tempMbq.createUnfilteredQueue(portCallID, ServiceObject.BUNKERING_OPERATION);
+            messageBrokerMap.put(ServiceObject.BUNKERING_OPERATION.getText(), tempMbq);
+
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, ServiceObject.CARGO_OPERATION);
+            messageBrokerMap.put(ServiceObject.CARGO_OPERATION.getText(), tempMbq);
 
             tempMbq = new MessageBrokerQueue();
             tempMbq.createUnfilteredQueue(portCallID, ServiceObject.ICEBREAKING_OPERATION);
-            tempMbq.pollQueue();
             messageBrokerMap.put(ServiceObject.ICEBREAKING_OPERATION.getText(), tempMbq);
+
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, ServiceObject.ESCORT_TOWAGE);
+            messageBrokerMap.put(ServiceObject.ESCORT_TOWAGE.getText(), tempMbq);
+
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, ServiceObject.TOWAGE);
+            messageBrokerMap.put(ServiceObject.TOWAGE.getText(), tempMbq);
+
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, ServiceObject.PILOTAGE);
+            messageBrokerMap.put(ServiceObject.PILOTAGE.getText(), tempMbq);
+
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, ServiceObject.ARRIVAL_VTSAREA);
+            messageBrokerMap.put(ServiceObject.ARRIVAL_VTSAREA.getText(), tempMbq);
+
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, ServiceObject.DEPARTURE_VTSAREA);
+            messageBrokerMap.put(ServiceObject.DEPARTURE_VTSAREA.getText(), tempMbq);
+
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, ServiceObject.ARRIVAL_MOORING_OPERATION);
+            messageBrokerMap.put(ServiceObject.ARRIVAL_MOORING_OPERATION.getText(), tempMbq);
+
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, ServiceObject.DEPARTURE_MOORING_OPERATION);
+            messageBrokerMap.put(ServiceObject.DEPARTURE_MOORING_OPERATION.getText(), tempMbq);
+
+            // Creates queues for LocationTypes
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, LocationType.ANCHORING_AREA);
+            messageBrokerMap.put(LocationType.ANCHORING_AREA.getText(), tempMbq);
+
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, LocationType.BERTH);
+            messageBrokerMap.put(LocationType.BERTH.getText(), tempMbq);
+
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, LocationType.TRAFFIC_AREA);
+            messageBrokerMap.put(LocationType.TRAFFIC_AREA.getText(), tempMbq);
+
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, LocationType.PILOT_BOARDING_AREA);
+            messageBrokerMap.put(LocationType.PILOT_BOARDING_AREA.getText(), tempMbq);
 
         }
         setMessageBrokerMap(messageBrokerMap);

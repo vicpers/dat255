@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -46,11 +47,11 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
 
     public void sendNewServiceState(View v) {
         serviceStateView  = getLayoutInflater().inflate(R.layout.dialog_check_status, null);
+        ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.statusView);
         switch( v.getId() ) {
             case R.id.Anchoring: {
                 currentServiceObject = ServiceObject.ANCHORING;
                 selectedAtLocation = LocationType.ANCHORING_AREA;
-                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.statusView);
                 ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
                 ArrayAdapter<String> itemsAdapter =
                         new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
@@ -62,6 +63,10 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
             case R.id.ArrivalAnchoringOperation: {
                 currentServiceObject = ServiceObject.ARRIVAL_ANCHORING_OPERATION;
                 selectedAtLocation = LocationType.ANCHORING_AREA;
+                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
+                ArrayAdapter<String> itemsAdapter =
+                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
+                dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(serviceStateView);
                 break;
             }
@@ -69,6 +74,10 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
             case R.id.VTSAreaArrival: {
                 currentServiceObject = ServiceObject.ARRIVAL_VTSAREA;
                 selectedAtLocation = LocationType.TRAFFIC_AREA;
+                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
+                ArrayAdapter<String> itemsAdapter =
+                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
+                dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(serviceStateView);
                 break;
             }
@@ -77,6 +86,10 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
                 currentServiceObject = ServiceObject.BERTH_SHIFTING;
                 selectedFromLocation = LocationType.BERTH;
                 selectedtoLocation = LocationType.BERTH;
+                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
+                ArrayAdapter<String> itemsAdapter =
+                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
+                dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(serviceStateView);
                 break;
             }
@@ -85,6 +98,10 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
             case R.id.BunkeringOperation: {
                 selectedAtLocation = LocationType.BERTH;
                 currentServiceObject = ServiceObject.BUNKERING_OPERATION;
+                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
+                ArrayAdapter<String> itemsAdapter =
+                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
+                dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(serviceStateView);
                 break;
             }
@@ -93,6 +110,10 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
             case R.id.CargoOperation: {
                 selectedAtLocation = LocationType.BERTH;
                 currentServiceObject = ServiceObject.CARGO_OPERATION;
+                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
+                ArrayAdapter<String> itemsAdapter =
+                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
+                dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(serviceStateView);
                 break;
             }
@@ -100,6 +121,10 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
             case R.id.VTSAreaDeparture: {
                 currentServiceObject = ServiceObject.DEPARTURE_VTSAREA;
                 selectedAtLocation = LocationType.TRAFFIC_AREA;
+                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
+                ArrayAdapter<String> itemsAdapter =
+                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
+                dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(serviceStateView);
                 break;
             }
@@ -107,6 +132,10 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
             //TODO Between which locations?
             case R.id.EscortTowage: {
                 currentServiceObject = ServiceObject.ESCORT_TOWAGE;
+                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
+                ArrayAdapter<String> itemsAdapter =
+                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
+                dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(serviceStateView);
                 break;
             }
@@ -114,6 +143,10 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
             //TODO Between which locations?
             case R.id.IceBreakingOperation: {
                 currentServiceObject = ServiceObject.ICEBREAKING_OPERATION;
+                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
+                ArrayAdapter<String> itemsAdapter =
+                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
+                dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(serviceStateView);
                 break;
             }
@@ -122,6 +155,10 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
             case R.id.ArrivalMooringOperation: {
                 selectedAtLocation = LocationType.BERTH;
                 currentServiceObject = ServiceObject.ARRIVAL_MOORING_OPERATION;
+                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
+                ArrayAdapter<String> itemsAdapter =
+                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
+                dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(serviceStateView);
                 break;
             }
@@ -130,6 +167,10 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
             case R.id.DepartureMooringOperation: {
                 selectedAtLocation = LocationType.BERTH;
                 currentServiceObject = ServiceObject.DEPARTURE_MOORING_OPERATION;
+                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
+                ArrayAdapter<String> itemsAdapter =
+                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
+                dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(serviceStateView);
                 break;
             }
@@ -137,6 +178,10 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
             //TODO Between which locations?
             case R.id.Pilotage: {
                 currentServiceObject = ServiceObject.PILOTAGE;
+                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
+                ArrayAdapter<String> itemsAdapter =
+                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
+                dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(serviceStateView);
                 break;
             }
@@ -144,6 +189,10 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
             //TODO Between which locations?
             case R.id.Towage: {
                 currentServiceObject = ServiceObject.TOWAGE;
+                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
+                ArrayAdapter<String> itemsAdapter =
+                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
+                dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(serviceStateView);
                 break;
             }
@@ -152,15 +201,24 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
 
     public void sendNewLocationState(View v) {
         locationstateView = getLayoutInflater().inflate(R.layout.dialog_check_status, null);
+        ListView dialogListView = (ListView) locationstateView.findViewById(R.id.statusView);
         switch( v.getId() ) {
             case R.id.ArrivalAnchoringArea: {
                 selectedLocationType = LocationType.ANCHORING_AREA;
+                ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType);
+                ArrayAdapter<String> itemsAdapter =
+                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
+                dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(locationstateView);
                 break;
             }
 
             case R.id.DepartureAnchoringArea: {
                 selectedLocationType = LocationType.ANCHORING_AREA;
+                ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType);
+                ArrayAdapter<String> itemsAdapter =
+                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
+                dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(locationstateView);
                 break;
             }
@@ -214,15 +272,39 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
 
     private ArrayList<String> serviceObjectQueueToString(ServiceObject serviceObject){
         HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-        actualQueue.pollQueue();
-        ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
-
         ArrayList<String> stringList = new ArrayList<>();
+        try{
+            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
+            actualQueue.pollQueue();
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
-        for(PortCallMessage pcm : pcmList){
-            stringList.add(pcm.getServiceState().toString());
+            for(PortCallMessage pcm : pcmList){
+                stringList.add(pcm.toString());
+            }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-servType", e.toString());
+            //TODO Visa felmeddelande för användaren.
         }
+
+        return stringList;
+    }
+
+    private ArrayList<String> locationTypeQueueToString(LocationType locationType){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        ArrayList<String> stringList = new ArrayList<>();
+        try {
+            MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
+            actualQueue.pollQueue();
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            for (PortCallMessage pcm : pcmList) {
+                stringList.add(pcm.toString());
+            }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-locType", e.toString());
+            //TODO Visa felmeddelande för användaren.
+        }
+
 
         return stringList;
     }

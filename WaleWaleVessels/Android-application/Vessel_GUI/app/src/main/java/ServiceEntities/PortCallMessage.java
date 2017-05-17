@@ -256,7 +256,7 @@ public class PortCallMessage {
         else
             returnString ="No state found!";
 
-        if(comment != null)
+        if((comment != null) && (!comment.equals("null")) && (!comment.equals("")))
             returnString += "\nComment: " + comment;
         return returnString;
     }

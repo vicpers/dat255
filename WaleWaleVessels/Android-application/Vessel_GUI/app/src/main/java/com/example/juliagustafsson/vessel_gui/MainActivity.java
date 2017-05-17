@@ -1,6 +1,7 @@
 package com.example.juliagustafsson.vessel_gui;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -12,8 +13,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 
 import ServiceEntities.PortCallMessage;
@@ -101,8 +105,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void displayVesselID() {
-        TextView textView = (TextView) findViewById(R.id.loggedIn);
-        textView.setText("Active Vessel: " + user.getVessel().getName());
+        //Displays vesselIMO in left menu
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View v = navigationView.getHeaderView(0);
+        TextView textViewMenu = (TextView) v.findViewById(R.id.active_user);
+        textViewMenu.setText(user.getVessel().getName());
+        //Set image to the ships image
+       /* ImageView ship = (ImageView) v.findViewById(R.id.imageView4);
+        ship.setImageDrawable(LoadImageFromWebOperations(user.getVessel().getPhotoURL()));*/
     }
 
     public void viewPCM(View view) {
@@ -124,6 +134,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        HttpUrlConnectionPortCDM foo = new HttpUrlConnectionPortCDM();
         //String pcmStr = foo.xmlTester();
     }
+
+    /*public static Drawable LoadImageFromWebOperations(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "Vessel Image");
+            return d;
+        } catch (Exception e) {
+            return null;
+        }
+    }*/
 
     public void sendETA(View view) {
         Intent intent = new Intent(this, Send_ETA.class); //skapar en ny instans av klassen ViewPCM som initierar ett nytt blankt fönster

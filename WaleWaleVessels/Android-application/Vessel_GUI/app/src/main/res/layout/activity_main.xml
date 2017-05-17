@@ -44,8 +44,8 @@
         android:id="@+id/tableRow2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="0dp"
         android:layout_weight="1">
 
@@ -64,16 +64,16 @@
         android:id="@+id/tableRow3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="1">
 
         <Button
             android:id="@+id/reportUpdate"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="4dp"
             android:layout_weight="1"
             android:background="@color/menuHeader"
             android:onClick="reportUpdate"
@@ -84,7 +84,7 @@
             android:id="@+id/button1"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="4dp"
             android:layout_weight="1"
             android:background="@color/menuHeader"
             android:onClick="checkStatus"
@@ -96,16 +96,14 @@
         android:id="@+id/tableRow4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_margin="8dp"
         android:layout_weight="1">
 
         <Button
             android:id="@+id/GetPCM"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="4dp"
             android:layout_weight="1"
             android:background="@color/menuHeader"
             android:onClick="viewPCM"
@@ -116,28 +114,13 @@
             android:id="@+id/logout"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="4dp"
             android:layout_marginRight="0dp"
             android:layout_weight="1"
             android:background="@color/menuHeader"
             android:onClick="statementsOfFacts"
             android:text="Statements of facts"
             android:textSize="24sp" />
-
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow5"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp">
-
-        <TextView
-            android:id="@+id/loggedIn"
-            android:layout_width="fill_parent"
-            android:layout_height="20dp"
-            android:textAlignment="center"
-            android:textSize="16sp" />
 
     </TableRow>
 

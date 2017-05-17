@@ -13,6 +13,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
         android:layout_marginLeft="27dp"
         android:layout_marginStart="27dp"
         android:layout_marginTop="26dp"
@@ -26,5 +27,5 @@
         android:layout_alignStart="@+id/imageView4"
         android:layout_below="@+id/imageView4"
         android:layout_marginTop="9dp"
-        android:text="Shanghai Express" />
+        android:text="Ingen inloggad" />
 </RelativeLayout>

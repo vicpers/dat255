@@ -184,6 +184,7 @@ public class User implements Serializable, Runnable{
                         if (portCallID == null) {
                             Log.e("Got PortCallID", pcm.getPortCallId());
                             setPortCallID(pcm.getPortCallId());
+                            createDefaultQueues();
                         }
                         Log.e("NyttPCM", pcm.toString());
                     }

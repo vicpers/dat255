@@ -221,10 +221,13 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
             Log.e("Inuti 1", pcm.toString());
         }
 
-        for(PortCallMessage pcm : pcmList){
+        ArrayList<PortCallMessage> pcmList2 = actualQueue.getQueue();
+        for(PortCallMessage pcm : pcmList2){
             returnString += pcm.getServiceState().toString() + "\n";
-            Log.e("Inuti 2", pcm.toString());
+            Log.e("Inuti 1", pcm.toString());
         }
+
+
         return returnString;
     }
 

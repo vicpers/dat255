@@ -6,10 +6,10 @@
     android:padding="20dp"
     android:weightSum="1">
 
-    <TextView
+    <ListView
         android:id="@+id/statusView"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_marginTop="20dp" />
+        android:layout_height="551dp"
+        android:layout_width="wrap_content"
+        android:layout_weight="0.25" />
 
 </LinearLayout>

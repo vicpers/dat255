@@ -6,7 +6,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,9 +51,12 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
             case R.id.Anchoring: {
                 currentServiceObject = ServiceObject.ANCHORING;
                 selectedAtLocation = LocationType.ANCHORING_AREA;
-                TextView dialogStatusView = (TextView) serviceStateView.findViewById(R.id.statusView);
-                String statusString = serviceObjectQueueToString(currentServiceObject);
-                dialogStatusView.setText(statusString);
+                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.statusView);
+                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
+                Log.e("List", statusStringList.toString());
+                ArrayAdapter<String> itemsAdapter =
+                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
+                dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(serviceStateView);
                 break;
             }
@@ -210,25 +214,18 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
     }
 
 
-    private String serviceObjectQueueToString(ServiceObject serviceObject){
+    private ArrayList<String> serviceObjectQueueToString(ServiceObject serviceObject){
         HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
         MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-        actualQueue.pollQueue();
         ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
-        String returnString = "";
+
+        ArrayList<String> stringList = new ArrayList<>();
+
         for(PortCallMessage pcm : pcmList){
-            returnString += pcm.getServiceState().toString() + "\n";
-            Log.e("Inuti 1", pcm.toString());
+            stringList.add(pcm.getServiceState().toString());
         }
 
-        ArrayList<PortCallMessage> pcmList2 = actualQueue.getQueue();
-        for(PortCallMessage pcm : pcmList2){
-            returnString += pcm.getServiceState().toString() + "\n";
-            Log.e("Inuti 1", pcm.toString());
-        }
-
-
-        return returnString;
+        return stringList;
     }
 
 }

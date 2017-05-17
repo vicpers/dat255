@@ -4,9 +4,9 @@ import android.content.Context;
 import android.util.Log;
 import android.util.NoSuchPropertyException;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import RESTServices.MessageBrokerQueue;
@@ -23,7 +23,7 @@ import static RESTServices.PortCDMServices.getStateDefinitions;
  * Created by juliagustafsson on 2017-04-26.
  */
 
-public class User implements Serializable, Runnable{
+public class User implements Runnable{
 
     private Vessel vessel = null;
     private Context context;
@@ -128,47 +128,38 @@ public class User implements Serializable, Runnable{
 
         MessageBrokerQueue tempMbq = new MessageBrokerQueue();
 
-        if(!(messageBrokerMap.containsKey("vessel"))) {
             tempMbq.createUnfilteredQueue(vessel);
             messageBrokerMap.put("vessel", tempMbq);
-        }
 
         if(this.portCallID != null) {
-            if(!(messageBrokerMap.containsKey(TimeType.ESTIMATED.getText()))) {
-                tempMbq = new MessageBrokerQueue();
-                tempMbq.createUnfilteredQueue(portCallID, TimeType.ESTIMATED);
-                messageBrokerMap.put(TimeType.ESTIMATED.getText(), tempMbq);
-            }
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID);
+            messageBrokerMap.put("portcall", tempMbq);
 
-            if(!(messageBrokerMap.containsKey(TimeType.ACTUAL.getText()))) {
-                tempMbq = new MessageBrokerQueue();
-                tempMbq.createUnfilteredQueue(portCallID, TimeType.ACTUAL);
-                messageBrokerMap.put(TimeType.ACTUAL.getText(), tempMbq);
-            }
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, TimeType.ESTIMATED);
+            messageBrokerMap.put(TimeType.ESTIMATED.getText(), tempMbq);
 
-            if(!(messageBrokerMap.containsKey(ServiceObject.ANCHORING.getText()))) {
-                tempMbq = new MessageBrokerQueue();
-                tempMbq.createUnfilteredQueue(portCallID, ServiceObject.ANCHORING);
-                messageBrokerMap.put(ServiceObject.ANCHORING.getText(), tempMbq);
-            }
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, TimeType.ACTUAL);
+            messageBrokerMap.put(TimeType.ACTUAL.getText(), tempMbq);
 
-            if(!(messageBrokerMap.containsKey(ServiceObject.BERTH_SHIFTING.getText()))) {
-                tempMbq = new MessageBrokerQueue();
-                tempMbq.createUnfilteredQueue(portCallID, ServiceObject.BERTH_SHIFTING);
-                messageBrokerMap.put(ServiceObject.BERTH_SHIFTING.getText(), tempMbq);
-            }
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, ServiceObject.ANCHORING);
+            messageBrokerMap.put(ServiceObject.ANCHORING.getText(), tempMbq);
 
-            if(!(messageBrokerMap.containsKey(ServiceObject.TOWAGE.getText()))) {
-                tempMbq = new MessageBrokerQueue();
-                tempMbq.createUnfilteredQueue(portCallID, ServiceObject.TOWAGE);
-                messageBrokerMap.put(ServiceObject.TOWAGE.getText(), tempMbq);
-            }
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, ServiceObject.BERTH_SHIFTING);
+            messageBrokerMap.put(ServiceObject.BERTH_SHIFTING.getText(), tempMbq);
 
-            if(!(messageBrokerMap.containsKey(ServiceObject.ICEBREAKING_OPERATION.getText()))) {
-                tempMbq = new MessageBrokerQueue();
-                tempMbq.createUnfilteredQueue(portCallID, ServiceObject.ICEBREAKING_OPERATION);
-                messageBrokerMap.put(ServiceObject.ICEBREAKING_OPERATION.getText(), tempMbq);
-            }
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, ServiceObject.TOWAGE);
+            messageBrokerMap.put(ServiceObject.TOWAGE.getText(), tempMbq);
+
+            tempMbq = new MessageBrokerQueue();
+            tempMbq.createUnfilteredQueue(portCallID, ServiceObject.ICEBREAKING_OPERATION);
+            messageBrokerMap.put(ServiceObject.ICEBREAKING_OPERATION.getText(), tempMbq);
+
         }
         setMessageBrokerMap(messageBrokerMap);
     }
@@ -177,31 +168,52 @@ public class User implements Serializable, Runnable{
         try {
             while(true) {
 
-                MessageBrokerQueue messageBrokerQueue = messageBrokerMap.get("vessel");
-                if(messageBrokerQueue != null) {
-                    ArrayList<PortCallMessage> pcmArray = messageBrokerQueue.pollQueue();
-                    for (PortCallMessage pcm : pcmArray) {
-                        if (portCallID == null) {
-                            Log.e("Got PortCallID", pcm.getPortCallId());
-                            setPortCallID(pcm.getPortCallId());
-                            createDefaultQueues();
-                        }
-                        Log.e("NyttPCM", pcm.toString());
-                    }
-                }
-                messageBrokerQueue = messageBrokerMap.get("portcall");
-                if(messageBrokerQueue != null) {
-                    ArrayList<PortCallMessage> pcmArray = messageBrokerQueue.pollQueue();
-                    for (PortCallMessage pcm : pcmArray) {
-                        if (portCallID == null) {
-                            Log.e("Got PortCallID", pcm.getPortCallId());
-                            setPortCallID(pcm.getPortCallId());
-                        }
-                        Log.e("NyttPCM", pcm.toString());
-                    }
-                }
+                for (Map.Entry<String, MessageBrokerQueue> mapEntry : messageBrokerMap.entrySet()) {
+//                  Log.e(mapEntry.getKey(), mapEntry.getValue().getQueueId() + mapEntry.getValue().getQueue().toString());
+                    ArrayList<PortCallMessage> pcmArray = mapEntry.getValue().pollQueue();
 
-                this.thread.sleep(2000);
+                    if (mapEntry.getKey().equals("vessel")){
+                        for (PortCallMessage pcm : pcmArray) {
+                            if (portCallID == null) {
+                                Log.e("Got PortCallID", pcm.getPortCallId());
+                                setPortCallID(pcm.getPortCallId());
+                                createDefaultQueues();
+                            }
+                            Log.e("NyttVesselPCM", pcm.toString());
+                        }
+                    }
+
+                    if (mapEntry.getKey().equals("portcall")){
+                        for (PortCallMessage pcm : pcmArray) {
+                            Log.e("NyttPortCallIdPCM", pcm.toString());
+                        }
+                    }
+                    /*MessageBrokerQueue messageBrokerQueue = messageBrokerMap.get("vessel");
+                    if (messageBrokerQueue != null) {
+                        ArrayList<PortCallMessage> pcmArray = messageBrokerQueue.pollQueue();
+                        for (PortCallMessage pcm : pcmArray) {
+                            if (portCallID == null) {
+                                Log.e("Got PortCallID", pcm.getPortCallId());
+                                setPortCallID(pcm.getPortCallId());
+                                createDefaultQueues();
+                            }
+                            Log.e("NyttPCM", pcm.toString());
+                        }
+                    }
+                    messageBrokerQueue = messageBrokerMap.get("portcall");
+                    if (messageBrokerQueue != null) {
+                        ArrayList<PortCallMessage> pcmArray = messageBrokerQueue.pollQueue();
+                        for (PortCallMessage pcm : pcmArray) {
+                            if (portCallID == null) {
+                                Log.e("Got PortCallID", pcm.getPortCallId());
+                                setPortCallID(pcm.getPortCallId());
+                            }
+                            Log.e("NyttPCM", pcm.toString());
+                        }
+                    }*/
+                }
+                setMessageBrokerMap(messageBrokerMap);
+                this.thread.sleep(5000);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

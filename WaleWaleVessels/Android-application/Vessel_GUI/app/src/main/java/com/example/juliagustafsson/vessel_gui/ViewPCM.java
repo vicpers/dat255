@@ -1,18 +1,15 @@
 package com.example.juliagustafsson.vessel_gui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.support.v7.app.ActionBar;
 
 import java.util.ArrayList;
 
-import RESTServices.MessageBrokerQueue;
 import ServiceEntities.PortCallMessage;
+import ServiceEntities.TimeType;
 
 public class ViewPCM extends AppCompatActivity {
     UserLocalStorage userLocalStore;
@@ -23,7 +20,15 @@ public class ViewPCM extends AppCompatActivity {
         setContentView(R.layout.activity_view_pcm);
         Intent intent = getIntent();
 
-        ArrayList<String> stringList = intent.getStringArrayListExtra("portcalls"); //Hämta userLocalStore skickat från mainactivity
+        //ArrayList<String> stringList = intent.getStringArrayListExtra("portcalls");
+
+        ArrayList<PortCallMessage> portCallList = UserLocalStorage.getMessageBrokerMap().get(TimeType.ESTIMATED.getText()).getQueue();
+
+        ArrayList<String> stringList = new ArrayList<>();
+
+        for(PortCallMessage pcm : portCallList){
+            stringList.add(pcm.toXml());
+        }
 
 
 

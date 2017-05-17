@@ -22,11 +22,11 @@ public class ServiceState {
         if (servStateJsonObj != null) {
             try {
 
-                ServiceObject serviceObject              =    ServiceObject.valueOf(servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_SERVICE_OBJECT));
-                ServiceTimeSequence serviceTimeSequence  =    ServiceTimeSequence.valueOf(servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_TIME_SEQUENCE));
-                String performingActor                   =    servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_PERFORMING_ACTOR);
-                String time                              =    servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_TIME);
-                TimeType timeType                        =    TimeType.valueOf(servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_TIME_TYPE));
+                this.serviceObject              =    ServiceObject.valueOf(servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_SERVICE_OBJECT));
+                this.timeSequence               =    ServiceTimeSequence.valueOf(servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_TIME_SEQUENCE));
+                this.performingActor            =    servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_PERFORMING_ACTOR);
+                this.time                       =    servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_TIME);
+                this.timeType                   =    TimeType.valueOf(servStateJsonObj.getString(Constants_jsonParsing.TAG_SERVICE_STATE_TIME_TYPE));
 
                 Between between;
                 try {
@@ -36,12 +36,9 @@ public class ServiceState {
                 try {
                     at = new Location(servStateJsonObj.getJSONObject(Constants_jsonParsing.TAG_SERVICE_STATE_AT));
                 } catch (JSONException e){ at = null; }
-
-                this.serviceObject      = serviceObject;
-                this.timeSequence       = serviceTimeSequence;
+                
                 this.at                 = at;
                 this.between            = between;
-                this.performingActor    = performingActor;
 
             } catch (JSONException e) {
                 Log.e("ServiceState Constr.", "Problem getting strings: " + e.toString());

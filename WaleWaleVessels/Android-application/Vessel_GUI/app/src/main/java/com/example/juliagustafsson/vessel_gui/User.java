@@ -291,8 +291,9 @@ public class User implements Runnable{
         String last4Str = tmpStr.substring(tmpStr.length() - 5);
         int notificationId = Integer.parseInt(last4Str);
 
+        mBuilder.setContentTitle("New PCM regarding "+ pcm.getOperationType());
+        
 
-        mBuilder.setContentTitle("Du har fått en förfrågan om " + pcm.getOperationType());
         mBuilder.setContentText("Öppna det");
         Intent resultIntent = new Intent(context, Send_ETA.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);

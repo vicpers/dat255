@@ -117,4 +117,14 @@ public class ServiceState {
     public String getOperationType(){
         return getServiceObject().getText();
     }
+    public String getTimeSequence(){
+        return timeSequence.getText();
+    }
+    public String getTimeType(){ return timeType.toString();}
+    public String getPerformingActor(){
+        return performingActor;
+    }
+    public String getTime(){
+        return time;
+    }
 }

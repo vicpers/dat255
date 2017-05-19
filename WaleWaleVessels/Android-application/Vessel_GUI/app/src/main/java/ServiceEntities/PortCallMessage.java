@@ -28,46 +28,50 @@ public class PortCallMessage {
     private LocationState locationState;
     private ServiceState serviceState;
 
-    public PortCallMessage(JSONObject pcmJsonObj){
+    public PortCallMessage(JSONObject pcmJsonObj) {
         if (pcmJsonObj != null) {
             try {
 
-                String portCallId           =  pcmJsonObj.getString(Constants_jsonParsing.TAG_PCM_ID2);
-                String localPortCallId      =  pcmJsonObj.getString(Constants_jsonParsing.TAG_PCM_LOCAL_PORT_CALL_ID);
-                String localJobId           =  pcmJsonObj.getString(Constants_jsonParsing.TAG_PCM_LOCAL_JOB_ID);
-                String vesselId             =  pcmJsonObj.getString(Constants_jsonParsing.TAG_PCM_VESSEL_ID);
-                String messageId            =  pcmJsonObj.getString(Constants_jsonParsing.TAG_PCM_MESSAGE_ID);
-                String groupWith            =  pcmJsonObj.getString(Constants_jsonParsing.TAG_PCM_GROUP_WITH);
-                String reportedAt           =  pcmJsonObj.getString(Constants_jsonParsing.TAG_PCM_REPORTED_AT);
-                String reportedBy           =  pcmJsonObj.getString(Constants_jsonParsing.TAG_PCM_REPORTED_BY);
-                String comment              =  pcmJsonObj.getString(Constants_jsonParsing.TAG_PCM_COMMENT);
-                String messageOperation     =  pcmJsonObj.getString(Constants_jsonParsing.TAG_PCM_MESSAGE_OPERATION);
+                String portCallId = pcmJsonObj.getString(Constants_jsonParsing.TAG_PCM_ID2);
+                String localPortCallId = pcmJsonObj.getString(Constants_jsonParsing.TAG_PCM_LOCAL_PORT_CALL_ID);
+                String localJobId = pcmJsonObj.getString(Constants_jsonParsing.TAG_PCM_LOCAL_JOB_ID);
+                String vesselId = pcmJsonObj.getString(Constants_jsonParsing.TAG_PCM_VESSEL_ID);
+                String messageId = pcmJsonObj.getString(Constants_jsonParsing.TAG_PCM_MESSAGE_ID);
+                String groupWith = pcmJsonObj.getString(Constants_jsonParsing.TAG_PCM_GROUP_WITH);
+                String reportedAt = pcmJsonObj.getString(Constants_jsonParsing.TAG_PCM_REPORTED_AT);
+                String reportedBy = pcmJsonObj.getString(Constants_jsonParsing.TAG_PCM_REPORTED_BY);
+                String comment = pcmJsonObj.getString(Constants_jsonParsing.TAG_PCM_COMMENT);
+                String messageOperation = pcmJsonObj.getString(Constants_jsonParsing.TAG_PCM_MESSAGE_OPERATION);
 
                 LocationState locationState;
                 try {
                     locationState = new LocationState(pcmJsonObj.getJSONObject(Constants_jsonParsing.TAG_PCM_LOCATION_STATE));
-                } catch (JSONException e1){ locationState = null; }
+                } catch (JSONException e1) {
+                    locationState = null;
+                }
 
                 ServiceState serviceState;
                 try {
                     serviceState = new ServiceState(pcmJsonObj.getJSONObject(Constants_jsonParsing.TAG_PCM_SERVICE_STATE));
-                } catch (JSONException e2){ serviceState = null; }
+                } catch (JSONException e2) {
+                    serviceState = null;
+                }
 
-                this.portCallId         = portCallId;
-                this.localPortCallId    = localPortCallId;
-                this.localJobId         = localJobId;
-                this.messageId          = messageId;
-                this.groupWith          = groupWith;
-                this.reportedAt         = reportedAt;
-                this.reportedBy         = reportedBy;
-                this.comment            = comment;
-                this.messageOperation   = messageOperation;
-                this.locationState      = locationState;
-                this.serviceState       = serviceState;
+                this.portCallId = portCallId;
+                this.localPortCallId = localPortCallId;
+                this.localJobId = localJobId;
+                this.messageId = messageId;
+                this.groupWith = groupWith;
+                this.reportedAt = reportedAt;
+                this.reportedBy = reportedBy;
+                this.comment = comment;
+                this.messageOperation = messageOperation;
+                this.locationState = locationState;
+                this.serviceState = serviceState;
 
                 try {
                     this.vessel = PortCDMServices.getVessel(vesselId);
-                } catch (NoSuchElementException e){
+                } catch (NoSuchElementException e) {
                     this.vessel = new Vessel(vesselId);
                 }
             } catch (JSONException e3) {
@@ -86,8 +90,9 @@ public class PortCallMessage {
         this.locationState = locationState;
     }
 
-    /** Same functionality as the constructor above despite the fact that this constructor also
-     *  keeps track of the portCallId
+    /**
+     * Same functionality as the constructor above despite the fact that this constructor also
+     * keeps track of the portCallId
      *
      * @param portCallId
      * @param vesselId
@@ -114,8 +119,10 @@ public class PortCallMessage {
         this.serviceState = serviceState;
     }
 
-    /** Same functionality as the constructor above despite the fact that this constructor also
-     *  keeps track of the portCallId
+    /**
+     * Same functionality as the constructor above despite the fact that this constructor also
+     * keeps track of the portCallId
+     *
      * @param portCallId
      * @param vesselId
      * @param messageId
@@ -249,54 +256,89 @@ public class PortCallMessage {
     @Override
     public String toString() {
         String returnString = "";
-        if(serviceState != null)
+        if (serviceState != null)
             returnString = serviceState.toString();
         else if (locationState != null)
             returnString = locationState.toString();
         else
-            returnString ="No state found!";
+            returnString = "No state found!";
 
-        if((comment != null) && (!comment.equals("null")) && (!comment.equals("")))
+        if ((comment != null) && (!comment.equals("null")) && (!comment.equals("")))
             returnString += "\nComment: " + comment;
         return returnString;
     }
 
     public String toXml() {
         String xmlStr = "";
-        if((portCallId != null) && (!portCallId.equals("")) && (!portCallId.equals("null")))
-            xmlStr += "<ns2:portCallId>"        + portCallId        + "</ns2:portCallId>";
-        if(localPortCallId != null)
-            xmlStr += "<ns2:localPortCallId>"   + localPortCallId   + "</ns2:localPortCallId>";
-        if(localJobId != null)
-            xmlStr += "<ns2:localJobId>"        + localJobId        + "</ns2:localJobId>";
-        if(vessel != null)
-            xmlStr += "<ns2:vesselId>"          + vessel.getId()    + "</ns2:vesselId>";
-        if(messageId != null)
-            xmlStr += "<ns2:messageId>"         + messageId         + "</ns2:messageId>";
-        if(groupWith != null)
-            xmlStr += "<ns2:groupWith>"         + groupWith         + "</ns2:groupWith>";
-        if(reportedAt != null)
-            xmlStr += "<ns2:reportedAt>"        + reportedAt        + "</ns2:reportedAt>";
-        if(reportedBy != null)
-            xmlStr += "<ns2:reportedBy>"        + reportedBy        + "</ns2:reportedBy>";
-        if(comment != null)
-            xmlStr += "<ns2:comment>"           + comment           + "</ns2:comment>";
-        if(messageOperation != null)
-            xmlStr += "<ns2:messageOperation>"  + messageOperation + "</ns2:messageOperation>";
+        if ((portCallId != null) && (!portCallId.equals("")) && (!portCallId.equals("null")))
+            xmlStr += "<ns2:portCallId>" + portCallId + "</ns2:portCallId>";
+        if (localPortCallId != null)
+            xmlStr += "<ns2:localPortCallId>" + localPortCallId + "</ns2:localPortCallId>";
+        if (localJobId != null)
+            xmlStr += "<ns2:localJobId>" + localJobId + "</ns2:localJobId>";
+        if (vessel != null)
+            xmlStr += "<ns2:vesselId>" + vessel.getId() + "</ns2:vesselId>";
+        if (messageId != null)
+            xmlStr += "<ns2:messageId>" + messageId + "</ns2:messageId>";
+        if (groupWith != null)
+            xmlStr += "<ns2:groupWith>" + groupWith + "</ns2:groupWith>";
+        if (reportedAt != null)
+            xmlStr += "<ns2:reportedAt>" + reportedAt + "</ns2:reportedAt>";
+        if (reportedBy != null)
+            xmlStr += "<ns2:reportedBy>" + reportedBy + "</ns2:reportedBy>";
+        if (comment != null)
+            xmlStr += "<ns2:comment>" + comment + "</ns2:comment>";
+        if (messageOperation != null)
+            xmlStr += "<ns2:messageOperation>" + messageOperation + "</ns2:messageOperation>";
         if (locationState != null)
-            xmlStr += "<ns2:locationState>"     + locationState.toXml() + "</ns2:locationState>";
+            xmlStr += "<ns2:locationState>" + locationState.toXml() + "</ns2:locationState>";
         if (serviceState != null)
-            xmlStr += "<ns2:serviceState>"      + serviceState.toXml() + "</ns2:serviceState>";
+            xmlStr += "<ns2:serviceState>" + serviceState.toXml() + "</ns2:serviceState>";
 
         return xmlStr;
     }
-    public String getOperationType(){
+
+    public String getOperationType() {
         ServiceState serviceState = getServiceState();
-        if(!(serviceState == null)){
-          return serviceState.getOperationType();
+        if (!(serviceState == null)) {
+            return serviceState.getOperationType();
+        } else {
+            return getLocationState().getOperationType();
         }
-        else{
-          return getLocationState().getOperationType();
+    }
+
+    public String getTimeSequence() {
+        ServiceState serviceState = getServiceState();
+        if (!(serviceState == null)) {
+            return serviceState.getTimeSequence();
+        } else {
+            return null;
         }
+    }
+    public String getTimeType(){
+        if(isServiceState()){
+            return getServiceState().getTimeType();
+        }
+        else return getLocationState().getTimeType();
+    }
+    public boolean isServiceState(){
+        ServiceState serviceState = getServiceState();
+        if (!(serviceState == null)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public String getPerformingActor(){
+        if(isServiceState()){
+            return serviceState.getPerformingActor();
+        }
+        else return getLocationState().getReferenceObject();
+    }
+    public String getTime(){
+        if(isServiceState()){
+            return getServiceState().getTime();
+        }
+        else return getLocationState().getTime();
     }
 }

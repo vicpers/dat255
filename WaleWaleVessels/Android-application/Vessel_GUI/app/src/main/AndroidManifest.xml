@@ -42,12 +42,6 @@
         </activity>
         <activity android:name=".Vessel_Login" />
         <activity
-            android:name=".SendLocationState"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".SendServiceState"
-            android:parentActivityName=".MainActivity" />
-        <activity
             android:name=".Report_Update"
             android:parentActivityName=".MainActivity" />
         <activity

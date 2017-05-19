@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void checkStatus(View view) {
-        Intent intent = new Intent(this, CheckStatus.class); //skapar en ny instans av klassen SendLocationState som initierar ett nytt blankt fönster
+        Intent intent = new Intent(this, CheckStatus.class); //skapar en ny instans av klassen CheckStatus som initierar ett nytt blankt fönster
         startActivity(intent);
     }
 

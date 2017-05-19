@@ -93,7 +93,7 @@ public class ServiceState {
     }
 
     public String toString(){
-        return "Sequence: " + timeSequence + "\nTimeType: " + timeType + "\nTime: " + time;
+        return "Service Object: " + serviceObject.getText() +  "\nSequence: " + timeSequence + "\nTimeType: " + timeType + "\nTime: " + time;
     }
 
     public String toXml() {

@@ -118,6 +118,7 @@ public class WebRequest {
         try {
             URL url = new URL(urladdress);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            BufferedReader br = null;
             try {
                 if (headers != null) {
                     for (Map.Entry<String, String> entry : headers.entrySet()) {
@@ -141,30 +142,30 @@ public class WebRequest {
                 if (reqresponseCode == HttpsURLConnection.HTTP_CREATED) {
                     String line;
                     try {
-                        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                         while ((line = br.readLine()) != null) {
                             response += line;
                         }
-                    } catch (Exception e) {}
+                    } catch (Exception e) {Log.e("Exception", e.toString());}
                 } else if (reqresponseCode == HttpsURLConnection.HTTP_OK) {
                     String line;
                     response += "Status - OK\n";
                     try{
-                        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                         while ((line = br.readLine()) != null) {
                             response += line;
                         }
-                    } catch (Exception e){};
+                    } catch (Exception e){Log.e("Exception", e.toString());};
 
                 } else if (reqresponseCode == HttpsURLConnection.HTTP_ACCEPTED) {
                     String line;
                     response += "Status - Accepted\n";
                     try{
-                        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                         while ((line = br.readLine()) != null) {
                             response += line;
                         }
-                    } catch (Exception e){};
+                    } catch (Exception e){Log.e("Exception", e.toString());};
 
                 } else {
 //                    System.out.println("WebRequestHTTPConnection is not OK!");
@@ -176,7 +177,7 @@ public class WebRequest {
                             "\nResponseCode: " + reqresponseCode +
                             "\nURL: " + urladdress;*/
                     String line;
-                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                    br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
                     while ((line = br.readLine()) != null) {
                         response += line;
                     }
@@ -188,6 +189,8 @@ public class WebRequest {
                 } else if (response.length() == 0){
                     response = conn.getResponseCode() + " - " + conn.getResponseMessage();
                 }*/
+                if (br != null)
+                    br.close();
                 conn.disconnect();
             }
         } catch (ProtocolException e) {

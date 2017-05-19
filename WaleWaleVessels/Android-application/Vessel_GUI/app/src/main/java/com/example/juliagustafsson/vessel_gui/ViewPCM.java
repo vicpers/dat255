@@ -20,8 +20,6 @@ public class ViewPCM extends AppCompatActivity {
         setContentView(R.layout.activity_view_pcm);
         Intent intent = getIntent();
 
-        //ArrayList<String> stringList = intent.getStringArrayListExtra("portcalls");
-
         ArrayList<PortCallMessage> portCallList = UserLocalStorage.getMessageBrokerMap().get(TimeType.ESTIMATED.getText()).getQueue();
 
         ArrayList<String> stringList = new ArrayList<>();
@@ -30,11 +28,8 @@ public class ViewPCM extends AppCompatActivity {
             stringList.add(pcm.toString());
         }
 
-
-
         // Get a handle to the list view
         ListView lv = (ListView) findViewById(R.id.listView);
-
 
         ArrayAdapter<String> itemsAdapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, stringList);

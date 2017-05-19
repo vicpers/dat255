@@ -2,6 +2,7 @@ package com.example.juliagustafsson.vessel_gui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -25,19 +26,25 @@ public class StatementsOfFacts extends AppCompatActivity {
 
         ListView dialogListView = (ListView) findViewById(R.id.statusView);
         HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        MessageBrokerQueue actualQueue = queueMap.get(TimeType.ACTUAL.getText());
-        actualQueue.pollQueue();
-        ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
-        ArrayList<String> statusStringList = new ArrayList<>();
+        try {
+            MessageBrokerQueue actualQueue = queueMap.get(TimeType.ACTUAL.getText());
+            actualQueue.pollQueue();
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+            ArrayList<String> statusStringList = new ArrayList<>();
 
-        for(PortCallMessage pcm : pcmList){
-            statusStringList.add(pcm.toString());
+            for(PortCallMessage pcm : pcmList){
+                statusStringList.add(pcm.toString());
+            }
+
+            ArrayAdapter<String> itemsAdapter =
+                    new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
+            dialogListView.setAdapter(itemsAdapter);
+        } catch (NullPointerException e) {
+            Log.e("actualQueue.pollQueue()", e.toString());
         }
 
-        ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
-        dialogListView.setAdapter(itemsAdapter);
+
     }
 
 }

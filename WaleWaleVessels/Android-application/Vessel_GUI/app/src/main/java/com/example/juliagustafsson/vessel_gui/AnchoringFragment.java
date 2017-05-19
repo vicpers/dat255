@@ -55,9 +55,7 @@ import ServiceEntities.TimeType;
 
 import static RESTServices.PortCDMServices.getServiceType;
 
-/**
- * Created by juliagustafsson on 2017-05-15.
- */
+
 
 public class AnchoringFragment extends android.app.Fragment implements View.OnClickListener {
 
@@ -99,8 +97,6 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
     HashMap<String, Location> fromSubLocationMap;
     HashMap<String, Location> atSubLocationMap;
     HashMap<String, ServiceTimeSequence> timeSequenceMap;
-    private Fragment frag;
-    private FragmentTransaction fragTransaction;
 
     public AnchoringFragment() {
 

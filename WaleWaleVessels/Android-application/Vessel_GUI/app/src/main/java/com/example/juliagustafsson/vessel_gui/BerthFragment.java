@@ -58,9 +58,6 @@ public class BerthFragment extends android.app.Fragment implements View.OnClickL
     private ServiceObject currentServiceObject;
     private Spinner spinnerTimeSequence;
     private Spinner spinnerAtOrFromLocation;
-    private Spinner spinnerFromLocation;
-    private Spinner spinnerFromSubLocation;
-    private Spinner spinnerToSubLocation;
     private Spinner spinnerToLocation;
     private Spinner spinnerTimeType;
     private Spinner spinnerSubLocation;
@@ -73,8 +70,6 @@ public class BerthFragment extends android.app.Fragment implements View.OnClickL
     private String selectedTimeSequence;
     private LocationType selectedFromLocation;
     private LocationType selectedtoLocation;
-    private LocationType selectedAtLocation;
-    private String selectedAtSubLocation;
     private String selectedSubLocation;
     private String selectedFromSubLocation;
     private String selectedToSubLocation;
@@ -89,12 +84,10 @@ public class BerthFragment extends android.app.Fragment implements View.OnClickL
     HashMap<String, Location> subLocationsMap;
     HashMap<String, Location> toSubLocationMap;
     HashMap<String, Location> fromSubLocationMap;
-    HashMap<String, Location> atSubLocationMap;
     HashMap<String, ServiceTimeSequence> timeSequenceMap;
     public BerthFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -196,37 +189,24 @@ public class BerthFragment extends android.app.Fragment implements View.OnClickL
                 //send a service state port call message
                 if(isServiceState) {
                     ServiceState serviceState;
-                    //TODO Se till så att at och between används utifrån val.
-                    //TODO Implementera att en TimeType ska väljas.
-                    if(getServiceType(currentServiceObject) == ServiceType.STATIONARY){
-                        Location at = new Location(selectedAtSubLocation,
-                                new Position(0, 0), selectedAtLocation);
-                        try{
-                            at = atSubLocationMap.get(selectedAtSubLocation);
-                        } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
-                        serviceState = new ServiceState(currentServiceObject,
-                                ServiceTimeSequence.fromString(selectedTimeSequence),
-                                selectedTimeType,
-                                formattedTime,
-                                at,
-                                null); //performingActor ev. vesselId
-                    } else {
-                        Location from = new Location(selectedFromSubLocation, new Position(0, 0), selectedFromLocation);
-                        try{
-                            from = fromSubLocationMap.get(selectedFromSubLocation);
-                        } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
-                        Location to = new Location(selectedToSubLocation, new Position(0, 0), selectedtoLocation);
-                        try{
-                            to = toSubLocationMap.get(selectedToSubLocation);
-                        } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
-                        Between between = new Between(from, to);
-                        serviceState = new ServiceState(currentServiceObject,
-                                ServiceTimeSequence.fromString(selectedTimeSequence),
-                                selectedTimeType,
-                                formattedTime,
-                                between,
-                                null); //performingActor ev. vesselId
-                    }
+
+                    Location from = new Location(selectedFromSubLocation, new Position(0, 0), selectedFromLocation);
+                    try{
+                        from = fromSubLocationMap.get(selectedFromSubLocation);
+                    } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
+
+                    Location to = new Location(selectedToSubLocation, new Position(0, 0), selectedtoLocation);
+                    try{
+                        to = toSubLocationMap.get(selectedToSubLocation);
+                    } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
+
+                    Between between = new Between(from, to);
+                    serviceState = new ServiceState(currentServiceObject,
+                            ServiceTimeSequence.fromString(selectedTimeSequence),
+                            selectedTimeType,
+                            formattedTime,
+                            between,
+                            null); //performingActor ev. vesselId
 
                     PortCallMessage pcmObj = new PortCallMessage(portCallID,
                             vesselID,
@@ -375,119 +355,6 @@ public class BerthFragment extends android.app.Fragment implements View.OnClickL
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try {
                     selectedToSubLocation = spinnerToLocation.getSelectedItem().toString();
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-    }
-
-    private void setBetweenServiceStateView() {
-        setTimeTypeSpinner(serviceStateView);
-
-        spinnerFromLocation = (Spinner) serviceStateView.findViewById(R.id.spinnerFromLocation);
-        spinnerToLocation = (Spinner) serviceStateView.findViewById(R.id.spinnerToLocation);
-        spinnerFromSubLocation = (Spinner) serviceStateView.findViewById(R.id.spinnerFromSubLocation);
-        spinnerToSubLocation = (Spinner) serviceStateView.findViewById(R.id.spinnerToSubLocation);
-
-        HashMap<String, LocationType> locationTypeMap = LocationType.toMap();
-        ArrayList<String> locations = new ArrayList<String>(locationTypeMap.keySet());
-        Collections.sort(locations);
-        ArrayAdapter<String> locationArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, locations);
-        locationArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinnerFromLocation.setAdapter(locationArrayAdapter);
-        spinnerFromLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    selectedFromLocation = LocationType.fromString(spinnerFromLocation.getSelectedItem().toString());
-                    setFromSubLocationSpinner(selectedFromLocation);
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        spinnerToLocation.setAdapter(locationArrayAdapter);
-        spinnerToLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    selectedtoLocation = LocationType.fromString(spinnerToLocation.getSelectedItem().toString());
-                    setToSubLocationSpinner(selectedtoLocation);
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
-
-    private void setFromSubLocationSpinner(LocationType location) {
-        fromSubLocationMap = PortCDMServices.getPortLocations(location);
-        ArrayList<String> portLocations = new ArrayList<>();
-        try {
-            portLocations = new ArrayList<String>(fromSubLocationMap.keySet());
-        } catch (NullPointerException e) {Log.e("PortLocSpinner", e.toString());}
-        Collections.sort(portLocations);
-        ArrayAdapter<String> portLocadapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, portLocations);
-        portLocadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerFromSubLocation.setAdapter(portLocadapter);
-        spinnerFromSubLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedFromSubLocation = spinnerFromSubLocation.getSelectedItem().toString();
-            }
-
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
-
-    private void setToSubLocationSpinner(LocationType location) {
-        toSubLocationMap = PortCDMServices.getPortLocations(location);
-        ArrayList<String> portLocations = new ArrayList<>();
-        try {
-            portLocations = new ArrayList<String>(toSubLocationMap.keySet());
-        } catch (NullPointerException e) {Log.e("PortLocSpinner", e.toString());}
-        Collections.sort(portLocations);
-        ArrayAdapter<String> portLocadapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, portLocations);
-        portLocadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerToSubLocation.setAdapter(portLocadapter);
-        spinnerToSubLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedToSubLocation = spinnerToSubLocation.getSelectedItem().toString();
-            }
-
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
-
-    private void setAtServiceStateView (LocationType at) {
-        setTimeTypeSpinner(serviceStateView);
-        TextView atFromLocationText = (TextView) serviceStateView.findViewById(R.id.AtFromLocationText);
-        TextView toLocation = (TextView) serviceStateView.findViewById(R.id.ToLocation);
-        spinnerAtOrFromLocation = (Spinner) serviceStateView.findViewById(R.id.spinnerAtOrFromLocation);
-        spinnerToLocation = (Spinner) serviceStateView.findViewById(R.id.spinnerToLocation);
-        atFromLocationText.setText("At Location");
-        toLocation.setVisibility(View.INVISIBLE);
-        spinnerToLocation.setVisibility(View.INVISIBLE);
-
-        atSubLocationMap = PortCDMServices.getPortLocations(at);
-        ArrayList<String> subLocations = new ArrayList<String>(atSubLocationMap.keySet());
-        Collections.sort(subLocations);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, subLocations);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerAtOrFromLocation.setAdapter(arrayAdapter);
-        spinnerAtOrFromLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    selectedAtSubLocation = spinnerAtOrFromLocation.getSelectedItem().toString();
                 } catch(Exception e) {
                     e.printStackTrace();
                 }

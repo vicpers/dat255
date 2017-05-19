@@ -9,9 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
-import ServiceEntities.LocationType;
-import ServiceEntities.ServiceObject;
-
 /**
  * Created by MattiasLundell on 2017-05-03.
  */
@@ -124,11 +121,6 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
 
             }
 
-
-    @Override
-    public void onClick(View v) {
-
-    }
 
 
 }

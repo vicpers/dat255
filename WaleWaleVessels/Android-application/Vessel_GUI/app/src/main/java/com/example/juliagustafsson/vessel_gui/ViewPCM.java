@@ -2,6 +2,7 @@ package com.example.juliagustafsson.vessel_gui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -17,15 +18,18 @@ public class ViewPCM extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pcm);
-
-        //TODO Behövs nullpointer exception
-        ArrayList<PortCallMessage> portCallList = UserLocalStorage.getMessageBrokerMap().get(TimeType.ESTIMATED.getText()).getQueue();
-
+        
         ArrayList<String> stringList = new ArrayList<>();
-
-        for(PortCallMessage pcm : portCallList){
-            stringList.add(pcm.toString());
+        try {
+            ArrayList<PortCallMessage> portCallList = UserLocalStorage.getMessageBrokerMap().get(TimeType.ESTIMATED.getText()).getQueue();
+            for(PortCallMessage pcm : portCallList){
+                stringList.add(pcm.toString());
+            }
+        } catch (NullPointerException e){
+            Log.e("NoPortCallID", e.toString());
         }
+
+
 
         // Get a handle to the list view
         ListView lv = (ListView) findViewById(R.id.listView);

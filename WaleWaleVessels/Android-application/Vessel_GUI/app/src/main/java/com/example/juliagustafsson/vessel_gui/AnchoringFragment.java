@@ -185,7 +185,6 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
         dialogBuilder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
                 // Gets strings that represent the date and time from different Edit-fields.
                 String etaDate = dateEditText.getText().toString();
                 String etaTime = timeEditText.getText().toString();
@@ -258,8 +257,7 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
                     String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
 
                     //send a location state port call message
-                } else {
-
+                    } else {
                     Location location = new Location(selectedSubLocation, new Position(0, 0), selectedLocationType);
                     try{
                         location = subLocationsMap.get(selectedSubLocation);
@@ -280,6 +278,7 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
                             locState);
                     AMSS amss = new AMSS(pcmObj);
                     String wrResponse = amss.submitStateUpdate(); // Submits the PortCallMessage to PortCDM through the AMSS.
+
                 }
             }
         });

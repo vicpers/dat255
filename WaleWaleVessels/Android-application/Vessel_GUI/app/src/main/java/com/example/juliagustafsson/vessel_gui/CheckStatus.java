@@ -126,7 +126,7 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
                 });
 
             }
-    
+
 
     @Override
     public void onClick(View v) {

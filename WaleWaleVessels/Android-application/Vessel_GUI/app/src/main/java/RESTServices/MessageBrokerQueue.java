@@ -61,23 +61,6 @@ public class MessageBrokerQueue {
     }
 
     /**
-     *
-     */
-    public void createUnfilteredQueue(){
-        String url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_CREATE_QUEUE;
-
-        HashMap<String, String> headers = new HashMap<String, String>();
-
-        headers.put(API_HEADER_CONTENT_TYPE, API_HEADER_ACCEPT_JSON);
-        headers.put(API_HEADER_USER_ID, API_DEV_USERNAME);
-        headers.put(API_HEADER_PASSWORD, API_DEV_PASSWORD);
-        headers.put(API_HEADER_API_KEY, API_DEV_KEY1);
-
-        this.queueId = WebRequest.makeWebServicePost(url, headers, null, "");
-        System.out.println(queueId);
-    }
-
-    /**
      * @param vessel
      */
     public void createUnfilteredQueue(Vessel vessel){

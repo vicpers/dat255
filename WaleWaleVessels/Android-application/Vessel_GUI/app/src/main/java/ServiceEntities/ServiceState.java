@@ -114,4 +114,7 @@ public class ServiceState {
             xmlStr += "<ns2:between>" + between.toXml() + "</ns2:between>";
         return xmlStr;
     }
+    public String getOperationType(){
+        return getServiceObject().getText();
+    }
 }

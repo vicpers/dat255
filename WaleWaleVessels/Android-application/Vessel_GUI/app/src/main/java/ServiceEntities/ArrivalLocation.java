@@ -56,5 +56,15 @@ public class ArrivalLocation {
         return xmlStr;
     }
 
+    public String getOperationType(){
+        if (to != null)
+            return to.getOperationType();
+        if (from != null)
+            return from.getOperationType();
+        return null;
+    }
+
+
+
 
 }

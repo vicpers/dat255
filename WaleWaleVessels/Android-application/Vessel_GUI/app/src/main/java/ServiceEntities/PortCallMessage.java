@@ -290,4 +290,13 @@ public class PortCallMessage {
 
         return xmlStr;
     }
+    public String getOperationType(){
+        ServiceState serviceState = getServiceState();
+        if(!(serviceState == null)){
+          return serviceState.getOperationType();
+        }
+        else{
+          return getLocationState().getOperationType();
+        }
+    }
 }

@@ -130,4 +130,7 @@ public class Location {
         }
         return xmlStr;
     }
+    public String getOperationType(){
+        return locationMRN.substring(27);
+    }
 }

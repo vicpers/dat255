@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         TextView textView = (TextView) findViewById(R.id.textView4);
         //Hårdkodat för att visa nuvarande hamn överst på hemskärmen.
-        //TODO Skapa möjlighet att själv välja hamn
         textView.setText("Current Port: SEGOT");
 
         // Set customized toolbar
@@ -126,16 +125,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
 
     }
-
-    /*public static Drawable LoadImageFromWebOperations(String url) {
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "Vessel Image");
-            return d;
-        } catch (Exception e) {
-            return null;
-        }
-    }*/
 
     public void sendETA(View view) {
         Intent intent = new Intent(this, Send_ETA.class); //skapar en ny instans av klassen ViewPCM som initierar ett nytt blankt fönster

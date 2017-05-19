@@ -199,19 +199,6 @@ public class PortCDMServices {
                     JSONObject portLocObj = jsonArr.getJSONObject(i);
                     Location portLocation = new Location(portLocObj);
 
-                    /*LocationType locationType       = LocationType.valueOf(portLoc.getString(TAG_LOCATION_TYPE));
-                    String portLocationName         = portLoc.getString(TAG_PORT_LOCATIONS_NAME);
-                    String portLocationShortName    = portLoc.getString(TAG_PORT_LOCATIONS_SHORT_NAME);*/
-
-/*
-                    try {
-//                        portLocation = new Location(portLoc.getJSONObject(TAG_PORT_LOCATIONS_));
-
-//                        portLocation.setShortName(portLocationShortName);
-                    } catch (JSONException e){ Log.e("GetPortData", e.toString()); }
-*/
-
-
                     HashMap<String, Location> tempPortLocMap = portData.get(portLocation.getType());
                     if (tempPortLocMap == null) {
                         tempPortLocMap = new HashMap<String, Location>();
@@ -220,7 +207,6 @@ public class PortCDMServices {
                     } else {
                         tempPortLocMap.put(portLocation.getName(), portLocation);
                     }
-
 
                 } catch (JSONException e1){
                     Log.e("GetPortData - Inner", e1.toString());

@@ -252,6 +252,8 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
                 createAlertDialog(locationstateView);
                 break;
             }
+            default:
+                Log.e("NoIDFound", "No correct ID found.");
         }
 
     }

@@ -34,7 +34,6 @@ public class User implements Runnable{
 
     private Vessel vessel = null;
     private Context context;
-    private boolean userLoggedIn = false;
     private HashMap<String, MessageBrokerQueue> messageBrokerMap = new HashMap<>();
     private String portCallID = null;
     private Thread thread;
@@ -271,7 +270,7 @@ public class User implements Runnable{
                             long time = new Date().getTime();
                             String tmpStr = String.valueOf(time);
                             String last4Str = tmpStr.substring(tmpStr.length() - 5);
-                            int notificationId = Integer.valueOf(last4Str);
+                            int notificationId = Integer.parseInt(last4Str);
 
 
                             mNotificationManager.notify(notificationId, mBuilder.build());
@@ -283,29 +282,7 @@ public class User implements Runnable{
                             Log.e("NyttPortCallIdPCM", pcm.toString());
                         }
                     }
-                    /*MessageBrokerQueue messageBrokerQueue = messageBrokerMap.get("vessel");
-                    if (messageBrokerQueue != null) {
-                        ArrayList<PortCallMessage> pcmArray = messageBrokerQueue.pollQueue();
-                        for (PortCallMessage pcm : pcmArray) {
-                            if (portCallID == null) {
-                                Log.e("Got PortCallID", pcm.getPortCallId());
-                                setPortCallID(pcm.getPortCallId());
-                                createDefaultQueues();
-                            }
-                            Log.e("NyttPCM", pcm.toString());
-                        }
-                    }
-                    messageBrokerQueue = messageBrokerMap.get("portcall");
-                    if (messageBrokerQueue != null) {
-                        ArrayList<PortCallMessage> pcmArray = messageBrokerQueue.pollQueue();
-                        for (PortCallMessage pcm : pcmArray) {
-                            if (portCallID == null) {
-                                Log.e("Got PortCallID", pcm.getPortCallId());
-                                setPortCallID(pcm.getPortCallId());
-                            }
-                            Log.e("NyttPCM", pcm.toString());
-                        }
-                    }*/
+
                 }
                 setMessageBrokerMap(messageBrokerMap);
                 this.thread.sleep(5000);

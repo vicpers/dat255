@@ -94,7 +94,6 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
                 break;
             }
 
-            //TODO At which location?
             case R.id.BunkeringOperation: {
                 selectedAtLocation = LocationType.BERTH;
                 currentServiceObject = ServiceObject.BUNKERING_OPERATION;
@@ -106,7 +105,6 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
                 break;
             }
 
-            //TODO At which location?
             case R.id.CargoOperation: {
                 selectedAtLocation = LocationType.BERTH;
                 currentServiceObject = ServiceObject.CARGO_OPERATION;
@@ -129,7 +127,6 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
                 break;
             }
 
-            //TODO Between which locations?
             case R.id.EscortTowage: {
                 currentServiceObject = ServiceObject.ESCORT_TOWAGE;
                 ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
@@ -140,7 +137,6 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
                 break;
             }
 
-            //TODO Between which locations?
             case R.id.IceBreakingOperation: {
                 currentServiceObject = ServiceObject.ICEBREAKING_OPERATION;
                 ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
@@ -151,7 +147,6 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
                 break;
             }
 
-            //TODO At which location?
             case R.id.ArrivalMooringOperation: {
                 selectedAtLocation = LocationType.BERTH;
                 currentServiceObject = ServiceObject.ARRIVAL_MOORING_OPERATION;
@@ -163,7 +158,6 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
                 break;
             }
 
-            //TODO At which location?
             case R.id.DepartureMooringOperation: {
                 selectedAtLocation = LocationType.BERTH;
                 currentServiceObject = ServiceObject.DEPARTURE_MOORING_OPERATION;
@@ -175,7 +169,6 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
                 break;
             }
 
-            //TODO Between which locations?
             case R.id.Pilotage: {
                 currentServiceObject = ServiceObject.PILOTAGE;
                 ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
@@ -186,7 +179,6 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
                 break;
             }
 
-            //TODO Between which locations?
             case R.id.Towage: {
                 currentServiceObject = ServiceObject.TOWAGE;
                 ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);

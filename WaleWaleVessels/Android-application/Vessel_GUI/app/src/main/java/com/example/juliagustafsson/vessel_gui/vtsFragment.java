@@ -159,34 +159,28 @@ public class vtsFragment extends android.app.Fragment implements View.OnClickLis
                 String vesselID = intent.getExtras().getString("vesselID"); //Hämta VesselIMO skickat från mainactivity
                 String portCallID = intent.getExtras().getString("portCallID"); //Hämta portCallID skickat från mainactivity
 
-                    ServiceState serviceState;
-                    //TODO Se till så att at och between används utifrån val.
-                    //TODO Implementera att en TimeType ska väljas.
-                        Location at = new Location(selectedAtSubLocation,
-                                new Position(0, 0), selectedAtLocation);
-                        try{
-                            at = atSubLocationMap.get(selectedAtSubLocation);
-                        } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
-                        serviceState = new ServiceState(currentServiceObject,
-                                ServiceTimeSequence.fromString(selectedTimeSequence),
-                                selectedTimeType,
-                                formattedTime,
-                                at,
-                                null); //performingActor ev. vesselId
+                ServiceState serviceState;
 
+                Location at = new Location(selectedAtSubLocation,
+                        new Position(0, 0), selectedAtLocation);
+                try{
+                    at = atSubLocationMap.get(selectedAtSubLocation);
+                } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
+                serviceState = new ServiceState(currentServiceObject,
+                        ServiceTimeSequence.fromString(selectedTimeSequence),
+                        selectedTimeType,
+                        formattedTime,
+                        at,
+                        null); //performingActor ev. vesselId
 
-                    PortCallMessage pcmObj = new PortCallMessage(portCallID,
-                            vesselID,
-                            "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
-                            null,
-                            serviceState);
-                    AMSS amss = new AMSS(pcmObj);
+                PortCallMessage pcmObj = new PortCallMessage(portCallID, vesselID, "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(), null, serviceState);
+                AMSS amss = new AMSS(pcmObj);
 
                 //TODO Gör något fräckt med etaResult
-                    String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
-
-            }
+                String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
+                }
         });
+
         dialogBuilder.setNegativeButton("Cancel", null);
         dialogBuilder.setView(v);
         dialogBuilder.show();

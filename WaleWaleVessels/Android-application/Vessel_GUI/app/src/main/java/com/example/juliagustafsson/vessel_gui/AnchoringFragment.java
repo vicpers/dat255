@@ -218,8 +218,6 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
                 //send a service state port call message
                 if(isServiceState) {
                     ServiceState serviceState;
-                    //TODO Se till så att at och between används utifrån val.
-                    //TODO Implementera att en TimeType ska väljas.
                     if(getServiceType(currentServiceObject) == ServiceType.STATIONARY){
                         Location at = new Location(selectedAtSubLocation,
                                 new Position(0, 0), selectedAtLocation);

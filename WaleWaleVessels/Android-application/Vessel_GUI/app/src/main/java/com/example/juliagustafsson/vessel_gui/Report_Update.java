@@ -56,7 +56,6 @@ import static RESTServices.PortCDMServices.getServiceType;
 
 public class Report_Update extends AppCompatActivity implements View.OnClickListener {
 
-    //TODO NullPointerException för spinners ifall den inte lyckas hämta hem saker från servern
     private Fragment frag;
     private FragmentTransaction fragTransaction;
 

@@ -1,341 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    tools:context="com.example.juliagustafsson.vessel_gui.Report_Update">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
 
-    <TableLayout
+    <FrameLayout
+        android:id="@+id/categories"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="0dp">
 
-        <TableRow
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp">
+            tools:background="@color/menuHeader">
 
-            <Button
-                android:id="@+id/Anchoring"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"
-                android:background="@color/menuHeader"
-                android:onClick="sendNewServiceState"
-                android:text="Anchoring"
-                android:textSize="18sp" />
-
-            <Button
-                android:id="@+id/ArrivalAnchoringOperation"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_weight="1"
-                android:background="@color/menuHeader"
-                android:onClick="sendNewServiceState"
-                android:text="Arrival Anchoring Operation"
-                android:textSize="18sp" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-
-            <Button
-                android:id="@+id/ArrivalAnchoringArea"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"
-                android:background="@color/menuHeader"
-                android:onClick="sendNewLocationState"
-                android:text="Arrival Anchoring Area"
-                android:textSize="18sp" />
-
-            <Button
-                android:id="@+id/DepartureAnchoringArea"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_weight="1"
-                android:background="@color/menuHeader"
-                android:onClick="sendNewLocationState"
-                android:text="Departure Anchoring Area"
-                android:textSize="18sp" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-
-            <Button
-                android:id="@+id/ArrivalBerth"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"
-                android:background="@color/menuHeader"
-                android:onClick="sendNewLocationState"
-                android:text="Arrival Berth"
-                android:textSize="18sp" />
-
-            <Button
-                android:id="@+id/DepartureBerth"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_weight="1"
-                android:background="@color/menuHeader"
-                android:onClick="sendNewLocationState"
-                android:text="Departure Berth"
-                android:textSize="18sp" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/my_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:elevation="4dp"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
 
-        <Button
-                android:id="@+id/BerthShifting"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"
-                android:background="@color/menuHeader"
-                android:onClick="sendNewServiceState"
-                android:text="Berth Shifting"
-                android:textSize="18sp" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp">
 
-            <Button
-                android:id="@+id/BunkeringOperation"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_weight="1"
-                android:background="@color/menuHeader"
-                android:onClick="sendNewServiceState"
-                android:text="Bunkering Operation"
-                android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/Anchoring"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="4dp"
+                    android:drawableTop="@drawable/ic_big_anchor"
+                    android:padding="8dp"
+                    android:text="ANCHORING"
+                    android:textSize="12dp"
+                    android:textAlignment="center"
+                    tools:background="#e9e9e9"/>
 
-        </TableRow>
+                <TextView
+                    android:id="@+id/Berth"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:drawableTop="@drawable/ic_mooring_point"
+                    android:padding="8dp"
+                    android:text="BERTH"
+                    android:textSize="12dp"
+                    android:textAlignment="center"
+                    tools:background="#e9e9e9"/>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-
-
-        <Button
-                android:id="@+id/CargoOperation"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"
-                android:background="@color/menuHeader"
-                android:onClick="sendNewServiceState"
-                android:text="Cargo Operation"
-                android:textSize="18sp" />
-
-            <Button
-                android:id="@+id/IceBreakingOperation"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_weight="1"
-                android:background="@color/menuHeader"
-                android:onClick="sendNewServiceState"
-                android:text="Icebreaking Operation"
-                android:textSize="18sp" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+                <TextView
+                    android:id="@+id/Towage"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:drawableTop="@drawable/ic_boat_lifesaver"
+                    android:padding="8dp"
+                    android:text="TOWAGE"
+                    android:textSize="12dp"
+                    android:textAlignment="center"
+                    tools:background="#e9e9e9"/>
 
 
-        <Button
-                android:id="@+id/EscortTowage"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"
-                android:background="@color/menuHeader"
-                android:onClick="sendNewServiceState"
-                android:text="Escort Towage"
-                android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/Pilotage"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="8dp"
+                    android:drawableTop="@drawable/ic_boat_captain_hat"
+                    android:padding="8dp"
+                    android:text="PILOTAGE"
+                    android:textSize="12dp"
+                    android:textAlignment="center"
+                    tools:background="#e9e9e9"/>
 
-            <Button
-                android:id="@+id/Towage"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_weight="1"
-                android:background="@color/menuHeader"
-                android:onClick="sendNewServiceState"
-                android:text="Towage"
-                android:textSize="18sp" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp" >
+            </TableRow>
 
 
-        <Button
-                android:id="@+id/ArrivalPilotBoardingArea"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"
-                android:background="@color/menuHeader"
-                android:onClick="sendNewLocationState"
-                android:text="Arrival Pilot Boarding Area"
-                android:textSize="18sp" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/Pilotage"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_weight="1"
-                android:background="@color/menuHeader"
-                android:onClick="sendNewServiceState"
-                android:text="Pilotage"
-                android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/Mooring"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="4dp"
+                    android:drawableTop="@drawable/ic_knot"
+                    android:padding="8dp"
+                    android:text="MOORING"
+                    android:textSize="12dp"
+                    android:textAlignment="center"
+                    tools:background="#e9e9e9"/>
 
-        </TableRow>
+                <TextView
+                    android:id="@+id/trafficArea"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:drawableTop="@drawable/ic_buoys"
+                    android:padding="8dp"
+                    android:text="TRAFFIC AREA"
+                    android:textSize="12dp"
+                    android:textAlignment="center"
+                    tools:background="#e9e9e9"/>
 
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-
-
-        <Button
-                android:id="@+id/VTSAreaArrival"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"
-                android:background="@color/menuHeader"
-                android:onClick="sendNewServiceState"
-                android:text="Arrival VTS Area"
-                android:textSize="18sp" />
-
-            <Button
-                android:id="@+id/VTSAreaDeparture"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_weight="1"
-                android:background="@color/menuHeader"
-                android:onClick="sendNewServiceState"
-                android:text="Departure VTS Area "
-                android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/vtsArea"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:drawableTop="@drawable/ic_lighthouse"
+                    android:padding="8dp"
+                    android:text="VTS AREA"
+                    android:textSize="12dp"
+                    android:textAlignment="center"
+                    tools:background="#e9e9e9"/>
 
 
-        </TableRow>
+                <TextView
+                    android:id="@+id/Other"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="8dp"
+                    android:drawableTop="@drawable/ic_more2"
+                    android:padding="8dp"
+                    android:text="OTHER"
+                    android:textSize="12dp"
+                    android:textAlignment="center"
+                    tools:background="#e9e9e9"/>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            </TableRow>
 
+        </TableLayout>
+    </FrameLayout>
 
-        <Button
-                android:id="@+id/ArrivalMooringOperation"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"
-                android:background="@color/menuHeader"
-                android:onClick="sendNewServiceState"
-                android:text="Arrival Mooring Operation"
-                android:textSize="18sp" />
+    <FrameLayout
+        android:id="@+id/viewOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp">
 
-            <Button
-                android:id="@+id/DepartureMooringOperation"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_weight="1"
-                android:background="@color/menuHeader"
-                android:onClick="sendNewServiceState"
-                android:text="Departure Mooring Operation"
-                android:textSize="18sp" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp">
-
-
-        <Button
-                android:id="@+id/ArrivalTrafficArea"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"
-                android:background="@color/menuHeader"
-                android:onClick="sendNewLocationState"
-                android:text="Arrival Traffic Area"
-                android:textSize="18sp" />
-
-            <Button
-                android:id="@+id/DepartureTrafficArea"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_weight="1"
-                android:background="@color/menuHeader"
-                android:onClick="sendNewLocationState"
-                android:text="Departure Traffic Area"
-                android:textSize="18sp" />
-        </TableRow>
-
-    </TableLayout>
-</ScrollView>
+    </FrameLayout>
+</LinearLayout>

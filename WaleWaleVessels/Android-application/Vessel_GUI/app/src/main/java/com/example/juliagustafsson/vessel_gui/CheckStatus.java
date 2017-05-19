@@ -1,13 +1,17 @@
 package com.example.juliagustafsson.vessel_gui;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,12 +36,38 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
     private LocationType selectedtoLocation;
     private LocationType selectedAtLocation;
     private LocationType selectedLocationType;
-
+    private Fragment frag;
+    private FragmentTransaction fragTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_status);
+
+        Toolbar customToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(customToolbar);
+        getSupportActionBar().setTitle("Check Status");
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        frag = new DefaultFragment();
+        fragTransaction = getFragmentManager().beginTransaction().add(R.id.viewOptions, frag);
+        fragTransaction.commit();
+
+        TextView anchoring = (TextView) findViewById(R.id.Anchoring);
+        TextView berth = (TextView) findViewById(R.id.Berth);
+        TextView towage = (TextView) findViewById(R.id.Towage);
+        TextView pilotage = (TextView) findViewById(R.id.Pilotage);
+        TextView mooring = (TextView) findViewById(R.id.Mooring);
+        TextView trafficArea = (TextView) findViewById(R.id.trafficArea);
+        TextView vtsArea = (TextView) findViewById(R.id.vtsArea);
+        TextView other = (TextView) findViewById(R.id.Other);
+
+        anchoring.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                frag = new AnchoringFragmentCS();
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
     }
 
     @Override
@@ -45,269 +75,68 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    public void sendNewServiceState(View v) {
-        serviceStateView  = getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-        ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.statusView);
-        switch( v.getId() ) {
-            case R.id.Anchoring: {
-                currentServiceObject = ServiceObject.ANCHORING;
-                selectedAtLocation = LocationType.ANCHORING_AREA;
-                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
-                ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);
-                break;
-            }
-
-            case R.id.ArrivalAnchoringOperation: {
-                currentServiceObject = ServiceObject.ARRIVAL_ANCHORING_OPERATION;
-                selectedAtLocation = LocationType.ANCHORING_AREA;
-                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
-                ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);
-                break;
-            }
-
-            case R.id.VTSAreaArrival: {
-                currentServiceObject = ServiceObject.ARRIVAL_VTSAREA;
-                selectedAtLocation = LocationType.TRAFFIC_AREA;
-                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
-                ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);
-                break;
-            }
-
-            case R.id.BerthShifting: {
-                currentServiceObject = ServiceObject.BERTH_SHIFTING;
-                selectedFromLocation = LocationType.BERTH;
-                selectedtoLocation = LocationType.BERTH;
-                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
-                ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);
-                break;
-            }
-
-            //TODO At which location?
-            case R.id.BunkeringOperation: {
-                selectedAtLocation = LocationType.BERTH;
-                currentServiceObject = ServiceObject.BUNKERING_OPERATION;
-                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
-                ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);
-                break;
-            }
-
-            //TODO At which location?
-            case R.id.CargoOperation: {
-                selectedAtLocation = LocationType.BERTH;
-                currentServiceObject = ServiceObject.CARGO_OPERATION;
-                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
-                ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);
-                break;
-            }
-
-            case R.id.VTSAreaDeparture: {
-                currentServiceObject = ServiceObject.DEPARTURE_VTSAREA;
-                selectedAtLocation = LocationType.TRAFFIC_AREA;
-                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
-                ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);
-                break;
-            }
-
-            //TODO Between which locations?
-            case R.id.EscortTowage: {
-                currentServiceObject = ServiceObject.ESCORT_TOWAGE;
-                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
-                ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);
-                break;
-            }
-
-            //TODO Between which locations?
-            case R.id.IceBreakingOperation: {
-                currentServiceObject = ServiceObject.ICEBREAKING_OPERATION;
-                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
-                ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);
-                break;
-            }
-
-            //TODO At which location?
-            case R.id.ArrivalMooringOperation: {
-                selectedAtLocation = LocationType.BERTH;
-                currentServiceObject = ServiceObject.ARRIVAL_MOORING_OPERATION;
-                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
-                ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);
-                break;
-            }
-
-            //TODO At which location?
-            case R.id.DepartureMooringOperation: {
-                selectedAtLocation = LocationType.BERTH;
-                currentServiceObject = ServiceObject.DEPARTURE_MOORING_OPERATION;
-                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
-                ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);
-                break;
-            }
-
-            //TODO Between which locations?
-            case R.id.Pilotage: {
-                currentServiceObject = ServiceObject.PILOTAGE;
-                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
-                ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);
-                break;
-            }
-
-            //TODO Between which locations?
-            case R.id.Towage: {
-                currentServiceObject = ServiceObject.TOWAGE;
-                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
-                ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);
-                break;
-            }
-        }
-    }
-
-    public void sendNewLocationState(View v) {
-        locationstateView = getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-        ListView dialogListView = (ListView) locationstateView.findViewById(R.id.statusView);
-        switch( v.getId() ) {
-            case R.id.ArrivalAnchoringArea: {
-                selectedLocationType = LocationType.ANCHORING_AREA;
-                ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType);
-                ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(locationstateView);
-                break;
-            }
-
-            case R.id.DepartureAnchoringArea: {
-                selectedLocationType = LocationType.ANCHORING_AREA;
-                ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType);
-                ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusStringList);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(locationstateView);
-                break;
-            }
-
-            case R.id.ArrivalBerth: {
-                selectedLocationType = LocationType.BERTH;
-                createAlertDialog(locationstateView);
-                break;
-            }
-
-            case R.id.DepartureBerth: {
-                selectedLocationType = LocationType.BERTH;
-                createAlertDialog(locationstateView);
-                break;
-            }
-
-            case R.id.ArrivalPilotBoardingArea: {
-                selectedLocationType = LocationType.PILOT_BOARDING_AREA;
-                createAlertDialog(locationstateView);
-                break;
-            }
-
-            case R.id.ArrivalTrafficArea: {
-                selectedLocationType = LocationType.TRAFFIC_AREA;
-                createAlertDialog(locationstateView);
-                break;
-            }
-
-            case R.id.DepartureTrafficArea: {
-                selectedLocationType = LocationType.TRAFFIC_AREA;
-                createAlertDialog(locationstateView);
-                break;
-            }
-        }
-
-    }
-
-    private void createAlertDialog(View v) {
-        dialogBuilder = new AlertDialog.Builder(CheckStatus.this);
-        dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        berth.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-
+            public void onClick(View v) {
+                frag = new BerthFragmentCS();
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
             }
         });
-        dialogBuilder.setNegativeButton("Cancel", null);
-        dialogBuilder.setView(v);
-        dialogBuilder.show();
-    }
 
-
-    private ArrayList<String> serviceObjectQueueToString(ServiceObject serviceObject){
-        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> stringList = new ArrayList<>();
-        try{
-            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
-            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
-
-            for(PortCallMessage pcm : pcmList){
-                stringList.add(pcm.toString());
+        towage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                frag = new TowageFragmentCS();
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
             }
-        } catch (NullPointerException e){
-            Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
-        }
-
-        return stringList;
-    }
-
-    private ArrayList<String> locationTypeQueueToString(LocationType locationType){
-        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> stringList = new ArrayList<>();
-        try {
-            MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-            actualQueue.pollQueue();
-            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
-
-            for (PortCallMessage pcm : pcmList) {
-                stringList.add(pcm.toString());
+        });
+        pilotage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                frag = new PilotageFragmentCS();
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
             }
-        } catch (NullPointerException e){
-            Log.e("CheckStatus-locType", e.toString());
-            //TODO Visa felmeddelande för användaren.
-        }
+        });
+        mooring.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                frag = new MooringFragmentCS();
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
+            }
+        });
+        other.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                frag = new OtherFragmentCS();
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
+            }
+        });
 
+        vtsArea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                frag = new VtsFragmentCS();
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
+            }
+        });
 
-        return stringList;
+        trafficArea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                frag = new TrafficAreaFragmentCS();
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
+            }
+        });
+
     }
+
 
 }
 

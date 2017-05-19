@@ -54,14 +54,18 @@ public class WebRequest {
 //         Adds parameters to the urladdress string for GETRequests
         boolean first = true;
         if ((params != null) && (requestmethod == 1)){
+            StringBuilder sb = new StringBuilder(urladdress);
             for (Map.Entry<String, String> param : params.entrySet()) {
                 if (first){
-                    urladdress += "?" + param.getKey() + "=" + param.getValue();
+                    sb.append("?");
                     first = false;
-                } else {
-                    urladdress += "&?" + param.getKey() + "=" + param.getValue();
-                }
+                } else
+                    sb.append("&?");
+                sb.append(param.getKey());
+                sb.append("=");
+                sb.append(param.getValue());
             }
+            urladdress = sb.toString();
         }
         try {
             url = new URL(urladdress);
@@ -83,16 +87,24 @@ public class WebRequest {
 
             if (reqresponseCode == HttpsURLConnection.HTTP_OK) {
                 String line;
+                BufferedReader br = null;
+                StringBuilder sb = new StringBuilder();
                 try {
-                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
                     if (br != null) {
                         while ((line = br.readLine()) != null) {
-                            response += line;
+                             sb.append(line);
                         }
                     }
+                    response += sb.toString();
+
                 } catch (Exception e){
                     Log.e("Exception - WebRequest", e.toString());
                     response = "" + reqresponseCode;
+                } finally {
+                    // Closes down the reader and builder.
+                    if (br != null)
+                        br.close();
                 }
 
             } else {
@@ -103,16 +115,13 @@ public class WebRequest {
                             "\nResponseCode: " + reqresponseCode +
                             "\nURL: " + urladdress;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            Log.e("Exception", e.toString());
             response = e.toString();
         }
-//        Log.e("ResponseStr", response);
         return response;
     }
 
-
-//TODO Implement this function into the makeWebServiceCall function.
     public static String makeWebServicePost(String urladdress, HashMap<String, String> headers, HashMap<String, String> params, String body){
         String response = "";
         try {
@@ -138,57 +147,49 @@ public class WebRequest {
                 writer.close();
                 os.close();
 
+                StringBuilder sb = new StringBuilder(response);
                 int reqresponseCode = conn.getResponseCode();
                 if (reqresponseCode == HttpsURLConnection.HTTP_CREATED) {
                     String line;
                     try {
-                        br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
                         while ((line = br.readLine()) != null) {
-                            response += line;
+                            sb.append(line);
                         }
                     } catch (Exception e) {Log.e("Exception", e.toString());}
                 } else if (reqresponseCode == HttpsURLConnection.HTTP_OK) {
                     String line;
-                    response += "Status - OK\n";
                     try{
-                        br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
                         while ((line = br.readLine()) != null) {
-                            response += line;
+                            sb.append(line);
                         }
                     } catch (Exception e){Log.e("Exception", e.toString());};
 
                 } else if (reqresponseCode == HttpsURLConnection.HTTP_ACCEPTED) {
                     String line;
-                    response += "Status - Accepted\n";
                     try{
-                        br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
                         while ((line = br.readLine()) != null) {
-                            response += line;
+                            sb.append(line);
                         }
                     } catch (Exception e){Log.e("Exception", e.toString());};
 
                 } else {
-//                    System.out.println("WebRequestHTTPConnection is not OK!");
                     Log.e("ResponseCode", "" + reqresponseCode);
                     Log.e("URL", urladdress);
                     Log.e("BODY", body);
                     Log.e("HEADERS", headers.toString());
-                    /*response = "WebRequestHTTPConnection is not OK!" +
-                            "\nResponseCode: " + reqresponseCode +
-                            "\nURL: " + urladdress;*/
                     String line;
-                    br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                    br = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "UTF-8"));
                     while ((line = br.readLine()) != null) {
-                        response += line;
+                        sb.append(line);
                     }
                     Log.e("RESPONSE: ", response);
                 }
+                // Converts the StringBuilder to a String
+                response = sb.toString();
             } finally {
-                /*if (response == null){
-                    response = conn.getResponseCode() + " - " + conn.getResponseMessage();
-                } else if (response.length() == 0){
-                    response = conn.getResponseCode() + " - " + conn.getResponseMessage();
-                }*/
                 if (br != null)
                     br.close();
                 conn.disconnect();
@@ -201,8 +202,6 @@ public class WebRequest {
             e.printStackTrace();
         }
 
-        /*Log.wtf("Response", response);
-        Log.wtf("Body", body);*/
         return response;
     }
 }

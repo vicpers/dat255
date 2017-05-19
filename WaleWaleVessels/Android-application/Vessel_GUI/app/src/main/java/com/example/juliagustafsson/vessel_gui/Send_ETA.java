@@ -44,16 +44,11 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
     private DatePickerDialog datePicker;
     private TimePickerDialog timePicker;
     private Spinner spinner;
-    private Spinner depArrSpinner;
     private Spinner locationSpinner;
     private String selectedRecipant;
-    private String selectedArrDep;
     private String selectedPortLoc;
     private HashMap<String, LocationType> locMap;
     private HashMap<String, Location> portLocMap;
-    private ArrayList<LocationType> allowedSubLocations = new ArrayList<>();
-    public static String newETA ="";
-    public static String newDate ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,24 +90,6 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
             }
         }, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), true);
 
-        /* // Settings for Recipant spinner
-        //TODO Fix methods that support sending messages to all the recipants in the list
-        Spinner spinner = (Spinner) findViewById(R.id.spinnerRecipant);
-// Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.ETArecipant, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
-       // spinner.setAdapter(adapter);
-
-    */
-        /*
-        Har försökt koppla innehållet i spinnern till en hashmap som är baserad på LocationType.
-        Spinnern visar korrekt innehåll och sparar ner den valda mottagaren i selectedRecipant.
-        selectedRecipant används sen för att skapa ett Location-objekt som används för att skicka ETA.
-        Jag TROR att det funkar...
-          */
         locMap = LocationType.toMap();
         ArrayList<String> locations = new ArrayList<String>(locMap.keySet());
         locations.remove(LocationType.VESSEL.getText()); //Vessel cannot arrive to vessel
@@ -133,23 +110,6 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
-// Spinner for selecting Arrival or Departure
-        // Atm the choice is always Arrival. ETA = Estimated time of ARRIVAL.
-        /*ArrayList<String> depArrivalArr = new ArrayList<String>();
-        depArrivalArr.add("Arrival");
-        depArrivalArr.add("Departure");
-        depArrSpinner = (Spinner) findViewById(R.id.spinnerDepArr);
-        ArrayAdapter<String> arrDepAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, depArrivalArr);
-        arrDepAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        depArrSpinner.setAdapter(arrDepAdapter);
-        depArrSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedArrDep = depArrSpinner.getSelectedItem().toString();
-            }
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });*/
 
     }
 
@@ -174,8 +134,6 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         });
     }
 
-
-
     @Override
     public void onClick(View v) {
         if (v==dateEditText){
@@ -193,9 +151,6 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         // Gets strings that represent the date and time from different Edit-fields.
         String etaDate = dateEditText.getText().toString();
         String etaTime = timeEditText.getText().toString();
-        // Lagt till publika variabler för att uppdatera ETA på hemskärm
-        newETA = etaTime;
-        newDate = etaDate;
         // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         // which PortCDM requires.
         SimpleDateFormat etaOutput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");

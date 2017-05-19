@@ -263,7 +263,7 @@ public class PortCallMessage {
 
     public String toXml() {
         String xmlStr = "";
-        if((portCallId != null) && (portCallId != "") && (portCallId != "null"))
+        if((portCallId != null) && (!portCallId.equals("")) && (!portCallId.equals("null")))
             xmlStr += "<ns2:portCallId>"        + portCallId        + "</ns2:portCallId>";
         if(localPortCallId != null)
             xmlStr += "<ns2:localPortCallId>"   + localPortCallId   + "</ns2:localPortCallId>";
@@ -289,5 +289,14 @@ public class PortCallMessage {
             xmlStr += "<ns2:serviceState>"      + serviceState.toXml() + "</ns2:serviceState>";
 
         return xmlStr;
+    }
+    public String getOperationType(){
+        ServiceState serviceState = getServiceState();
+        if(!(serviceState == null)){
+          return serviceState.getOperationType();
+        }
+        else{
+          return getLocationState().getOperationType();
+        }
     }
 }

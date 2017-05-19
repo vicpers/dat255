@@ -34,7 +34,6 @@ public class User implements Runnable{
 
     private Vessel vessel = null;
     private Context context;
-    private boolean userLoggedIn = false;
     private HashMap<String, MessageBrokerQueue> messageBrokerMap = new HashMap<>();
     private String portCallID = null;
     private Thread thread;
@@ -234,21 +233,10 @@ public class User implements Runnable{
     }
 
     public void run(){
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
-        mBuilder.setSmallIcon(R.drawable.ic_big_anchor);
-        mBuilder.setContentTitle("Du har fått ett PCM");
-        mBuilder.setContentText("Öppna det");
-        Intent resultIntent = new Intent(context, Send_ETA.class);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(Send_ETA.class);
 
 
-// Adds the Intent that starts the Activity to the top of the stack
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(resultPendingIntent);
 
-        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+
 
         // notificationID allows you to update the notification later on.
 
@@ -265,16 +253,18 @@ public class User implements Runnable{
                                 Log.e("Got PortCallID", pcm.getPortCallId());
                                 setPortCallID(pcm.getPortCallId());
                                 createDefaultQueues();
-
                             }
+                            sendNotification(pcm);
                             Log.e("NyttVesselPCM", pcm.toString());
+<<<<<<< HEAD
+=======
                             long time = new Date().getTime();
                             String tmpStr = String.valueOf(time);
                             String last4Str = tmpStr.substring(tmpStr.length() - 5);
-                            int notificationId = Integer.valueOf(last4Str);
+                            int notificationId = Integer.parseInt(last4Str);
 
+>>>>>>> origin/master
 
-                            mNotificationManager.notify(notificationId, mBuilder.build());
                         }
                     }
 
@@ -283,29 +273,7 @@ public class User implements Runnable{
                             Log.e("NyttPortCallIdPCM", pcm.toString());
                         }
                     }
-                    /*MessageBrokerQueue messageBrokerQueue = messageBrokerMap.get("vessel");
-                    if (messageBrokerQueue != null) {
-                        ArrayList<PortCallMessage> pcmArray = messageBrokerQueue.pollQueue();
-                        for (PortCallMessage pcm : pcmArray) {
-                            if (portCallID == null) {
-                                Log.e("Got PortCallID", pcm.getPortCallId());
-                                setPortCallID(pcm.getPortCallId());
-                                createDefaultQueues();
-                            }
-                            Log.e("NyttPCM", pcm.toString());
-                        }
-                    }
-                    messageBrokerQueue = messageBrokerMap.get("portcall");
-                    if (messageBrokerQueue != null) {
-                        ArrayList<PortCallMessage> pcmArray = messageBrokerQueue.pollQueue();
-                        for (PortCallMessage pcm : pcmArray) {
-                            if (portCallID == null) {
-                                Log.e("Got PortCallID", pcm.getPortCallId());
-                                setPortCallID(pcm.getPortCallId());
-                            }
-                            Log.e("NyttPCM", pcm.toString());
-                        }
-                    }*/
+
                 }
                 setMessageBrokerMap(messageBrokerMap);
                 this.thread.sleep(5000);
@@ -319,6 +287,34 @@ public class User implements Runnable{
     public void interrupt(){
         if(this.thread.isAlive())
             this.thread.interrupt();
+    }
+
+    public void sendNotification(PortCallMessage pcm){
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
+        mBuilder.setSmallIcon(R.drawable.ic_big_anchor);
+
+        long time = new Date().getTime();
+        String tmpStr = String.valueOf(time);
+        String last4Str = tmpStr.substring(tmpStr.length() - 5);
+        int notificationId = Integer.valueOf(last4Str);
+
+
+        mBuilder.setContentTitle("Du har fått en förfrågan om " + pcm.getOperationType());
+        mBuilder.setContentText("Öppna det");
+        Intent resultIntent = new Intent(context, Send_ETA.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        stackBuilder.addParentStack(Send_ETA.class);
+
+        // Adds the Intent that starts the Activity to the top of the stack
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(resultPendingIntent);
+
+        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+
+
+        mNotificationManager.notify(notificationId, mBuilder.build());
+
     }
 
 }

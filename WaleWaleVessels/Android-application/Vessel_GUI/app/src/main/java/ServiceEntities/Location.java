@@ -23,7 +23,6 @@ public class Location {
     public Location(JSONObject locJsonObj){
         if (locJsonObj != null) {
 
-            Position position = null;
             try {
                 position = new Position(locJsonObj.getJSONObject(Constants_jsonParsing.TAG_LOCATION_POSITION));
             } catch (JSONException e1) {}
@@ -129,5 +128,8 @@ public class Location {
             xmlStr += "<ns2:locationMRN>urn:mrn:stm:location:" + portUnlocode + "</ns2:locationMRN>";
         }
         return xmlStr;
+    }
+    public String getOperationType(){
+        return locationMRN.substring(27);
     }
 }

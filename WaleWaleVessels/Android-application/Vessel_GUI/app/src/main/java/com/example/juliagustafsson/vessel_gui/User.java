@@ -294,10 +294,10 @@ public class User implements Runnable{
         mBuilder.setContentTitle("New PCM regarding "+ pcm.getOperationType());
         
 
-        mBuilder.setContentText("Öppna det");
-        Intent resultIntent = new Intent(context, Send_ETA.class);
+        mBuilder.setContentText("Click to view");
+        Intent resultIntent = new Intent(context, CheckStatus.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(Send_ETA.class);
+        stackBuilder.addParentStack(CheckStatus.class);
 
         // Adds the Intent that starts the Activity to the top of the stack
         stackBuilder.addNextIntent(resultIntent);

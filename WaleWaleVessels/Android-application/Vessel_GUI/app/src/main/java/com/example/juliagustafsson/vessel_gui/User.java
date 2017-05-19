@@ -330,6 +330,7 @@ public class User implements Runnable{
     public void sendNotification(PortCallMessage pcm){
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
         mBuilder.setSmallIcon(R.drawable.ic_big_anchor);
+        mBuilder.setAutoCancel(true);
 
         long time = new Date().getTime();
         String tmpStr = String.valueOf(time);

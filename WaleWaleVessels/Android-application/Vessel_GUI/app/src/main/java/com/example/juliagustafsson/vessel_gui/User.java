@@ -234,10 +234,6 @@ public class User implements Runnable{
 
     public void run(){
 
-
-
-
-
         // notificationID allows you to update the notification later on.
 
         try {
@@ -256,10 +252,18 @@ public class User implements Runnable{
                             }
                             sendNotification(pcm);
                             Log.e("NyttVesselPCM", pcm.toString());
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
                             long time = new Date().getTime();
                             String tmpStr = String.valueOf(time);
                             String last4Str = tmpStr.substring(tmpStr.length() - 5);
                             int notificationId = Integer.parseInt(last4Str);
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
                         }
                     }
 
@@ -291,14 +295,15 @@ public class User implements Runnable{
         long time = new Date().getTime();
         String tmpStr = String.valueOf(time);
         String last4Str = tmpStr.substring(tmpStr.length() - 5);
-        int notificationId = Integer.valueOf(last4Str);
+        int notificationId = Integer.parseInt(last4Str);
 
+        mBuilder.setContentTitle("New PCM regarding "+ pcm.getOperationType());
+        
 
-        mBuilder.setContentTitle("Du har fått en förfrågan om " + pcm.getOperationType());
-        mBuilder.setContentText("Öppna det");
-        Intent resultIntent = new Intent(context, Send_ETA.class);
+        mBuilder.setContentText("Click to view");
+        Intent resultIntent = new Intent(context, CheckStatus.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(Send_ETA.class);
+        stackBuilder.addParentStack(CheckStatus.class);
 
         // Adds the Intent that starts the Activity to the top of the stack
         stackBuilder.addNextIntent(resultIntent);

@@ -2,23 +2,14 @@ package com.example.juliagustafsson.vessel_gui;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import RESTServices.MessageBrokerQueue;
 import ServiceEntities.LocationType;
-import ServiceEntities.PortCallMessage;
 import ServiceEntities.ServiceObject;
 
 /**
@@ -131,6 +122,11 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
                     }
                 });
 
+            }
+
+
+    @Override
+    public void onClick(View v) {
 
     }
 

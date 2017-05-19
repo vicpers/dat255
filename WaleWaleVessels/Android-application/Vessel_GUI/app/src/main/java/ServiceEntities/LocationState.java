@@ -84,6 +84,26 @@ public class LocationState {
         this.departureLocation = departureLocation;
     }
 
+    public ReferenceObject getReferenceObject() {
+        return referenceObject;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public TimeType getTimeType() {
+        return timeType;
+    }
+
+    public ArrivalLocation getArrivalLocation() {
+        return arrivalLocation;
+    }
+
+    public DepartureLocation getDepartureLocation() {
+        return departureLocation;
+    }
+
     public String toString() {
         String returnString = "TimeType: " + timeType + "\nTime: " + time;
         if (arrivalLocation != null)
@@ -121,4 +141,6 @@ public class LocationState {
         return null;
 
     }
+
+
 }

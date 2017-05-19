@@ -51,11 +51,13 @@ public class Location {
                     try {
                         locationType = LocationType.valueOf(locationStrings[5]);
                         subLocationName = locationStrings[6];
-                    } catch (StringIndexOutOfBoundsException e){
-                        Log.e("OutOfBounds", e.toString());
-                    }
+                    } catch (ArrayIndexOutOfBoundsException e){}
                 }
+            }
 
+            //TODO Eventuellt ta bort om MRN för TrafficArea blir korrekt från registret.
+            if(locationType == LocationType.TRAFFIC_AREA){
+                this.locationMRN = "urn:mrn:stm:location:segot:TRAFFIC_AREA";
             }
         } else {
             Log.e("Location Constructor", "param locJsonObj is null");

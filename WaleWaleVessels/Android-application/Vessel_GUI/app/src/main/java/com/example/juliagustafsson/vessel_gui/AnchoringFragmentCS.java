@@ -13,6 +13,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import RESTServices.MessageBrokerQueue;
+import ServiceEntities.ArrivalLocation;
+import ServiceEntities.DepartureLocation;
+import ServiceEntities.LocationState;
 import ServiceEntities.LocationType;
 import ServiceEntities.PortCallMessage;
 import ServiceEntities.ServiceObject;
@@ -66,7 +69,7 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
                 ListView dialogListView = (ListView) locationstateView.findViewById(R.id.statusView);
                 selectedLocationType = LocationType.ANCHORING_AREA;
-                ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType);
+                ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType, true);
                 ArrayAdapter<String> itemsAdapter =
                         new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, statusStringList);
                 dialogListView.setAdapter(itemsAdapter);
@@ -95,7 +98,7 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
                 ListView dialogListView = (ListView) locationstateView.findViewById(R.id.statusView);
                 selectedLocationType = LocationType.ANCHORING_AREA;
-                ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType);
+                ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType, false);
                 ArrayAdapter<String> itemsAdapter =
                         new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, statusStringList);
                 dialogListView.setAdapter(itemsAdapter);
@@ -105,7 +108,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
 
         return rootView;
     }
-
 
     @Override
     public void onClick(View v) {
@@ -145,7 +147,7 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
         return stringList;
     }
 
-    private ArrayList<String> locationTypeQueueToString(LocationType locationType){
+    private ArrayList<String> locationTypeQueueToString(LocationType locationType, boolean isArrival){
         HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
         ArrayList<String> stringList = new ArrayList<>();
         try {
@@ -154,14 +156,25 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for (PortCallMessage pcm : pcmList) {
-                stringList.add(pcm.toString());
+                LocationState locationState = pcm.getLocationState();
+                if(locationState != null){
+                    if(isArrival) {
+                        ArrivalLocation arrivalLocation = locationState.getArrivalLocation();
+                        if(arrivalLocation != null) {
+                            stringList.add(pcm.toString());
+                        }
+                    } else {
+                        DepartureLocation departureLocation = locationState.getDepartureLocation();
+                        if(departureLocation != null) {
+                            stringList.add(pcm.toString());
+                        }
+                    }
+                }
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-locType", e.toString());
             //TODO Visa felmeddelande för användaren.
         }
-
-
         return stringList;
     }
 

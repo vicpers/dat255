@@ -1,7 +1,6 @@
 package com.example.juliagustafsson.vessel_gui;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -13,11 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 
 import ServiceEntities.PortCallMessage;
@@ -131,8 +127,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         startActivity(intent);
 
-//        HttpUrlConnectionPortCDM foo = new HttpUrlConnectionPortCDM();
-        //String pcmStr = foo.xmlTester();
     }
 
     /*public static Drawable LoadImageFromWebOperations(String url) {

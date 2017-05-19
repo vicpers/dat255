@@ -28,7 +28,6 @@ public class User implements Runnable{
 
     private Vessel vessel = null;
     private Context context;
-    private boolean userLoggedIn = false;
     private HashMap<String, MessageBrokerQueue> messageBrokerMap = new HashMap<>();
     private String portCallID = null;
     private Thread thread;

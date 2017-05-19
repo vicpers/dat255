@@ -1,6 +1,5 @@
 package com.example.juliagustafsson.vessel_gui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
@@ -19,6 +18,7 @@ public class ViewPCM extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pcm);
 
+        //TODO Behövs nullpointer exception
         ArrayList<PortCallMessage> portCallList = UserLocalStorage.getMessageBrokerMap().get(TimeType.ESTIMATED.getText()).getQueue();
 
         ArrayList<String> stringList = new ArrayList<>();

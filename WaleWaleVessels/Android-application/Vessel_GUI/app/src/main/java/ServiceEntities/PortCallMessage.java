@@ -319,7 +319,7 @@ public class PortCallMessage {
         if(isServiceState()){
             return getServiceState().getTimeType();
         }
-        else return getLocationState().getTimeType();
+        else return getLocationState().getTimeType().getText();
     }
     public boolean isServiceState(){
         ServiceState serviceState = getServiceState();
@@ -333,7 +333,7 @@ public class PortCallMessage {
         if(isServiceState()){
             return serviceState.getPerformingActor();
         }
-        else return getLocationState().getReferenceObject();
+        else return getLocationState().getReferenceObject().getText();
     }
     public String getTime(){
         if(isServiceState()){

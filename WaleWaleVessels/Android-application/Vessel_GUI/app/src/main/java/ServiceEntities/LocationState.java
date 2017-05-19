@@ -142,14 +142,5 @@ public class LocationState {
 
     }
 
-    public String getTimeType(){
-        return timeType.getText();
-    }
-    public String getTime(){
-        return time;
-    }
-    public String getReferenceObject(){
-        return referenceObject.getText();
-    }
 
 }

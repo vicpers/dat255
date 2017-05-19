@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import RESTServices.MessageBrokerQueue;
@@ -52,7 +56,9 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
             @Override
             public void onClick(View v) {
                 serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.statusView);
+                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
+                TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
+                title.setText("Anchoring");
                 currentServiceObject = ServiceObject.ANCHORING;
                 selectedAtLocation = LocationType.ANCHORING_AREA;
                 ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
@@ -67,7 +73,9 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
             @Override
             public void onClick(View v) {
                 locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) locationstateView.findViewById(R.id.statusView);
+                ListView dialogListView = (ListView) locationstateView.findViewById(R.id.checkStatus);
+                TextView title = (TextView) locationstateView.findViewById(R.id.titleView);
+                title.setText("Arrival Anchoring");
                 selectedLocationType = LocationType.ANCHORING_AREA;
                 ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType, true);
                 ArrayAdapter<String> itemsAdapter =
@@ -81,7 +89,9 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
             @Override
             public void onClick(View v) {
                 serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.statusView);
+                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
+                TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
+                title.setText("Arrival Anchoring Operation");
                 currentServiceObject = ServiceObject.ARRIVAL_ANCHORING_OPERATION;
                 selectedAtLocation = LocationType.ANCHORING_AREA;
                 ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
@@ -96,7 +106,9 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
             @Override
             public void onClick(View v) {
                 locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) locationstateView.findViewById(R.id.statusView);
+                ListView dialogListView = (ListView) locationstateView.findViewById(R.id.checkStatus);
+                TextView title = (TextView) locationstateView.findViewById(R.id.titleView);
+                title.setText("Departure Anchoring");
                 selectedLocationType = LocationType.ANCHORING_AREA;
                 ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType, false);
                 ArrayAdapter<String> itemsAdapter =

@@ -252,18 +252,10 @@ public class User implements Runnable{
                             }
                             sendNotification(pcm);
                             Log.e("NyttVesselPCM", pcm.toString());
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
                             long time = new Date().getTime();
                             String tmpStr = String.valueOf(time);
                             String last4Str = tmpStr.substring(tmpStr.length() - 5);
                             int notificationId = Integer.parseInt(last4Str);
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
                         }
                     }
 

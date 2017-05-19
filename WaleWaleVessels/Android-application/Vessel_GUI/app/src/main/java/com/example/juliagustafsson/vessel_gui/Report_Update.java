@@ -55,46 +55,7 @@ import static RESTServices.PortCDMServices.getServiceType;
  */
 
 public class Report_Update extends AppCompatActivity implements View.OnClickListener {
-    private View serviceStateView;
-    private View locationstateView;
-    private ServiceObject currentServiceObject;
-    private Spinner spinnerTimeSequence;
-    private Spinner spinnerAtOrFromLocation;
-    private Spinner spinnerFromLocation;
-    private Spinner spinnerFromSubLocation;
-    private Spinner spinnerToSubLocation;
-    private Spinner spinnerToLocation;
-    private Spinner spinnerTimeType;
-    private Spinner spinnerSubLocation;
-    private EditText dateEditText;
-    private EditText timeEditText;
-    private SimpleDateFormat dateFormat;
-    private DatePickerDialog datePicker;
-    private TimePickerDialog timePicker;
-    AlertDialog.Builder dialogBuilder;
-    private String selectedTimeSequence;
-    private LocationType selectedFromLocation;
-    private LocationType selectedtoLocation;
-    private LocationType selectedAtLocation;
-    private String selectedAtSubLocation;
-    private String selectedSubLocation;
-    private String selectedFromSubLocation;
-    private String selectedToSubLocation;
-    private TimeType selectedTimeType;
-    private LocationType selectedLocationType;
-    private Boolean isServiceState;
-    private Boolean isArrival;
-    private HashMap<String, TimeType> timeTypeMap;
-    private ArrivalLocation arrLoc;
-    private DepartureLocation depLoc;
-    private LocationState locState;
-    HashMap<String, Location> subLocationsMap;
-    HashMap<String, Location> toSubLocationMap;
-    HashMap<String, Location> fromSubLocationMap;
-    HashMap<String, Location> atSubLocationMap;
-    HashMap<String, ServiceTimeSequence> timeSequenceMap;
 
-    //TODO NullPointerException för spinners ifall den inte lyckas hämta hem saker från servern
     private Fragment frag;
     private FragmentTransaction fragTransaction;
 
@@ -194,12 +155,6 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if (v==dateEditText){
-            datePicker.show();
-        }
-        else if(v==timeEditText){
-            timePicker.show();
-        }
     }
 
 

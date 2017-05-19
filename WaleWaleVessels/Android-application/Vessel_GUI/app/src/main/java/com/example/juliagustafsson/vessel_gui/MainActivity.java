@@ -92,12 +92,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return true;
         try {
             user = new User(this, UserLocalStorage.getVessel());
+            return true;
         } catch (NullPointerException e){
             return false;
         }
-        if(user != null)
-            return true;
-        return false;
     }
 
     public void displayVesselID() {

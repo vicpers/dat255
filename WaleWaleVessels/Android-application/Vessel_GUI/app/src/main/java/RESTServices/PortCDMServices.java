@@ -30,12 +30,12 @@ import static ServiceEntities.Constants_jsonParsing.*;
 
 public class PortCDMServices {
 
-    public static HashMap<LocationTimeSequence, HashMap<String, LocationType>> locationStateLocationTypes = new HashMap<>();
-    public static HashMap<ServiceObject, HashMap<String, ServiceTimeSequence>> serviceStateTimeSequences = new HashMap<>();
+    private static HashMap<LocationTimeSequence, HashMap<String, LocationType>> locationStateLocationTypes = new HashMap<>();
+    private static HashMap<ServiceObject, HashMap<String, ServiceTimeSequence>> serviceStateTimeSequences = new HashMap<>();
 
-    public static HashMap<ServiceObject, ServiceType> serviceStateType = new HashMap<>();
+    private static HashMap<ServiceObject, ServiceType> serviceStateType = new HashMap<>();
 
-    public static HashMap<LocationType, HashMap<String, Location>> portData;
+    private static HashMap<LocationType, HashMap<String, Location>> portData;
 
 
     /**

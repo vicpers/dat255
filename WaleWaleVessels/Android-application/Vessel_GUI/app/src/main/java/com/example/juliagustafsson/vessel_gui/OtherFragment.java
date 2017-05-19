@@ -54,7 +54,6 @@ import static RESTServices.PortCDMServices.getServiceType;
 
 public class OtherFragment extends android.app.Fragment implements View.OnClickListener {
     private View serviceStateView;
-    private View locationstateView;
     private ServiceObject currentServiceObject;
     private Spinner spinnerTimeSequence;
     private Spinner spinnerAtOrFromLocation;
@@ -63,7 +62,6 @@ public class OtherFragment extends android.app.Fragment implements View.OnClickL
     private Spinner spinnerToSubLocation;
     private Spinner spinnerToLocation;
     private Spinner spinnerTimeType;
-    private Spinner spinnerSubLocation;
     private EditText dateEditText;
     private EditText timeEditText;
     private SimpleDateFormat dateFormat;
@@ -75,18 +73,10 @@ public class OtherFragment extends android.app.Fragment implements View.OnClickL
     private LocationType selectedtoLocation;
     private LocationType selectedAtLocation;
     private String selectedAtSubLocation;
-    private String selectedSubLocation;
     private String selectedFromSubLocation;
     private String selectedToSubLocation;
     private TimeType selectedTimeType;
-    private LocationType selectedLocationType;
-    private Boolean isServiceState;
-    private Boolean isArrival;
     private HashMap<String, TimeType> timeTypeMap;
-    private ArrivalLocation arrLoc;
-    private DepartureLocation depLoc;
-    private LocationState locState;
-    HashMap<String, Location> subLocationsMap;
     HashMap<String, Location> toSubLocationMap;
     HashMap<String, Location> fromSubLocationMap;
     HashMap<String, Location> atSubLocationMap;
@@ -108,7 +98,6 @@ public class OtherFragment extends android.app.Fragment implements View.OnClickL
         iceBreaking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isServiceState = true;
                 serviceStateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_between_service_state, null);
                 currentServiceObject = ServiceObject.ICEBREAKING_OPERATION;
                 setTimeSequenceSpinner(currentServiceObject);
@@ -121,7 +110,6 @@ public class OtherFragment extends android.app.Fragment implements View.OnClickL
         cargoOp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isServiceState = true;
                 serviceStateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
                 selectedAtLocation = LocationType.BERTH;
                 currentServiceObject = ServiceObject.CARGO_OPERATION;
@@ -129,14 +117,12 @@ public class OtherFragment extends android.app.Fragment implements View.OnClickL
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
                 setAtServiceStateView(selectedAtLocation);
-
             }
         });
 
         bunkeringOp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isServiceState = true;
                 serviceStateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
                 selectedAtLocation = LocationType.BERTH;
                 currentServiceObject = ServiceObject.BUNKERING_OPERATION;
@@ -166,105 +152,78 @@ public class OtherFragment extends android.app.Fragment implements View.OnClickL
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                // Gets strings that represent the date and time from different Edit-fields.
-                String etaDate = dateEditText.getText().toString();
-                String etaTime = timeEditText.getText().toString();
+            // Gets strings that represent the date and time from different Edit-fields.
+            String etaDate = dateEditText.getText().toString();
+            String etaTime = timeEditText.getText().toString();
 
-                String message = "Sent update regarding: " + etaDate + ", " + etaTime;
-                int duration = Toast.LENGTH_SHORT;
-                Toast toast = Toast.makeText(getActivity().getApplicationContext(), message, duration);
-                toast.show();
+            String message = "Sent update regarding: " + etaDate + ", " + etaTime;
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(getActivity().getApplicationContext(), message, duration);
+            toast.show();
 
-                // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-                // which PortCDM requires.
-                SimpleDateFormat etaOutput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                SimpleDateFormat etaInput = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                Date date = null;
-                String formattedTime = "";
-                try {
-                    date = etaInput.parse(etaDate + " " + etaTime);
-                    formattedTime = etaOutput.format(date);
-                } catch (ParseException e1) {
-                    Log.e("DateProblem Parsing", e1.toString());
-                } catch (NullPointerException e2){
-                    Log.e("DateProblem Null", e2.toString());
+            // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+            // which PortCDM requires.
+            SimpleDateFormat etaOutput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            SimpleDateFormat etaInput = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            Date date = null;
+            String formattedTime = "";
+            try {
+                date = etaInput.parse(etaDate + " " + etaTime);
+                formattedTime = etaOutput.format(date);
+            } catch (ParseException e1) {
+                Log.e("DateProblem Parsing", e1.toString());
+            } catch (NullPointerException e2){
+                Log.e("DateProblem Null", e2.toString());
+            }
+            // TODO Kontrollera att man faktiskt valt ett datum och en tid
+            // TODO Max ska skriva om så att en ny user initieras när den klassen är klar.
+            Intent intent = getActivity().getIntent();
+            String vesselID = intent.getExtras().getString("vesselID"); //Hämta VesselIMO skickat från mainactivity
+            String portCallID = intent.getExtras().getString("portCallID"); //Hämta portCallID skickat från mainactivity
+
+            //send a service state port call message
+            ServiceState serviceState;
+            if(getServiceType(currentServiceObject) == ServiceType.STATIONARY){
+                Location at = new Location(selectedAtSubLocation,
+                        new Position(0, 0), selectedAtLocation);
+                try{
+                    at = atSubLocationMap.get(selectedAtSubLocation);
+                } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
+                serviceState = new ServiceState(currentServiceObject,
+                        ServiceTimeSequence.fromString(selectedTimeSequence),
+                        selectedTimeType,
+                        formattedTime,
+                        at,
+                        null); //performingActor ev. vesselId
+            } else {
+                Location from = new Location(selectedFromSubLocation, new Position(0, 0), selectedFromLocation);
+                try{
+                    from = fromSubLocationMap.get(selectedFromSubLocation);
+                } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
+                Location to = new Location(selectedToSubLocation, new Position(0, 0), selectedtoLocation);
+                try{
+                    to = toSubLocationMap.get(selectedToSubLocation);
+                } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
+                Between between = new Between(from, to);
+                serviceState = new ServiceState(currentServiceObject,
+                        ServiceTimeSequence.fromString(selectedTimeSequence),
+                        selectedTimeType,
+                        formattedTime,
+                        between,
+                        null); //performingActor ev. vesselId
                 }
-                // TODO Kontrollera att man faktiskt valt ett datum och en tid
-                // TODO Max ska skriva om så att en ny user initieras när den klassen är klar.
-                Intent intent = getActivity().getIntent();
-                String vesselID = intent.getExtras().getString("vesselID"); //Hämta VesselIMO skickat från mainactivity
-                String portCallID = intent.getExtras().getString("portCallID"); //Hämta portCallID skickat från mainactivity
+                PortCallMessage pcmObj = new PortCallMessage(portCallID,
+                    vesselID,
+                    "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
+                    null,
+                    serviceState);
+                AMSS amss = new AMSS(pcmObj);
 
-                //send a service state port call message
-                if(isServiceState) {
-                    ServiceState serviceState;
-                    //TODO Se till så att at och between används utifrån val.
-                    //TODO Implementera att en TimeType ska väljas.
-                    if(getServiceType(currentServiceObject) == ServiceType.STATIONARY){
-                        Location at = new Location(selectedAtSubLocation,
-                                new Position(0, 0), selectedAtLocation);
-                        try{
-                            at = atSubLocationMap.get(selectedAtSubLocation);
-                        } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
-                        serviceState = new ServiceState(currentServiceObject,
-                                ServiceTimeSequence.fromString(selectedTimeSequence),
-                                selectedTimeType,
-                                formattedTime,
-                                at,
-                                null); //performingActor ev. vesselId
-                    } else {
-                        Location from = new Location(selectedFromSubLocation, new Position(0, 0), selectedFromLocation);
-                        try{
-                            from = fromSubLocationMap.get(selectedFromSubLocation);
-                        } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
-                        Location to = new Location(selectedToSubLocation, new Position(0, 0), selectedtoLocation);
-                        try{
-                            to = toSubLocationMap.get(selectedToSubLocation);
-                        } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
-                        Between between = new Between(from, to);
-                        serviceState = new ServiceState(currentServiceObject,
-                                ServiceTimeSequence.fromString(selectedTimeSequence),
-                                selectedTimeType,
-                                formattedTime,
-                                between,
-                                null); //performingActor ev. vesselId
-                    }
-
-                    PortCallMessage pcmObj = new PortCallMessage(portCallID,
-                            vesselID,
-                            "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
-                            null,
-                            serviceState);
-                    AMSS amss = new AMSS(pcmObj);
-
-                    String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
-
-                    //send a location state port call message
-                } else {
-
-                    Location location = new Location(selectedSubLocation, new Position(0, 0), selectedLocationType);
-                    try{
-                        location = subLocationsMap.get(selectedSubLocation);
-                    } catch (NullPointerException e){Log.e("PortLocation", e.toString());}
-
-                    if (isArrival) {
-                        arrLoc = new ArrivalLocation(null, location);
-                        locState = new LocationState(ReferenceObject.VESSEL, formattedTime, selectedTimeType, arrLoc);
-                    } else {
-                        depLoc = new DepartureLocation(location, null);
-                        locState = new LocationState(ReferenceObject.VESSEL, formattedTime, selectedTimeType, depLoc);
-                    }
-
-                    PortCallMessage pcmObj = new PortCallMessage(portCallID,
-                            vesselID,
-                            "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
-                            null,
-                            locState);
-                    AMSS amss = new AMSS(pcmObj);
-                    String wrResponse = amss.submitStateUpdate(); // Submits the PortCallMessage to PortCDM through the AMSS.
-                }
+                //TODO Se till att gö något kul med etaResult
+                String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
             }
         });
+
         dialogBuilder.setNegativeButton("Cancel", null);
         dialogBuilder.setView(v);
         dialogBuilder.show();
@@ -340,51 +299,6 @@ public class OtherFragment extends android.app.Fragment implements View.OnClickL
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-    }
-
-    private void setBetweenServiceStateView(LocationType from, LocationType to) {
-        setTimeTypeSpinner(serviceStateView);
-        TextView atFromLocationText = (TextView) serviceStateView.findViewById(R.id.AtFromLocationText);
-        spinnerAtOrFromLocation = (Spinner) serviceStateView.findViewById(R.id.spinnerAtOrFromLocation);
-        spinnerToLocation = (Spinner) serviceStateView.findViewById(R.id.spinnerToLocation);
-        atFromLocationText.setText("From Location");
-
-        fromSubLocationMap = PortCDMServices.getPortLocations(from);
-        ArrayList<String> fromSubLocations = new ArrayList<String>(fromSubLocationMap.keySet());
-        Collections.sort(fromSubLocations);
-        ArrayAdapter<String> fromSubLocationsArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, fromSubLocations);
-        fromSubLocationsArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerAtOrFromLocation.setAdapter(fromSubLocationsArrayAdapter);
-        spinnerAtOrFromLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    selectedFromSubLocation = spinnerAtOrFromLocation.getSelectedItem().toString();
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        toSubLocationMap = PortCDMServices.getPortLocations(to);
-        ArrayList<String> toSubLocations = new ArrayList<String>(toSubLocationMap.keySet());
-        Collections.sort(toSubLocations);
-        ArrayAdapter<String> toSubLocationsArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, toSubLocations);
-        toSubLocationsArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerToLocation.setAdapter(toSubLocationsArrayAdapter);
-        spinnerToLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    selectedToSubLocation = spinnerToLocation.getSelectedItem().toString();
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
     }
 
     private void setBetweenServiceStateView() {
@@ -500,26 +414,5 @@ public class OtherFragment extends android.app.Fragment implements View.OnClickL
 
     }
 
-    private void setLocationstateView (LocationType locationType) {
-        setTimeTypeSpinner(locationstateView);
-        spinnerSubLocation = (Spinner) locationstateView.findViewById(R.id.spinnerSubLocation);
-        subLocationsMap = PortCDMServices.getPortLocations(locationType);
-        ArrayList<String> subLocations = new ArrayList<String>(subLocationsMap.keySet());
-        Collections.sort(subLocations);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, subLocations);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerSubLocation.setAdapter(arrayAdapter);
-        spinnerSubLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    selectedSubLocation = spinnerSubLocation.getSelectedItem().toString();
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
 
 }

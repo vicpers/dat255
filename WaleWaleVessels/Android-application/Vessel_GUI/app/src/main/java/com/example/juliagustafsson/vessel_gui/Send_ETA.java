@@ -44,16 +44,11 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
     private DatePickerDialog datePicker;
     private TimePickerDialog timePicker;
     private Spinner spinner;
-    private Spinner depArrSpinner;
     private Spinner locationSpinner;
     private String selectedRecipant;
-    private String selectedArrDep;
     private String selectedPortLoc;
     private HashMap<String, LocationType> locMap;
     private HashMap<String, Location> portLocMap;
-    private ArrayList<LocationType> allowedSubLocations = new ArrayList<>();
-    public static String newETA ="";
-    public static String newDate ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,9 +188,6 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         // Gets strings that represent the date and time from different Edit-fields.
         String etaDate = dateEditText.getText().toString();
         String etaTime = timeEditText.getText().toString();
-        // Lagt till publika variabler för att uppdatera ETA på hemskärm
-        newETA = etaTime;
-        newDate = etaDate;
         // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         // which PortCDM requires.
         SimpleDateFormat etaOutput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");

@@ -1,16 +1,11 @@
 package com.example.juliagustafsson.vessel_gui;
 
 import android.app.DatePickerDialog;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.app.Service;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,7 +21,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -185,7 +179,6 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
         dialogBuilder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
                 // Gets strings that represent the date and time from different Edit-fields.
                 String etaDate = dateEditText.getText().toString();
                 String etaTime = timeEditText.getText().toString();
@@ -210,10 +203,8 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
                     Log.e("DateProblem Null", e2.toString());
                 }
                 // TODO Kontrollera att man faktiskt valt ett datum och en tid
-                // TODO Max ska skriva om så att en ny user initieras när den klassen är klar.
-                Intent intent = getActivity().getIntent();
-                String vesselID = intent.getExtras().getString("vesselID"); //Hämta VesselIMO skickat från mainactivity
-                String portCallID = intent.getExtras().getString("portCallID"); //Hämta portCallID skickat från mainactivity
+                String vesselID = UserLocalStorage.getVessel().getId(); //Hämta VesselID
+                String portCallID = UserLocalStorage.getPortCallID(); //Hämta portCallID
 
                 //send a service state port call message
                 if(isServiceState) {
@@ -258,8 +249,7 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
                     String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
 
                     //send a location state port call message
-                } else {
-
+                    } else {
                     Location location = new Location(selectedSubLocation, new Position(0, 0), selectedLocationType);
                     try{
                         location = subLocationsMap.get(selectedSubLocation);
@@ -280,6 +270,7 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
                             locState);
                     AMSS amss = new AMSS(pcmObj);
                     String wrResponse = amss.submitStateUpdate(); // Submits the PortCallMessage to PortCDM through the AMSS.
+
                 }
             }
         });

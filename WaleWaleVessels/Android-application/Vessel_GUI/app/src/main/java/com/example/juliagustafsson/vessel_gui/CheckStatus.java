@@ -68,75 +68,80 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
                 frag = new AnchoringFragmentCS();
                 fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
                 fragTransaction.commit();
+            }
+        });
+
+                berth.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        frag = new BerthFragmentCS();
+                        fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                        fragTransaction.commit();
+                    }
+                });
+
+                towage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        frag = new TowageFragmentCS();
+                        fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                        fragTransaction.commit();
+                    }
+                });
+
+                pilotage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        frag = new PilotageFragmentCS();
+                        fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                        fragTransaction.commit();
+                    }
+                });
+
+                mooring.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        frag = new MooringFragmentCS();
+                        fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                        fragTransaction.commit();
+                    }
+                });
+
+                other.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        frag = new OtherFragmentCS();
+                        fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                        fragTransaction.commit();
+                    }
+                });
+
+                vtsArea.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        frag = new VtsFragmentCS();
+                        fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                        fragTransaction.commit();
+                    }
+                });
+
+                trafficArea.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        frag = new TrafficAreaFragmentCS();
+                        fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                        fragTransaction.commit();
+                    }
+                });
+
+            }
     }
 
     @Override
     public void onClick(View v) {
 
     }
-
-        berth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                frag = new BerthFragmentCS();
-                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
-                fragTransaction.commit();
-            }
-        });
-
-        towage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                frag = new TowageFragmentCS();
-                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
-                fragTransaction.commit();
-            }
-        });
-        pilotage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                frag = new PilotageFragmentCS();
-                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
-                fragTransaction.commit();
-            }
-        });
-        mooring.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                frag = new MooringFragmentCS();
-                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
-                fragTransaction.commit();
-            }
-        });
-        other.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                frag = new OtherFragmentCS();
-                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
-                fragTransaction.commit();
-            }
-        });
-
-        vtsArea.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                frag = new VtsFragmentCS();
-                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
-                fragTransaction.commit();
-            }
-        });
-
-        trafficArea.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                frag = new TrafficAreaFragmentCS();
-                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
-                fragTransaction.commit();
-            }
-        });
-
-    }
-
+    
 
 }
 

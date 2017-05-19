@@ -18,6 +18,7 @@ public class Location {
     private LocationType locationType;
     private String locationMRN = null;
     private String shortName;
+    private String subLocationName;
     private String portUnlocode = API_ACTUAL_PORT;
 
     public Location(JSONObject locJsonObj){
@@ -41,6 +42,20 @@ public class Location {
                 try {
                     this.locationMRN = locJsonObj.getString(Constants_jsonParsing.TAG_LOCATIONS_MRN);
                 }catch (JSONException e3) {}
+            }
+
+            // Splits the locationMRN to LocationType and sublocation.
+            if(locationType == null){
+                String[] locationStrings = this.locationMRN.split(":");
+                if(locationStrings.length > 5){
+                    try {
+                        locationType = LocationType.valueOf(locationStrings[5]);
+                        subLocationName = locationStrings[6];
+                    } catch (StringIndexOutOfBoundsException e){
+                        Log.e("OutOfBounds", e.toString());
+                    }
+                }
+
             }
         } else {
             Log.e("Location Constructor", "param locJsonObj is null");

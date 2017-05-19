@@ -1,6 +1,7 @@
 package com.example.juliagustafsson.vessel_gui;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -9,11 +10,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 
 import ServiceEntities.PortCallMessage;
@@ -103,9 +108,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View v = navigationView.getHeaderView(0);
         TextView textViewMenu = (TextView) v.findViewById(R.id.active_user);
         textViewMenu.setText(user.getVessel().getName());
-        //Set image to the ships image
-       /* ImageView ship = (ImageView) v.findViewById(R.id.imageView4);
-        ship.setImageDrawable(LoadImageFromWebOperations(user.getVessel().getPhotoURL()));*/
     }
 
     public void viewPCM(View view) {
@@ -181,5 +183,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return super.onOptionsItemSelected(item);
         }
     }
+
 
 }

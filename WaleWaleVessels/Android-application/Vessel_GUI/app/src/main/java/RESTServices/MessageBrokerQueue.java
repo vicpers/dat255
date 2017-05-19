@@ -37,6 +37,7 @@ import static RESTServices.Constants_API.API_SERVICE_POLL_QUEUE;
 
 public class MessageBrokerQueue {
     private static final String date = "";// "?fromTime=2017-05-16T14:20:21Z";
+    private static final String portCallIDdate = "?fromTime=2017-05-16T14:20:21Z";
 
     private String queueId;
     private ArrayList<PortCallMessage> queue = new ArrayList<PortCallMessage>();
@@ -87,7 +88,7 @@ public class MessageBrokerQueue {
 
     public void createUnfilteredQueue(String id){
         String url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_CREATE_QUEUE;
-        url += date;
+        url += portCallIDdate;
 
         HashMap<String, String> headers = new HashMap<String, String>();
 
@@ -113,7 +114,7 @@ public class MessageBrokerQueue {
      */
     public void createUnfilteredQueue(String portCallID, LocationType locationType){
         String url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_CREATE_QUEUE;
-        url += date;
+        url += portCallIDdate;
 
         HashMap<String, String> headers = new HashMap<String, String>();
 
@@ -143,7 +144,7 @@ public class MessageBrokerQueue {
      */
     public void createUnfilteredQueue(String portCallID, TimeType timeType){
         String url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_CREATE_QUEUE;
-        url += date;
+        url += portCallIDdate;
 
         HashMap<String, String> headers = new HashMap<String, String>();
 
@@ -175,7 +176,7 @@ public class MessageBrokerQueue {
         this.serviceObject = serviceObject;
 
         String url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_CREATE_QUEUE;
-        url += date;
+        url += portCallIDdate;
 
         HashMap<String, String> headers = new HashMap<String, String>();
 

@@ -1,15 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    android:weightSum="1">
+    android:padding="16dp"
+    tools:context=".MainActivity"
+    >
+
+    <TableRow
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:text="TextView" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
 
     <ListView
-        android:id="@+id/statusView"
-        android:layout_height="551dp"
-        android:layout_width="wrap_content"
-        android:layout_weight="0.25" />
+        android:id="@+id/checkStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        </ListView>
+
+    </TableRow>
 
 </LinearLayout>

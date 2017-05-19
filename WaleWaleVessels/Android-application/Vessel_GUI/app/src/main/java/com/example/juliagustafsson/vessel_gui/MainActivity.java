@@ -1,6 +1,7 @@
 package com.example.juliagustafsson.vessel_gui;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -9,11 +10,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 
 import ServiceEntities.PortCallMessage;
@@ -80,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //If someone is logged in access MainActivity page
         if (authenticate()) {
             displayVesselID();
+            displayVesselImage();
         } else { //If noone is logged in access Login page
             startActivity(new Intent(MainActivity.this, Vessel_Login.class ));
         }
@@ -103,9 +109,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View v = navigationView.getHeaderView(0);
         TextView textViewMenu = (TextView) v.findViewById(R.id.active_user);
         textViewMenu.setText(user.getVessel().getName());
-        //Set image to the ships image
-       /* ImageView ship = (ImageView) v.findViewById(R.id.imageView4);
-        ship.setImageDrawable(LoadImageFromWebOperations(user.getVessel().getPhotoURL()));*/
+    }
+
+    public void displayVesselImage(){
+        ImageView ship = (ImageView) findViewById(R.id.vesselImage);
+        ship.setImageDrawable(LoadImageFromWebOperations(user.getVessel().getPhotoURL()));
+    }
+
+    public static Drawable LoadImageFromWebOperations(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "src name");
+            return d;
+        } catch (Exception e) {
+            Log.wtf("BOATS AND HOES", e.toString());
+            return null;
+        }
     }
 
     public void viewPCM(View view) {

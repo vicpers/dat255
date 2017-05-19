@@ -122,6 +122,7 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
         });
         dialogBuilder.setNegativeButton("Cancel", null);
         dialogBuilder.setView(v);
+
         dialogBuilder.show();
     }
 

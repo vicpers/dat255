@@ -26,18 +26,15 @@ import ServiceEntities.ServiceObject;
  */
 
 public class CheckStatus extends AppCompatActivity implements View.OnClickListener {
-    private View serviceStateView;
-    private View locationstateView;
-    private ServiceObject currentServiceObject;
 
     AlertDialog.Builder dialogBuilder;
-    private String selectedTimeSequence;
-    private LocationType selectedFromLocation;
-    private LocationType selectedtoLocation;
-    private LocationType selectedAtLocation;
-    private LocationType selectedLocationType;
     private Fragment frag;
     private FragmentTransaction fragTransaction;
+
+    @Override
+    public void onClick(View v) {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,14 +59,14 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
         TextView vtsArea = (TextView) findViewById(R.id.vtsArea);
         TextView other = (TextView) findViewById(R.id.Other);
 
-        anchoring.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                anchoring.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                 frag = new AnchoringFragmentCS();
                 fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
                 fragTransaction.commit();
-            }
-        });
+                     }
+                });
 
                 berth.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -134,14 +131,9 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
                     }
                 });
 
-            }
-    }
-
-    @Override
-    public void onClick(View v) {
 
     }
-    
+
 
 }
 

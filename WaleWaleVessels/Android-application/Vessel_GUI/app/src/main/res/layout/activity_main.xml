@@ -27,16 +27,28 @@
         android:id="@+id/tableRow6"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="16dp">
+        android:layout_margin="8dp">
+
+        <ImageView
+            android:id="@+id/vesselImage"
+            android:layout_width="400dp"
+            android:layout_height="150dp"
+            android:scaleType="fitXY">
+
+        </ImageView>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:textAlignment="center"
-            android:textSize="24sp" />
-
-
+            android:textSize="18dp">
+        </TextView>
 
     </TableRow>
 

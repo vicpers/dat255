@@ -34,7 +34,7 @@ public class User implements Runnable{
 
     private Vessel vessel = null;
     private Context context;
-    private HashMap<String, MessageBrokerQueue> messageBrokerMap = new HashMap<>();
+    private HashMap<String, MessageBrokerQueue> messageBrokerMap;
     private String portCallID = null;
     private Thread thread;
 
@@ -95,6 +95,8 @@ public class User implements Runnable{
     public HashMap<String, MessageBrokerQueue> getMessageBrokerMap() {
         UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
         HashMap<String, MessageBrokerQueue> mb = userLocalStorage.getMessageBrokerMap();
+        if(mb == null)
+            return new HashMap<String, MessageBrokerQueue>();
         return mb;
     }
 

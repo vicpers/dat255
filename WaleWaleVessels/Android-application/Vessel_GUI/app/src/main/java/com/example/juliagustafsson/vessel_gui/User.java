@@ -234,10 +234,6 @@ public class User implements Runnable{
 
     public void run(){
 
-
-
-
-
         // notificationID allows you to update the notification later on.
 
         try {
@@ -293,7 +289,7 @@ public class User implements Runnable{
         long time = new Date().getTime();
         String tmpStr = String.valueOf(time);
         String last4Str = tmpStr.substring(tmpStr.length() - 5);
-        int notificationId = Integer.valueOf(last4Str);
+        int notificationId = Integer.parseInt(last4Str);
 
 
         mBuilder.setContentTitle("Du har fått en förfrågan om " + pcm.getOperationType());

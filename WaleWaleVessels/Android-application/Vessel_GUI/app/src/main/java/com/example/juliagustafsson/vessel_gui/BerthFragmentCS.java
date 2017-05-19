@@ -13,6 +13,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import RESTServices.MessageBrokerQueue;
+import ServiceEntities.ArrivalLocation;
+import ServiceEntities.DepartureLocation;
+import ServiceEntities.LocationState;
 import ServiceEntities.LocationType;
 import ServiceEntities.PortCallMessage;
 import ServiceEntities.ServiceObject;
@@ -50,9 +53,14 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
                 locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
                 ListView dialogListView = (ListView) locationstateView.findViewById(R.id.statusView);
                 selectedLocationType = LocationType.BERTH;
+                ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType, true);
+                ArrayAdapter<String> itemsAdapter =
+                        new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, statusStringList);
+                dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(locationstateView);
             }
         });
+
 
         departureBerth.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +68,10 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
                 locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
                 ListView dialogListView = (ListView) locationstateView.findViewById(R.id.statusView);
                 selectedLocationType = LocationType.BERTH;
+                ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType, false);
+                ArrayAdapter<String> itemsAdapter =
+                        new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, statusStringList);
+                dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(locationstateView);
             }
         });
@@ -117,6 +129,37 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
             //TODO Visa felmeddelande för användaren.
         }
 
+        return stringList;
+    }
+
+    private ArrayList<String> locationTypeQueueToString(LocationType locationType, boolean isArrival){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        ArrayList<String> stringList = new ArrayList<>();
+        try {
+            MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
+            actualQueue.pollQueue();
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            for (PortCallMessage pcm : pcmList) {
+                LocationState locationState = pcm.getLocationState();
+                if(locationState != null){
+                    if(isArrival) {
+                        ArrivalLocation arrivalLocation = locationState.getArrivalLocation();
+                        if(arrivalLocation != null) {
+                            stringList.add(pcm.toString());
+                        }
+                    } else {
+                        DepartureLocation departureLocation = locationState.getDepartureLocation();
+                        if(departureLocation != null) {
+                            stringList.add(pcm.toString());
+                        }
+                    }
+                }
+            }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-locType", e.toString());
+            //TODO Visa felmeddelande för användaren.
+        }
         return stringList;
     }
 

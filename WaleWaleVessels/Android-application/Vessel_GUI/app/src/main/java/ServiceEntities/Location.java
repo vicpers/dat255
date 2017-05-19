@@ -51,9 +51,7 @@ public class Location {
                     try {
                         locationType = LocationType.valueOf(locationStrings[5]);
                         subLocationName = locationStrings[6];
-                    } catch (ArrayIndexOutOfBoundsException e){
-                        Log.e("OutOfBounds", e.toString());
-                    }
+                    } catch (ArrayIndexOutOfBoundsException e){}
                 }
             }
 

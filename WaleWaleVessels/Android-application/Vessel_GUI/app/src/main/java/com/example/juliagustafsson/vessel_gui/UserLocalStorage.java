@@ -21,8 +21,8 @@ import ServiceEntities.Vessel;
 
 public class UserLocalStorage{
 
-    public static final String SP_NAME = "userDetails";
-    static SharedPreferences userLocalDatabase;
+    private static final String SP_NAME = "userDetails";
+    private static SharedPreferences userLocalDatabase;
 
     /**
      * Creates a UserLocalStorage
@@ -34,7 +34,7 @@ public class UserLocalStorage{
      */
     public UserLocalStorage(Context context) {
         if (userLocalDatabase == null)
-            userLocalDatabase = context.getSharedPreferences(SP_NAME, 0);
+            userLocalDatabase = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
     }
 
     /**
@@ -44,17 +44,7 @@ public class UserLocalStorage{
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
         spEditor.putString("messageMap", "");
         spEditor.clear();
-        spEditor.commit();
-    }
-
-    /**
-     * Sets the user logged in
-     * @param loggedIn boolean saying if User is logged in or not
-     */
-    public static void setUserLoggedIn (boolean loggedIn) {
-        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
-        spEditor.putBoolean("Logged In", loggedIn);
-        spEditor.commit();
+        spEditor.apply();
     }
 
     /**
@@ -66,7 +56,7 @@ public class UserLocalStorage{
         Gson gson = new Gson();
         String vesselString = gson.toJson(vessel);
         spEditor.putString("vessel", vesselString);
-        spEditor.commit();
+        spEditor.apply();
     }
 
     /**
@@ -77,13 +67,6 @@ public class UserLocalStorage{
         String storedVesselString = userLocalDatabase.getString("vessel", null);
         java.lang.reflect.Type type = new TypeToken<Vessel>(){}.getType();
         return gson.fromJson(storedVesselString, type);
-    }
-
-    /**
-     * @return True if a user is logged in and False if not.
-     */
-    public static boolean getUserLoggedIn () {
-        return userLocalDatabase.getBoolean("Logged In", false);
     }
 
     /**
@@ -105,7 +88,7 @@ public class UserLocalStorage{
         String hashMapString = gson.toJson(hashMap);
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
         spEditor.putString("messageMap", hashMapString);
-        spEditor.commit();
+        spEditor.apply();
     }
 
     /** Saves the users PortCallID
@@ -114,7 +97,7 @@ public class UserLocalStorage{
     public static void setPortCallID(String portCallID){
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
         spEditor.putString("PortCallID", portCallID);
-        spEditor.commit();
+        spEditor.apply();
     }
 
     /**

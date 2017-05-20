@@ -99,7 +99,6 @@ public class VtsFragmentCS extends android.app.Fragment implements View.OnClickL
         ArrayList<String> stringList = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){

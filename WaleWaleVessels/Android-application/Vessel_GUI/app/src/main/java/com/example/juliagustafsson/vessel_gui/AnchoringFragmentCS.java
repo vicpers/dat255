@@ -161,7 +161,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
         ArrayList<String> stringList = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){
@@ -182,7 +181,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
 
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-            actualQueue.pollQueue();
 
             //hämtar befintlig kö och lagrar som pcmList
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
@@ -217,7 +215,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
 
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-            actualQueue.pollQueue();
 
             //hämtar befintlig kö och lagrar som pcmList
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
@@ -253,7 +250,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
 
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-            actualQueue.pollQueue();
 
             //hämtar befintlig kö och lagrar som pcmList
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
@@ -287,7 +283,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
 
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-            actualQueue.pollQueue();
 
             //hämtar befintlig kö och lagrar som pcmList
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
@@ -320,7 +315,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
 
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-            actualQueue.pollQueue();
 
             //hämtar befintlig kö och lagrar som pcmList
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();

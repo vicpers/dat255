@@ -19,9 +19,6 @@ import android.widget.TextView;
 
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-
-import ServiceEntities.PortCallMessage;
 
 
 /**
@@ -32,7 +29,7 @@ import ServiceEntities.PortCallMessage;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
    // private Button logout;
-    private User user = null;
+    private User user;
     private ArrayAdapter<String> mAdapter;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
@@ -104,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(user != null)
             return true;
         try {
-            user = new User(this, UserLocalStorage.getVessel());
+            this.user = new User(this, UserLocalStorage.getVessel());
             return true;
         } catch (NullPointerException e){
             return false;

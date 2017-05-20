@@ -10,15 +10,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import RESTServices.MessageBrokerQueue;
 import ServiceEntities.ArrivalLocation;
 import ServiceEntities.DepartureLocation;
 import ServiceEntities.LocationState;
 import ServiceEntities.LocationType;
 import ServiceEntities.PortCallMessage;
-import ServiceEntities.ServiceObject;
 
 
 /**
@@ -97,7 +98,6 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
         ArrayList<String> stringList = new ArrayList<>();
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for (PortCallMessage pcm : pcmList) {

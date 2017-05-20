@@ -321,12 +321,12 @@ public class User implements Runnable{
 
         try {
             while(true) {
-
+                messageBrokerMap = getMessageBrokerMap();
                 for (Map.Entry<String, MessageBrokerQueue> mapEntry : messageBrokerMap.entrySet()) {
 //                  Log.e(mapEntry.getKey(), mapEntry.getValue().getQueueId() + mapEntry.getValue().getQueue().toString());
                     ArrayList<PortCallMessage> pcmArray = mapEntry.getValue().pollQueue();
 
-                    if (mapEntry.getKey().equals("vessel")){
+                    if (mapEntry.getKey().equals("vessel") && pcmArray != null && pcmArray.size() > 0){
                         for (PortCallMessage pcm : pcmArray) {
                             if (portCallID == null) {
                                 Log.e("Got PortCallID", pcm.getPortCallId());
@@ -342,7 +342,7 @@ public class User implements Runnable{
                         }
                     }
 
-                    if (mapEntry.getKey().equals("portcall")){
+                    if (mapEntry.getKey().equals("portcall") && pcmArray != null && pcmArray.size() > 0){
                         for (PortCallMessage pcm : pcmArray) {
                             Log.e("NyttPortCallIdPCM", pcm.toString());
                         }
@@ -350,7 +350,7 @@ public class User implements Runnable{
 
                 }
                 setMessageBrokerMap(messageBrokerMap);
-                this.thread.sleep(60000);
+                this.thread.sleep(5000);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

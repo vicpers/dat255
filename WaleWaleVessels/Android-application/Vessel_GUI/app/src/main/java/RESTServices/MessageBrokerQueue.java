@@ -240,7 +240,7 @@ public class MessageBrokerQueue{
         } catch (JSONException e2) {
             Log.e("sortQueueResponse", e2.toString());
         }
-        Log.e("Queue", queue.toString());
+        //Log.e("Queue", queue.toString());
     }
 
     private boolean isCorrectServiceObject(PortCallMessage pcm){
@@ -254,11 +254,7 @@ public class MessageBrokerQueue{
 
     @Override
     public String toString(){
-        return queueId;
-    }
-
-    public ArrayList<PortCallMessage> getTempQueue() {
-        return tempQueue;
+        return queue.toString();
     }
 
 }

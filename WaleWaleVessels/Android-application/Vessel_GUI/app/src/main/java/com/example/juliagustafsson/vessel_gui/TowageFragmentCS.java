@@ -44,7 +44,7 @@ public class TowageFragmentCS extends android.app.Fragment implements View.OnCli
             @Override
             public void onClick(View v) {
                 serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.statusView);
+                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
                 currentServiceObject = ServiceObject.TOWAGE;
                 ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
                 ArrayAdapter<String> itemsAdapter =
@@ -58,7 +58,7 @@ public class TowageFragmentCS extends android.app.Fragment implements View.OnCli
             @Override
             public void onClick(View v) {
                 serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.statusView);
+                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
                 currentServiceObject = ServiceObject.ESCORT_TOWAGE;
                 ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
                 ArrayAdapter<String> itemsAdapter =

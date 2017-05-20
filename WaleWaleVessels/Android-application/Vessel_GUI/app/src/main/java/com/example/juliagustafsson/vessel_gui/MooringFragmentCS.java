@@ -44,7 +44,7 @@ public class MooringFragmentCS extends android.app.Fragment implements View.OnCl
             @Override
             public void onClick(View v) {
                 serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.statusView);
+                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
                 selectedAtLocation = LocationType.BERTH;
                 currentServiceObject = ServiceObject.ARRIVAL_MOORING_OPERATION;
                 ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
@@ -59,7 +59,7 @@ public class MooringFragmentCS extends android.app.Fragment implements View.OnCl
             @Override
             public void onClick(View v) {
                 serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.statusView);
+                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
                 selectedAtLocation = LocationType.BERTH;
                 currentServiceObject = ServiceObject.DEPARTURE_MOORING_OPERATION;
                 ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);

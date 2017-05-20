@@ -50,7 +50,7 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
             @Override
             public void onClick(View v) {
                 serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.statusView);
+                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
                 currentServiceObject = ServiceObject.PILOTAGE;
                 ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
                 ArrayAdapter<String> itemsAdapter =
@@ -64,7 +64,7 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
             @Override
             public void onClick(View v) {
                 locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) locationstateView.findViewById(R.id.statusView);
+                ListView dialogListView = (ListView) locationstateView.findViewById(R.id.checkStatus);
                 selectedLocationType = LocationType.PILOT_BOARDING_AREA;
                 ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType, true);
                 ArrayAdapter<String> itemsAdapter =

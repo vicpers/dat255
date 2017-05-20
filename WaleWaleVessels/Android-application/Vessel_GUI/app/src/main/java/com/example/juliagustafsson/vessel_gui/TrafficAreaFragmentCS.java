@@ -46,7 +46,7 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
             @Override
             public void onClick(View v) {
                 locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) locationstateView.findViewById(R.id.statusView);
+                ListView dialogListView = (ListView) locationstateView.findViewById(R.id.checkStatus);
                 selectedLocationType = LocationType.TRAFFIC_AREA;
                 ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType, true);
                 ArrayAdapter<String> itemsAdapter =
@@ -60,7 +60,7 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
             @Override
             public void onClick(View v) {
                 locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) locationstateView.findViewById(R.id.statusView);
+                ListView dialogListView = (ListView) locationstateView.findViewById(R.id.checkStatus);
                 selectedLocationType = LocationType.TRAFFIC_AREA;
                 ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType, false);
                 ArrayAdapter<String> itemsAdapter =

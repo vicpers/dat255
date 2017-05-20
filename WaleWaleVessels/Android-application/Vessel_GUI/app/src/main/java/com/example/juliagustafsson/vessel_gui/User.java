@@ -28,6 +28,10 @@ import static RESTServices.PortCDMServices.getStateDefinitions;
 
 /**
  * Created by juliagustafsson on 2017-04-26.
+ * A class for calculations regarding User information. By communicating with UserLocalStorage,
+ * data is saved even if the Application is closed. It creates all MessageBrokerQueues needed
+ * and by launching a Thread, the class continuously searches for new incoming PortCall Messages.
+ * When a new one is identified, a notification is sent.
  */
 
 public class User implements Runnable{
@@ -38,10 +42,10 @@ public class User implements Runnable{
     private String portCallID = null;
     private Thread thread;
 
-    /**
-     * @param context
-     * @param vesselID
-     * @throws NoSuchElementException
+    /** Creates a User
+     * @param context The Context of the launching activity
+     * @param vesselID The VesselID of the User
+     * @throws NoSuchElementException If the VesselID is not found in PortCDM
      */
     public User(Context context, String vesselID) throws NoSuchElementException{
         try{
@@ -62,6 +66,11 @@ public class User implements Runnable{
         this.thread.start();
     }
 
+    /** Creates a User
+     * @param context The Context of the launching Activity
+     * @param vessel The Vessel of the User
+     * @throws NullPointerException If Vessel is Null
+     */
     public User(Context context, Vessel vessel) throws NullPointerException{
         if (vessel == null)
             throw new NullPointerException("vessel is null");
@@ -78,6 +87,9 @@ public class User implements Runnable{
         this.thread.start();
     }
 
+    /**
+     * @return the Vessel of the User
+     */
     public Vessel getVessel() {
         if (vessel == null) {
             UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
@@ -86,12 +98,19 @@ public class User implements Runnable{
         return vessel;
     }
 
+    /**
+     * @param vessel Set the user Vessel
+     */
     public void setVessel(Vessel vessel) {
         UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
         userLocalStorage.setVessel(vessel);
         this.vessel = vessel;
     }
 
+    /**
+     * @return A HashMap containing MessagebrokerQueues with Strings as keys. All PortCallMessages is
+     * accessible through this data structure.
+     */
     public HashMap<String, MessageBrokerQueue> getMessageBrokerMap() {
         UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
         HashMap<String, MessageBrokerQueue> mb = userLocalStorage.getMessageBrokerMap();
@@ -100,31 +119,47 @@ public class User implements Runnable{
         return mb;
     }
 
+    /**
+     * @param messageBrokerMap A HashMap containing MessageBrokerQueues with Strings as keys.
+     */
     public void setMessageBrokerMap(HashMap<String, MessageBrokerQueue> messageBrokerMap) {
         this.messageBrokerMap = messageBrokerMap;
         UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
         userLocalStorage.setMessageBrokerMap(messageBrokerMap);
     }
 
+    /**
+     * @return A String with the users PortCallID
+     */
     public String getPortCallID() {
         if(portCallID == null) {
             UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
-            portCallID = userLocalStorage.getPortCallID();
+            portCallID = UserLocalStorage.getPortCallID();
         }
         return portCallID;
     }
 
+    /**
+     * @param portCallID A String with the users PortCallID
+     */
     public void setPortCallID(String portCallID) {
         this.portCallID = portCallID;
         UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
         userLocalStorage.setPortCallID(portCallID);
     }
 
+    /**
+     * Removes all saved User data
+     */
     public void clearUser(){
         UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
         userLocalStorage.clearUserData();
     }
 
+    /**
+     * Creates all the MessageBrokerQueues needed for the User to receive all relevant PortCall Messages.
+     * @throws NoSuchPropertyException
+     */
     public void createDefaultQueues() throws NoSuchPropertyException{
         if(this.vessel == null) {
             getVessel();
@@ -278,6 +313,9 @@ public class User implements Runnable{
         setMessageBrokerMap(messageBrokerMap);
     }
 
+    /**
+     * Runs thread and searches for new incoming PortCall Messages
+     */
     public void run(){
 
         // notificationID allows you to update the notification later on.
@@ -321,11 +359,18 @@ public class User implements Runnable{
 
     }
 
+    /**
+     * Interrupts thread
+     */
     public void interrupt(){
         if(this.thread.isAlive())
             this.thread.interrupt();
     }
 
+    /**
+     * Creates a notification from a PortCall Message.
+     * @param pcm The PortCall Message which the User needs to know about.
+     */
     public void sendNotification(PortCallMessage pcm){
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
         mBuilder.setSmallIcon(R.drawable.ic_big_anchor);

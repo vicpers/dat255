@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 /**
  * Created by maxedman on 2017-04-21.
+ * Enum with TimeTypes, i.e. Recommended, Estimated, Actual etc. 
  */
 
 public enum TimeType {

@@ -2,6 +2,7 @@ package ServiceEntities;
 
 /**
  * Created by maxedman on 2017-04-27.
+ * Enum with VesselType i.e. Cargo, Cruise, Sailing etc.
  */
 
 enum VesselType {

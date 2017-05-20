@@ -123,10 +123,16 @@ public class ServiceState {
         return xmlStr;
     }
 
+    /**
+     * @return a String with the OperationType of the ServiceState
+     */
     public String getOperationType(){
         return getServiceObject().getText();
     }
 
+    /**
+     * @return a String with the TimeSequence i.e. "Commenced", "Completed" etc.
+     */
     public String getTimeSequence(){
         return timeSequence.getText();
     }

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import RESTServices.MessageBrokerQueue;
@@ -72,10 +73,10 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
         arrivalAnchoring.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) locationstateView.findViewById(R.id.checkStatus);
                 TextView title = (TextView) locationstateView.findViewById(R.id.titleView);
                 title.setText("Arrival Anchoring");
+                locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
+                ListView dialogListView = (ListView) locationstateView.findViewById(R.id.checkStatus);
                 selectedLocationType = LocationType.ANCHORING_AREA;
                 ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType, true);
                 ArrayAdapter<String> itemsAdapter =
@@ -88,10 +89,10 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
         arrivalAnchoringOp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
                 TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
                 title.setText("Arrival Anchoring Operation");
+                serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
+                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
                 currentServiceObject = ServiceObject.ARRIVAL_ANCHORING_OPERATION;
                 selectedAtLocation = LocationType.ANCHORING_AREA;
                 ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
@@ -110,9 +111,9 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 TextView title = (TextView) locationstateView.findViewById(R.id.titleView);
                 title.setText("Departure Anchoring");
                 selectedLocationType = LocationType.ANCHORING_AREA;
-                ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType, false);
+                ArrayList<ArrayList<String>> statusStringList = locationTypeQueueToString(selectedLocationType, false);
                 ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, statusStringList);
+                        new CustomAdapterLSU(getActivity(), statusStringList);
                 dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(locationstateView);
             }
@@ -125,6 +126,8 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
     public void onClick(View v) {
 
     }
+
+
 
     private void createAlertDialog(View v) {
         dialogBuilder = new AlertDialog.Builder(getActivity());
@@ -159,20 +162,31 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
         return stringList;
     }
 
-    private ArrayList<String> locationTypeQueueToString(LocationType locationType, boolean isArrival){
+    private ArrayList<ArrayList<String>> locationTypeQueueToString(LocationType locationType, boolean isArrival){
         HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> stringList = new ArrayList<>();
+        ArrayList<ArrayList<String>> stringList = new ArrayList<>();
+        ArrayList<String> locationTimeSequence = new ArrayList<>();
+        ArrayList<String> position = new ArrayList<>();
+        ArrayList<String> time = new ArrayList<>();
+        ArrayList<String> date = new ArrayList<>();
+
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
             actualQueue.pollQueue();
+
+            //hämtar befintlig kö och lagrar som pcmList
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
+            //läser igenom alla PCMer och lagrar som strings
             for (PortCallMessage pcm : pcmList) {
                 LocationState locationState = pcm.getLocationState();
                 if(locationState != null){
                     if(isArrival) {
                         ArrivalLocation arrivalLocation = locationState.getArrivalLocation();
                         if(arrivalLocation != null) {
+                            locationTimeSequence.add(pcm.getTimeSequence());
+                            position.add(pcm.getLo)
+
                             stringList.add(pcm.toString());
                         }
                     } else {
@@ -187,8 +201,13 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
             Log.e("CheckStatus-locType", e.toString());
             //TODO Visa felmeddelande för användaren.
         }
+        stringList.add(locationTimeSequence);
+        stringList.add(position);
+        stringList.add(time);
+        stringList.add(date);
         return stringList;
     }
 
+    private ArrayList<String>
 
 }

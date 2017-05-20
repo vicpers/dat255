@@ -9,6 +9,7 @@ import static RESTServices.Constants_API.API_ACTUAL_PORT;
 
 /**
  * Created by maxedman on 2017-04-21.
+ * Class representing a location, which is part of DepartureLocation and ArrivalLocation.
  */
 
 public class Location {
@@ -21,6 +22,10 @@ public class Location {
     private String subLocationName;
     private String portUnlocode = API_ACTUAL_PORT;
 
+    /**
+     * Create a Location from a JSON object.
+     * @param locJsonObj
+     */
     public Location(JSONObject locJsonObj){
         if (locJsonObj != null) {
 
@@ -126,6 +131,9 @@ public class Location {
             return locationType.getText();
     }
 
+    /**
+     * @return a String with an XML-representation of the class.
+     */
     public String toXml() { // May not be in use anymore.
         String xmlStr = "";
 
@@ -147,6 +155,9 @@ public class Location {
         return xmlStr;
     }
 
+    /**
+     * @return a String with the operationType of the Location
+     */
     public String getOperationType(){
         return locationType.getText();
     }

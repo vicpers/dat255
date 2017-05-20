@@ -135,7 +135,6 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
         Log.e("QP", "calls method serviceObject");
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList) {
@@ -341,7 +340,7 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
             actualQueue.pollQueue();
 
             //hämtar befintlig kö och lagrar som pcmList
-            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+        ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             //läser igenom alla PCMer och lagrar som strings
             for (PortCallMessage pcm : pcmList) {

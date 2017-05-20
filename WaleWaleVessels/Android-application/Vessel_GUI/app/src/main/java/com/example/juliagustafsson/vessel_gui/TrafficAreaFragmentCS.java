@@ -11,10 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+<<<<<<< HEAD
 import android.widget.TextView;
+=======
+>>>>>>> origin/master
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import RESTServices.MessageBrokerQueue;
 import RESTServices.PortCDMServices;
 import ServiceEntities.ArrivalLocation;
@@ -23,7 +27,6 @@ import ServiceEntities.Location;
 import ServiceEntities.LocationState;
 import ServiceEntities.LocationType;
 import ServiceEntities.PortCallMessage;
-import ServiceEntities.ServiceObject;
 
 
 /**

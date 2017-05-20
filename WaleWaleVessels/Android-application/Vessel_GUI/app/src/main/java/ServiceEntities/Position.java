@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 /**
  * Created by maxedman on 2017-04-21.
+ * Class for representing a Position, which contains coordinates, name and shortName.
  */
 
 public class Position {
@@ -15,6 +16,10 @@ public class Position {
     private String name;
     private String shortName;
 
+    /**
+     * Creates a Position from a JSON object
+     * @param posJsonObj
+     */
     public Position(JSONObject posJsonObj){
         if (posJsonObj != null) {
             try {
@@ -34,12 +39,22 @@ public class Position {
         }
     }
 
+    /**
+     * Creates a Position from coordinates and name
+     * @param latitude
+     * @param longitude
+     * @param name
+     */
     public Position(double latitude, double longitude, String name){
         setLatitude(latitude);
         setLongitude(longitude);
         setName(name);
     }
 
+    /** Creates Position from coordinates
+     * @param latitude
+     * @param longitude
+     */
     public Position(double latitude, double longitude){
         setLatitude(latitude);
         setLongitude(longitude);
@@ -74,6 +89,9 @@ public class Position {
         this.shortName = shortName;
     }
 
+    /**
+     * @return a String containing an XML-representation of the object
+     */
     public String toXml() {
          String xmlStr = "<ns2:latitude>" + latitude + "</ns2:latitude>" +
                         "<ns2:longitude>" + longitude + "</ns2:longitude>";

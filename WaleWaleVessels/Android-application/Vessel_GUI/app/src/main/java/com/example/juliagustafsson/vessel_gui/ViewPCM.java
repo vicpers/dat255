@@ -11,7 +11,12 @@ import java.util.ArrayList;
 import ServiceEntities.PortCallMessage;
 import ServiceEntities.TimeType;
 
+/**
+ * Activity for displaying ETAs send by the active Vessel. It loads PortCallMessages from the static
+ * method in UserLocalStorage and filters them on the TimeType being Estimated.
+ */
 public class ViewPCM extends AppCompatActivity {
+    //TODO döp om
     UserLocalStorage userLocalStore;
     //private String[] lv_arr = {};
     @Override

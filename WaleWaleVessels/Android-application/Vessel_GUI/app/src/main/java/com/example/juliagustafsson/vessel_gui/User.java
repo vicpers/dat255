@@ -27,11 +27,10 @@ import static RESTServices.PortCDMServices.getActualPortData;
 import static RESTServices.PortCDMServices.getStateDefinitions;
 
 /**
- * Created by juliagustafsson on 2017-04-26.
  * A class for calculations regarding User information. By communicating with UserLocalStorage,
  * data is saved even if the Application is closed. It creates all MessageBrokerQueues needed
  * and by launching a Thread, the class continuously searches for new incoming PortCall Messages.
- * When a new one is identified, a notification is sent.
+ * When a new PortCall Message is identified, a notification is sent.
  */
 
 public class User implements Runnable{
@@ -54,8 +53,8 @@ public class User implements Runnable{
             throw e;
         }
         this.context = context;
+        new UserLocalStorage(context);
         setVessel(this.vessel);
-
         messageBrokerMap = getMessageBrokerMap();
         getPortCallID();
         createDefaultQueues();
@@ -76,6 +75,7 @@ public class User implements Runnable{
             throw new NullPointerException("vessel is null");
         this.vessel = vessel;
         this.context = context;
+        new UserLocalStorage(context);
         setVessel(this.vessel);
         messageBrokerMap = getMessageBrokerMap();
         getPortCallID();
@@ -92,8 +92,7 @@ public class User implements Runnable{
      */
     public Vessel getVessel() {
         if (vessel == null) {
-            UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
-            vessel = userLocalStorage.getVessel();
+            vessel = UserLocalStorage.getVessel();
         }
         return vessel;
     }
@@ -102,8 +101,7 @@ public class User implements Runnable{
      * @param vessel Set the user Vessel
      */
     public void setVessel(Vessel vessel) {
-        UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
-        userLocalStorage.setVessel(vessel);
+        UserLocalStorage.setVessel(vessel);
         this.vessel = vessel;
     }
 
@@ -112,8 +110,7 @@ public class User implements Runnable{
      * accessible through this data structure.
      */
     public HashMap<String, MessageBrokerQueue> getMessageBrokerMap() {
-        UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
-        HashMap<String, MessageBrokerQueue> mb = userLocalStorage.getMessageBrokerMap();
+        HashMap<String, MessageBrokerQueue> mb = UserLocalStorage.getMessageBrokerMap();
         if(mb == null)
             return new HashMap<String, MessageBrokerQueue>();
         return mb;
@@ -124,8 +121,7 @@ public class User implements Runnable{
      */
     public void setMessageBrokerMap(HashMap<String, MessageBrokerQueue> messageBrokerMap) {
         this.messageBrokerMap = messageBrokerMap;
-        UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
-        userLocalStorage.setMessageBrokerMap(messageBrokerMap);
+        UserLocalStorage.setMessageBrokerMap(messageBrokerMap);
     }
 
     /**
@@ -133,7 +129,6 @@ public class User implements Runnable{
      */
     public String getPortCallID() {
         if(portCallID == null) {
-            UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
             portCallID = UserLocalStorage.getPortCallID();
         }
         return portCallID;
@@ -144,16 +139,14 @@ public class User implements Runnable{
      */
     public void setPortCallID(String portCallID) {
         this.portCallID = portCallID;
-        UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
-        userLocalStorage.setPortCallID(portCallID);
+        UserLocalStorage.setPortCallID(portCallID);
     }
 
     /**
      * Removes all saved User data
      */
     public void clearUser(){
-        UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
-        userLocalStorage.clearUserData();
+        UserLocalStorage.clearUserData();
     }
 
     /**
@@ -308,7 +301,6 @@ public class User implements Runnable{
                 tempMbq.createUnfilteredQueue(portCallID, LocationType.PILOT_BOARDING_AREA);
                 messageBrokerMap.put(LocationType.PILOT_BOARDING_AREA.getText(), tempMbq);
             }
-
         }
         setMessageBrokerMap(messageBrokerMap);
     }
@@ -322,12 +314,12 @@ public class User implements Runnable{
 
         try {
             while(true) {
-
+                messageBrokerMap = getMessageBrokerMap();
                 for (Map.Entry<String, MessageBrokerQueue> mapEntry : messageBrokerMap.entrySet()) {
 //                  Log.e(mapEntry.getKey(), mapEntry.getValue().getQueueId() + mapEntry.getValue().getQueue().toString());
                     ArrayList<PortCallMessage> pcmArray = mapEntry.getValue().pollQueue();
 
-                    if (mapEntry.getKey().equals("vessel")){
+                    if (mapEntry.getKey().equals("vessel") && pcmArray != null && pcmArray.size() > 0){
                         for (PortCallMessage pcm : pcmArray) {
                             if (portCallID == null) {
                                 Log.e("Got PortCallID", pcm.getPortCallId());
@@ -343,7 +335,7 @@ public class User implements Runnable{
                         }
                     }
 
-                    if (mapEntry.getKey().equals("portcall")){
+                    if (mapEntry.getKey().equals("portcall") && pcmArray != null && pcmArray.size() > 0){
                         for (PortCallMessage pcm : pcmArray) {
                             Log.e("NyttPortCallIdPCM", pcm.toString());
                         }

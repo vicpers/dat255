@@ -14,7 +14,7 @@ import RESTServices.PortCDMServices;
  * A class representing a PortCall Message with all its traits.
  */
 
-public class PortCallMessage {
+public class PortCallMessage{
 
     private String portCallId;
     private String localPortCallId;
@@ -23,8 +23,8 @@ public class PortCallMessage {
     private String messageId;
     private String groupWith;
     private String reportedAt; //TODO Convert to a DateTime format.
-    private String reportedBy = "VesselTestMaxMattias";
-    private String comment = "VesselTestMaxMattias";
+    private String reportedBy;
+    private String comment = "Max";
     private String messageOperation;
     private LocationState locationState;
     private ServiceState serviceState;

@@ -51,8 +51,9 @@ import ServiceEntities.TimeType;
 import static RESTServices.PortCDMServices.getServiceType;
 
 /**
- * Created by MattiasLundell on 2017-05-03.
- * Activity for reporting other updates than ETAs to PortCDM.
+ * Activity for reporting other updates than ETAs to PortCDM. Through a menu the user gets to choose
+ * which operation to send a PortCall Message about. When the operation is chosen a form is displayed
+ * for the user to enter required data.
  */
 
 public class Report_Update extends AppCompatActivity implements View.OnClickListener {

@@ -14,6 +14,11 @@ import android.widget.Toast;
 import java.util.NoSuchElementException;
 
 
+/**
+ * Activity for the user to log in to the application. By using a VesselIMO, this application is
+ * able to verify that the Vessel is connected to PortCDM. All other data about the Vessel is then
+ * automatically retrieved from the PortCDM server.
+ */
 public class Vessel_Login extends AppCompatActivity implements View.OnClickListener {
 
     Button login;

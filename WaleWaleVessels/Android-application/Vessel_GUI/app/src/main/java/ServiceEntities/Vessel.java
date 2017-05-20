@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 /**
  * Created by maxedman on 2017-04-20.
+ * A class which represents a Vessel.
  */
 
 public class Vessel implements Serializable {
@@ -23,6 +24,10 @@ public class Vessel implements Serializable {
 
     public Vessel(){}
 
+    /**
+     * Creates a Vessel from a JSON object
+     * @param vesselJsonObj
+     */
     public Vessel(JSONObject vesselJsonObj){
         if (vesselJsonObj != null) {
             try {
@@ -50,6 +55,17 @@ public class Vessel implements Serializable {
         }
     }
 
+    /**
+     * Creates a Vessel from input data
+     * @param imo
+     * @param id
+     * @param name
+     * @param callSign
+     * @param mmsi
+     * @param type
+     * @param stmVesselId
+     * @param photoURL
+     */
     public Vessel(String imo, String id, String name, String callSign, String mmsi, VesselType type, String stmVesselId, String photoURL){
         setImo(imo);
         setId(id);

@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 /**
  * Created by maxedman on 2017-04-25.
+ * Enums for ReferenceObjects, i.e. different users of PortCDM.
  */
 
 public enum ReferenceObject {

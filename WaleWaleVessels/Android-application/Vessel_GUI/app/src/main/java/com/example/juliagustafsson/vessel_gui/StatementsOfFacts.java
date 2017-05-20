@@ -14,7 +14,8 @@ import ServiceEntities.PortCallMessage;
 import ServiceEntities.TimeType;
 
 /**
- * Created by mattiaslundell on 2017-05-16.
+ * Activity for displaying statement of facts. It loads PortCallMessages from the static
+ * method in UserLocalStorage and filters them on the TimeType being Estimated.
  */
 
 public class StatementsOfFacts extends AppCompatActivity {

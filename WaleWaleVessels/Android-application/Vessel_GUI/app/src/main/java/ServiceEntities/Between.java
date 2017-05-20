@@ -7,12 +7,17 @@ import org.json.JSONObject;
 
 /**
  * Created by maxedman on 2017-04-21.
+ * A Class representing a Between, i.e. two Locations, which is part of a Service State.
  */
 
 public class Between {
     private Location from;
     private Location to;
 
+    /**
+     * Creates a Between from a JSON Object
+     * @param betwJsonObj
+     */
     public Between(JSONObject betwJsonObj){
         if (betwJsonObj != null) {
 
@@ -34,6 +39,11 @@ public class Between {
         }
     }
 
+    /**
+     * Creates a Between from two locations
+     * @param from
+     * @param to
+     */
     public Between(Location from, Location to){
         this.from = from;
         this.to = to;
@@ -55,6 +65,9 @@ public class Between {
         this.to = to;
     }
 
+    /**
+     * @return An XML-representation of the Between class
+     */
     public String toXml() {
         String xmlStr = "";
         if (to != null)
@@ -64,6 +77,9 @@ public class Between {
         return xmlStr;
     }
 
+    /**
+     * @return a String containing the LocationMRN. Looks into both locations.
+     */
     public String getLocationMRN(){
         if (from != null && to != null) {
             StringBuilder sb = new StringBuilder();

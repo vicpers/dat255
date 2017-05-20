@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 /**
  * Created by maxedman on 2017-04-21.
+ * Class representing a ServiceState, which is part of a PortCallMessage.
  */
 
 public class ServiceState {
@@ -18,6 +19,10 @@ public class ServiceState {
     private String time;
     private TimeType timeType;
 
+    /**
+     * Creates a ServiceState out of a JSON-representation of the object.
+     * @param servStateJsonObj
+     */
     public ServiceState(JSONObject servStateJsonObj){
         if (servStateJsonObj != null) {
             try {
@@ -96,6 +101,9 @@ public class ServiceState {
         return "Service Object: " + serviceObject.getText() +  "\nSequence: " + timeSequence + "\nTimeType: " + timeType + "\nTime: " + time;
     }
 
+    /**
+     * @return a String with an XML-representation of the class
+     */
     public String toXml() {
         String xmlStr = "";
         if(serviceObject != null)
@@ -115,24 +123,43 @@ public class ServiceState {
         return xmlStr;
     }
 
+    /**
+     * @return a String with the OperationType of the ServiceState
+     */
     public String getOperationType(){
         return getServiceObject().getText();
     }
 
+    /**
+     * @return a String with the TimeSequence i.e. "Commenced", "Completed" etc.
+     */
     public String getTimeSequence(){
         return timeSequence.getText();
     }
 
+    /**
+     * @return a String with the TimeType i.e. if the ServiceState is Actual, Estimated etc.
+     */
     public String getTimeType(){ return timeType.toString();}
 
+    /**
+     * @return A string with the Actor who performs the ServiceState
+     */
     public String getPerformingActor(){
         return performingActor;
     }
 
+    /**
+     * @return a String with timestamp from when ServiceState was created.
+     */
     public String getTime(){
         return time;
     }
 
+
+    /**
+     * @return String with LocationMRN.
+     */
     public String getLocationMRN(){
         if (at != null) {
             return at.getLocationMRN();

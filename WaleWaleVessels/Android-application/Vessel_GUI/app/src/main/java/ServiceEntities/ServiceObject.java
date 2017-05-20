@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 /**
  * Created by maxedman on 2017-04-25.
+ * Enum containing ServiceObjects, i.e. Anchoring, Towage, Pilotage etc.
  */
 
 public enum ServiceObject {
@@ -54,6 +55,11 @@ public enum ServiceObject {
         return this.serviceObjText;
     }
 
+    /**
+     * @param text
+     * @return Corresponding enum from input String
+     * @throws IllegalArgumentException
+     */
     public static ServiceObject fromString(String text) throws IllegalArgumentException {
         for (ServiceObject serviceObject : ServiceObject.values()) {
             if (serviceObject.serviceObjText.equalsIgnoreCase(text)) {

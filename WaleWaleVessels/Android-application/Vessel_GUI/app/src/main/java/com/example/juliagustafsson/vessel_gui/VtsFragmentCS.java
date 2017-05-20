@@ -120,7 +120,6 @@ public class VtsFragmentCS extends android.app.Fragment implements View.OnClickL
         Log.e("QP", "calls method serviceObject");
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList) {

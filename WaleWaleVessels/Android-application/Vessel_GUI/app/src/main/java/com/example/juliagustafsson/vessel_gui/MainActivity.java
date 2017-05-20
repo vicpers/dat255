@@ -19,15 +19,17 @@ import android.widget.TextView;
 
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-
-import ServiceEntities.PortCallMessage;
 
 
+/**
+ * Main Activity for the application. It provides a menu for the user and displays some information
+ * of the active Vessel. From here the Vessel Captain can launch various Activities or change
+ * VesselID if required.
+ */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
    // private Button logout;
-    private User user = null;
+    private User user;
     private ArrayAdapter<String> mAdapter;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         TextView textView = (TextView) findViewById(R.id.textView4);
-        //Hårdkodat för att visa nuvarande hamn överst på hemskärmen.
+        //TODO Hårdkodat för att visa nuvarande hamn överst på hemskärmen?
         textView.setText("Current Port: SEGOT");
 
         // Set customized toolbar
@@ -92,71 +94,86 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    /**
+     * @return Controls that the activity has a user.
+     */
     private boolean authenticate() {
         if(user != null)
             return true;
         try {
-            user = new User(this, UserLocalStorage.getVessel());
+            this.user = new User(this, UserLocalStorage.getVessel());
             return true;
         } catch (NullPointerException e){
             return false;
         }
     }
 
+    /**
+     * Displays vesselIMO in left menu
+     */
     public void displayVesselID() {
-        //Displays vesselIMO in left menu
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View v = navigationView.getHeaderView(0);
         TextView textViewMenu = (TextView) v.findViewById(R.id.active_user);
         textViewMenu.setText(user.getVessel().getName());
     }
 
+    /**
+     * Displays image of Vessel in the header
+     */
     public void displayVesselImage(){
         ImageView ship = (ImageView) findViewById(R.id.vesselImage);
         ship.setImageDrawable(LoadImageFromWebOperations(user.getVessel().getPhotoURL()));
     }
 
+    /**
+     * @param url Image-url
+     * @return Drawable of image
+     */
     public static Drawable LoadImageFromWebOperations(String url) {
         try {
             InputStream is = (InputStream) new URL(url).getContent();
             Drawable d = Drawable.createFromStream(is, "src name");
             return d;
         } catch (Exception e) {
-            Log.wtf("BOATS AND HOES", e.toString());
+            Log.wtf("Vessel-image failed to load", e.toString());
             return null;
         }
     }
 
+    /**
+     * Launches the activity to View ETAs
+     * @param view
+     */
     public void viewPCM(View view) {
+        //TODO döpa om?
         Intent intent = new Intent(this, ViewPCM.class); //skapar en ny instans av klassen ViewPCM som initierar ett nytt blankt fönster
-        // TODO Fixa källan till texten, dvs här ska ett PCM läsas is till ett textfält
-        ArrayList<PortCallMessage> portCallList = user.getMessageBrokerMap().get("vessel").getQueue();
-
-        ArrayList<String> stringList = new ArrayList<>();
-
-        for(PortCallMessage pcm : portCallList){
-            stringList.add(pcm.toXml());
-        }
-        stringList.add("hej");
-
-        intent.putStringArrayListExtra("portcalls", stringList);//skicka med VesselID till nästa aktivitet
-
         startActivity(intent);
 
     }
 
+    /**
+     * Launches the activity to send ETAs
+     * @param view
+     */
     public void sendETA(View view) {
         Intent intent = new Intent(this, Send_ETA.class); //skapar en ny instans av klassen ViewPCM som initierar ett nytt blankt fönster
-        intent.putExtra("vesselID", user.getVessel().getId());//skicka med VesselID till nästa aktivitet
-        intent.putExtra("portCallIDID", user.getPortCallID());//skicka med VesselID till nästa aktivitet
         startActivity(intent);
     }
 
+    /**
+     * Launches the activity to check statuses
+     * @param view
+     */
     public void checkStatus(View view) {
         Intent intent = new Intent(this, CheckStatus.class); //skapar en ny instans av klassen CheckStatus som initierar ett nytt blankt fönster
         startActivity(intent);
     }
 
+    /**
+     * Launches the activity to report updates
+     * @param view
+     */
     public void reportUpdate(View view) {
         Intent intent = new Intent(this, Report_Update.class); //skapar en ny instans av klassen Report_Update som initierar ett nytt blankt fönster
         intent.putExtra("vesselID", user.getVessel().getId());//skicka med VesselID till nästa aktivitet
@@ -164,6 +181,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
+    /**
+     * Launches the activity to view statement of facts.
+     * @param view
+     */
     public void statementsOfFacts(View view) {
         Intent intent = new Intent(this, StatementsOfFacts.class); //skapar en ny instans av klassen Report_Update som initierar ett nytt blankt fönster
         intent.putExtra("vesselID", user.getVessel().getId());//skicka med VesselID till nästa aktivitet
@@ -171,6 +192,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
+    /**
+     * Launches the corresponding activity based on the choice from the menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle item selection

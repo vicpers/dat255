@@ -32,6 +32,7 @@ public class UserLocalStorage implements Serializable{
 
     public static void clearUserData () {
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        spEditor.putString("messageMap", "");
         spEditor.clear();
         spEditor.commit();
     }

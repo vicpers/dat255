@@ -53,8 +53,8 @@ public class User implements Runnable{
             throw e;
         }
         this.context = context;
+        new UserLocalStorage(context);
         setVessel(this.vessel);
-
         messageBrokerMap = getMessageBrokerMap();
         getPortCallID();
         createDefaultQueues();
@@ -75,6 +75,7 @@ public class User implements Runnable{
             throw new NullPointerException("vessel is null");
         this.vessel = vessel;
         this.context = context;
+        new UserLocalStorage(context);
         setVessel(this.vessel);
         messageBrokerMap = getMessageBrokerMap();
         getPortCallID();
@@ -91,8 +92,7 @@ public class User implements Runnable{
      */
     public Vessel getVessel() {
         if (vessel == null) {
-            UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
-            vessel = userLocalStorage.getVessel();
+            vessel = UserLocalStorage.getVessel();
         }
         return vessel;
     }
@@ -101,8 +101,7 @@ public class User implements Runnable{
      * @param vessel Set the user Vessel
      */
     public void setVessel(Vessel vessel) {
-        UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
-        userLocalStorage.setVessel(vessel);
+        UserLocalStorage.setVessel(vessel);
         this.vessel = vessel;
     }
 
@@ -111,8 +110,7 @@ public class User implements Runnable{
      * accessible through this data structure.
      */
     public HashMap<String, MessageBrokerQueue> getMessageBrokerMap() {
-        UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
-        HashMap<String, MessageBrokerQueue> mb = userLocalStorage.getMessageBrokerMap();
+        HashMap<String, MessageBrokerQueue> mb = UserLocalStorage.getMessageBrokerMap();
         if(mb == null)
             return new HashMap<String, MessageBrokerQueue>();
         return mb;
@@ -123,8 +121,7 @@ public class User implements Runnable{
      */
     public void setMessageBrokerMap(HashMap<String, MessageBrokerQueue> messageBrokerMap) {
         this.messageBrokerMap = messageBrokerMap;
-        UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
-        userLocalStorage.setMessageBrokerMap(messageBrokerMap);
+        UserLocalStorage.setMessageBrokerMap(messageBrokerMap);
     }
 
     /**
@@ -132,7 +129,6 @@ public class User implements Runnable{
      */
     public String getPortCallID() {
         if(portCallID == null) {
-            UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
             portCallID = UserLocalStorage.getPortCallID();
         }
         return portCallID;
@@ -143,16 +139,14 @@ public class User implements Runnable{
      */
     public void setPortCallID(String portCallID) {
         this.portCallID = portCallID;
-        UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
-        userLocalStorage.setPortCallID(portCallID);
+        UserLocalStorage.setPortCallID(portCallID);
     }
 
     /**
      * Removes all saved User data
      */
     public void clearUser(){
-        UserLocalStorage userLocalStorage = new UserLocalStorage(this.context);
-        userLocalStorage.clearUserData();
+        UserLocalStorage.clearUserData();
     }
 
     /**
@@ -307,7 +301,6 @@ public class User implements Runnable{
                 tempMbq.createUnfilteredQueue(portCallID, LocationType.PILOT_BOARDING_AREA);
                 messageBrokerMap.put(LocationType.PILOT_BOARDING_AREA.getText(), tempMbq);
             }
-
         }
         setMessageBrokerMap(messageBrokerMap);
     }

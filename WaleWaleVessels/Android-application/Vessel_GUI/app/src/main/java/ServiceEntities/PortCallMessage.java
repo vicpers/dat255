@@ -315,12 +315,14 @@ public class PortCallMessage {
             return null;
         }
     }
+
     public String getTimeType(){
         if(isServiceState()){
             return getServiceState().getTimeType();
         }
         else return getLocationState().getTimeType().getText();
     }
+
     public boolean isServiceState(){
         ServiceState serviceState = getServiceState();
         if (!(serviceState == null)) {
@@ -329,16 +331,25 @@ public class PortCallMessage {
             return false;
         }
     }
+
     public String getPerformingActor(){
         if(isServiceState()){
             return serviceState.getPerformingActor();
         }
         else return getLocationState().getReferenceObject().getText();
     }
+
     public String getTime(){
         if(isServiceState()){
             return getServiceState().getTime();
         }
         else return getLocationState().getTime();
+    }
+
+    public String getLocationMRN(){
+        if(isServiceState()){
+            return getServiceState().getLocationMRN();
+        }
+        else return getLocationState().getLocationMRN();
     }
 }

@@ -64,7 +64,13 @@ public class ArrivalLocation {
         return null;
     }
 
-
+    public String getLocationMRN(){
+        if (to != null)
+            return to.getLocationMRN();
+        if (from != null)
+            return from.getLocationMRN();
+        return null;
+    }
 
 
 }

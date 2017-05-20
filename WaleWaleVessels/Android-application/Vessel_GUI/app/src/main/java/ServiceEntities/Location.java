@@ -146,7 +146,9 @@ public class Location {
         }
         return xmlStr;
     }
+
     public String getOperationType(){
         return locationType.getText();
     }
+
 }

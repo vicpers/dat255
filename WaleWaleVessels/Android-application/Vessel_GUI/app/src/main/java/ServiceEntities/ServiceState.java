@@ -114,17 +114,31 @@ public class ServiceState {
             xmlStr += "<ns2:between>" + between.toXml() + "</ns2:between>";
         return xmlStr;
     }
+
     public String getOperationType(){
         return getServiceObject().getText();
     }
+
     public String getTimeSequence(){
         return timeSequence.getText();
     }
+
     public String getTimeType(){ return timeType.toString();}
+
     public String getPerformingActor(){
         return performingActor;
     }
+
     public String getTime(){
         return time;
+    }
+
+    public String getLocationMRN(){
+        if (at != null) {
+            return at.getLocationMRN();
+        } else if (between != null) {
+            return between.getLocationMRN();
+        }
+        return null;
     }
 }

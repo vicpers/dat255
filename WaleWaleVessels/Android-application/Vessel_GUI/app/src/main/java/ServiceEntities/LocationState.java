@@ -142,5 +142,14 @@ public class LocationState {
 
     }
 
+    public String getLocationMRN(){
+        if (arrivalLocation != null) {
+            return arrivalLocation.getLocationMRN();
+        } else if (departureLocation != null) {
+            return departureLocation.getLocationMRN();
+        }
+        return null;
+    }
+
 
 }

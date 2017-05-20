@@ -47,7 +47,7 @@ public class VtsFragmentCS extends android.app.Fragment implements View.OnClickL
             @Override
             public void onClick(View v) {
                 serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.statusView);
+                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
                 currentServiceObject = ServiceObject.ARRIVAL_VTSAREA;
                 selectedAtLocation = LocationType.TRAFFIC_AREA;
                 ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
@@ -62,7 +62,7 @@ public class VtsFragmentCS extends android.app.Fragment implements View.OnClickL
             @Override
             public void onClick(View v) {
                 serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.statusView);
+                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
                 currentServiceObject = ServiceObject.DEPARTURE_VTSAREA;
                 selectedAtLocation = LocationType.TRAFFIC_AREA;
                 ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);

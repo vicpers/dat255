@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.Serializable;
 import java.util.HashMap;
 
 import RESTServices.MessageBrokerQueue;
@@ -20,7 +19,7 @@ import ServiceEntities.Vessel;
  * exported to JSONs using GSON since SharedPreferences only accepts simple data structures.
  */
 
-public class UserLocalStorage implements Serializable{
+public class UserLocalStorage{
 
     public static final String SP_NAME = "userDetails";
     static SharedPreferences userLocalDatabase;

@@ -6,7 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -36,7 +35,7 @@ import static RESTServices.Constants_API.API_SERVICE_POLL_QUEUE;
  * Created by maxedman on 2017-04-21.
  */
 
-public class MessageBrokerQueue implements Serializable{
+public class MessageBrokerQueue{
     private static final String date = "";// "?fromTime=2017-05-16T14:20:21Z";
     private static final String portCallIDdate = "?fromTime=2017-05-16T14:20:21Z";
 
@@ -241,6 +240,7 @@ public class MessageBrokerQueue implements Serializable{
         } catch (JSONException e2) {
             Log.e("sortQueueResponse", e2.toString());
         }
+        Log.e("Queue", queue.toString());
     }
 
     private boolean isCorrectServiceObject(PortCallMessage pcm){
@@ -252,6 +252,7 @@ public class MessageBrokerQueue implements Serializable{
         return false;
     }
 
+    @Override
     public String toString(){
         return queueId;
     }

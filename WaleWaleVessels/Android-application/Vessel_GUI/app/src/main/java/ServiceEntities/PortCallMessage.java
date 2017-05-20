@@ -5,7 +5,6 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.NoSuchElementException;
 
 import RESTServices.PortCDMServices;
@@ -15,7 +14,7 @@ import RESTServices.PortCDMServices;
  * A class representing a PortCall Message with all its traits.
  */
 
-public class PortCallMessage implements Serializable{
+public class PortCallMessage{
 
     private String portCallId;
     private String localPortCallId;

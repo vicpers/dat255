@@ -7,9 +7,9 @@ package RESTServices;
 public class Constants_API {
 
     // Constants for making webRequests for the server. Developer instance
-//    public static final String API_DEV_BASE_URL                     = "http://dev.portcdm.eu";
+    public static final String API_DEV_BASE_URL                     = "http://dev.portcdm.eu";
+//    public static final String API_DEV_BASE_URL                     = "http://sandbox-5.portcdm.eu";
     public static final String API_DEV_BASE_URL_LOCATION_REGISTRY   = "http://dev.portcdm.eu";
-    public static final String API_DEV_BASE_URL                     = "http://sandbox-5.portcdm.eu";
     public static final String API_DEV_PORT1                        = "8080";
     public static final String API_DEV_PORT2                        = "4567";
     public static final String API_DEV_PORT3                        = "1337";

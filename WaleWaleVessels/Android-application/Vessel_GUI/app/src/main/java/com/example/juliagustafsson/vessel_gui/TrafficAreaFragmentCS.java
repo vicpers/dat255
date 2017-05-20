@@ -11,11 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-<<<<<<< HEAD
 import android.widget.TextView;
-=======
->>>>>>> origin/master
-
 import java.util.ArrayList;
 import java.util.HashMap;
 

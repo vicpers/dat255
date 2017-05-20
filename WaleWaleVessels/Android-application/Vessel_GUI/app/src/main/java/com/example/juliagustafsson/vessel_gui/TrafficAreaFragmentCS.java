@@ -75,10 +75,10 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
                 TextView title = (TextView) locationstateView.findViewById(R.id.titleView);
                 title.setText("Departure Traffic Area");
                 selectedLocationType = LocationType.TRAFFIC_AREA;
-                ArrayList<String> positions = locationTypeQueuePositionsToString(selectedLocationType, true);
-                ArrayList<String> times = locationTypeQueueTimesToString(selectedLocationType, true);
-                ArrayList<String> dates = locationTypeQueueDatesToString(selectedLocationType, true);
-                ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, true);
+                ArrayList<String> positions = locationTypeQueuePositionsToString(selectedLocationType, false);
+                ArrayList<String> times = locationTypeQueueTimesToString(selectedLocationType, false);
+                ArrayList<String> dates = locationTypeQueueDatesToString(selectedLocationType, false);
+                ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, false);
                 iconImage = getResources().getDrawable(R.drawable.ic_buoys);
                 ArrayAdapter<String> itemsAdapter =
                         new CustomAdapterLSU(getActivity(),  R.layout.custom_listview_row_lsu, positions, timeTypes, times, dates, iconImage);

@@ -133,6 +133,7 @@ public class MooringFragmentCS extends android.app.Fragment implements View.OnCl
                     positions.add(tempLoc.getName());
                 } else {
                     Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
+                    Log.e("tempLoc", tempLoc.getName());
                     positions.add(tempLoc.getName());
                 }
             }

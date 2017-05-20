@@ -40,6 +40,18 @@
                 android:text="Arrival Anchoring Operation"
                 android:textSize="18sp" />
 
+            <Button
+                android:id="@+id/DepartureAnchoringOperation"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="4dp"
+                android:padding="8dp"
+                android:layout_weight="1"
+                android:background="@color/menuHeader"
+                android:onClick="sendNewServiceState"
+                android:text="Departure Anchoring Operation"
+                android:textSize="18sp" />
+
         </TableRow>
 
         <TableRow
@@ -75,5 +87,7 @@
                 android:textSize="18sp" />
 
             </TableRow>
+
+
     </TableLayout>
 </FrameLayout>

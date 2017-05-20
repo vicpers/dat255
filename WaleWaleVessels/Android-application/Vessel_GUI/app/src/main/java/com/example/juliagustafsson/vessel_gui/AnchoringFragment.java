@@ -104,6 +104,8 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
         Button arrivalAnchoring = (Button) rootView.findViewById(R.id.ArrivalAnchoringArea);
         Button arrivalAnchoringOp = (Button) rootView.findViewById(R.id.ArrivalAnchoringOperation);
         Button departureAnchoring = (Button) rootView.findViewById(R.id.DepartureAnchoringArea);
+        Button departureAnchoringOp = (Button) rootView.findViewById(R.id.DepartureAnchoringOperation);
+
 
         anchoring.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,6 +140,20 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
                 isServiceState = true;
                 serviceStateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
                 currentServiceObject = ServiceObject.ARRIVAL_ANCHORING_OPERATION;
+                selectedAtLocation = LocationType.ANCHORING_AREA;
+                setTimeSequenceSpinner(currentServiceObject);
+                createAlertDialog(serviceStateView);
+                setTimeAndDate(serviceStateView);
+                setAtServiceStateView(selectedAtLocation);
+            }
+        });
+
+        departureAnchoringOp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isServiceState = true;
+                serviceStateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
+                currentServiceObject = ServiceObject.DEPARTURE_ANCHORING_OPERATION;
                 selectedAtLocation = LocationType.ANCHORING_AREA;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);

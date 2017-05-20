@@ -53,6 +53,7 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
         Button anchoring = (Button) rootView.findViewById(R.id.Anchoring);
         Button arrivalAnchoring = (Button) rootView.findViewById(R.id.ArrivalAnchoringArea);
         Button arrivalAnchoringOp = (Button) rootView.findViewById(R.id.ArrivalAnchoringOperation);
+        Button departureAnchoringOp = (Button) rootView.findViewById(R.id.DepartureAnchoringOperation);
         Button departureAnchoring = (Button) rootView.findViewById(R.id.DepartureAnchoringArea);
 
         anchoring.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +115,23 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 iconImage = getResources().getDrawable(R.drawable.ic_big_anchor);
                 ArrayAdapter<String> itemsAdapter =
                         new CustomAdapterSSU(getActivity(), R.layout.custom_listview_row_ssu, positions, timeTypes, times, dates, timeSeq, iconImage);
+                dialogListView.setAdapter(itemsAdapter);
+                createAlertDialog(serviceStateView);
+            }
+        });
+
+        departureAnchoringOp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
+                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
+                TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
+                title.setText("Departure Anchoring Operation");
+                currentServiceObject = ServiceObject.DEPARTURE_ANCHORING_OPERATION;
+                selectedAtLocation = LocationType.ANCHORING_AREA;
+                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
+                ArrayAdapter<String> itemsAdapter =
+                        new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, statusStringList);
                 dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(serviceStateView);
             }

@@ -18,15 +18,17 @@ class CustomAdapterLSU extends ArrayAdapter<String> {
     Context context;
     ArrayList<String> positions;
     ArrayList<String> times;
+    ArrayList<String> dates;
     ArrayList<String> timeTypes;
     int resource;
 
-    CustomAdapterLSU(Context context, int resource, ArrayList<String> positions,ArrayList<String> timeTypes,ArrayList<String> times ) {
+    CustomAdapterLSU(Context context, int resource, ArrayList<String> positions, ArrayList<String> timeTypes, ArrayList<String> times, ArrayList<String> dates ) {
         super(context, resource, positions);
         this.context = context;
         this.resource = resource;
         this.positions = positions;
         this.times = times;
+        this.dates = dates;
         this.timeTypes = timeTypes;
     }
 
@@ -37,10 +39,12 @@ class CustomAdapterLSU extends ArrayAdapter<String> {
 
         TextView pos = (TextView) row.findViewById(R.id.position);
         TextView time = (TextView) row.findViewById(R.id.time);
+        TextView date = (TextView) row.findViewById(R.id.time);
         TextView timeType = (TextView) row.findViewById(R.id.timeType);
 
         pos.setText(positions.get(position));
         time.setText(times.get(position));
+        date.setText(dates.get(position));
         timeType.setText(timeTypes.get(position));
         return row;
         }

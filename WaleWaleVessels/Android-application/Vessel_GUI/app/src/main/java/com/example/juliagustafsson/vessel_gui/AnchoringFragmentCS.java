@@ -78,14 +78,15 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 TextView title = (TextView) locationstateView.findViewById(R.id.titleView);
                 title.setText("Arrival Anchoring");
                 selectedLocationType = LocationType.ANCHORING_AREA;
-                ArrayList<String> positions = locationTypeQueuePositionsToString(selectedLocationType, false);
+                ArrayList<String> positions = locationTypeQueuePositionsToString(selectedLocationType, true);
                 Log.e("MESSAGE", positions.toString());
-                ArrayList<String> times = locationTypeQueueTimesToString(selectedLocationType, false);
+                ArrayList<String> times = locationTypeQueueTimesToString(selectedLocationType, true);
+                ArrayList<String> dates = locationTypeQueueDatesToString(selectedLocationType, true);
                 Log.e("MESSAGE", times.toString());
-                ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, false);
+                ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, true);
                 Log.e("MESSAGE", timeTypes.toString());
                 ArrayAdapter<String> itemsAdapter =
-                        new CustomAdapterLSU(getActivity(),  R.layout.custom_listview_row_lsu, positions, times, timeTypes);
+                        new CustomAdapterLSU(getActivity(),  R.layout.custom_listview_row_lsu, positions, timeTypes, times, dates);
                 dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(locationstateView);
             }
@@ -117,13 +118,15 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 title.setText("Departure Anchoring");
                 selectedLocationType = LocationType.ANCHORING_AREA;
                 ArrayList<String> positions = locationTypeQueuePositionsToString(selectedLocationType, false);
-                Log.e("Positions", positions.toString());
+                Log.e("MESSAGE", positions.toString());
                 ArrayList<String> times = locationTypeQueueTimesToString(selectedLocationType, false);
-                Log.e("Times", times.toString());
+                ArrayList<String> dates = locationTypeQueueDatesToString(selectedLocationType, false);
+                Log.e("MESSAGE", times.toString());
+                Log.e("MESSAGE", dates.toString());
                 ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, false);
-                Log.e("TimeTypes", timeTypes.toString());
+                Log.e("MESSAGE", timeTypes.toString());
                 ArrayAdapter<String> itemsAdapter =
-                        new CustomAdapterLSU(getActivity(),  R.layout.custom_listview_row_lsu, positions, times, timeTypes);
+                        new CustomAdapterLSU(getActivity(),  R.layout.custom_listview_row_lsu, positions, timeTypes, times, dates);
                 dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(locationstateView);
             }
@@ -262,12 +265,12 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                     if(isArrival) {
                         ArrivalLocation arrivalLocation = locationState.getArrivalLocation();
                         if(arrivalLocation != null) {
-                            times.add(pcm.getTime());
+                            times.add(PortCDMServices.stringToTime(pcm.getTime()));
                         }
                     } else {
                         DepartureLocation departureLocation = locationState.getDepartureLocation();
                         if(departureLocation != null) {
-                            times.add(pcm.getTime());
+                            times.add(PortCDMServices.stringToTime(pcm.getTime()));
                         }
                     }
                 }
@@ -277,6 +280,39 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
             //TODO Visa felmeddelande för användaren.
         }
         return times;
+    }
+    private ArrayList<String> locationTypeQueueDatesToString(LocationType locationType, boolean isArrival){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        ArrayList<String> dates = new ArrayList<>();
+
+        try {
+            MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
+            actualQueue.pollQueue();
+
+            //hämtar befintlig kö och lagrar som pcmList
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            //läser igenom alla PCMer och lagrar som strings
+            for (PortCallMessage pcm : pcmList) {
+                LocationState locationState = pcm.getLocationState();
+                if(locationState != null){
+                    if(isArrival) {
+                        ArrivalLocation arrivalLocation = locationState.getArrivalLocation();
+                        if(arrivalLocation != null) {
+                            dates.add(PortCDMServices.stringToDate(pcm.getTime()));
+                        }
+                    } else {
+                        DepartureLocation departureLocation = locationState.getDepartureLocation();
+                        if(departureLocation != null) {
+                            dates.add(PortCDMServices.stringToDate(pcm.getTime()));                        }
+                    }
+                }
+            }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-locType", e.toString());
+            //TODO Visa felmeddelande för användaren.
+        }
+        return dates;
     }
     private ArrayList<String> locationTypeQueueTimeTypesToString(LocationType locationType, boolean isArrival){
         HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();

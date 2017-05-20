@@ -129,9 +129,14 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 title.setText("Departure Anchoring Operation");
                 currentServiceObject = ServiceObject.DEPARTURE_ANCHORING_OPERATION;
                 selectedAtLocation = LocationType.ANCHORING_AREA;
-                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
+                ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);
+                ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
+                ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);
+                ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
+                ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
+                iconImage = getResources().getDrawable(R.drawable.ic_big_anchor);
                 ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, statusStringList);
+                        new CustomAdapterSSU(getActivity(), R.layout.custom_listview_row_ssu, positions, timeTypes, times, dates, timeSeq, iconImage);
                 dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(serviceStateView);
             }
@@ -164,9 +169,7 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
     public void onClick(View v) {
 
     }
-
-
-
+    
     private void createAlertDialog(View v) {
         dialogBuilder = new AlertDialog.Builder(getActivity());
         dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

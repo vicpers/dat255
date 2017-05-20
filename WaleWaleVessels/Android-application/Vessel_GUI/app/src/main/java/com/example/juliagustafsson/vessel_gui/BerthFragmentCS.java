@@ -98,12 +98,20 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
             public void onClick(View v) {
                 serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
                 ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
+                TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
+                title.setText("Berth Shifting");
                 currentServiceObject = ServiceObject.BERTH_SHIFTING;
                 selectedFromLocation = LocationType.BERTH;
                 selectedtoLocation = LocationType.BERTH;
-                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
+                ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
+                ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);
+                ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
+                ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
+                ArrayList<String> locFrom = serviceObjectQueueLocFromToString(currentServiceObject);
+                ArrayList<String> locTo = serviceObjectQueueLocToToString(currentServiceObject);
+                iconImage = getResources().getDrawable(R.drawable.ic_mooring_point);
                 ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, statusStringList);
+                        new CustomAdapterBSSU(getActivity(), R.layout.custom_listview_row_bssu, locFrom, locTo, timeTypes, times, dates, timeSeq, iconImage);
                 dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(serviceStateView);}
 
@@ -130,23 +138,26 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
         dialogBuilder.show();
     }
 
-    private ArrayList<String> serviceObjectQueuePositionsToString(ServiceObject serviceObject){
+    private ArrayList<String> serviceObjectQueueLocFromToString(ServiceObject serviceObject){
         HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
         ArrayList<String> positions = new ArrayList<>();
-        Log.e("QP", "calls method serviceObject");
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList) {
                 String locMRN = pcm.getLocationMRN();
-                Log.e("MRNS", locMRN);
                 if (locMRN.contains("/")) {
                     String[] parts = locMRN.split("/");
-                    String loc1 = parts[0];
-                    String loc2 = parts[1];
-                    Location tempLoc = PortCDMServices.getLocation(loc1);
-                    positions.add(tempLoc.getName());
+                    try {
+                        String loc1 = parts[0];
+                        String loc2 = parts[1];
+                        Location tempLoc = PortCDMServices.getLocation(loc1);
+                        positions.add(tempLoc.getName());
+                    }
+                    catch (NullPointerException e){
+                        Log.e("CheckStatus-servType", e.toString());
+                    }
                 } else {
                     Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
                     positions.add(tempLoc.getName());
@@ -159,74 +170,39 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
 
         return reverse(positions);
     }
-    private ArrayList<String> serviceObjectQueueTimeTypesToString(ServiceObject serviceObject){
+
+    private ArrayList<String> serviceObjectQueueLocToToString(ServiceObject serviceObject){
         HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> timeTypes = new ArrayList<>();
+        ArrayList<String> positions = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
-            for(PortCallMessage pcm : pcmList){
-                timeTypes.add(pcm.getTimeType());      }
+            for(PortCallMessage pcm : pcmList) {
+                String locMRN = pcm.getLocationMRN();
+                if (locMRN.contains("/")) {
+                    String[] parts = locMRN.split("/");
+                    try {
+                        String loc1 = parts[0];
+                        String loc2 = parts[1];
+                        Location tempLoc = PortCDMServices.getLocation(loc2);
+                        positions.add(tempLoc.getName());
+                    }
+                    catch (NullPointerException e){
+                        Log.e("CheckStatus-servType", e.toString());
+                    }
+                } else {
+                    Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
+                    positions.add(tempLoc.getName());
+                }
+            }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
             //TODO Visa felmeddelande för användaren.
         }
-
-        return reverse(timeTypes);
+        return reverse(positions);
     }
-    private ArrayList<String> serviceObjectQueueTimesToString(ServiceObject serviceObject){
-        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> times = new ArrayList<>();
-        try{
-            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
-            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
-            for(PortCallMessage pcm : pcmList){
-                times.add(PortCDMServices.stringToTime(pcm.getTime()));  }
-        } catch (NullPointerException e){
-            Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
-        }
-
-        return reverse(times);
-    }
-    private ArrayList<String> serviceObjectQueueDatesToString(ServiceObject serviceObject){
-        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> dates = new ArrayList<>();
-        try{
-            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
-            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
-
-            for(PortCallMessage pcm : pcmList){
-                dates.add(PortCDMServices.stringToDate(pcm.getTime()));    }
-        } catch (NullPointerException e){
-            Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
-        }
-
-        return reverse(dates);
-    }
-    private ArrayList<String> serviceObjectQueueTimeSequenceToString(ServiceObject serviceObject){
-        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> timeSequences = new ArrayList<>();
-        try{
-            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
-            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
-
-            for(PortCallMessage pcm : pcmList){
-                timeSequences.add(pcm.getTimeSequence());      }
-        } catch (NullPointerException e){
-            Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
-        }
-
-        return reverse(timeSequences);
-    }
 
     private ArrayList<String> locationTypeQueuePositionsToString(LocationType locationType, boolean isArrival){
         HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
@@ -375,24 +351,76 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
         }
         return list;
     }
-    private ArrayList<String> serviceObjectQueueToString(ServiceObject serviceObject){
+
+    private ArrayList<String> serviceObjectQueueTimeTypesToString(ServiceObject serviceObject){
         HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> stringList = new ArrayList<>();
+        ArrayList<String> timeTypes = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
             actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){
-                stringList.add(pcm.toString());
-            }
+                timeTypes.add(pcm.getTimeType());      }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
             //TODO Visa felmeddelande för användaren.
         }
 
-        return stringList;
+        return reverse(timeTypes);
     }
+    private ArrayList<String> serviceObjectQueueTimesToString(ServiceObject serviceObject){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        ArrayList<String> times = new ArrayList<>();
+        try{
+            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
+            actualQueue.pollQueue();
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            for(PortCallMessage pcm : pcmList){
+                times.add(PortCDMServices.stringToTime(pcm.getTime()));  }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-servType", e.toString());
+            //TODO Visa felmeddelande för användaren.
+        }
+
+        return reverse(times);
+    }
+    private ArrayList<String> serviceObjectQueueDatesToString(ServiceObject serviceObject){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        ArrayList<String> dates = new ArrayList<>();
+        try{
+            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
+            actualQueue.pollQueue();
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            for(PortCallMessage pcm : pcmList){
+                dates.add(PortCDMServices.stringToDate(pcm.getTime()));    }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-servType", e.toString());
+            //TODO Visa felmeddelande för användaren.
+        }
+
+        return reverse(dates);
+    }
+    private ArrayList<String> serviceObjectQueueTimeSequenceToString(ServiceObject serviceObject){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        ArrayList<String> timeSequences = new ArrayList<>();
+        try{
+            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
+            actualQueue.pollQueue();
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            for(PortCallMessage pcm : pcmList){
+                timeSequences.add(pcm.getTimeSequence());      }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-servType", e.toString());
+            //TODO Visa felmeddelande för användaren.
+        }
+
+        return reverse(timeSequences);
+    }
+
 
 
 }

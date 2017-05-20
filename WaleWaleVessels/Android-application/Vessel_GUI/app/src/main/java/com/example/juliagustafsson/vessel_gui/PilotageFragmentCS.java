@@ -59,12 +59,19 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
                 serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
                 ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
                 currentServiceObject = ServiceObject.PILOTAGE;
-                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
+                TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
+                title.setText("Pilotage");
+                ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
+                ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);
+                ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
+                ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
+                ArrayList<String> locFrom = serviceObjectQueueLocFromToString(currentServiceObject);
+                ArrayList<String> locTo = serviceObjectQueueLocToToString(currentServiceObject);
+                iconImage = getResources().getDrawable(R.drawable.ic_boat_captain_hat);
                 ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, statusStringList);
+                        new CustomAdapterBSSU(getActivity(), R.layout.custom_listview_row_bssu, locFrom, locTo, timeTypes, times, dates, timeSeq, iconImage);
                 dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);
-            }
+                createAlertDialog(serviceStateView);}
         });
 
         pilotageBA.setOnClickListener(new View.OnClickListener() {
@@ -106,24 +113,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
         dialogBuilder.setNegativeButton("Cancel", null);
         dialogBuilder.setView(v);
         dialogBuilder.show();
-    }
-
-    private ArrayList<String> serviceObjectQueueToString(ServiceObject serviceObject){
-        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> stringList = new ArrayList<>();
-        try{
-            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
-
-            for(PortCallMessage pcm : pcmList){
-                stringList.add(pcm.toString());
-            }
-        } catch (NullPointerException e){
-            Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
-        }
-
-        return stringList;
     }
 
     private ArrayList<String> locationTypeQueuePositionsToString(LocationType locationType, boolean isArrival){
@@ -265,6 +254,158 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
         return reverse(timeTypes);
     }
 
+    private ArrayList<String> serviceObjectQueueToString(ServiceObject serviceObject){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        ArrayList<String> stringList = new ArrayList<>();
+        try{
+            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            for(PortCallMessage pcm : pcmList){
+                stringList.add(pcm.toString());
+            }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-servType", e.toString());
+            //TODO Visa felmeddelande för användaren.
+        }
+
+        return stringList;
+    }
+
+    private ArrayList<String> serviceObjectQueueTimeTypesToString(ServiceObject serviceObject){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        ArrayList<String> timeTypes = new ArrayList<>();
+        try{
+            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
+            actualQueue.pollQueue();
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            for(PortCallMessage pcm : pcmList){
+                timeTypes.add(pcm.getTimeType());      }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-servType", e.toString());
+            //TODO Visa felmeddelande för användaren.
+        }
+
+        return reverse(timeTypes);
+    }
+    private ArrayList<String> serviceObjectQueueTimesToString(ServiceObject serviceObject){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        ArrayList<String> times = new ArrayList<>();
+        try{
+            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
+            actualQueue.pollQueue();
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            for(PortCallMessage pcm : pcmList){
+                times.add(PortCDMServices.stringToTime(pcm.getTime()));  }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-servType", e.toString());
+            //TODO Visa felmeddelande för användaren.
+        }
+
+        return reverse(times);
+    }
+    private ArrayList<String> serviceObjectQueueDatesToString(ServiceObject serviceObject){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        ArrayList<String> dates = new ArrayList<>();
+        try{
+            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
+            actualQueue.pollQueue();
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            for(PortCallMessage pcm : pcmList){
+                dates.add(PortCDMServices.stringToDate(pcm.getTime()));    }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-servType", e.toString());
+            //TODO Visa felmeddelande för användaren.
+        }
+
+        return reverse(dates);
+    }
+    private ArrayList<String> serviceObjectQueueTimeSequenceToString(ServiceObject serviceObject){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        ArrayList<String> timeSequences = new ArrayList<>();
+        try{
+            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
+            actualQueue.pollQueue();
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            for(PortCallMessage pcm : pcmList){
+                timeSequences.add(pcm.getTimeSequence());      }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-servType", e.toString());
+            //TODO Visa felmeddelande för användaren.
+        }
+
+        return reverse(timeSequences);
+    }
+    private ArrayList<String> serviceObjectQueueLocFromToString(ServiceObject serviceObject){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        ArrayList<String> positions = new ArrayList<>();
+        try{
+            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            for(PortCallMessage pcm : pcmList) {
+                String locMRN = pcm.getLocationMRN();
+                if (locMRN.contains("/")) {
+                    String[] parts = locMRN.split("/");
+                    try {
+                        String loc1 = parts[0];
+                        String loc2 = parts[1];
+                        Location tempLoc = PortCDMServices.getLocation(loc1);
+                        positions.add(tempLoc.getName());
+                    }
+                    catch (NullPointerException e){
+                        Log.e("CheckStatus-servType", e.toString());
+                    }
+                } else {
+                    Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
+                    positions.add(tempLoc.getName());
+                }
+            }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-servType", e.toString());
+            //TODO Visa felmeddelande för användaren.
+        }
+
+        return reverse(positions);
+    }
+
+    private ArrayList<String> serviceObjectQueueLocToToString(ServiceObject serviceObject){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        ArrayList<String> positions = new ArrayList<>();
+        try{
+            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            for(PortCallMessage pcm : pcmList) {
+                String locMRN = pcm.getLocationMRN();
+                if (locMRN.contains("/")) {
+                    String[] parts = locMRN.split("/");
+                    try {
+                        String loc1 = parts[0];
+                        String loc2 = parts[1];
+                        Location tempLoc = PortCDMServices.getLocation(loc2);
+                        positions.add(tempLoc.getName());
+                    }
+                    catch (NullPointerException e){
+                        Log.e("CheckStatus-servType", e.toString());
+                    }
+                } else {
+                    Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
+                    positions.add(tempLoc.getName());
+                }
+            }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-servType", e.toString());
+            //TODO Visa felmeddelande för användaren.
+        }
+        return reverse(positions);
+    }
+
+
     public ArrayList<String> reverse(ArrayList<String> list) {
         if(list.size() > 1) {
             String value = list.remove(0);
@@ -273,5 +414,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
         }
         return list;
     }
+
 
 }

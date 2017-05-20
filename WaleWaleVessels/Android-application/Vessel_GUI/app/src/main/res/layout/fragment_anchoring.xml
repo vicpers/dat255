@@ -21,36 +21,37 @@
                 android:layout_width="0dp"
                 android:layout_height="80dp"
                 android:layout_marginRight="4dp"
-                android:padding="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
                 android:onClick="sendNewServiceState"
+                android:padding="8dp"
                 android:text="Anchoring"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/ArrivalAnchoringOperation"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="4dp"
-                android:padding="8dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
                 android:onClick="sendNewServiceState"
+                android:padding="8dp"
                 android:text="Arrival Anchoring Operation"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/DepartureAnchoringOperation"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="4dp"
-                android:padding="8dp"
                 android:layout_weight="1"
                 android:background="@color/menuHeader"
                 android:onClick="sendNewServiceState"
+                android:padding="8dp"
                 android:text="Departure Anchoring Operation"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
         </TableRow>
 

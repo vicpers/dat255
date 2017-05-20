@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import RESTServices.PortCDMServices;
 import ServiceEntities.PortCallMessage;
 import ServiceEntities.TimeType;
 
@@ -24,24 +25,34 @@ public class ViewPCM extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pcm);
 
+       /* private ArrayList<String> serviceObjects = new ArrayList<>();
+        private ArrayList<String> locations = new ArrayList<>();
+        private ArrayList<String> times = new ArrayList<>();
+        private ArrayList<String> dates = new ArrayList<>();
+        private ArrayList<String> timeTypes = new ArrayList<>();
+        private ArrayList<String> timeSeq = new ArrayList<>();*/
         ArrayList<String> stringList = new ArrayList<>();
         try {
             ArrayList<PortCallMessage> portCallList = UserLocalStorage.getMessageBrokerMap().get(TimeType.ESTIMATED.getText()).getQueue();
             for(PortCallMessage pcm : portCallList){
+               /* timeTypes.add(pcm.getTimeType());
+                times.add(PortCDMServices.stringToTime(pcm.getTime()));
+                dates.add(PortCDMServices.stringToDate(pcm.getTime()));
+                timeSeq.add(pcm.getTimeSequence());*/
                 stringList.add(pcm.toString());
             }
         } catch (NullPointerException e){
             Log.e("NoPortCallID", e.toString());
         }
-
-
+/*
 
         // Get a handle to the list view
         ListView lv = (ListView) findViewById(R.id.listView);
 
         ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, stringList);
+                new CustomAdapterViewETA(this, R.layout.custom_listview_row_view_eta, stringList);
         lv.setAdapter(itemsAdapter);
+*/
 
 
     }

@@ -36,7 +36,8 @@ public class ServiceState {
                 Between between;
                 try {
                     between = new Between(servStateJsonObj.getJSONObject(Constants_jsonParsing.TAG_SERVICE_STATE_BETWEEN_LOCATIONS));
-                } catch (JSONException e){ between = null; }
+                } catch (JSONException e){
+                    between = null; }
                 Location at;
                 try {
                     at = new Location(servStateJsonObj.getJSONObject(Constants_jsonParsing.TAG_SERVICE_STATE_AT));
@@ -162,8 +163,10 @@ public class ServiceState {
      */
     public String getLocationMRN(){
         if (at != null) {
+            Log.e("2", "2");
             return at.getLocationMRN();
         } else if (between != null) {
+            Log.e("3", "3");
             return between.getLocationMRN();
         }
         return null;

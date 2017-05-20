@@ -55,7 +55,7 @@ public class Constants_jsonParsing {
     public static final String TAG_SERVICE_STATE_SERVICE_OBJECT         = "serviceObject";
     public static final String TAG_SERVICE_STATE_TIME_SEQUENCE          = "timeSequence";
     public static final String TAG_SERVICE_STATE_AT                     = "at";
-    public static final String TAG_SERVICE_STATE_BETWEEN_LOCATIONS      = "betweenLocations";
+    public static final String TAG_SERVICE_STATE_BETWEEN_LOCATIONS      = "between";
     public static final String TAG_SERVICE_STATE_PERFORMING_ACTOR       = "performingActor";
     public static final String TAG_SERVICE_STATE_TIME_TYPE              = "timeType";
     public static final String TAG_SERVICE_STATE_TIME                   = "time";

@@ -206,6 +206,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 return true;
             case R.id.nav_checkStatus:
+                Intent intent4 = new Intent(this, CheckStatus.class);
+                startActivity(intent4);
                 return true;
             case R.id.nav_sendETA:
                 Intent intent2 = new Intent(this, Send_ETA.class);
@@ -215,8 +217,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent3 = new Intent(this, Report_Update.class);
                 startActivity(intent3);
                 return true;
-            case R.id.nav_settings:
+
+            case R.id.nav_viewETA:
+                Intent intent5 = new Intent(this, ViewPCM.class);
+                startActivity(intent5);
                 return true;
+
+            case R.id.nav_statementsOfFacts:
+                Intent intent6 = new Intent(this, StatementsOfFacts.class);
+                startActivity(intent6);
+                return true;
+
             case R.id.nav_logout:
                 user.clearUser();
                 user.interrupt();

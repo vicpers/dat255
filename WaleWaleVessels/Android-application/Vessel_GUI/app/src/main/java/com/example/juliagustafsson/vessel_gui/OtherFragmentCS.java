@@ -54,9 +54,17 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
                 serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
                 ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
                 currentServiceObject = ServiceObject.ICEBREAKING_OPERATION;
-                ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
+                TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
+                title.setText("Ice Breaking");
+                ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
+                ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);
+                ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
+                ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
+                ArrayList<String> locFrom = serviceObjectQueueLocFromToString(currentServiceObject);
+                ArrayList<String> locTo = serviceObjectQueueLocToToString(currentServiceObject);
+                iconImage = getResources().getDrawable(R.drawable.ic_more);
                 ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, statusStringList);
+                        new CustomAdapterBSSU(getActivity(), R.layout.custom_listview_row_bssu, locFrom, locTo, timeTypes, times, dates, timeSeq, iconImage);
                 dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(serviceStateView);
             }
@@ -125,23 +133,71 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
         dialogBuilder.show();
     }
 
-    private ArrayList<String> serviceObjectQueueToString(ServiceObject serviceObject){
+    private ArrayList<String> serviceObjectQueueLocFromToString(ServiceObject serviceObject){
         HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> stringList = new ArrayList<>();
+        ArrayList<String> positions = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
-            for(PortCallMessage pcm : pcmList){
-                stringList.add(pcm.toString());
+            for(PortCallMessage pcm : pcmList) {
+                String locMRN = pcm.getLocationMRN();
+                if (locMRN.contains("/")) {
+                    String[] parts = locMRN.split("/");
+                    try {
+                        String loc1 = parts[0];
+                        String loc2 = parts[1];
+                        Location tempLoc = PortCDMServices.getLocation(loc1);
+                        positions.add(tempLoc.getName());
+                    }
+                    catch (NullPointerException e){
+                        Log.e("CheckStatus-servType", e.toString());
+                    }
+                } else {
+                    Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
+                    positions.add(tempLoc.getName());
+                }
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
             //TODO Visa felmeddelande för användaren.
         }
 
-        return stringList;
+        return reverse(positions);
     }
+
+    private ArrayList<String> serviceObjectQueueLocToToString(ServiceObject serviceObject){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        ArrayList<String> positions = new ArrayList<>();
+        try{
+            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            for(PortCallMessage pcm : pcmList) {
+                String locMRN = pcm.getLocationMRN();
+                if (locMRN.contains("/")) {
+                    String[] parts = locMRN.split("/");
+                    try {
+                        String loc1 = parts[0];
+                        String loc2 = parts[1];
+                        Location tempLoc = PortCDMServices.getLocation(loc2);
+                        positions.add(tempLoc.getName());
+                    }
+                    catch (NullPointerException e){
+                        Log.e("CheckStatus-servType", e.toString());
+                    }
+                } else {
+                    Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
+                    positions.add(tempLoc.getName());
+                }
+            }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-servType", e.toString());
+            //TODO Visa felmeddelande för användaren.
+        }
+        return reverse(positions);
+    }
+    
     private ArrayList<String> serviceObjectQueuePositionsToString(ServiceObject serviceObject){
         HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
         ArrayList<String> positions = new ArrayList<>();

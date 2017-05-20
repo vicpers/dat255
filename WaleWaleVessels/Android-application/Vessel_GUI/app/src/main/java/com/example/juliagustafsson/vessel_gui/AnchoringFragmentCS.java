@@ -127,7 +127,7 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
                 ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
                 TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
-                title.setText("Departure Anchoring Operation");
+                title.setText("Departure Anchoring Operat.");
                 currentServiceObject = ServiceObject.DEPARTURE_ANCHORING_OPERATION;
                 selectedAtLocation = LocationType.ANCHORING_AREA;
                 ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);

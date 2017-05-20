@@ -3,14 +3,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp">
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select Time Type "
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="8dp"
+        android:text="Select Time Type " />
 
     <Spinner
         android:id="@+id/spinnerTimeType"
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Select Time Sequence "
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="16dp"/>
 
     <Spinner
         android:id="@+id/spinnerTimeSequence"
@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="From Location"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="16dp"/>
 
     <Spinner
         android:id="@+id/spinnerFromLocation"
@@ -45,14 +45,14 @@
         android:id="@+id/spinnerFromSubLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/ToLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="To Location"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="16dp"/>
 
     <Spinner
         android:id="@+id/spinnerToLocation"
@@ -63,20 +63,20 @@
         android:id="@+id/spinnerToSubLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="16dp" />
 
     <EditText
         android:id="@+id/editTextTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:text="Select Time" />
 
     <EditText
         android:id="@+id/editTextDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:text="Select Date" />
 
 </LinearLayout>

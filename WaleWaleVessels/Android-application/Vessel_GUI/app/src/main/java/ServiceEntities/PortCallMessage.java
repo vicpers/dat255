@@ -473,6 +473,7 @@ public class PortCallMessage{
      */
     public String getLocationMRN(){
         if(isServiceState()){
+            Log.e("1", "1");
             return getServiceState().getLocationMRN();
         }
         else return getLocationState().getLocationMRN();

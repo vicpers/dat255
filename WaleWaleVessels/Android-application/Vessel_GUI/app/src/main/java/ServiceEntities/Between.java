@@ -82,13 +82,18 @@ public class Between {
      */
     public String getLocationMRN(){
         if (from != null && to != null) {
+            Log.e("4", "4");
             StringBuilder sb = new StringBuilder();
             sb.append(from.getLocationMRN());
             sb.append("/");
             sb.append(to.getLocationMRN());
+            Log.e("Test", "Sjofräs");
+            return sb.toString();
         } else if (to != null) {
+            Log.e("5", "5");
             return to.getLocationMRN();
         } else if (from != null) {
+            Log.e("6", "6");
             return from.getLocationMRN();
         }
         return null;

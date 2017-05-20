@@ -16,8 +16,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import RESTServices.MessageBrokerQueue;
+import RESTServices.PortCDMServices;
 import ServiceEntities.ArrivalLocation;
 import ServiceEntities.DepartureLocation;
+import ServiceEntities.Location;
 import ServiceEntities.LocationState;
 import ServiceEntities.LocationType;
 import ServiceEntities.PortCallMessage;
@@ -224,12 +226,14 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                     if(isArrival) {
                         ArrivalLocation arrivalLocation = locationState.getArrivalLocation();
                         if(arrivalLocation != null) {
-                            positions.add(pcm.getLocationMRN());
+                            Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
+                            positions.add(tempLoc.getName());
                         }
                     } else {
                         DepartureLocation departureLocation = locationState.getDepartureLocation();
                         if(departureLocation != null) {
-                            positions.add(pcm.getLocationMRN());
+                            Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
+                            positions.add(tempLoc.getName());
                         }
                     }
                 }

@@ -3,7 +3,7 @@ package RESTServices;
 /**
  * Created by maxedman on 2017-04-22.
  */
-
+//TODO kommentera
 public class Constants_API {
 
     // Constants for making webRequests for the server. Developer instance

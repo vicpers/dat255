@@ -26,7 +26,7 @@ import static RESTServices.Constants_API.API_XML_PORT_CALL_MESSAGE_HEADER;
 /**
  * Created by maxedman on 2017-04-24.
  */
-
+//TODO kommentera
 public class AMSS /*implements Runnable*/{
 
     private PortCallMessage pcmObj;

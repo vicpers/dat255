@@ -43,7 +43,7 @@ import static ServiceEntities.Constants_jsonParsing.TAG_STATE_DEFINITION_SERVICE
 /**
  * Created by maxedman on 2017-04-27.
  */
-
+//TODO kommentera
 public class PortCDMServices {
 
     private static HashMap<LocationTimeSequence, HashMap<String, LocationType>> locationStateLocationTypes = new HashMap<>();

@@ -3,6 +3,7 @@ package HTTPRequest;
 /**
  * Created by maxedman on 2017-04-21.
  */
+//TODO kommentera
 
 
 import android.util.Log;

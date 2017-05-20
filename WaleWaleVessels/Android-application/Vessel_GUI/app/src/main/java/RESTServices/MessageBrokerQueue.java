@@ -34,6 +34,7 @@ import static RESTServices.Constants_API.API_SERVICE_POLL_QUEUE;
 /**
  * Created by maxedman on 2017-04-21.
  */
+//TODO kommentera
 
 public class MessageBrokerQueue{
     private static final String date = "";// "?fromTime=2017-05-16T14:20:21Z";

@@ -2,6 +2,7 @@ package ServiceEntities;
 
 /**
  * Created by maxedman on 2017-05-10.
+ * Enums for ServiceType i.e. Stationary or Nautical,
  */
 
 public enum ServiceType {

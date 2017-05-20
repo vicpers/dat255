@@ -218,8 +218,8 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
                     Log.e("DateProblem Null", e2.toString());
                 }
                 // TODO Kontrollera att man faktiskt valt ett datum och en tid
-                String vesselID = UserLocalStorage.getVessel().getId(); //Hämta VesselID
-                String portCallID = UserLocalStorage.getPortCallID(); //Hämta portCallID
+                String vesselID = UserLocalStorage.getVessel().getId(); //Retrieve VesselID
+                String portCallID = UserLocalStorage.getPortCallID(); //Retrieve portCallID
 
                 //send a service state port call message
                 if(isServiceState) {
@@ -261,7 +261,7 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
                             serviceState);
                     AMSS amss = new AMSS(pcmObj);
 
-                    String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
+                    String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM through the AMSS.
 
                     //send a location state port call message
                     } else {

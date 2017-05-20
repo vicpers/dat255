@@ -192,8 +192,8 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         LocationState locState = new LocationState(ReferenceObject.VESSEL, formattedTime, TimeType.ESTIMATED, arrLoc);
 
 
-        String vesselID = UserLocalStorage.getVessel().getId(); //Hämta VesselIMO skickat från mainactivity
-        String portCallID = UserLocalStorage.getPortCallID(); //Hämta aktuellt portCallID skickat från mainactivity
+        String vesselID = UserLocalStorage.getVessel().getId(); //Retrieve VesselIMO from UserLocalStorage
+        String portCallID = UserLocalStorage.getPortCallID(); //Retrieve PortCallID from UserLocalStorage
         PortCallMessage pcmObj = new PortCallMessage(portCallID,
                                                      vesselID,
                                                      "urn:mrn:stm:portcdm:message:" + UUID.randomUUID().toString(),
@@ -201,7 +201,6 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
                                                      locState);
         AMSS amss = new AMSS(pcmObj);
         String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
-        //etaResultView.setText(etaResult);
         String message;
         if(etaResult.equals("")){
             message = "ETA sent successfully";

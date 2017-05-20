@@ -287,10 +287,10 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
 
-            //hämtar befintlig kö och lagrar som pcmList
+            //Retrieves current queue and stores as an ArrayList of PortCallMessages
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
-            //läser igenom alla PCMer och lagrar som strings
+            //Reads through all PCMs and stores them as Strings
             for (PortCallMessage pcm : pcmList) {
                 LocationState locationState = pcm.getLocationState();
                 if(locationState != null){
@@ -323,10 +323,10 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
 
-            //hämtar befintlig kö och lagrar som pcmList
+            //Retrieves current queue and stores as an ArrayList of PortCallMessages
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
-            //läser igenom alla PCMer och lagrar som strings
+            //Reads through all PCMs and stores them as Strings
             for (PortCallMessage pcm : pcmList) {
                 LocationState locationState = pcm.getLocationState();
                 if(locationState != null){
@@ -356,10 +356,10 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
 
-            //hämtar befintlig kö och lagrar som pcmList
+            //Retrieves current queue and stores as an ArrayList of PortCallMessages
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
-            //läser igenom alla PCMer och lagrar som strings
+            //Reads through all PCMs and stores them as Strings
             for (PortCallMessage pcm : pcmList) {
                 LocationState locationState = pcm.getLocationState();
                 if(locationState != null){
@@ -388,10 +388,10 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
 
-            //hämtar befintlig kö och lagrar som pcmList
+            //Retrieves current queue and stores as an ArrayList of PortCallMessages
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
-            //läser igenom alla PCMer och lagrar som strings
+            //Reads through all PCMs and stores them as Strings
             for (PortCallMessage pcm : pcmList) {
                 LocationState locationState = pcm.getLocationState();
                 if(locationState != null){

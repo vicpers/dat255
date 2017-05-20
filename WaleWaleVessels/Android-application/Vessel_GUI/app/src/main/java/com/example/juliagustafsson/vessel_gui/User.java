@@ -347,8 +347,6 @@ public class User implements Runnable{
                     }
 
                 }
-                if (portCallID != null)
-                    Log.e("PortCallID", portCallID);
                 setMessageBrokerMap(messageBrokerMap);
                 this.thread.sleep(5000);
             }

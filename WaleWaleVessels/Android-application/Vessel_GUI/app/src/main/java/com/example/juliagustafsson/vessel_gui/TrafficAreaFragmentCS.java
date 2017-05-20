@@ -1,6 +1,7 @@
 package com.example.juliagustafsson.vessel_gui;
 
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -10,11 +11,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import RESTServices.MessageBrokerQueue;
+import RESTServices.PortCDMServices;
 import ServiceEntities.ArrivalLocation;
 import ServiceEntities.DepartureLocation;
+import ServiceEntities.Location;
 import ServiceEntities.LocationState;
 import ServiceEntities.LocationType;
 import ServiceEntities.PortCallMessage;
@@ -30,6 +35,7 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
     private View locationstateView;
     AlertDialog.Builder dialogBuilder;
     private LocationType selectedLocationType;
+    Drawable iconImage;
 
     public TrafficAreaFragmentCS() {
 
@@ -47,10 +53,16 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
             public void onClick(View v) {
                 locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
                 ListView dialogListView = (ListView) locationstateView.findViewById(R.id.checkStatus);
+                TextView title = (TextView) locationstateView.findViewById(R.id.titleView);
+                title.setText("Arrival Traffic Area");
                 selectedLocationType = LocationType.TRAFFIC_AREA;
-                ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType, true);
+                ArrayList<String> positions = locationTypeQueuePositionsToString(selectedLocationType, true);
+                ArrayList<String> times = locationTypeQueueTimesToString(selectedLocationType, true);
+                ArrayList<String> dates = locationTypeQueueDatesToString(selectedLocationType, true);
+                ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, true);
+                iconImage = getResources().getDrawable(R.drawable.ic_buoys);
                 ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, statusStringList);
+                        new CustomAdapterLSU(getActivity(),  R.layout.custom_listview_row_lsu, positions, timeTypes, times, dates, iconImage);
                 dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(locationstateView);
             }
@@ -61,10 +73,16 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
             public void onClick(View v) {
                 locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
                 ListView dialogListView = (ListView) locationstateView.findViewById(R.id.checkStatus);
+                TextView title = (TextView) locationstateView.findViewById(R.id.titleView);
+                title.setText("Departure Traffic Area");
                 selectedLocationType = LocationType.TRAFFIC_AREA;
-                ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType, false);
+                ArrayList<String> positions = locationTypeQueuePositionsToString(selectedLocationType, true);
+                ArrayList<String> times = locationTypeQueueTimesToString(selectedLocationType, true);
+                ArrayList<String> dates = locationTypeQueueDatesToString(selectedLocationType, true);
+                ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, true);
+                iconImage = getResources().getDrawable(R.drawable.ic_buoys);
                 ArrayAdapter<String> itemsAdapter =
-                        new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, statusStringList);
+                        new CustomAdapterLSU(getActivity(),  R.layout.custom_listview_row_lsu, positions, timeTypes, times, dates, iconImage);
                 dialogListView.setAdapter(itemsAdapter);
                 createAlertDialog(locationstateView);
             }
@@ -92,26 +110,32 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
         dialogBuilder.show();
     }
 
-    private ArrayList<String> locationTypeQueueToString(LocationType locationType, boolean isArrival){
+    private ArrayList<String> locationTypeQueuePositionsToString(LocationType locationType, boolean isArrival){
         HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> stringList = new ArrayList<>();
+        ArrayList<String> positions = new ArrayList<>();
+
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
             actualQueue.pollQueue();
+
+            //hämtar befintlig kö och lagrar som pcmList
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
+            //läser igenom alla PCMer och lagrar som strings
             for (PortCallMessage pcm : pcmList) {
                 LocationState locationState = pcm.getLocationState();
                 if(locationState != null){
                     if(isArrival) {
                         ArrivalLocation arrivalLocation = locationState.getArrivalLocation();
                         if(arrivalLocation != null) {
-                            stringList.add(pcm.toString());
+                            Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
+                            positions.add(tempLoc.getName());
                         }
                     } else {
                         DepartureLocation departureLocation = locationState.getDepartureLocation();
                         if(departureLocation != null) {
-                            stringList.add(pcm.toString());
+                            Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
+                            positions.add(tempLoc.getName());
                         }
                     }
                 }
@@ -120,7 +144,118 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
             Log.e("CheckStatus-locType", e.toString());
             //TODO Visa felmeddelande för användaren.
         }
-        return stringList;
+
+        return reverse(positions);
+    }
+    private ArrayList<String> locationTypeQueueTimesToString(LocationType locationType, boolean isArrival){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        ArrayList<String> times = new ArrayList<>();
+
+        try {
+            MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
+            actualQueue.pollQueue();
+
+            //hämtar befintlig kö och lagrar som pcmList
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            //läser igenom alla PCMer och lagrar som strings
+            for (PortCallMessage pcm : pcmList) {
+                LocationState locationState = pcm.getLocationState();
+                if(locationState != null){
+                    if(isArrival) {
+                        ArrivalLocation arrivalLocation = locationState.getArrivalLocation();
+                        if(arrivalLocation != null) {
+                            times.add(PortCDMServices.stringToTime(pcm.getTime()));
+                        }
+                    } else {
+                        DepartureLocation departureLocation = locationState.getDepartureLocation();
+                        if(departureLocation != null) {
+                            times.add(PortCDMServices.stringToTime(pcm.getTime()));
+                        }
+                    }
+                }
+            }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-locType", e.toString());
+            //TODO Visa felmeddelande för användaren.
+        }
+        return reverse(times);
+    }
+    private ArrayList<String> locationTypeQueueDatesToString(LocationType locationType, boolean isArrival){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        ArrayList<String> dates = new ArrayList<>();
+
+        try {
+            MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
+            actualQueue.pollQueue();
+
+            //hämtar befintlig kö och lagrar som pcmList
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            //läser igenom alla PCMer och lagrar som strings
+            for (PortCallMessage pcm : pcmList) {
+                LocationState locationState = pcm.getLocationState();
+                if(locationState != null){
+                    if(isArrival) {
+                        ArrivalLocation arrivalLocation = locationState.getArrivalLocation();
+                        if(arrivalLocation != null) {
+                            dates.add(PortCDMServices.stringToDate(pcm.getTime()));
+                        }
+                    } else {
+                        DepartureLocation departureLocation = locationState.getDepartureLocation();
+                        if(departureLocation != null) {
+                            dates.add(PortCDMServices.stringToDate(pcm.getTime()));                        }
+                    }
+                }
+            }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-locType", e.toString());
+            //TODO Visa felmeddelande för användaren.
+        }
+        return reverse(dates);
+    }
+    private ArrayList<String> locationTypeQueueTimeTypesToString(LocationType locationType, boolean isArrival){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        ArrayList<String> timeTypes = new ArrayList<>();
+
+        try {
+            MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
+            actualQueue.pollQueue();
+
+            //hämtar befintlig kö och lagrar som pcmList
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            //läser igenom alla PCMer och lagrar som strings
+            for (PortCallMessage pcm : pcmList) {
+                LocationState locationState = pcm.getLocationState();
+                if(locationState != null){
+                    if(isArrival) {
+                        ArrivalLocation arrivalLocation = locationState.getArrivalLocation();
+                        if(arrivalLocation != null) {
+                            timeTypes.add(pcm.getTimeType());
+                        }
+                    } else {
+                        DepartureLocation departureLocation = locationState.getDepartureLocation();
+                        if(departureLocation != null) {
+                            timeTypes.add(pcm.getTimeType());
+                        }
+                    }
+                }
+            }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-locType", e.toString());
+            //TODO Visa felmeddelande för användaren.
+        }
+        return reverse(timeTypes);
+    }
+
+    public ArrayList<String> reverse(ArrayList<String> list) {
+        if(list.size() > 1) {
+            String value = list.remove(0);
+            reverse(list);
+            list.add(value);
+        }
+        return list;
     }
 
 }

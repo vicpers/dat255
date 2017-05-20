@@ -25,7 +25,9 @@ import ServiceEntities.PortCallMessage;
 
 
 /**
- * Main Activity for the application. It provides a menu for the user and displays an image of the active Vessel.
+ * Main Activity for the application. It provides a menu for the user and displays some information
+ * of the active Vessel. From here the Vessel Captain can launch various Activities or change
+ * VesselID if required.
  */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

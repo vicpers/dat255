@@ -7,12 +7,17 @@ import org.json.JSONObject;
 
 /**
  * Created by maxedman on 2017-04-21.
+ * A Class representing an DepartureLocation which is a part of a PortCall Message.
  */
 
 public class DepartureLocation {
     private Location to;
     private Location from;
 
+    /**
+     * Creates a DepartureLocation from a JSONObject
+     * @param depLocJsonObj
+     */
     public DepartureLocation(JSONObject depLocJsonObj){
         if (depLocJsonObj != null) {
 
@@ -35,6 +40,11 @@ public class DepartureLocation {
         }
     }
 
+    /**
+     * Creates a DepartureLocation from two locations.
+     * @param from
+     * @param to
+     */
     public DepartureLocation(Location from, Location to){
         this.from = from;
         this.to = to;
@@ -48,6 +58,9 @@ public class DepartureLocation {
             return from.toString();
     }
 
+    /**
+     * @return a String with an XML-representation of the class.
+     */
     public String toXml() {
         String xmlStr = "";
         if (to != null)
@@ -57,12 +70,18 @@ public class DepartureLocation {
         return xmlStr;
     }
 
+    /**
+     * @return a String with the operation type. Looks into both locations.
+     */
     public String getOperationType(){
         if (to != null)
         return to.getOperationType();
         else return from.getOperationType();
     }
 
+    /**
+     * @return a String with the locationMRN. Looks into both locations. 
+     */
     public String getLocationMRN(){
         if (to != null)
             return to.getLocationMRN();

@@ -2,6 +2,7 @@ package ServiceEntities;
 
 /**
  * Created by maxedman on 2017-04-21.
+ * A bunch of constants required for building objects in JSON.
  */
 
 public class Constants_jsonParsing {

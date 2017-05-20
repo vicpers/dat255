@@ -28,11 +28,10 @@ import static RESTServices.PortCDMServices.getActualPortData;
 import static RESTServices.PortCDMServices.getStateDefinitions;
 
 /**
- * Created by juliagustafsson on 2017-04-26.
  * A class for calculations regarding User information. By communicating with UserLocalStorage,
  * data is saved even if the Application is closed. It creates all MessageBrokerQueues needed
  * and by launching a Thread, the class continuously searches for new incoming PortCall Messages.
- * When a new one is identified, a notification is sent.
+ * When a new PortCall Message is identified, a notification is sent.
  */
 
 public class User implements Runnable, Serializable{

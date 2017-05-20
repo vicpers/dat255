@@ -6,13 +6,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by maxedman on 2017-04-21.
+ * A Class representing an ArrivalLocation which is a part of a PortCall Message.
  */
 
 public class ArrivalLocation {
     private Location to;
     private Location from;
 
+    /**
+     * Creates an ArrivalLocation from a JSONObject
+     * @param arrLocJsonObj
+     */
     public ArrivalLocation(JSONObject arrLocJsonObj){
         if (arrLocJsonObj != null) {
 
@@ -34,6 +38,11 @@ public class ArrivalLocation {
         }
     }
 
+    /**
+     * Creates an ArrivalLocation from two Locations
+     * @param from
+     * @param to
+     */
     public ArrivalLocation(Location from, Location to){
         this.to = to;
         this.from = from;
@@ -47,6 +56,9 @@ public class ArrivalLocation {
             return from.toString();
     }
 
+    /**
+     * @return a String with an XML-representation of the class
+     */
     public String toXml() {
         String xmlStr = "";
         if (to != null)
@@ -56,6 +68,9 @@ public class ArrivalLocation {
         return xmlStr;
     }
 
+    /**
+     * @return a String with OperationType. Looks into both Locations.
+     */
     public String getOperationType(){
         if (to != null)
             return to.getOperationType();
@@ -64,6 +79,9 @@ public class ArrivalLocation {
         return null;
     }
 
+    /**
+     * @return Returns the locationMRN. Looks into both Locations.
+     */
     public String getLocationMRN(){
         if (to != null)
             return to.getLocationMRN();

@@ -15,9 +15,9 @@ import ServiceEntities.Vessel;
 
 
 /**
- * Created by juliagustafsson on 2017-04-26.
- * A class which stores information of the User logged in. By saving to SharedPreferences and using static methods,
- * the data is easily accessed from all activities and classes.
+ * A class which stores information of the User logged in. By saving to SharedPreferences and using
+ * static methods, the data is easily accessed from all activities and classes. Some objects are
+ * exported to JSONs using GSON since SharedPreferences only accepts simple data structures.
  */
 
 public class UserLocalStorage implements Serializable{

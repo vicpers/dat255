@@ -25,11 +25,8 @@ import ServiceEntities.ServiceObject;
 public class OtherFragmentCS extends android.app.Fragment implements View.OnClickListener {
 
     private View serviceStateView;
-    private View locationstateView;
     private ServiceObject currentServiceObject;
     AlertDialog.Builder dialogBuilder;
-    private LocationType selectedAtLocation;
-    private LocationType selectedLocationType;
 
     public OtherFragmentCS() {
 
@@ -47,7 +44,7 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
             @Override
             public void onClick(View v) {
                 serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.statusView);
+                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
                 currentServiceObject = ServiceObject.ICEBREAKING_OPERATION;
                 ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
                 ArrayAdapter<String> itemsAdapter =
@@ -61,8 +58,7 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
             @Override
             public void onClick(View v) {
                 serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.statusView);
-                selectedAtLocation = LocationType.BERTH;
+                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
                 currentServiceObject = ServiceObject.CARGO_OPERATION;
                 ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
                 ArrayAdapter<String> itemsAdapter =
@@ -77,8 +73,7 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
             @Override
             public void onClick(View v) {
                 serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.statusView);
-                selectedAtLocation = LocationType.BERTH;
+                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
                 currentServiceObject = ServiceObject.BUNKERING_OPERATION;
                 ArrayList<String> statusStringList = serviceObjectQueueToString(currentServiceObject);
                 ArrayAdapter<String> itemsAdapter =

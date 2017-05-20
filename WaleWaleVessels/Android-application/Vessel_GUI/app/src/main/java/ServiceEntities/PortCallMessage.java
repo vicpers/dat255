@@ -22,8 +22,8 @@ public class PortCallMessage {
     private String messageId;
     private String groupWith;
     private String reportedAt; //TODO Convert to a DateTime format.
-    private String reportedBy;
-    private String comment;
+    private String reportedBy = "VesselTestMaxMattias";
+    private String comment = "VesselTestMaxMattias";
     private String messageOperation;
     private LocationState locationState;
     private ServiceState serviceState;
@@ -315,12 +315,14 @@ public class PortCallMessage {
             return null;
         }
     }
+
     public String getTimeType(){
         if(isServiceState()){
             return getServiceState().getTimeType();
         }
         else return getLocationState().getTimeType().getText();
     }
+
     public boolean isServiceState(){
         ServiceState serviceState = getServiceState();
         if (!(serviceState == null)) {
@@ -329,16 +331,25 @@ public class PortCallMessage {
             return false;
         }
     }
+
     public String getPerformingActor(){
         if(isServiceState()){
             return serviceState.getPerformingActor();
         }
         else return getLocationState().getReferenceObject().getText();
     }
+
     public String getTime(){
         if(isServiceState()){
             return getServiceState().getTime();
         }
         else return getLocationState().getTime();
+    }
+
+    public String getLocationMRN(){
+        if(isServiceState()){
+            return getServiceState().getLocationMRN();
+        }
+        else return getLocationState().getLocationMRN();
     }
 }

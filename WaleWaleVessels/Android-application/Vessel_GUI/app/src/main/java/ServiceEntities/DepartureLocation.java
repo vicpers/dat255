@@ -56,9 +56,18 @@ public class DepartureLocation {
             xmlStr += "<ns2:from>" + from.toXml() + "</ns2:from>";
         return xmlStr;
     }
+
     public String getOperationType(){
         if (to != null)
         return to.getOperationType();
         else return from.getOperationType();
+    }
+
+    public String getLocationMRN(){
+        if (to != null)
+            return to.getLocationMRN();
+        if (from != null)
+            return from.getLocationMRN();
+        return null;
     }
 }

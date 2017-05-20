@@ -16,6 +16,8 @@ import ServiceEntities.Vessel;
 
 /**
  * Created by juliagustafsson on 2017-04-26.
+ * A class which stores information of the User logged in. By saving to SharedPreferences and using static methods,
+ * the data is easily accessed from all activities and classes.
  */
 
 public class UserLocalStorage implements Serializable{
@@ -23,25 +25,43 @@ public class UserLocalStorage implements Serializable{
     public static final String SP_NAME = "userDetails";
     static SharedPreferences userLocalDatabase;
 
+    /**
+     * Creates a UserLocalStorage
+     */
     public UserLocalStorage(){}
 
+    /** Creates a UserLocalStorage
+     * @param context Context of the activity launching
+     */
     public UserLocalStorage(Context context) {
         if (userLocalDatabase == null)
             userLocalDatabase = context.getSharedPreferences(SP_NAME, 0);
     }
 
+    /**
+     * Removes all saved data about the user
+     */
     public static void clearUserData () {
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        spEditor.putString("messageMap", "");
         spEditor.clear();
         spEditor.commit();
     }
 
+    /**
+     * Sets the user logged in
+     * @param loggedIn boolean saying if User is logged in or not
+     */
     public static void setUserLoggedIn (boolean loggedIn) {
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
         spEditor.putBoolean("Logged In", loggedIn);
         spEditor.commit();
     }
 
+    /**
+     * Store the Vessel of the logged in User
+     * @param vessel The user Vessel
+     */
     public static void setVessel(Vessel vessel){
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
         Gson gson = new Gson();
@@ -50,6 +70,9 @@ public class UserLocalStorage implements Serializable{
         spEditor.commit();
     }
 
+    /**
+     * @return the stored user Vessel
+     */
     public static Vessel getVessel(){
         Gson gson = new Gson();
         String storedVesselString = userLocalDatabase.getString("vessel", null);
@@ -57,10 +80,17 @@ public class UserLocalStorage implements Serializable{
         return gson.fromJson(storedVesselString, type);
     }
 
+    /**
+     * @return True if a user is logged in and False if not.
+     */
     public static boolean getUserLoggedIn () {
         return userLocalDatabase.getBoolean("Logged In", false);
     }
 
+    /**
+     * A method to receive a HashMap with String as key and MessageBrokerQueue as value.
+     * @return a HashMap with all PortCallMessages received since user logged in.
+     */
     public static HashMap<String, MessageBrokerQueue> getMessageBrokerMap() {
         Gson gson = new Gson();
         String storedHashMapString = userLocalDatabase.getString("messageMap", null);
@@ -68,6 +98,9 @@ public class UserLocalStorage implements Serializable{
         return gson.fromJson(storedHashMapString, type);
     }
 
+    /**
+     * @param hashMap The HashMap to be saved containing the User's MessageBrokerQueue's.
+     */
     public static void setMessageBrokerMap(HashMap<String, MessageBrokerQueue> hashMap){
         Gson gson = new Gson();
         String hashMapString = gson.toJson(hashMap);
@@ -76,12 +109,18 @@ public class UserLocalStorage implements Serializable{
         spEditor.commit();
     }
 
+    /** Saves the users PortCallID
+     * @param portCallID a string with the users PortCallID
+     */
     public static void setPortCallID(String portCallID){
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
         spEditor.putString("PortCallID", portCallID);
         spEditor.commit();
     }
 
+    /**
+     * @return a String with the users PortCallID
+     */
     public static String getPortCallID(){
         return userLocalDatabase.getString("PortCallID", null);
     }

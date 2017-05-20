@@ -63,4 +63,18 @@ public class Between {
             xmlStr += "<ns2:from>" + from.toXml() + "</ns2:from>";
         return xmlStr;
     }
+
+    public String getLocationMRN(){
+        if (from != null && to != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(from.getLocationMRN());
+            sb.append("/");
+            sb.append(to.getLocationMRN());
+        } else if (to != null) {
+            return to.getLocationMRN();
+        } else if (from != null) {
+            return from.getLocationMRN();
+        }
+        return null;
+    }
 }

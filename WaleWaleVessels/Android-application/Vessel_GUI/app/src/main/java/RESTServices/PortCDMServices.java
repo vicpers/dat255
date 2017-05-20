@@ -6,6 +6,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
@@ -20,8 +23,21 @@ import ServiceEntities.ServiceTimeSequence;
 import ServiceEntities.ServiceType;
 import ServiceEntities.Vessel;
 
-import static RESTServices.Constants_API.*;
-import static ServiceEntities.Constants_jsonParsing.*;
+import static RESTServices.Constants_API.API_DEV_BASE_URL;
+import static RESTServices.Constants_API.API_DEV_KEY1;
+import static RESTServices.Constants_API.API_DEV_PASSWORD;
+import static RESTServices.Constants_API.API_DEV_PORT1;
+import static RESTServices.Constants_API.API_DEV_USERNAME;
+import static RESTServices.Constants_API.API_HEADER_ACCEPT;
+import static RESTServices.Constants_API.API_HEADER_ACCEPT_JSON;
+import static RESTServices.Constants_API.API_HEADER_API_KEY;
+import static RESTServices.Constants_API.API_HEADER_PASSWORD;
+import static RESTServices.Constants_API.API_HEADER_USER_ID;
+import static RESTServices.Constants_API.API_SERVICE_FIND_LOCATIONS;
+import static RESTServices.Constants_API.API_SERVICE_GET_STATE_DEFINITIONS;
+import static RESTServices.Constants_API.API_SERVICE_GET_VESSEL;
+import static ServiceEntities.Constants_jsonParsing.TAG_STATE_DEFINITION_LOCATION;
+import static ServiceEntities.Constants_jsonParsing.TAG_STATE_DEFINITION_SERVICE;
 
 
 /**
@@ -232,5 +248,43 @@ public class PortCDMServices {
 
     public static Location getLocation(String locationMrn){
         return locationRegistry.get(locationMrn);
+    }
+
+    public static String stringToDate(String dateString){
+
+        // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        // which PortCDM requires.
+        SimpleDateFormat dateInput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        SimpleDateFormat dateOutput = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        String formattedTime = "";
+        try {
+            date = dateInput.parse(dateString);
+            formattedTime = dateOutput.format(date);
+        } catch (ParseException e1) {
+            Log.e("DateProblem Parsing", e1.toString());
+        } catch (NullPointerException e2){
+            Log.e("DateProblem Null", e2.toString());
+        }
+        return formattedTime;
+    }
+
+    public static String stringToTime(String dateString){
+
+        // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        // which PortCDM requires.
+        SimpleDateFormat dateInput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        SimpleDateFormat dateOutput = new SimpleDateFormat("HH:mm");
+        Date date = null;
+        String formattedTime = "";
+        try {
+            date = dateInput.parse(dateString);
+            formattedTime = dateOutput.format(date);
+        } catch (ParseException e1) {
+            Log.e("DateProblem Parsing", e1.toString());
+        } catch (NullPointerException e2){
+            Log.e("DateProblem Null", e2.toString());
+        }
+        return formattedTime;
     }
 }

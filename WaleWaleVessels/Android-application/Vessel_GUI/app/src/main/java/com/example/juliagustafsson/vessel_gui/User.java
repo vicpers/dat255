@@ -9,6 +9,7 @@ import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.util.NoSuchPropertyException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -34,7 +35,7 @@ import static RESTServices.PortCDMServices.getStateDefinitions;
  * When a new one is identified, a notification is sent.
  */
 
-public class User implements Runnable{
+public class User implements Runnable, Serializable{
 
     private Vessel vessel = null;
     private Context context;

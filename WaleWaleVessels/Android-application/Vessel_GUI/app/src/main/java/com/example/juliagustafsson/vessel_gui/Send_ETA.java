@@ -37,6 +37,9 @@ import ServiceEntities.ReferenceObject;
 import ServiceEntities.TimeType;
 
 
+/**
+ * Activity for sending new ETA. The User gets to specify which location, time and date and a PortCallMessage is then sent.
+ */
 public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
     private EditText dateEditText;
     private EditText timeEditText;
@@ -113,6 +116,9 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
 
     }
 
+    /**
+     * Sets the content in the second Spinner based on the choice of the first spinner
+     */
     private void setPortLocationSpinnerContent() {
         portLocMap = PortCDMServices.getPortLocations(LocationType.fromString(selectedRecipant));
         ArrayList<String> portLocations = new ArrayList<>();
@@ -134,6 +140,9 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         });
     }
 
+    /** Shows the DatePickerDialog and TimePickerDialog when the EditTexts are clicked
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         if (v==dateEditText){
@@ -144,6 +153,9 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
+    /** Sends the actual PortCall Message. Is activated when Send-button is pushed.
+     * @param v
+     */
     public void sendNewETA(View v) {
 
         TextView etaResultView = (TextView) findViewById(R.id.etaConfirmView);

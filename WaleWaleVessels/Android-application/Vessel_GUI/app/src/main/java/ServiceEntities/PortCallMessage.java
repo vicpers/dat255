@@ -11,6 +11,7 @@ import RESTServices.PortCDMServices;
 
 /**
  * Created by maxedman on 2017-04-21.
+ * A class representing a PortCall Message with all its traits.
  */
 
 public class PortCallMessage {
@@ -28,6 +29,9 @@ public class PortCallMessage {
     private LocationState locationState;
     private ServiceState serviceState;
 
+    /**Create a PortCall Message from a JSON
+     * @param pcmJsonObj JSON representing a PortCall Message
+     */
     public PortCallMessage(JSONObject pcmJsonObj) {
         if (pcmJsonObj != null) {
             try {
@@ -83,6 +87,13 @@ public class PortCallMessage {
         }
     }
 
+    /**
+     * Create a PortCall Message
+     * @param vesselId String with VesselID
+     * @param messageId String with the MessageID
+     * @param reportedBy String saying who is the sender of the PortCall Message
+     * @param locationState LocationState associated with the PortCall Message
+     */
     public PortCallMessage(String vesselId, String messageId, String reportedBy, LocationState locationState) {
         this.vessel = PortCDMServices.getVessel(vesselId);
         this.messageId = messageId;
@@ -109,8 +120,11 @@ public class PortCallMessage {
     }
 
     /**
-     * Lekt och lattjat lite för att få en pcmkonstruktur för att skicka service states.
-     * Bra lekt och lattjat.
+     * Create a PortCall Message with a Service State
+     * @param vesselId
+     * @param messageId
+     * @param reportedBy
+     * @param serviceState
      */
     public PortCallMessage(String vesselId, String messageId, String reportedBy, ServiceState serviceState) {
         this.vessel = PortCDMServices.getVessel(vesselId);
@@ -137,6 +151,21 @@ public class PortCallMessage {
         this.serviceState = serviceState;
     }
 
+    /**
+     * Creates a PortCallMessage with all its variables.
+     * @param portCallId
+     * @param localPortCallId
+     * @param localJobId
+     * @param vesselId
+     * @param messageId
+     * @param groupWith
+     * @param reportedAt
+     * @param reportedBy
+     * @param comment
+     * @param messageOperation
+     * @param locationState
+     * @param serviceState
+     */
     public PortCallMessage(String portCallId, String localPortCallId, String localJobId,
                            String vesselId, String messageId, String groupWith, String reportedAt,
                            String reportedBy, String comment, String messageOperation,
@@ -157,98 +186,170 @@ public class PortCallMessage {
 
     }
 
+    /**
+     * @return a String with the PortCallID
+     */
     public String getPortCallId() {
         return portCallId;
     }
 
+    /**
+     * @param portCallId A String with the PortCallID.
+     */
     public void setPortCallId(String portCallId) {
         this.portCallId = portCallId;
     }
 
+    /**
+     * @return A string with the local PortCallID
+     */
     public String getLocalPortCallId() {
         return localPortCallId;
     }
 
+    /**
+     * @param localPortCallId String with local PortCallID
+     */
     public void setLocalPortCallId(String localPortCallId) {
         this.localPortCallId = localPortCallId;
     }
 
+    /**
+     * @return String with Local Job ID
+     */
     public String getLocalJobId() {
         return localJobId;
     }
 
+    /**
+     * @param localJobId String with Local Job ID
+     */
     public void setLocalJobId(String localJobId) {
         this.localJobId = localJobId;
     }
 
+    /**
+     * @return Vessel tied to the PortCallMessage
+     */
     public Vessel getVessel() {
         return vessel;
     }
 
+    /**
+     * @param vessel Vessel tied to the PortCallMessage
+     */
     public void setVessel(Vessel vessel) {
         this.vessel = vessel;
     }
 
+    /**
+     * @return String with the ID of the PortCallMessage
+     */
     public String getMessageId() {
         return messageId;
     }
 
+    /**
+     * @param messageId String with the ID of the PortCallMessage
+     */
     public void setMessageId(String messageId) {
         this.messageId = messageId;
     }
 
+    /**
+     *  //TODO kommentera detta
+     */
     public String getGroupWith() {
         return groupWith;
     }
 
+    /**
+     * @param groupWith //TODO kommentera detta
+     */
     public void setGroupWith(String groupWith) {
         this.groupWith = groupWith;
     }
 
+    /**
+     * @return The timestamp of the PortCallMessage
+     */
     public String getReportedAt() {
         return reportedAt;
     }
 
+    /**
+     * @param reportedAt The timestamp of the PortCallMessage
+     */
     public void setReportedAt(String reportedAt) {
         this.reportedAt = reportedAt;
     }
 
+    /**
+     * @return A String containing the sender of the PortCallMessage
+     */
     public String getReportedBy() {
         return reportedBy;
     }
 
+    /**
+     * @param reportedBy A String containing the sender of the PortCallMessage
+     */
     public void setReportedBy(String reportedBy) {
         this.reportedBy = reportedBy;
     }
 
+    /**
+     * @return An optional String with comment if necessary.
+     */
     public String getComment() {
         return comment;
     }
 
+    /**
+     * @param comment An optional String with comment if necessary.
+     */
     public void setComment(String comment) {
         this.comment = comment;
     }
 
+    /**
+     * @return A String with the operation of the PortCall Message
+     */
     public String getMessageOperation() {
         return messageOperation;
     }
 
+    /**
+     * @param messageOperation A String with the operation of the PortCall Message
+     */
     public void setMessageOperation(String messageOperation) {
         this.messageOperation = messageOperation;
     }
 
+    /**
+     * @return LocationState if the PortCallMessage contains a LocationState, otherwise null.
+     */
     public LocationState getLocationState() {
         return locationState;
     }
 
+    /**
+     * @param locationState The LocationState if the PortCallMessage should contain one.
+     */
     public void setLocationState(LocationState locationState) {
         this.locationState = locationState;
     }
 
+    /**
+     * @return ServiceState if the PortCallMessage contains one, otherwise null.
+     */
     public ServiceState getServiceState() {
         return serviceState;
     }
 
+    /**
+     * @param serviceState The ServiceState if the PortCallMessage should contain one.
+     */
     public void setServiceState(ServiceState serviceState) {
         this.serviceState = serviceState;
     }
@@ -268,6 +369,9 @@ public class PortCallMessage {
         return returnString;
     }
 
+    /**
+     * @return A String with an XML representation of the object.
+     */
     public String toXml() {
         String xmlStr = "";
         if ((portCallId != null) && (!portCallId.equals("")) && (!portCallId.equals("null")))
@@ -298,6 +402,9 @@ public class PortCallMessage {
         return xmlStr;
     }
 
+    /**
+     * @return String containing OperationType of the PortCallMessage
+     */
     public String getOperationType() {
         ServiceState serviceState = getServiceState();
         if (!(serviceState == null)) {
@@ -307,6 +414,9 @@ public class PortCallMessage {
         }
     }
 
+    /**
+     * @return String containing TimeSequence
+     */
     public String getTimeSequence() {
         ServiceState serviceState = getServiceState();
         if (!(serviceState == null)) {
@@ -316,6 +426,9 @@ public class PortCallMessage {
         }
     }
 
+    /**
+     * @return String containing TimeType
+     */
     public String getTimeType(){
         if(isServiceState()){
             return getServiceState().getTimeType();
@@ -323,6 +436,9 @@ public class PortCallMessage {
         else return getLocationState().getTimeType().getText();
     }
 
+    /**
+     * @return boolean saying if the PortCallMessage contains a ServiceState or a LocationState
+     */
     public boolean isServiceState(){
         ServiceState serviceState = getServiceState();
         if (!(serviceState == null)) {
@@ -332,6 +448,9 @@ public class PortCallMessage {
         }
     }
 
+    /**
+     * @return String containing the Performing Actor of the PortCall Message
+     */
     public String getPerformingActor(){
         if(isServiceState()){
             return serviceState.getPerformingActor();
@@ -339,6 +458,9 @@ public class PortCallMessage {
         else return getLocationState().getReferenceObject().getText();
     }
 
+    /**
+     * @return String with the timeStamp of the PortCall Message
+     */
     public String getTime(){
         if(isServiceState()){
             return getServiceState().getTime();
@@ -346,6 +468,9 @@ public class PortCallMessage {
         else return getLocationState().getTime();
     }
 
+    /**
+     * @return String with the LocationMRN of the PortCall Message
+     */
     public String getLocationMRN(){
         if(isServiceState()){
             return getServiceState().getLocationMRN();

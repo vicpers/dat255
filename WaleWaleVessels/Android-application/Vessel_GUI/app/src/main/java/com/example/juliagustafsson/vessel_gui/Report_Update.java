@@ -52,6 +52,7 @@ import static RESTServices.PortCDMServices.getServiceType;
 
 /**
  * Created by MattiasLundell on 2017-05-03.
+ * Activity for reporting other updates than ETAs to PortCDM.
  */
 
 public class Report_Update extends AppCompatActivity implements View.OnClickListener {

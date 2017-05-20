@@ -36,6 +36,7 @@ public class PortCDMServices {
     private static HashMap<ServiceObject, ServiceType> serviceStateType = new HashMap<>();
 
     private static HashMap<LocationType, HashMap<String, Location>> portData;
+    private static HashMap<String, Location> locationRegistry;
 
 
     /**
@@ -198,6 +199,7 @@ public class PortCDMServices {
                 try {
                     JSONObject portLocObj = jsonArr.getJSONObject(i);
                     Location portLocation = new Location(portLocObj);
+                    locationRegistry.put(portLocation.getLocationMRN(), portLocation);
 
                     HashMap<String, Location> tempPortLocMap = portData.get(portLocation.getType());
                     if (tempPortLocMap == null) {
@@ -225,7 +227,10 @@ public class PortCDMServices {
      * @return Hashmap or null if LocationType is not found.
      */
     public static HashMap<String, Location> getPortLocations(LocationType locationType){
-
         return portData.get(locationType);
+    }
+
+    public static Location getLocation(String locationMrn){
+        return locationRegistry.get(locationMrn);
     }
 }

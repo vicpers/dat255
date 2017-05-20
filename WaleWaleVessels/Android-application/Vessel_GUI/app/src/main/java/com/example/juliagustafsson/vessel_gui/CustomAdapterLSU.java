@@ -1,7 +1,6 @@
 package com.example.juliagustafsson.vessel_gui;
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,7 @@ class CustomAdapterLSU extends ArrayAdapter<String> {
     String[] dates;
 
     CustomAdapterLSU(Context context, ArrayList<ArrayList<String>> lists ) {
-        super(context, R.layout.custom_listview_row_LSU, lists);
+        super(context, R.layout.custom_listview_row_lsu, lists);
         this.context = context;
         this.serviceTimeSequences = lists[0];
         this.positions = lists[1]
@@ -35,7 +34,7 @@ class CustomAdapterLSU extends ArrayAdapter<String> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater lsuInflator = LayoutInflater.from(getContext());
-        View row = lsuInflator.inflate(R.layout.custom_listview_row_LSU, parent, false);
+        View row = lsuInflator.inflate(R.layout.custom_listview_row_lsu, parent, false);
 
         TextView serviceTimeSequence = (TextView) row.findViewById(R.id.serviceTimeSequence);
         TextView position = (TextView) row.findViewById(R.id.position);

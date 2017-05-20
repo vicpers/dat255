@@ -36,7 +36,7 @@ public class PortCDMServices {
     private static HashMap<ServiceObject, ServiceType> serviceStateType = new HashMap<>();
 
     private static HashMap<LocationType, HashMap<String, Location>> portData;
-    private static HashMap<String, Location> locationRegistry;
+    private static HashMap<String, Location> locationRegistry = new HashMap<>();
 
 
     /**

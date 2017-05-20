@@ -90,6 +90,18 @@ public class MooringFragmentCS extends android.app.Fragment implements View.OnCl
                 createAlertDialog(serviceStateView);
             }
         });
+        Bundle bundle = getArguments();
+        if(bundle != null) {
+            if(bundle.containsKey("notification")) {
+                String notification = bundle.getString("notification");
+                if (notification.equals("Departure from mooring operation")) {
+                    depMooring.performClick();
+                }
+                else if (notification.equals("Arrival to mooring operation")) {
+                    arrivalMooring.performClick();
+                }
+            }
+        }
 
         return rootView;
     }

@@ -88,6 +88,19 @@ public class TowageFragmentCS extends android.app.Fragment implements View.OnCli
             dialogListView.setAdapter(itemsAdapter);
             createAlertDialog(serviceStateView);}
         });
+
+        Bundle bundle = getArguments();
+        if(bundle != null) {
+            if(bundle.containsKey("notification")) {
+                String notification = bundle.getString("notification");
+                if (notification.equals("Towage")) {
+                    towage.performClick();
+                }
+                else if (notification.equals("Escort towage")) {
+                    escortTowage.performClick();
+                }
+            }
+        }
         return rootView;
     }
 

@@ -162,7 +162,27 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 createAlertDialog(locationstateView);
             }
         });
-
+        Bundle bundle = getArguments();
+        if(bundle != null) {
+            if(bundle.containsKey("notification")) {
+                String notification = bundle.getString("notification");
+                if (notification.equals("Anchoring")) {
+                    anchoring.performClick();
+                }
+                else if (notification.equals("Arrival to anchoring operation")) {
+                    arrivalAnchoringOp.performClick();
+                }
+                else if (notification.equals("Departure from anchoring operation")){
+                    departureAnchoringOp.performClick();
+                }
+                else if (notification.equals("Anchoring Area Arrival")){
+                    arrivalAnchoring.performClick();
+                }
+                else if (notification.equals("Anchoring Area Departure")){
+                    departureAnchoring.performClick();
+                }
+            }
+        }
         return rootView;
     }
 

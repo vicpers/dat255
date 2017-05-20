@@ -150,10 +150,13 @@ public class LocationState {
      * @return a String with the OperationType of the LocationState.
      */
     public String getOperationType() {
+        String operationType;
         if (arrivalLocation != null) {
-            return arrivalLocation.getOperationType();
+            operationType = arrivalLocation.getOperationType();
+            return operationType + " Arrival" ;
         } else if (departureLocation != null) {
-            return departureLocation.getOperationType();
+            operationType =  departureLocation.getOperationType();
+            return operationType + " Departure";
         }
         return null;
 

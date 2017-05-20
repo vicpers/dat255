@@ -117,6 +117,22 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
 
         });
 
+        Bundle bundle = getArguments();
+        if(bundle != null) {
+            if(bundle.containsKey("notification")) {
+                String notification = bundle.getString("notification");
+                if (notification.equals("Berth Arrival")) {
+                    arrivalBerth.performClick();
+                }
+                else if (notification.equals("Berth Departure")) {
+                    departureBerth.performClick();
+                }
+                else if (notification.equals("Shift of berth")){
+                    berthShift.performClick();
+                }
+            }
+        }
+
         return rootView;
     }
 

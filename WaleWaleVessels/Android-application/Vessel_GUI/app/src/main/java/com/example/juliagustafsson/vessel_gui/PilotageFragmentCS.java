@@ -93,6 +93,19 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
                 createAlertDialog(locationstateView);
             }
         });
+
+        Bundle bundle = getArguments();
+        if(bundle != null) {
+            if(bundle.containsKey("notification")) {
+                String notification = bundle.getString("notification");
+                if (notification.equals("Pilotage")) {
+                    pilotage.performClick();
+                }
+                else if (notification.equals("Pilot Boarding Area Arrival")) {
+                    pilotageBA.performClick();
+                }
+            }
+        }
         return rootView;
     }
 

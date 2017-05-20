@@ -86,6 +86,18 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
                 createAlertDialog(locationstateView);
             }
         });
+        Bundle bundle = getArguments();
+        if(bundle != null) {
+            if(bundle.containsKey("notification")) {
+                String notification = bundle.getString("notification");
+                if (notification.equals("Traffic Area Arrival")) {
+                    arrivalTrafficA.performClick();
+                }
+                else if (notification.equals("Traffic Area Departure")) {
+                    depTrafficA.performClick();
+                }
+            }
+        }
 
         return rootView;
     }

@@ -383,6 +383,7 @@ public class User implements Runnable{
 
         mBuilder.setContentText("Click to view");
         Intent resultIntent = new Intent(context, CheckStatus.class);
+        resultIntent.putExtra("clickedNotification", pcm.getOperationType());
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(CheckStatus.class);
 

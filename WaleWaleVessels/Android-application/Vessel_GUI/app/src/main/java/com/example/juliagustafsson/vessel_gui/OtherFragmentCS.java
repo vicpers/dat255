@@ -111,6 +111,22 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
                 createAlertDialog(serviceStateView);
             }
         });
+
+        Bundle bundle = getArguments();
+        if(bundle != null) {
+            if(bundle.containsKey("notification")) {
+                String notification = bundle.getString("notification");
+                if (notification.equals("Bunkering operation")) {
+                    bunkeringOp.performClick();
+                }
+                else if (notification.equals("Cargo operation")) {
+                    cargoOp.performClick();
+                }
+                else if (notification.equals("Icebreaking operation")) {
+                    iceBreaking.performClick();
+                }
+            }
+        }
         return rootView;
     }
 

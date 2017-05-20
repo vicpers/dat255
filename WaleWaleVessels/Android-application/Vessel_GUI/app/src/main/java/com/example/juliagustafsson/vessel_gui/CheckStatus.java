@@ -2,15 +2,18 @@ package com.example.juliagustafsson.vessel_gui;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 /**
- * Activity for checking status on various operations. It displays Fragments based on the choice the user.
+ * Activity for checking status on various operations. It displays Fragments based on the choice from
+ * the user.
  */
 
 public class CheckStatus extends AppCompatActivity implements View.OnClickListener {
@@ -47,79 +50,154 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
         TextView vtsArea = (TextView) findViewById(R.id.vtsArea);
         TextView other = (TextView) findViewById(R.id.Other);
 
-                anchoring.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+
+        anchoring.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 frag = new AnchoringFragmentCS();
                 fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
                 fragTransaction.commit();
-                     }
-                });
-
-                berth.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        frag = new BerthFragmentCS();
-                        fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
-                        fragTransaction.commit();
-                    }
-                });
-
-                towage.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        frag = new TowageFragmentCS();
-                        fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
-                        fragTransaction.commit();
-                    }
-                });
-
-                pilotage.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        frag = new PilotageFragmentCS();
-                        fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
-                        fragTransaction.commit();
-                    }
-                });
-
-                mooring.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        frag = new MooringFragmentCS();
-                        fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
-                        fragTransaction.commit();
-                    }
-                });
-
-                other.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        frag = new OtherFragmentCS();
-                        fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
-                        fragTransaction.commit();
-                    }
-                });
-
-                vtsArea.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        frag = new VtsFragmentCS();
-                        fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
-                        fragTransaction.commit();
-                    }
-                });
-
-                trafficArea.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        frag = new TrafficAreaFragmentCS();
-                        fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
-                        fragTransaction.commit();
-                    }
-                });
-
             }
+        });
+
+        berth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                frag = new BerthFragmentCS();
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
+            }
+        });
+
+        towage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                frag = new TowageFragmentCS();
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
+            }
+        });
+
+        pilotage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                frag = new PilotageFragmentCS();
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
+            }
+        });
+
+        mooring.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                frag = new MooringFragmentCS();
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
+            }
+        });
+
+        other.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                frag = new OtherFragmentCS();
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
+            }
+        });
+
+        vtsArea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                frag = new VtsFragmentCS();
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
+            }
+        });
+
+        trafficArea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                frag = new TrafficAreaFragmentCS();
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
+            }
+        });
+
+        Intent intent = getIntent();
+        if (intent.hasExtra("clickedNotification")) {
+            String notification = intent.getStringExtra("clickedNotification");
+            Log.d("hej", notification);
+            if (notification.toLowerCase().contains("anchoring")) {
+                Bundle bundle = new Bundle();
+                bundle.putString("notification", notification);
+                frag = new AnchoringFragmentCS();
+                frag.setArguments(bundle);
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
+            }
+            else if (notification.toLowerCase().contains("berth")) {
+                Bundle bundle = new Bundle();
+                bundle.putString("notification", notification);
+                frag = new BerthFragmentCS();
+                frag.setArguments(bundle);
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
+            }
+            else if (notification.toLowerCase().contains("towage")) {
+                Bundle bundle = new Bundle();
+                bundle.putString("notification", notification);
+                frag = new TowageFragmentCS();
+                frag.setArguments(bundle);
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
+            }
+            else if (notification.toLowerCase().contains("pilot")) {
+                Bundle bundle = new Bundle();
+                bundle.putString("notification", notification);
+                frag = new PilotageFragmentCS();
+                frag.setArguments(bundle);
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
+            }
+            else if (notification.toLowerCase().contains("mooring")) {
+                Bundle bundle = new Bundle();
+                bundle.putString("notification", notification);
+                frag = new MooringFragmentCS();
+                frag.setArguments(bundle);
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
+            }
+            else if (notification.toLowerCase().contains("traffic area")) {
+                Bundle bundle = new Bundle();
+                bundle.putString("notification", notification);
+                frag = new TrafficAreaFragmentCS();
+                frag.setArguments(bundle);
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
+            }
+            else if (notification.toLowerCase().contains("vts-area")) {
+                Bundle bundle = new Bundle();
+                bundle.putString("notification", notification);
+                frag = new VtsFragmentCS();
+                frag.setArguments(bundle);
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
+            }
+            else if (notification.toLowerCase().contains("operation")) {
+                Bundle bundle = new Bundle();
+                bundle.putString("notification", notification);
+                frag = new OtherFragmentCS();
+                frag.setArguments(bundle);
+                fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
+                fragTransaction.commit();
+            }
+
+
+
+
+        }
+    }
+
 }
 
 

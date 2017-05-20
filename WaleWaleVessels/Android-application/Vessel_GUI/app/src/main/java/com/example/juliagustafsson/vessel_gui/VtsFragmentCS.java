@@ -93,6 +93,18 @@ public class VtsFragmentCS extends android.app.Fragment implements View.OnClickL
                 createAlertDialog(serviceStateView);
             }
         });
+        Bundle bundle = getArguments();
+        if(bundle != null) {
+            if(bundle.containsKey("notification")) {
+                String notification = bundle.getString("notification");
+                if (notification.equals("Departure from VTS-area")) {
+                    departureVTS.performClick();
+                }
+                else if (notification.equals("Arrival to VTS-area")) {
+                    arrivalVTS.performClick();
+                }
+            }
+        }
         return rootView;
     }
 

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 /**
  * Created by MattiasLundell on 2017-05-03.
+ * Activity for checking status on various operations. It displays Fragments based on the choice the user.
  */
 
 public class CheckStatus extends AppCompatActivity implements View.OnClickListener {

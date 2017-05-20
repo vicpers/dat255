@@ -38,7 +38,8 @@ import ServiceEntities.TimeType;
 
 
 /**
- * Activity for sending new ETA. The User gets to specify which location, time and date and a PortCallMessage is then sent.
+ * Activity for sending new ETA. The User gets to specify which location, time and date and a
+ * PortCallMessage is then sent.
  */
 public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
     private EditText dateEditText;

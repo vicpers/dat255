@@ -16,6 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+/**
+ * Activity for the Menu on the left. It enables the user to quickly overlook their alternatives and the option to log out.
+ */
 public class LeftMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

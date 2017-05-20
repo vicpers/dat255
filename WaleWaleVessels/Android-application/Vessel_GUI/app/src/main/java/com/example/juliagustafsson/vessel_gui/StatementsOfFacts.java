@@ -15,6 +15,7 @@ import ServiceEntities.TimeType;
 
 /**
  * Created by mattiaslundell on 2017-05-16.
+ * Activity for displaying all PortCallMessages which have the TimeType ACTUAL
  */
 
 public class StatementsOfFacts extends AppCompatActivity {

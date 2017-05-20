@@ -16,35 +16,32 @@ import java.util.ArrayList;
 class CustomAdapterLSU extends ArrayAdapter<String> {
 
     Context context;
-    String[] serviceTimeSequences;
-    String[] positions;
-    String[]times;
-    String[] dates;
+    ArrayList<String> positions;
+    ArrayList<String> times;
+    ArrayList<String> timeTypes;
+    int resource;
 
-    CustomAdapterLSU(Context context, ArrayList<ArrayList<String>> lists ) {
-        super(context, R.layout.custom_listview_row_lsu, lists);
+    CustomAdapterLSU(Context context, int resource, ArrayList<String> positions,ArrayList<String> timeTypes,ArrayList<String> times ) {
+        super(context, resource, positions);
         this.context = context;
-        this.serviceTimeSequences = lists[0];
-        this.positions = lists[1]
-        this.times = lists[2];
-        this.dates = lists[3];
-
+        this.resource = resource;
+        this.positions = positions;
+        this.times = times;
+        this.timeTypes = timeTypes;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater lsuInflator = LayoutInflater.from(getContext());
-        View row = lsuInflator.inflate(R.layout.custom_listview_row_lsu, parent, false);
+        View row = lsuInflator.inflate(resource, parent, false);
 
-        TextView serviceTimeSequence = (TextView) row.findViewById(R.id.serviceTimeSequence);
-        TextView position = (TextView) row.findViewById(R.id.position);
+        TextView pos = (TextView) row.findViewById(R.id.position);
         TextView time = (TextView) row.findViewById(R.id.time);
-        TextView date = (TextView) row.findViewById(R.id.date);
+        TextView timeType = (TextView) row.findViewById(R.id.timeType);
 
-        serviceTimeSequence.setText(serviceTimeSequences[position]);
-        position.setText(positions[position]);
-        time.setText(times[position]);
-        date.setText(dates[position]);
+        pos.setText(positions.get(position));
+        time.setText(times.get(position));
+        timeType.setText(timeTypes.get(position));
         return row;
         }
 }

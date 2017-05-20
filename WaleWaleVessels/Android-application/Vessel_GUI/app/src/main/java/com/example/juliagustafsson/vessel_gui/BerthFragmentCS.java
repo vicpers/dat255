@@ -51,7 +51,7 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
             @Override
             public void onClick(View v) {
                 locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) locationstateView.findViewById(R.id.statusView);
+                ListView dialogListView = (ListView) locationstateView.findViewById(R.id.checkStatus);
                 selectedLocationType = LocationType.BERTH;
                 ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType, true);
                 ArrayAdapter<String> itemsAdapter =
@@ -66,7 +66,7 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
             @Override
             public void onClick(View v) {
                 locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) locationstateView.findViewById(R.id.statusView);
+                ListView dialogListView = (ListView) locationstateView.findViewById(R.id.checkStatus);
                 selectedLocationType = LocationType.BERTH;
                 ArrayList<String> statusStringList = locationTypeQueueToString(selectedLocationType, false);
                 ArrayAdapter<String> itemsAdapter =
@@ -80,7 +80,7 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
             @Override
             public void onClick(View v) {
                 serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
-                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.statusView);
+                ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
                 currentServiceObject = ServiceObject.BERTH_SHIFTING;
                 selectedFromLocation = LocationType.BERTH;
                 selectedtoLocation = LocationType.BERTH;

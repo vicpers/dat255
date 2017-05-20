@@ -29,6 +29,7 @@ import ServiceEntities.ServiceObject;
 
 /**
  * Created by juliagustafsson on 2017-05-15.
+ * Fragment for viewing Anchoring related updates
  */
 
 public class AnchoringFragmentCS extends android.app.Fragment implements View.OnClickListener {

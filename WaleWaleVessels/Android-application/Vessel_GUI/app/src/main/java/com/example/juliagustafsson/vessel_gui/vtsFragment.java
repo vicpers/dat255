@@ -52,7 +52,9 @@ import ServiceEntities.TimeType;
 
 import static RESTServices.PortCDMServices.getServiceType;
 
-//TODO Fixa namnet!!!
+/**
+ * Fragment for reporting VTS related activities
+ */
 public class vtsFragment extends android.app.Fragment implements View.OnClickListener {
     private View serviceStateView;
     private ServiceObject currentServiceObject;

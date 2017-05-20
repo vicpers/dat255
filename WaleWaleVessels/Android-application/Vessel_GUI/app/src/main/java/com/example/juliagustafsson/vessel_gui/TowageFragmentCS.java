@@ -21,6 +21,7 @@ import ServiceEntities.ServiceObject;
 
 /**
  * Created by juliagustafsson on 2017-05-15.
+ * Fragment for viewing Towage related updates
  */
 
 public class TowageFragmentCS extends android.app.Fragment implements View.OnClickListener {

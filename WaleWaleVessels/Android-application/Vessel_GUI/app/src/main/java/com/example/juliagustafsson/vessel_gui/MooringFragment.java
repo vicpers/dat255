@@ -51,6 +51,9 @@ import ServiceEntities.TimeType;
 
 import static RESTServices.PortCDMServices.getServiceType;
 
+/**
+ * Fragment for reporting Mooring related activities
+ */
 public class MooringFragment extends android.app.Fragment implements View.OnClickListener{
     private View serviceStateView;
     private ServiceObject currentServiceObject;

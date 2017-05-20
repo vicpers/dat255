@@ -27,8 +27,8 @@ import ServiceEntities.PortCallMessage;
 
 /**
  * Created by juliagustafsson on 2017-05-15.
+ * Fragment for viewing TrafficArea related updates
  */
-
 public class TrafficAreaFragmentCS extends android.app.Fragment implements View.OnClickListener {
 
     private View locationstateView;

@@ -27,6 +27,7 @@ import ServiceEntities.ServiceObject;
 
 /**
  * Created by juliagustafsson on 2017-05-15.
+ * Fragment for viewing Berth related updates
  */
 
 public class BerthFragmentCS extends android.app.Fragment implements View.OnClickListener {

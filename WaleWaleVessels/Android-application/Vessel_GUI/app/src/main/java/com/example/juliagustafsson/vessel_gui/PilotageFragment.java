@@ -55,7 +55,9 @@ import ServiceEntities.ServiceType;
 import ServiceEntities.TimeType;
 
 import static RESTServices.PortCDMServices.getServiceType;
-
+/**
+ * Fragment for reporting Pilotage related activities
+ */
 public class PilotageFragment extends android.app.Fragment implements View.OnClickListener {
 
     private View serviceStateView;

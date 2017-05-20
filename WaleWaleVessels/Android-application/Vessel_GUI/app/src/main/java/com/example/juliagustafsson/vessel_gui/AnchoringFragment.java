@@ -49,7 +49,9 @@ import ServiceEntities.TimeType;
 import static RESTServices.PortCDMServices.getServiceType;
 
 
-
+/**
+ * Fragment for reporting Anchoring related activities
+ */
 public class AnchoringFragment extends android.app.Fragment implements View.OnClickListener {
 
     private View serviceStateView;

@@ -51,6 +51,9 @@ import ServiceEntities.TimeType;
 
 import static RESTServices.PortCDMServices.getServiceType;
 
+/**
+ * Fragment for reporting TrafficArea related activities
+ */
 public class TrafficAreaFragment extends android.app.Fragment implements View.OnClickListener {
     private View locationstateView;
     private Spinner spinnerTimeType;

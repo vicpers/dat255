@@ -52,6 +52,9 @@ import ServiceEntities.TimeType;
 
 import static RESTServices.PortCDMServices.getServiceType;
 
+/**
+ * Fragment for reporting Berth related activities
+ */
 public class BerthFragment extends android.app.Fragment implements View.OnClickListener {
     private View serviceStateView;
     private View locationstateView;

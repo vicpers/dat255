@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 /**
  * Created by juliagustafsson on 2017-05-20.
+ * Class for making ServiceState-objects presented in a view
  */
 
 class CustomAdapterSSU extends ArrayAdapter<String> {

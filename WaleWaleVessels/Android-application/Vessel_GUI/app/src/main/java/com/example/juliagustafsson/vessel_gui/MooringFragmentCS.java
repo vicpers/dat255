@@ -25,6 +25,7 @@ import ServiceEntities.ServiceObject;
 
 /**
  * Created by juliagustafsson on 2017-05-15.
+ * Fragment for viewing Mooring related updates
  */
 
 public class MooringFragmentCS extends android.app.Fragment implements View.OnClickListener {

@@ -52,6 +52,9 @@ import ServiceEntities.TimeType;
 
 import static RESTServices.PortCDMServices.getServiceType;
 
+/**
+ * Fragment for reporting Towage related activities
+ */
 public class TowageFragment extends android.app.Fragment implements View.OnClickListener  {
 
     private View serviceStateView;

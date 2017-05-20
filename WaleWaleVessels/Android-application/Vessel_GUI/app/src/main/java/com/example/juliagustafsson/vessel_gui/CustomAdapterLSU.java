@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 /**
  * Created by juliagustafsson on 2017-05-20.
+ * Class for making LocationState-objects presented in a view.
  */
 
 class CustomAdapterLSU extends ArrayAdapter<String> {

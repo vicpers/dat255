@@ -254,7 +254,7 @@ public class PortCDMServices {
 
         // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         // which PortCDM requires.
-        SimpleDateFormat dateInput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        SimpleDateFormat dateInput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         SimpleDateFormat dateOutput = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
         String formattedTime = "";
@@ -263,6 +263,17 @@ public class PortCDMServices {
             formattedTime = dateOutput.format(date);
         } catch (ParseException e1) {
             Log.e("DateProblem Parsing", e1.toString());
+            Log.e("DateProblem Parsing", "Trying again");
+            try {
+                dateInput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                date = dateInput.parse(dateString);
+                formattedTime = dateOutput.format(date);
+            } catch (ParseException e2) {
+                Log.e("DateProblem Parsing", e2.toString());
+            }catch (NullPointerException e3){
+                Log.e("DateProblem Null", e3.toString());
+            }
+
         } catch (NullPointerException e2){
             Log.e("DateProblem Null", e2.toString());
         }
@@ -273,7 +284,7 @@ public class PortCDMServices {
 
         // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         // which PortCDM requires.
-        SimpleDateFormat dateInput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        SimpleDateFormat dateInput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         SimpleDateFormat dateOutput = new SimpleDateFormat("HH:mm");
         Date date = null;
         String formattedTime = "";
@@ -282,6 +293,16 @@ public class PortCDMServices {
             formattedTime = dateOutput.format(date);
         } catch (ParseException e1) {
             Log.e("DateProblem Parsing", e1.toString());
+            Log.e("DateProblem Parsing", "Trying again");
+            try {
+                dateInput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                date = dateInput.parse(dateString);
+                formattedTime = dateOutput.format(date);
+            } catch (ParseException e2) {
+                Log.e("DateProblem Parsing", e2.toString());
+            }catch (NullPointerException e3){
+                Log.e("DateProblem Null", e3.toString());
+            }
         } catch (NullPointerException e2){
             Log.e("DateProblem Null", e2.toString());
         }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 /**
  * Created by maxedman on 2017-04-25.
+ * Enums for Location TimeSequence
  */
 
 public enum LocationTimeSequence {
@@ -21,6 +22,11 @@ public enum LocationTimeSequence {
         return this.locTimeSeqText;
     }
 
+    /**
+     * @param text
+     * @return corresponding enum from String input.
+     * @throws IllegalArgumentException
+     */
     public static LocationTimeSequence fromString(String text) throws IllegalArgumentException {
         for (LocationTimeSequence locTimeSeq : LocationTimeSequence.values()) {
             if (locTimeSeq.locTimeSeqText.equalsIgnoreCase(text)) {

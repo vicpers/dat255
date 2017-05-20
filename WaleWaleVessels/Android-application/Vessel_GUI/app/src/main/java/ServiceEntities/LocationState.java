@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 /**
  * Created by maxedman on 2017-04-21.
+ * A class representing a LocationState, which is part of a PortCall Message
  */
 
 public class LocationState {
@@ -17,6 +18,10 @@ public class LocationState {
     private ArrivalLocation arrivalLocation;
     private DepartureLocation departureLocation;
 
+    /**
+     * Creates a LocationState from a JSON object.
+     * @param locStateJsonObj
+     */
     public LocationState(JSONObject locStateJsonObj) {
         if (locStateJsonObj != null) {
             try {
@@ -88,10 +93,16 @@ public class LocationState {
         return referenceObject;
     }
 
+    /**
+     * @return a String with timestamp from when LocationState was created.
+     */
     public String getTime() {
         return time;
     }
 
+    /**
+     * @return a String with the TimeType i.e. if the ServiceState is Actual, Estimated etc.
+     */
     public TimeType getTimeType() {
         return timeType;
     }
@@ -115,6 +126,9 @@ public class LocationState {
         return returnString;
     }
 
+    /**
+     * @return a String containing a XML-representation of the class.
+     */
     public String toXml() {
         String xmlStr = "";
         if (referenceObject != null)
@@ -132,6 +146,9 @@ public class LocationState {
 
     }
 
+    /**
+     * @return a String with the OperationType of the LocationState.
+     */
     public String getOperationType() {
         if (arrivalLocation != null) {
             return arrivalLocation.getOperationType();
@@ -142,6 +159,9 @@ public class LocationState {
 
     }
 
+    /**
+     * @return a String the LoationMRN of the LocationState.
+     */
     public String getLocationMRN(){
         if (arrivalLocation != null) {
             return arrivalLocation.getLocationMRN();

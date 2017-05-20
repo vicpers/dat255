@@ -54,6 +54,11 @@ public enum ServiceObject {
         return this.serviceObjText;
     }
 
+    /**
+     * @param text
+     * @return Corresponding enum from input String
+     * @throws IllegalArgumentException
+     */
     public static ServiceObject fromString(String text) throws IllegalArgumentException {
         for (ServiceObject serviceObject : ServiceObject.values()) {
             if (serviceObject.serviceObjText.equalsIgnoreCase(text)) {

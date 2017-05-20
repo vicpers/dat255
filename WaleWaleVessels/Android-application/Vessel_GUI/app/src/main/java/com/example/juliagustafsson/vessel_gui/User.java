@@ -199,6 +199,12 @@ public class User implements Runnable{
                 messageBrokerMap.put(ServiceObject.ARRIVAL_ANCHORING_OPERATION.getText(), tempMbq);
             }
 
+            if(!messageBrokerMap.containsKey(ServiceObject.DEPARTURE_ANCHORING_OPERATION.getText())) {
+                tempMbq = new MessageBrokerQueue();
+                tempMbq.createUnfilteredQueue(portCallID, ServiceObject.DEPARTURE_ANCHORING_OPERATION);
+                messageBrokerMap.put(ServiceObject.DEPARTURE_ANCHORING_OPERATION.getText(), tempMbq);
+            }
+
             if(!messageBrokerMap.containsKey(ServiceObject.ARRIVAL_BERTH.getText())) {
                 tempMbq = new MessageBrokerQueue();
                 tempMbq.createUnfilteredQueue(portCallID, ServiceObject.ARRIVAL_BERTH);

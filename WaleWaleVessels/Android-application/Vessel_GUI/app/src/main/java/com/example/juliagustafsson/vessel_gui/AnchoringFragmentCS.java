@@ -169,7 +169,7 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
     public void onClick(View v) {
 
     }
-    
+
     private void createAlertDialog(View v) {
         dialogBuilder = new AlertDialog.Builder(getActivity());
         dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

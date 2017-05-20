@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -200,7 +201,16 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
                                                      locState);
         AMSS amss = new AMSS(pcmObj);
         String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
-        etaResultView.setText(etaResult);
+        //etaResultView.setText(etaResult);
+        String message;
+        if(etaResult.equals("")){
+            message = "ETA sent successfully";
+        }
+        else{
+            message = etaResult;
+        }
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.show();
 
     }
 

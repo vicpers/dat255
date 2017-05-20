@@ -24,6 +24,7 @@ import ServiceEntities.ServiceType;
 import ServiceEntities.Vessel;
 
 import static RESTServices.Constants_API.API_DEV_BASE_URL;
+import static RESTServices.Constants_API.API_DEV_BASE_URL_LOCATION_REGISTRY;
 import static RESTServices.Constants_API.API_DEV_KEY1;
 import static RESTServices.Constants_API.API_DEV_PASSWORD;
 import static RESTServices.Constants_API.API_DEV_PORT1;
@@ -196,7 +197,7 @@ public class PortCDMServices {
         // Clears previous port data
         portData = new HashMap<>();
 
-        String url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_FIND_LOCATIONS;
+        String url = API_DEV_BASE_URL_LOCATION_REGISTRY + ":" + API_DEV_PORT1 + API_SERVICE_FIND_LOCATIONS;
 
         HashMap<String, String> headers = new HashMap<String, String>();
 

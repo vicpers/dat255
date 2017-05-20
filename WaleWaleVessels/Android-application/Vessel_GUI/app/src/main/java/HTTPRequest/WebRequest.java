@@ -26,17 +26,6 @@ import javax.net.ssl.HttpsURLConnection;
 public class WebRequest {
     //static String response = "";
     public final static int GETRequest = 1;
-    public final static int POSTRequest = 2;
-
-    /**
-     * Making web service call
-     *
-     * @url - url to make web request
-     * @requestmethod - http request method
-     */
-    public static String makeWebServiceCall(String url, int requestmethod) {
-        return makeWebServiceCall(url, requestmethod, null, null);
-    }
 
     /**
      * Making simple web service call
@@ -205,6 +194,7 @@ public class WebRequest {
 
         return response;
     }
+
 }
 
 

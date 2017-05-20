@@ -322,12 +322,11 @@ public class User implements Runnable{
             while(true) {
                 messageBrokerMap = getMessageBrokerMap();
                 for (Map.Entry<String, MessageBrokerQueue> mapEntry : messageBrokerMap.entrySet()) {
-//                  Log.e(mapEntry.getKey(), mapEntry.getValue().getQueueId() + mapEntry.getValue().getQueue().toString());
                     ArrayList<PortCallMessage> pcmArray = mapEntry.getValue().pollQueue();
 
                     if (mapEntry.getKey().equals("vessel") && pcmArray != null && pcmArray.size() > 0){
                         for (PortCallMessage pcm : pcmArray) {
-                            if (portCallID == null) {
+                            if (portCallID == null || portCallID.equals("null")) {
                                 Log.e("Got PortCallID", pcm.getPortCallId());
                                 setPortCallID(pcm.getPortCallId());
                                 createDefaultQueues();

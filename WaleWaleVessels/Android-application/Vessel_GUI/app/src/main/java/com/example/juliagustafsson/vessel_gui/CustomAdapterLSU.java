@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Class for making LocationState-objects presented in a view.
  */
 
-class CustomAdapterLSU extends ArrayAdapter<String> {
+public class CustomAdapterLSU extends ArrayAdapter<String> {
 
     Context context;
     ArrayList<String> positions;

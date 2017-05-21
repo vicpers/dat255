@@ -5,7 +5,7 @@ package ServiceEntities;
  * Enum with VesselType i.e. Cargo, Cruise, Sailing etc.
  */
 
-enum VesselType {
+public enum VesselType {
     DRY_BULK,
     CARGO,
     CARRIER,

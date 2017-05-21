@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * Class for making ServiceState-objects presented in a view
  */
 
-class CustomAdapterSSU extends ArrayAdapter<String> {
+public class CustomAdapterSSU extends ArrayAdapter<String> {
 
     Context context;
     ArrayList<String> positions;

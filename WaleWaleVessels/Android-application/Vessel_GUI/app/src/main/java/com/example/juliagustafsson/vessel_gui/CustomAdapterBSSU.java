@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Created by juliagustafsson on 2017-05-20.
  */
 
-class CustomAdapterBSSU extends ArrayAdapter<String> {
+public class CustomAdapterBSSU extends ArrayAdapter<String> {
 
     Context context;
     ArrayList<String> locFrom;

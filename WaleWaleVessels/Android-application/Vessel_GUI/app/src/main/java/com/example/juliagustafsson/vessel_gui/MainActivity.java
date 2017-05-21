@@ -233,10 +233,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 user.interrupt();
                 try {
                     Log.e("Logout - PCID", UserLocalStorage.getPortCallID());
-                    Log.e("Logout - PCID", UserLocalStorage.getMessageBrokerMap().toString());
+                } catch (Exception e){
+                    Log.e("Logout - ExcPCID", e.toString());
+                }
+                try {
+                    Log.e("Logout - Map", UserLocalStorage.getMessageBrokerMap().toString());
+                } catch (Exception e){
+                    Log.e("Logout - ExcMap", e.toString());
+                }
+                try {
                     Log.e("Logout - vessel", UserLocalStorage.getVessel().toString());
                 } catch (Exception e){
-                    Log.e("Logout - Exc", e.toString());
+                    Log.e("Logout - ExcVessel", e.toString());
                 }
 
                 startActivity(new Intent(MainActivity.this, Vessel_Login.class ));

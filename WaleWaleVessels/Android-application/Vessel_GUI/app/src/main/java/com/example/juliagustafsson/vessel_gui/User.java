@@ -9,6 +9,7 @@ import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.util.NoSuchPropertyException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -33,7 +34,7 @@ import static RESTServices.PortCDMServices.getStateDefinitions;
  * When a new PortCall Message is identified, a notification is sent.
  */
 
-public class User implements Runnable{
+public class User implements Runnable, Serializable{
 
     private Vessel vessel = null;
     private Context context;
@@ -322,10 +323,8 @@ public class User implements Runnable{
             while(true) {
                 messageBrokerMap = getMessageBrokerMap();
                 for (Map.Entry<String, MessageBrokerQueue> mapEntry : messageBrokerMap.entrySet()) {
-                    ArrayList<PortCallMessage> pcmArray = mapEntry.getValue().pollQueue();
-
-                    if(pcmArray.size() > 0)
-                        Log.e("New PCM", "Found " + pcmArray.size() + " new for " + mapEntry.getKey());
+                    ArrayList<PortCallMessage> pcmArray;
+                    pcmArray = mapEntry.getValue().pollQueue();
 
                     if (mapEntry.getKey().equals("vessel") && pcmArray != null && pcmArray.size() > 0){
                         Log.e("SizePcm", pcmArray.size() + "");

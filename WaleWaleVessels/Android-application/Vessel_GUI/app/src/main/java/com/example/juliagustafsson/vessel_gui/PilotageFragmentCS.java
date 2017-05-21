@@ -37,7 +37,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
     private View locationstateView;
     private ServiceObject currentServiceObject;
     AlertDialog.Builder dialogBuilder;
-    private LocationType selectedAtLocation;
     private LocationType selectedLocationType;
     Drawable iconImage;
 

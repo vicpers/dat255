@@ -34,8 +34,6 @@ public class ViewETA extends AppCompatActivity {
     private ArrayList<String> timeTypes = new ArrayList<>();
     private ArrayList<String> timeSequences = new ArrayList<>();
     private Drawable iconImage;
-    private View viewETA;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,35 +74,29 @@ public class ViewETA extends AppCompatActivity {
                             locationsFrom.add(tempLoc.getName());
                             locationsTo.add("");
                         }
-                        dates.add(PortCDMServices.stringToDate(pcm.getTime()));
-                        times.add(PortCDMServices.stringToTime(pcm.getTime()));
                         positionsAt.add("");
                         timeSequences.add(pcm.getTimeSequence());
-                        iconImage = getResources().getDrawable(R.drawable.ic_alarm_black_24dp);
 
                     }   else {
                         serviceObjects.add(pcm.getServiceState().getServiceObject().getText());
                         locationsFrom.add("");
                         locationsTo.add("");
-                        dates.add(PortCDMServices.stringToDate(pcm.getTime()));
-                        times.add(PortCDMServices.stringToTime(pcm.getTime()));
                         Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
                         positionsAt.add(tempLoc.getName());
                         timeSequences.add(pcm.getTimeSequence());
-                        iconImage = getResources().getDrawable(R.drawable.ic_alarm_black_24dp);
                     }
 
                 } else {
                     serviceObjects.add("");
                     locationsFrom.add("");
                     locationsTo.add("");
-                    dates.add(PortCDMServices.stringToDate(pcm.getTime()));
-                    times.add(PortCDMServices.stringToTime(pcm.getTime()));
                     Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
                     positionsAt.add(tempLoc.getName());
                     timeSequences.add("");
-                    iconImage = getResources().getDrawable(R.drawable.ic_alarm_black_24dp);
                 }
+                dates.add(PortCDMServices.stringToDate(pcm.getTime()));
+                times.add(PortCDMServices.stringToTime(pcm.getTime()));
+                iconImage = getResources().getDrawable(R.drawable.ic_alarm_black_24dp);
             }
         } catch (NullPointerException e) {
             Log.e("NoPortCallID", e.toString());

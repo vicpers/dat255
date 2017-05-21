@@ -324,10 +324,14 @@ public class User implements Runnable{
                 for (Map.Entry<String, MessageBrokerQueue> mapEntry : messageBrokerMap.entrySet()) {
                     ArrayList<PortCallMessage> pcmArray = mapEntry.getValue().pollQueue();
 
+                    if(pcmArray.size() > 0)
+                        Log.e("New PCM", "Found " + pcmArray.size() + " new for " + mapEntry.getKey());
+
                     if (mapEntry.getKey().equals("vessel") && pcmArray != null && pcmArray.size() > 0){
+                        Log.e("SizePcm", pcmArray.size() + "");
                         for (PortCallMessage pcm : pcmArray) {
                             if (portCallID == null || portCallID.equals("null") || portCallID.equals("")) {
-                                Log.e("Got PortCallID", pcm.getPortCallId());
+                                Log.e("Got New PortCallID", pcm.getPortCallId());
                                 setPortCallID(pcm.getPortCallId());
                                 createDefaultQueues();
                             } else

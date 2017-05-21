@@ -1,11 +1,19 @@
 package com.example.juliagustafsson.vessel_gui;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import RESTServices.PortCDMServices;
+import ServiceEntities.Location;
 import ServiceEntities.PortCallMessage;
 import ServiceEntities.TimeType;
 
@@ -15,42 +23,119 @@ import ServiceEntities.TimeType;
  */
 public class ViewETA extends AppCompatActivity {
     UserLocalStorage userLocalStore;
+
     //private String[] lv_arr = {};
+    private ArrayList<String> serviceObjects = new ArrayList<>();
+    private ArrayList<String> positionsAt = new ArrayList<>();
+    private ArrayList<String> locationsFrom = new ArrayList<>();
+    private ArrayList<String> locationsTo = new ArrayList<>();
+    private ArrayList<String> times = new ArrayList<>();
+    private ArrayList<String> dates = new ArrayList<>();
+    private ArrayList<String> timeTypes = new ArrayList<>();
+    private ArrayList<String> timeSequences = new ArrayList<>();
+    private Drawable iconImage;
+    private View viewETA;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_eta);
 
-       /* private ArrayList<String> serviceObjects = new ArrayList<>();
-        private ArrayList<String> locations = new ArrayList<>();
-        private ArrayList<String> times = new ArrayList<>();
-        private ArrayList<String> dates = new ArrayList<>();
-        private ArrayList<String> timeTypes = new ArrayList<>();
-        private ArrayList<String> timeSeq = new ArrayList<>();*/
-        ArrayList<String> stringList = new ArrayList<>();
+        // Set customized toolbar
+        Toolbar customToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(customToolbar);
+        getSupportActionBar().setTitle("View ETA history");
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ListView dialogListView = (ListView) findViewById(R.id.listView);
+
         try {
             ArrayList<PortCallMessage> portCallList = UserLocalStorage.getMessageBrokerMap().get(TimeType.ESTIMATED.getText()).getQueue();
-            for(PortCallMessage pcm : portCallList){
-               /* timeTypes.add(pcm.getTimeType());
-                times.add(PortCDMServices.stringToTime(pcm.getTime()));
-                dates.add(PortCDMServices.stringToDate(pcm.getTime()));
-                timeSeq.add(pcm.getTimeSequence());*/
-                stringList.add(pcm.toString());
+            for (PortCallMessage pcm : portCallList) {
+                if (pcm.isServiceState() == true) {
+                    if (pcm.getServiceState().isBetween()) {
+                        serviceObjects.add(pcm.getServiceState().getServiceObject().getText());
+                        String locMRN = pcm.getLocationMRN();
+                        if (locMRN.contains("/")) {
+                            String[] parts = locMRN.split("/");
+                            try {
+                                String loc1 = parts[0];
+                                String loc2 = parts[1];
+                                Location tempLoc1 = PortCDMServices.getLocation(loc1);
+                                Location tempLoc2 = PortCDMServices.getLocation(loc2);
+                                locationsFrom.add(tempLoc1.getName());
+                                locationsTo.add(tempLoc2.getName());
+                            }
+                            catch (NullPointerException e){
+                                Log.e("CheckStatus-servType", e.toString());
+                            }
+                        } else {
+                            Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
+                            locationsFrom.add(tempLoc.getName());
+                            locationsTo.add("");
+                        }
+                        dates.add(PortCDMServices.stringToDate(pcm.getTime()));
+                        times.add(PortCDMServices.stringToTime(pcm.getTime()));
+                        positionsAt.add("");
+                        timeSequences.add(pcm.getTimeSequence());
+                        iconImage = getResources().getDrawable(R.drawable.ic_alarm_black_24dp);
+
+                    }   else {
+                        serviceObjects.add(pcm.getServiceState().getServiceObject().getText());
+                        locationsFrom.add("");
+                        locationsTo.add("");
+                        dates.add(PortCDMServices.stringToDate(pcm.getTime()));
+                        times.add(PortCDMServices.stringToTime(pcm.getTime()));
+                        Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
+                        positionsAt.add(tempLoc.getName());
+                        timeSequences.add(pcm.getTimeSequence());
+                        iconImage = getResources().getDrawable(R.drawable.ic_alarm_black_24dp);
+                    }
+
+                } else {
+                    serviceObjects.add("");
+                    locationsFrom.add("");
+                    locationsTo.add("");
+                    dates.add(PortCDMServices.stringToDate(pcm.getTime()));
+                    times.add(PortCDMServices.stringToTime(pcm.getTime()));
+                    Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
+                    positionsAt.add(tempLoc.getName());
+                    timeSequences.add("");
+                    iconImage = getResources().getDrawable(R.drawable.ic_alarm_black_24dp);
+                }
             }
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             Log.e("NoPortCallID", e.toString());
         }
-/*
-
-        // Get a handle to the list view
-        ListView lv = (ListView) findViewById(R.id.listView);
+        Log.e("ServiceObjects", serviceObjects.toString());
+        Log.e("PositionsAt", positionsAt.toString());
+        Log.e("LocationsFrom", locationsFrom.toString());
+        Log.e("LocationsTo", locationsTo.toString());
+        Log.e("Times", times.toString());
+        Log.e("Dates", dates.toString());
+        Log.e("TimeSeq", timeSequences.toString());
+        reverse(serviceObjects);
+        reverse(positionsAt);
+        reverse(locationsFrom);
+        reverse(locationsTo);
+        reverse(times);
+        reverse(dates);
+        reverse(timeSequences);
 
         ArrayAdapter<String> itemsAdapter =
-                new CustomAdapterViewETA(this, R.layout.custom_listview_row_view_eta, stringList);
-        lv.setAdapter(itemsAdapter);
-*/
+                new CustomAdapterViewETA(this, R.layout.custom_listview_row_bssu, serviceObjects, positionsAt, locationsFrom, locationsTo, times, dates, timeSequences, iconImage);
+        dialogListView.setAdapter(itemsAdapter);
+    }
 
-
+    public ArrayList<String> reverse(ArrayList<String> list) {
+        if(list.size() > 1) {
+            String value = list.remove(0);
+            reverse(list);
+            list.add(value);
+        }
+        return list;
     }
 
 }

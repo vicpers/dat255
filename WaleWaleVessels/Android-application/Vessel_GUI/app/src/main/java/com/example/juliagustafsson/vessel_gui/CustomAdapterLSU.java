@@ -18,11 +18,12 @@ import java.util.ArrayList;
 
 class CustomAdapterLSU extends ArrayAdapter<String> {
 
-    ArrayList<String> positions;
-    ArrayList<String> times;
-    ArrayList<String> dates;
-    ArrayList<String> timeTypes;
-    Drawable image;
+    private ArrayList<String> positions;
+    private ArrayList<String> times;
+    private ArrayList<String> dates;
+    private ArrayList<String> timeTypes;
+    private Drawable image;
+
     int resource;
 
     CustomAdapterLSU(Context context, int resource, ArrayList<String> positions, ArrayList<String> timeTypes, ArrayList<String> times, ArrayList<String> dates, Drawable image) {

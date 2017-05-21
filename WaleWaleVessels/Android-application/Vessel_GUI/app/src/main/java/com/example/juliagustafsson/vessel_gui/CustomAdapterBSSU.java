@@ -18,9 +18,8 @@ import java.util.ArrayList;
 
 public class CustomAdapterBSSU extends ArrayAdapter<String> {
 
-
-    ArrayList<String> locFrom;
-    ArrayList<String> locTo;
+    private ArrayList<String> locFrom;
+    private ArrayList<String> locTo;
     private ArrayList<String> times;
     private ArrayList<String> dates;
     private ArrayList<String> timeTypes;

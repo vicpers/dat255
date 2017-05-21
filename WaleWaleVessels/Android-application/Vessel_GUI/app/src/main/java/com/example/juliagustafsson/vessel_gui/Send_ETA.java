@@ -2,6 +2,7 @@ package com.example.juliagustafsson.vessel_gui;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -204,6 +205,8 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         String message;
         if(etaResult.equals("")){
             message = "ETA sent successfully";
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
         else{
             message = etaResult;

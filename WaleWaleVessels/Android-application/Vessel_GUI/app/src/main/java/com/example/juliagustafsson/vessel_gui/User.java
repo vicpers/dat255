@@ -346,6 +346,7 @@ public class User implements Runnable{
                     }
 
                     if (mapEntry.getKey().equals("portcall") && pcmArray != null && pcmArray.size() > 0){
+                        Log.e("SizePcm", pcmArray.size() + "");
                         for (PortCallMessage pcm : pcmArray) {
                             Log.e("NyttPortCallIdPCM", pcm.toString());
                         }

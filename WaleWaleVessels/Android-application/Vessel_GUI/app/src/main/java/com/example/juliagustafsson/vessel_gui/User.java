@@ -14,10 +14,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 import RESTServices.MessageBrokerQueue;
-import RESTServices.PortCDMServices;
 import ServiceEntities.LocationType;
 import ServiceEntities.PortCallMessage;
 import ServiceEntities.ServiceObject;
@@ -43,31 +41,6 @@ public class User implements Runnable, Serializable{
     private Thread thread;
 
     /** Creates a User
-     * @param context The Context of the launching activity
-     * @param vesselID The VesselID of the User
-     * @throws NoSuchElementException If the VesselID is not found in PortCDM
-     */
-    public User(Context context, String vesselID) throws NoSuchElementException{
-        try{
-            this.vessel = PortCDMServices.getVessel(vesselID);
-        } catch (NoSuchElementException e){
-            throw e;
-        }
-        this.context = context;
-        new UserLocalStorage(context);
-        setVessel(this.vessel);
-        messageBrokerMap = getMessageBrokerMap();
-        getPortCallID();
-        createDefaultQueues();
-        getActualPortData();
-        getStateDefinitions();
-
-        this.thread = new Thread(this);
-        this.thread.start();
-        Log.e("User 1", "Started user thread. PortCall: " + portCallID);
-    }
-
-    /** Creates a User
      * @param context The Context of the launching Activity
      * @param vessel The Vessel of the User
      * @throws NullPointerException If Vessel is Null
@@ -87,7 +60,6 @@ public class User implements Runnable, Serializable{
 
         this.thread = new Thread(this);
         this.thread.start();
-        Log.e("User 2", "Started user thread. PortCall: " + portCallID);
     }
 
     /**

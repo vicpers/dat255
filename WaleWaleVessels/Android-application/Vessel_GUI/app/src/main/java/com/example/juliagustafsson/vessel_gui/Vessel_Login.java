@@ -13,6 +13,9 @@ import android.widget.Toast;
 
 import java.util.NoSuchElementException;
 
+import RESTServices.PortCDMServices;
+import ServiceEntities.Vessel;
+
 
 /**
  * Activity for the user to log in to the application. By using a VesselIMO, this application is
@@ -52,9 +55,9 @@ public class Vessel_Login extends AppCompatActivity implements View.OnClickListe
                 EditText vID =  (EditText) findViewById(R.id.vessel_ID);
                 String vesselIMO = "urn:mrn:stm:vessel:IMO:" + vID.getText().toString();
                 UserLocalStorage.clearUserData();
-                User user;
                 try{
-                    new User(this, vesselIMO);
+                    Vessel vessel = PortCDMServices.getVessel(vesselIMO);
+                    UserLocalStorage.setVessel(vessel);
                     startActivity(new Intent(this, MainActivity.class ));
                 } catch(NoSuchElementException | IllegalArgumentException e){
                     Log.e("LoginExc", e.toString());

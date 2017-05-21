@@ -105,11 +105,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         try {
             Vessel vessel = UserLocalStorage.getVessel();
             if(vessel != null) {
-                if(!vessel.equals("") && !vessel.equals("null")) {
-                    this.user = new User(this, vessel);
-                    return true;
-                } else
-                    return false;
+                this.user = new User(this, vessel);
+                return true;
             } else
                 return false;
         } catch (NullPointerException e){
@@ -240,6 +237,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_logout:
                 user.clearUser();
                 user.interrupt();
+                user = null;
                 try {
                     Log.e("Logout - PCID", UserLocalStorage.getPortCallID());
                 } catch (Exception e){

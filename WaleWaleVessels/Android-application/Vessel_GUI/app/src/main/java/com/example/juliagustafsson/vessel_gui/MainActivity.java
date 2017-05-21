@@ -1,6 +1,7 @@
 package com.example.juliagustafsson.vessel_gui;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,19 +52,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Set customized toolbar
         Toolbar customToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(customToolbar);
-        getSupportActionBar().setTitle("Port CDM");
+        getSupportActionBar().setTitle("Main menu");
         getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Import and set custom font
+        TextView myTextView = (TextView) findViewById(R.id.textView2);
+        Typeface typeface=Typeface.createFromAsset(getAssets(), "fonts/LEIXO.ttf");
+        myTextView.setTypeface(typeface);
+
+        // Settings regarding left menu
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, customToolbar, R.string.drawer_open, R.string.drawer_close);
-
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -117,7 +122,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * Displays image of Vessel in the header
      */
     public void displayVesselImage(){
-        ImageView ship = (ImageView) findViewById(R.id.vesselImage);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View v = navigationView.getHeaderView(0);
+        ImageView ship = (ImageView) v.findViewById(R.id.shipPhoto);
         ship.setImageDrawable(loadImageFromWebOperations(user.getVessel().getPhotoURL()));
     }
 

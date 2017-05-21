@@ -2,6 +2,7 @@ package com.example.juliagustafsson.vessel_gui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -24,6 +25,14 @@ public class StatementsOfFacts extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statements_of_facts);
+
+        //Set custom toolbar
+        Toolbar customToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(customToolbar);
+        getSupportActionBar().setTitle("Statements of facts");
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar ().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ListView dialogListView = (ListView) findViewById(R.id.statusView);
         HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();

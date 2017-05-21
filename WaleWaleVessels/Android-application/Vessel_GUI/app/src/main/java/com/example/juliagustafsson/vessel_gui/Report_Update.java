@@ -27,7 +27,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
 
         Toolbar customToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(customToolbar);
-        getSupportActionBar().setTitle("Report Update");
+        getSupportActionBar().setTitle("Report activity update");
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar ().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

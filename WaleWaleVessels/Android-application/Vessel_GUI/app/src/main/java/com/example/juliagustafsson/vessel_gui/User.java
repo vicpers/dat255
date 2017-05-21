@@ -330,7 +330,8 @@ public class User implements Runnable{
                                 Log.e("Got PortCallID", pcm.getPortCallId());
                                 setPortCallID(pcm.getPortCallId());
                                 createDefaultQueues();
-                            }
+                            } else
+                                Log.e("PortCallID", portCallID);
                             sendNotification(pcm);
                             Log.e("NyttVesselPCM", pcm.toString());
                             long time = new Date().getTime();

@@ -24,7 +24,7 @@ public class PortCallMessage{
     private String groupWith;
     private String reportedAt; //TODO Convert to a DateTime format.
     private String reportedBy;
-    private String comment = "Mattias";
+    private String comment = "Max";
     private String messageOperation;
     private LocationState locationState;
     private ServiceState serviceState;

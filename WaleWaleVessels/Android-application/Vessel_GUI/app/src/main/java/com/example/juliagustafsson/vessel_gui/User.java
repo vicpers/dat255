@@ -122,6 +122,9 @@ public class User implements Runnable, Serializable{
      * Removes all saved User data
      */
     public void clearUser(){
+        this.portCallID = null;
+        this.messageBrokerMap = null;
+        this.vessel = null;
         UserLocalStorage.clearUserData();
     }
 

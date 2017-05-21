@@ -1,10 +1,10 @@
 package HTTPRequest;
 
 /**
- * Created by maxedman on 2017-04-21.
+ * Class för sending HTTP-Requests to prespecified URL adresses.
+ * For this application the class communicates with the PortCDM server at the specified URL in
+ * the Constants_API class.
  */
-//TODO kommentera
-
 
 import android.util.Log;
 
@@ -24,8 +24,7 @@ import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 
 public class WebRequest {
-    //static String response = "";
-    public final static int GETRequest = 1;
+    private final static int GETRequest = 1;
 
     /**
      * Making simple web service call
@@ -112,6 +111,13 @@ public class WebRequest {
         return response;
     }
 
+    /**
+     * @param urladdress Url-address for sending the post-request to.
+     * @param headers Request headers
+     * @param params Request parameters
+     * @param body The body to be sent på the post request
+     * @return Returns the answer from the server
+     */
     public static String makeWebServicePost(String urladdress, HashMap<String, String> headers, HashMap<String, String> params, String body){
         String response = "";
         try {

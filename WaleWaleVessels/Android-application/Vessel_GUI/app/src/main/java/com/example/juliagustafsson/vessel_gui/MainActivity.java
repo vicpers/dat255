@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         TextView textView = (TextView) findViewById(R.id.textView4);
-        //TODO Hårdkodat för att visa nuvarande hamn överst på hemskärmen?
+
+        // The actual port is always SEGOT for this application.
         textView.setText("Current Port: SEGOT");
 
         // Set customized toolbar
@@ -151,11 +152,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * Launches the activity to View ETAs
      * @param view
      */
-    public void viewPCM(View view) {
-        //TODO döpa om?
-        Intent intent = new Intent(this, ViewPCM.class); //skapar en ny instans av klassen ViewPCM som initierar ett nytt blankt fönster
+    public void viewETA(View view) {
+        Intent intent = new Intent(this, ViewETA.class); //skapar en ny instans av klassen ViewETA som initierar ett nytt blankt fönster
         startActivity(intent);
-
     }
 
     /**
@@ -163,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * @param view
      */
     public void sendETA(View view) {
-        Intent intent = new Intent(this, Send_ETA.class); //skapar en ny instans av klassen ViewPCM som initierar ett nytt blankt fönster
+        Intent intent = new Intent(this, Send_ETA.class); //skapar en ny instans av klassen ViewETA som initierar ett nytt blankt fönster
         startActivity(intent);
     }
 
@@ -225,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
 
             case R.id.nav_viewETA:
-                Intent intent5 = new Intent(this, ViewPCM.class);
+                Intent intent5 = new Intent(this, ViewETA.class);
                 startActivity(intent5);
                 return true;
 

@@ -24,19 +24,26 @@ import static RESTServices.Constants_API.API_XML_PORT_CALL_MESSAGE_END;
 import static RESTServices.Constants_API.API_XML_PORT_CALL_MESSAGE_HEADER;
 
 /**
- * Created by maxedman on 2017-04-24.
+ * Class for sending portCallMessages to portCdm.
+ * Depending on if the PortCallMessage has a PortCallId the message is sent to different domains on
+ * the server.
  */
-//TODO kommentera
-public class AMSS /*implements Runnable*/{
+public class AMSS{
 
     private PortCallMessage pcmObj;
     String url;
     HashMap<String, String> headers;
 
+    /** Creates an instance of AMSS
+     * @param pcmObj PortCallMessage instance.
+     */
     public AMSS(PortCallMessage pcmObj){
         this.pcmObj = pcmObj;
     }
 
+    /** Submits the PortCallMessage included in the constructor to the server
+     * @return A response from the server.
+     */
     public String submitStateUpdate(){
 
         // If the portCallMessage includes a PortCallID then send the message to MSS. If the

@@ -3,12 +3,9 @@ package com.example.juliagustafsson.vessel_gui;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import RESTServices.PortCDMServices;
 import ServiceEntities.PortCallMessage;
 import ServiceEntities.TimeType;
 
@@ -16,14 +13,13 @@ import ServiceEntities.TimeType;
  * Activity for displaying ETAs send by the active Vessel. It loads PortCallMessages from the static
  * method in UserLocalStorage and filters them on the TimeType being Estimated.
  */
-public class ViewPCM extends AppCompatActivity {
-    //TODO döp om
+public class ViewETA extends AppCompatActivity {
     UserLocalStorage userLocalStore;
     //private String[] lv_arr = {};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_pcm);
+        setContentView(R.layout.activity_view_eta);
 
        /* private ArrayList<String> serviceObjects = new ArrayList<>();
         private ArrayList<String> locations = new ArrayList<>();

@@ -22,9 +22,9 @@ public class PortCallMessage{
     private Vessel vessel;
     private String messageId;
     private String groupWith;
-    private String reportedAt; //TODO Convert to a DateTime format.
+    private String reportedAt;
     private String reportedBy;
-    private String comment = "Mattias";
+    private String comment;
     private String messageOperation;
     private LocationState locationState;
     private ServiceState serviceState;
@@ -194,41 +194,6 @@ public class PortCallMessage{
     }
 
     /**
-     * @param portCallId A String with the PortCallID.
-     */
-    public void setPortCallId(String portCallId) {
-        this.portCallId = portCallId;
-    }
-
-    /**
-     * @return A string with the local PortCallID
-     */
-    public String getLocalPortCallId() {
-        return localPortCallId;
-    }
-
-    /**
-     * @param localPortCallId String with local PortCallID
-     */
-    public void setLocalPortCallId(String localPortCallId) {
-        this.localPortCallId = localPortCallId;
-    }
-
-    /**
-     * @return String with Local Job ID
-     */
-    public String getLocalJobId() {
-        return localJobId;
-    }
-
-    /**
-     * @param localJobId String with Local Job ID
-     */
-    public void setLocalJobId(String localJobId) {
-        this.localJobId = localJobId;
-    }
-
-    /**
      * @return Vessel tied to the PortCallMessage
      */
     public Vessel getVessel() {
@@ -243,87 +208,10 @@ public class PortCallMessage{
     }
 
     /**
-     * @return String with the ID of the PortCallMessage
-     */
-    public String getMessageId() {
-        return messageId;
-    }
-
-    /**
-     * @param messageId String with the ID of the PortCallMessage
-     */
-    public void setMessageId(String messageId) {
-        this.messageId = messageId;
-    }
-
-    /**
-     *  //TODO kommentera detta
-     */
-    public String getGroupWith() {
-        return groupWith;
-    }
-
-    /**
-     * @param groupWith //TODO kommentera detta
-     */
-    public void setGroupWith(String groupWith) {
-        this.groupWith = groupWith;
-    }
-
-    /**
-     * @return The timestamp of the PortCallMessage
-     */
-    public String getReportedAt() {
-        return reportedAt;
-    }
-
-    /**
-     * @param reportedAt The timestamp of the PortCallMessage
-     */
-    public void setReportedAt(String reportedAt) {
-        this.reportedAt = reportedAt;
-    }
-
-    /**
-     * @return A String containing the sender of the PortCallMessage
-     */
-    public String getReportedBy() {
-        return reportedBy;
-    }
-
-    /**
-     * @param reportedBy A String containing the sender of the PortCallMessage
-     */
-    public void setReportedBy(String reportedBy) {
-        this.reportedBy = reportedBy;
-    }
-
-    /**
      * @return An optional String with comment if necessary.
      */
     public String getComment() {
         return comment;
-    }
-
-    /**
-     * @param comment An optional String with comment if necessary.
-     */
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    /**
-     * @return A String with the operation of the PortCall Message
-     */
-    public String getMessageOperation() {
-        return messageOperation;
-    }
-
-    /**
-     * @param messageOperation A String with the operation of the PortCall Message
-     */
-    public void setMessageOperation(String messageOperation) {
-        this.messageOperation = messageOperation;
     }
 
     /**
@@ -334,24 +222,10 @@ public class PortCallMessage{
     }
 
     /**
-     * @param locationState The LocationState if the PortCallMessage should contain one.
-     */
-    public void setLocationState(LocationState locationState) {
-        this.locationState = locationState;
-    }
-
-    /**
      * @return ServiceState if the PortCallMessage contains one, otherwise null.
      */
     public ServiceState getServiceState() {
         return serviceState;
-    }
-
-    /**
-     * @param serviceState The ServiceState if the PortCallMessage should contain one.
-     */
-    public void setServiceState(ServiceState serviceState) {
-        this.serviceState = serviceState;
     }
 
     @Override

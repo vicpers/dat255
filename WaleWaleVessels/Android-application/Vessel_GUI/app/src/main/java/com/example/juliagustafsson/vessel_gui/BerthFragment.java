@@ -1,14 +1,10 @@
 package com.example.juliagustafsson.vessel_gui;
 
 import android.app.DatePickerDialog;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,10 +43,7 @@ import ServiceEntities.ReferenceObject;
 import ServiceEntities.ServiceObject;
 import ServiceEntities.ServiceState;
 import ServiceEntities.ServiceTimeSequence;
-import ServiceEntities.ServiceType;
 import ServiceEntities.TimeType;
-
-import static RESTServices.PortCDMServices.getServiceType;
 
 /**
  * Fragment for reporting Berth related activities
@@ -184,10 +177,9 @@ public class BerthFragment extends android.app.Fragment implements View.OnClickL
                     Log.e("DateProblem Null", e2.toString());
                 }
                 // TODO Kontrollera att man faktiskt valt ett datum och en tid
-                // TODO Max ska skriva om så att en ny user initieras när den klassen är klar.
-                Intent intent = getActivity().getIntent();
-                String vesselID = intent.getExtras().getString("vesselID"); //Hämta VesselIMO skickat från mainactivity
-                String portCallID = intent.getExtras().getString("portCallID"); //Hämta portCallID skickat från mainactivity
+
+                String vesselID = UserLocalStorage.getVessel().getId(); //Hämta VesselIMO
+                String portCallID = UserLocalStorage.getPortCallID(); //Hämta portCallID
 
                 //send a service state port call message
                 if(isServiceState) {

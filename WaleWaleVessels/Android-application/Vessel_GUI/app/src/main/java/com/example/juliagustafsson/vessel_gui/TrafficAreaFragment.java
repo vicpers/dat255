@@ -1,13 +1,9 @@
 package com.example.juliagustafsson.vessel_gui;
 import android.app.DatePickerDialog;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +15,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -35,7 +30,6 @@ import java.util.UUID;
 import RESTServices.AMSS;
 import RESTServices.PortCDMServices;
 import ServiceEntities.ArrivalLocation;
-import ServiceEntities.Between;
 import ServiceEntities.DepartureLocation;
 import ServiceEntities.Location;
 import ServiceEntities.LocationState;
@@ -43,13 +37,7 @@ import ServiceEntities.LocationType;
 import ServiceEntities.PortCallMessage;
 import ServiceEntities.Position;
 import ServiceEntities.ReferenceObject;
-import ServiceEntities.ServiceObject;
-import ServiceEntities.ServiceState;
-import ServiceEntities.ServiceTimeSequence;
-import ServiceEntities.ServiceType;
 import ServiceEntities.TimeType;
-
-import static RESTServices.PortCDMServices.getServiceType;
 
 /**
  * Fragment for reporting TrafficArea related activities
@@ -153,10 +141,9 @@ public class TrafficAreaFragment extends android.app.Fragment implements View.On
                     Log.e("DateProblem Null", e2.toString());
                 }
                 // TODO Kontrollera att man faktiskt valt ett datum och en tid
-                // TODO Max ska skriva om så att en ny user initieras när den klassen är klar.
-                Intent intent = getActivity().getIntent();
-                String vesselID = intent.getExtras().getString("vesselID"); //Hämta VesselIMO skickat från mainactivity
-                String portCallID = intent.getExtras().getString("portCallID"); //Hämta portCallID skickat från mainactivity
+
+                String vesselID = UserLocalStorage.getVessel().getId(); //Get VesselIMO
+                String portCallID = UserLocalStorage.getPortCallID(); //Get portCallID
 
                     Location location = new Location(selectedSubLocation, new Position(0, 0), selectedLocationType);
                     try{

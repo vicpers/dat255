@@ -58,7 +58,8 @@ public class Location {
                 }
             }
 
-            //TODO Eventuellt ta bort om MRN för TrafficArea blir korrekt från registret.
+            // If the Location is traffic area then sets the MRN to the accepted one defined by
+            // the portCallMessage v0.6 schema.
             if(locationType == LocationType.TRAFFIC_AREA){
                 this.locationMRN = "urn:mrn:stm:location:segot:TRAFFIC_AREA";
             }

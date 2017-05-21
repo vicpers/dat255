@@ -32,16 +32,19 @@ import static RESTServices.Constants_API.API_SERVICE_CREATE_QUEUE;
 import static RESTServices.Constants_API.API_SERVICE_POLL_QUEUE;
 
 /**
- * Created by maxedman on 2017-04-21.
+ * Class for handling instances of MessageBrokerQueues as defined by the PortCDM services.
  */
-//TODO kommentera
 
 public class MessageBrokerQueue{
+    // Date strings for retrieving either old messages or only new.
     private static final String date = "";// "?fromTime=2017-05-16T14:20:21Z";
     private static final String portCallIDdate = "?fromTime=2017-05-16T14:20:21Z";
 
+    // queueId is the id returned from the server when the queue is created.
     private String queueId;
+    // queue contains all PortCallMessages for the specified filter.
     private ArrayList<PortCallMessage> queue = new ArrayList<PortCallMessage>();
+    // tempQueue contains all new PortCallMessages for the specified filter.
     private ArrayList<PortCallMessage> tempQueue = new ArrayList<PortCallMessage>();
 
     // If the instance is a queue with ServiceObject then the sortQueueResponse funktion is going to be
@@ -54,16 +57,15 @@ public class MessageBrokerQueue{
     public MessageBrokerQueue(){
     }
 
-    private void setQueueId(String queueId){
-        this.queueId = queueId;
-    }
-
+    /** Fetches the queue of PortCallMessages.
+     * @return an ArrayList of PortCallMessages.
+     */
     public ArrayList<PortCallMessage> getQueue(){
         return this.queue;
     }
 
-    /**
-     * @param vessel
+    /** Creates a queue based on the Vessel
+     * @param vessel Vessel to be included in the filter, by vesselID.
      */
     public void createUnfilteredQueue(Vessel vessel){
         String url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_CREATE_QUEUE;
@@ -87,7 +89,10 @@ public class MessageBrokerQueue{
         Log.e("queueID", queueId);
     }
 
-    public void createUnfilteredQueue(String id){
+    /** Creates a queue based on the portCallID
+     * @param portCallId PortCallID to be included in the filter
+     */
+    public void createUnfilteredQueue(String portCallId){
         String url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_CREATE_QUEUE;
         url += portCallIDdate;
 
@@ -101,7 +106,7 @@ public class MessageBrokerQueue{
         String body = "[" +
                 "  {" +
                 "    \"type\": \"PORT_CALL\"," +
-                "    \"element\": \"" + id + "\"" +
+                "    \"element\": \"" + portCallId + "\"" +
                 "  }" +
                 "]";
 
@@ -109,9 +114,9 @@ public class MessageBrokerQueue{
         Log.e("queueID", queueId);
     }
 
-    /**
-     * @param portCallID
-     * @param locationType
+    /** Creates a queue based on the portCallID and the LocationType
+     * @param portCallID PortCallID to be included in the filter
+     * @param locationType LocationType enum to be included in the filter
      */
     public void createUnfilteredQueue(String portCallID, LocationType locationType){
         String url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_CREATE_QUEUE;
@@ -139,9 +144,9 @@ public class MessageBrokerQueue{
         Log.e("queueID", queueId);
     }
 
-    /**
-     * @param portCallID
-     * @param timeType
+    /** Creates a queue based on the portCallID and the TimeType
+     * @param portCallID PortCallID to be included in the filter
+     * @param timeType TimeType enum to be included in the filter
      */
     public void createUnfilteredQueue(String portCallID, TimeType timeType){
         String url = API_DEV_BASE_URL + ":" + API_DEV_PORT1 + API_SERVICE_CREATE_QUEUE;
@@ -169,9 +174,9 @@ public class MessageBrokerQueue{
         Log.e("queueID", queueId);
     }
 
-    /**
-     * @param portCallID
-     * @param serviceObject
+    /** Creates a queue based on the portCallID and the serviceObject
+     * @param portCallID PortCallID to be included in the filter
+     * @param serviceObject ServiceObject enum to be included in the filter, handled on client-side.
      */
     public void createUnfilteredQueue(String portCallID, ServiceObject serviceObject){
         this.serviceObject = serviceObject;
@@ -197,6 +202,9 @@ public class MessageBrokerQueue{
         Log.e("queueID", queueId);
     }
 
+    /** Fetches all new messages from the queue
+     * @return ArrayList of all new PortCallMessages.
+     */
     public ArrayList<PortCallMessage> pollQueue(){
         tempQueue = new ArrayList<>(); // Sets the temporary queue to an empty one.
 
@@ -215,6 +223,9 @@ public class MessageBrokerQueue{
         return tempQueue;
     }
 
+    /** Stores all PortCallMessages from jsonStr in the queue
+     * @param jsonStr Json-String that includes PortCallMessages.
+     */
     private void sortQueueResponse(String jsonStr){
         // For adding to the queue.
         PortCallMessage tempPcm;
@@ -244,6 +255,10 @@ public class MessageBrokerQueue{
         //Log.e("Queue", queue.toString());
     }
 
+    /** Internal method for filtering PortCallMessages based on the ServiceObject.
+     * @param pcm PortCallMessage to be filtered.
+     * @return True if the PortCallMessage ServiceObject equals the one specified in the filter.
+     */
     private boolean isCorrectServiceObject(PortCallMessage pcm){
         ServiceState serviceState = pcm.getServiceState();
         if(serviceState != null){
@@ -253,6 +268,9 @@ public class MessageBrokerQueue{
         return false;
     }
 
+    /** Represent the MessageBrokerQueue as a string.
+     * @return The id of the queue
+     */
     @Override
     public String toString(){
         return queue.toString();

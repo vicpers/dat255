@@ -1,9 +1,8 @@
 package RESTServices;
 
 /**
- * Created by maxedman on 2017-04-22.
+ * Class with constants for handling the data-exchange with the server.
  */
-//TODO kommentera
 public class Constants_API {
 
     // Constants for making webRequests for the server. Developer instance

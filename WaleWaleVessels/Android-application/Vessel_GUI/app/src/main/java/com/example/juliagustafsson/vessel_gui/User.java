@@ -9,7 +9,6 @@ import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.util.NoSuchPropertyException;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -147,6 +146,11 @@ public class User implements Runnable {
             if(!messageBrokerMap.containsKey("portcall")){
                 tempMbq = new MessageBrokerQueue();
                 tempMbq.createUnfilteredQueue(portCallID);
+                ArrayList<PortCallMessage> tempList = tempMbq.pollQueue();
+                try{
+                    while(tempList.size() > 1)
+                        tempList = tempMbq.pollQueue();
+                } catch (NullPointerException e){Log.e("PortCallListNull", e.toString());}
                 messageBrokerMap.put("portcall", tempMbq);
             }
 
@@ -310,12 +314,7 @@ public class User implements Runnable {
                                 createDefaultQueues();
                             } else
                                 Log.e("PortCallID", portCallID);
-                            sendNotification(pcm);
                             Log.e("NyttVesselPCM", pcm.toString());
-                            long time = new Date().getTime();
-                            String tmpStr = String.valueOf(time);
-                            String last4Str = tmpStr.substring(tmpStr.length() - 5);
-                            int notificationId = Integer.parseInt(last4Str);
                         }
                     }
 
@@ -323,6 +322,7 @@ public class User implements Runnable {
                         Log.e("SizePcm", pcmArray.size() + "");
                         for (PortCallMessage pcm : pcmArray) {
                             Log.e("NyttPortCallIdPCM", pcm.toString());
+                            sendNotification(pcm);
                         }
                     }
 

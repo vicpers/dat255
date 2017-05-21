@@ -40,27 +40,30 @@ import static RESTServices.Constants_API.API_SERVICE_GET_VESSEL;
 import static ServiceEntities.Constants_jsonParsing.TAG_STATE_DEFINITION_LOCATION;
 import static ServiceEntities.Constants_jsonParsing.TAG_STATE_DEFINITION_SERVICE;
 
-
 /**
- * Created by maxedman on 2017-04-27.
+ * Static information and methods that is necessary for the application.
+ * The methods for retrieving information from the server is called when the application is started.
  */
-//TODO kommentera
 public class PortCDMServices {
 
+    // Map for storing all accepted LocationeTypes for a LocationTimeSequence stated by the State definitions
     private static HashMap<LocationTimeSequence, HashMap<String, LocationType>> locationStateLocationTypes = new HashMap<>();
+    // Map for storing all accepted ServiceTimeSequences for a ServiceObject stated by the State definitions
     private static HashMap<ServiceObject, HashMap<String, ServiceTimeSequence>> serviceStateTimeSequences = new HashMap<>();
 
+    // Stores the ServiceType for the key ServiceObject.
     private static HashMap<ServiceObject, ServiceType> serviceStateType = new HashMap<>();
 
+    // Stores information about the Gothenburg Port Area, SEGOT, locations.
     private static HashMap<LocationType, HashMap<String, Location>> portData;
+    // Stores information location as the locationMRN as key.
     private static HashMap<String, Location> locationRegistry = new HashMap<>();
 
-
     /**
-     * Method for setting the instancevessel based only on a ID.
-     * @param vesselID
-     * @return
-     * @throws NoSuchElementException
+     * Method for getting the instancevessel based only on a ID.
+     * @param vesselID VesselID as represented by the pcm 0.6 schema.
+     * @return Instance of the vessel based on vesselID
+     * @throws NoSuchElementException if the vessel is not in the registry.
      */
     public static Vessel getVessel(String vesselID) throws NoSuchElementException{
 
@@ -86,30 +89,29 @@ public class PortCDMServices {
         }
     }
 
-    /**
-     * @param locationTimeSequence
-     * @return
+    /** Handles all the State definitions for LocationTimeSequence.
+     * @param locationTimeSequence The LocationTimeSequence for the State definitions.
+     * @return A map of all LocationTypes that is accepted.
      */
     public static HashMap<String, LocationType> getStateDefinitions(LocationTimeSequence locationTimeSequence){
         return locationStateLocationTypes.get(locationTimeSequence);
     }
 
-    /**
-     * @param serviceObject
-     * @return
+    /** Handles all the State definitions for ServiceObject.
+     * @param serviceObject The ServiceObject for the State definitions.
+     * @return A map of all ServiceTimeSequence that is accepted.
      */
     public static HashMap<String, ServiceTimeSequence> getStateDefinitions(ServiceObject serviceObject){
         return serviceStateTimeSequences.get(serviceObject);
     }
 
-    /**
-     * @param serviceObject
-     * @return
+    /** Handles specified ServiceTypes.
+     * @param serviceObject The ServiceObject to get the ServiceType of.
+     * @return The ServiceType for the ServiceObject.
      */
     public static ServiceType getServiceType(ServiceObject serviceObject){
         return serviceStateType.get(serviceObject);
     }
-
 
     /**
      * Fetches all state definitions in PortCDM and saves them in a static hashmap
@@ -189,9 +191,8 @@ public class PortCDMServices {
         Log.e("ServiceStates", serviceStateTimeSequences.toString());
     }
 
-
     /**
-     *
+     * Gets the port data from the server. For SEGOT.
      */
     public static void getActualPortData(){
         // Clears previous port data
@@ -238,19 +239,27 @@ public class PortCDMServices {
         Log.e("PortData", portData.toString());
     }
 
-
-    /**
-     * @param locationType
+    /** Handles all PortLocations for a specified type.
+     * @param locationType The LocationType to get all the Locations for.
      * @return Hashmap or null if LocationType is not found.
      */
     public static HashMap<String, Location> getPortLocations(LocationType locationType){
         return portData.get(locationType);
     }
 
+    /** For retrieving the Location for the specified LocationMRN
+     * @param locationMrn The LocationMRN for the Location.
+     * @return Instance of Location.
+     */
     public static Location getLocation(String locationMrn){
         return locationRegistry.get(locationMrn);
     }
 
+    /** Converts a String from the fromat "yyyy-MM-dd'T'HH:mm:ss'Z'" or with milliseconds icluded
+     * to a date string in the form of "yyyy-MM-dd".
+     * @param dateString The string to be converted.
+     * @return The converted date string.
+     */
     public static String stringToDate(String dateString){
 
         // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
@@ -281,6 +290,11 @@ public class PortCDMServices {
         return formattedTime;
     }
 
+    /** Converts a String from the fromat "yyyy-MM-dd'T'HH:mm:ss'Z'" or with milliseconds icluded
+     * to a time string in the form of "HH:mm".
+     * @param dateString The string to be converted.
+     * @return The converted time string.
+     */
     public static String stringToTime(String dateString){
 
         // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"

@@ -326,7 +326,7 @@ public class User implements Runnable{
 
                     if (mapEntry.getKey().equals("vessel") && pcmArray != null && pcmArray.size() > 0){
                         for (PortCallMessage pcm : pcmArray) {
-                            if (portCallID == null || portCallID.equals("null")) {
+                            if (portCallID == null || portCallID.equals("null") || portCallID.equals("")) {
                                 Log.e("Got PortCallID", pcm.getPortCallId());
                                 setPortCallID(pcm.getPortCallId());
                                 createDefaultQueues();

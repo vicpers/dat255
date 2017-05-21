@@ -46,7 +46,7 @@ public class CustomAdapterSSU extends ArrayAdapter<String> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater lsuInflator = LayoutInflater.from(getContext());
         View row = lsuInflator.inflate(resource, parent, false);
-        Log.e("GetView", "GetView called");
+        //Log.e("GetView", "GetView called");
 
 
         TextView pos = (TextView) row.findViewById(R.id.position);

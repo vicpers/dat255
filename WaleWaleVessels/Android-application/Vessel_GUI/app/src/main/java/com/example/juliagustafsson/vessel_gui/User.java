@@ -60,6 +60,7 @@ public class User implements Runnable, Serializable{
 
         this.thread = new Thread(this);
         this.thread.start();
+        Log.e("User Start", "Started user thread with Vessel: " + vessel.getId());
     }
 
     /**

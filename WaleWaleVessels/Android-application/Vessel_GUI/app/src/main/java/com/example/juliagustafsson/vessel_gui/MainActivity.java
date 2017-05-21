@@ -22,7 +22,6 @@ import java.net.URL;
 
 import ServiceEntities.Vessel;
 
-
 /**
  * Main Activity for the application. It provides a menu for the user and displays some information
  * of the active Vessel. From here the Vessel Captain can launch various Activities or change
@@ -38,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private boolean firstTimeInMainActivity = true;
     private Handler handler;
     private Thread thread;
+    private View sendETAView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,20 +65,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-      //  mToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
-      //      @Override
-      //      public void onClick(View v) {
-       //         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-       //         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        //        mToggle.setDrawerIndicatorEnabled(true);
-       //     }
-       // });
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
-        //logout = (Button) findViewById(R.id.logout);
-        //logout.setOnClickListener(this);
         new UserLocalStorage(this);
 
 

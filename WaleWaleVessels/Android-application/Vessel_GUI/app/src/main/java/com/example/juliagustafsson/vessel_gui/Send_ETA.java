@@ -161,8 +161,6 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
      */
     public void sendNewETA(View v) {
 
-        TextView etaResultView = (TextView) findViewById(R.id.etaConfirmView);
-        etaResultView.setText(" ");
         // Gets strings that represent the date and time from different Edit-fields.
         String etaDate = dateEditText.getText().toString();
         String etaTime = timeEditText.getText().toString();

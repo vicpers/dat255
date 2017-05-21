@@ -118,13 +118,8 @@
             android:layout_marginRight="4dp"
             android:layout_weight="1"
             android:background="@color/menuHeader"
-<<<<<<< Updated upstream
             android:onClick="viewETA"
-            android:text="View ETA"
-=======
-            android:onClick="viewPCM"
             android:text="View ETA history"
->>>>>>> Stashed changes
             android:textSize="24sp" />
 
         <Button

@@ -29,6 +29,8 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
         setSupportActionBar(customToolbar);
         getSupportActionBar().setTitle("Report Update");
         getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar ().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         frag = new DefaultFragment();
         fragTransaction = getFragmentManager().beginTransaction().add(R.id.viewOptions, frag);

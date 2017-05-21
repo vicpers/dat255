@@ -42,6 +42,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (!isTaskRoot()) {
+            final Intent intent = getIntent();
+            if (intent.hasCategory(Intent.CATEGORY_LAUNCHER) && Intent.ACTION_MAIN.equals(intent.getAction())) {
+                Log.w("MainActivity", "Main Activity is not the root.  Finishing Main Activity instead of launching.");
+                finish();
+                return;
+            }
+        }
         setContentView(R.layout.activity_main);
         TextView textView = (TextView) findViewById(R.id.textView4);
 
@@ -106,7 +115,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         try {
             Vessel vessel = UserLocalStorage.getVessel();
             if(vessel != null) {
-                this.user = new User(this, vessel);
+                this.user = User.getUser();
+                user.init(this,vessel);
                 return true;
             } else
                 return false;

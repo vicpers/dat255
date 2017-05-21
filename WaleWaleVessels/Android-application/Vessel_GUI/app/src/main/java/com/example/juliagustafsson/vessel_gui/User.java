@@ -32,6 +32,7 @@ import static RESTServices.PortCDMServices.getStateDefinitions;
  */
 
 public class User implements Runnable {
+    private static User instance;
 
     private Vessel vessel = null;
     private Context context;
@@ -39,12 +40,18 @@ public class User implements Runnable {
     private String portCallID = null;
     private Thread thread = null;
 
-    /** Creates a User
-     * @param context The Context of the launching Activity
-     * @param vessel The Vessel of the User
-     * @throws NullPointerException If Vessel is Null
-     */
-    public User(Context context, Vessel vessel) throws NullPointerException{
+    private User(){}
+
+    private static class SingletonHolder{
+        private static final User INSTANCE = new User();
+    }
+
+
+    public static User getUser(){
+        return SingletonHolder.INSTANCE;
+    }
+
+    public void init(Context context, Vessel vessel) throws NullPointerException{
         if (vessel == null)
             throw new NullPointerException("vessel is null");
         this.vessel = vessel;
@@ -57,6 +64,7 @@ public class User implements Runnable {
         getActualPortData();
         getStateDefinitions();
         startThread();
+
     }
 
     /**

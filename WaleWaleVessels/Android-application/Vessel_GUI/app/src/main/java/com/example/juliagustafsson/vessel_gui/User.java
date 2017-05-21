@@ -64,6 +64,7 @@ public class User implements Runnable, Serializable{
 
         this.thread = new Thread(this);
         this.thread.start();
+        Log.e("User 1", "Started user thread. PortCall: " + portCallID);
     }
 
     /** Creates a User
@@ -86,6 +87,7 @@ public class User implements Runnable, Serializable{
 
         this.thread = new Thread(this);
         this.thread.start();
+        Log.e("User 2", "Started user thread. PortCall: " + portCallID);
     }
 
     /**

@@ -231,6 +231,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_logout:
                 user.clearUser();
                 user.interrupt();
+                try {
+                    Log.e("Logout - PCID", UserLocalStorage.getPortCallID());
+                    Log.e("Logout - PCID", UserLocalStorage.getMessageBrokerMap().toString());
+                    Log.e("Logout - vessel", UserLocalStorage.getVessel().toString());
+                } catch (Exception e){
+                    Log.e("Logout - Exc", e.toString());
+                }
+
                 startActivity(new Intent(MainActivity.this, Vessel_Login.class ));
                 return true;
             default:

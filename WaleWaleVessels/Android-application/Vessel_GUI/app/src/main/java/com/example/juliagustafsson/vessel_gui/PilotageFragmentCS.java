@@ -133,7 +133,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
 
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-            actualQueue.pollQueue();
 
             //hämtar befintlig kö och lagrar som pcmList
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
@@ -170,7 +169,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
 
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-            actualQueue.pollQueue();
 
             //hämtar befintlig kö och lagrar som pcmList
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
@@ -204,7 +202,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
 
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-            actualQueue.pollQueue();
 
             //hämtar befintlig kö och lagrar som pcmList
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
@@ -237,7 +234,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
 
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-            actualQueue.pollQueue();
 
             //hämtar befintlig kö och lagrar som pcmList
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
@@ -289,7 +285,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
         ArrayList<String> timeTypes = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){
@@ -306,7 +301,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
         ArrayList<String> times = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){
@@ -323,7 +317,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
         ArrayList<String> dates = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){
@@ -340,7 +333,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
         ArrayList<String> timeSequences = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){

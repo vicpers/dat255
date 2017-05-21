@@ -161,7 +161,6 @@ public class MooringFragmentCS extends android.app.Fragment implements View.OnCl
         ArrayList<String> timeTypes = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){
@@ -178,7 +177,6 @@ public class MooringFragmentCS extends android.app.Fragment implements View.OnCl
         ArrayList<String> times = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){
@@ -195,7 +193,6 @@ public class MooringFragmentCS extends android.app.Fragment implements View.OnCl
         ArrayList<String> dates = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){
@@ -212,7 +209,6 @@ public class MooringFragmentCS extends android.app.Fragment implements View.OnCl
         ArrayList<String> timeSequences = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){

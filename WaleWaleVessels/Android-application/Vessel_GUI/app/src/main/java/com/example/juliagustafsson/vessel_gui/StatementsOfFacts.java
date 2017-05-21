@@ -30,7 +30,6 @@ public class StatementsOfFacts extends AppCompatActivity {
 
         try {
             MessageBrokerQueue actualQueue = queueMap.get(TimeType.ACTUAL.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
             ArrayList<String> statusStringList = new ArrayList<>();
 

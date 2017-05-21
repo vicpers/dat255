@@ -238,7 +238,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
         ArrayList<String> timeTypes = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){
@@ -255,7 +254,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
         ArrayList<String> times = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
             for(PortCallMessage pcm : pcmList){
                 times.add(PortCDMServices.stringToTime(pcm.getTime()));  }
@@ -271,7 +269,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
         ArrayList<String> dates = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){
@@ -288,7 +285,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
         ArrayList<String> timeSequences = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){

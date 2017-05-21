@@ -226,7 +226,6 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
 
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-            actualQueue.pollQueue();
 
             //Retrieves current queue and stores as an ArrayList of PortCallMessages
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
@@ -263,7 +262,6 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
 
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-            actualQueue.pollQueue();
 
             //Retrieves current queue and stores as an ArrayList of PortCallMessages
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
@@ -297,7 +295,6 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
 
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-            actualQueue.pollQueue();
 
             //Retrieves current queue and stores as an ArrayList of PortCallMessages
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
@@ -330,7 +327,6 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
 
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-            actualQueue.pollQueue();
 
             //Retrieves current queue and stores as an ArrayList of PortCallMessages
         ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
@@ -373,7 +369,6 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
         ArrayList<String> timeTypes = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){
@@ -390,7 +385,6 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
         ArrayList<String> times = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){
@@ -407,7 +401,6 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
         ArrayList<String> dates = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){
@@ -424,7 +417,6 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
         ArrayList<String> timeSequences = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){

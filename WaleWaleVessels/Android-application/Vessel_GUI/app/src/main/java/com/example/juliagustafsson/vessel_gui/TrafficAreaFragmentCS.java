@@ -127,7 +127,6 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
 
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-            actualQueue.pollQueue();
 
             //hämtar befintlig kö och lagrar som pcmList
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
@@ -164,7 +163,6 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
 
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-            actualQueue.pollQueue();
 
             //hämtar befintlig kö och lagrar som pcmList
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
@@ -198,7 +196,6 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
 
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-            actualQueue.pollQueue();
 
             //hämtar befintlig kö och lagrar som pcmList
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
@@ -231,7 +228,6 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
 
         try {
             MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-            actualQueue.pollQueue();
 
             //hämtar befintlig kö och lagrar som pcmList
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();

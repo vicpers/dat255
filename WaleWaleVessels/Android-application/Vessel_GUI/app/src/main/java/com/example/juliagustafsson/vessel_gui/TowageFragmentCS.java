@@ -146,7 +146,6 @@ public class TowageFragmentCS extends android.app.Fragment implements View.OnCli
         ArrayList<String> timeTypes = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){
@@ -163,7 +162,6 @@ public class TowageFragmentCS extends android.app.Fragment implements View.OnCli
         ArrayList<String> times = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){
@@ -180,7 +178,6 @@ public class TowageFragmentCS extends android.app.Fragment implements View.OnCli
         ArrayList<String> dates = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){
@@ -197,7 +194,6 @@ public class TowageFragmentCS extends android.app.Fragment implements View.OnCli
         ArrayList<String> timeSequences = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){

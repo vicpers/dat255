@@ -19,7 +19,6 @@ import java.util.HashMap;
 import RESTServices.MessageBrokerQueue;
 import RESTServices.PortCDMServices;
 import ServiceEntities.Location;
-import ServiceEntities.LocationType;
 import ServiceEntities.PortCallMessage;
 import ServiceEntities.ServiceObject;
 
@@ -220,7 +219,6 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
         Log.e("QP", "calls method serviceObject");
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList) {
@@ -249,7 +247,6 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
         ArrayList<String> timeTypes = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){
@@ -266,7 +263,6 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
         ArrayList<String> times = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){
@@ -283,7 +279,6 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
         ArrayList<String> dates = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){
@@ -300,7 +295,6 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
         ArrayList<String> timeSequences = new ArrayList<>();
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            actualQueue.pollQueue();
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList){

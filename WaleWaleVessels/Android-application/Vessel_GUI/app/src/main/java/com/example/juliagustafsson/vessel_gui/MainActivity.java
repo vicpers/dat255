@@ -20,6 +20,8 @@ import android.widget.TextView;
 import java.io.InputStream;
 import java.net.URL;
 
+import ServiceEntities.Vessel;
+
 
 /**
  * Main Activity for the application. It provides a menu for the user and displays some information
@@ -101,8 +103,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(user != null)
             return true;
         try {
-            this.user = new User(this, UserLocalStorage.getVessel());
-            return true;
+            Vessel vessel = UserLocalStorage.getVessel();
+            if(vessel != null) {
+                if(!vessel.equals("") && !vessel.equals("null")) {
+                    this.user = new User(this, vessel);
+                    return true;
+                } else
+                    return false;
+            } else
+                return false;
         } catch (NullPointerException e){
             return false;
         }

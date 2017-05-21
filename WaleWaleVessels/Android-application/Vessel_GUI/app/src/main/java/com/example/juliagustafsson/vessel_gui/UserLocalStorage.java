@@ -41,10 +41,11 @@ public class UserLocalStorage{
      * Removes all saved data about the user
      */
     public static void clearUserData () {
-        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        /*SharedPreferences.Editor spEditor = userLocalDatabase.edit();
         spEditor.putString("messageMap", "");
         spEditor.clear();
-        spEditor.apply();
+        spEditor.apply();*/
+        userLocalDatabase.edit().clear().apply();
     }
 
     /**

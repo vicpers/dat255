@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 class CustomAdapterViewETA extends ArrayAdapter<String> {
 
-    Context context;
     ArrayList<String> positions;
     private ArrayList<String> times;
     private ArrayList<String> dates;
@@ -29,7 +28,6 @@ class CustomAdapterViewETA extends ArrayAdapter<String> {
 
     CustomAdapterViewETA(Context context, int resource,  ArrayList<String> positions, ArrayList<String> timeTypes, ArrayList<String> times, ArrayList<String> dates, ArrayList<String> timeSeq, Drawable image) {
         super(context, resource, positions);
-        this.context = context;
         this.resource = resource;
         this.positions = positions;
         this.times = times;

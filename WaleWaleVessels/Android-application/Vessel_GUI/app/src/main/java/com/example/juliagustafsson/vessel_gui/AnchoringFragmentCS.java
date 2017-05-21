@@ -38,7 +38,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
     private View locationstateView;
     private ServiceObject currentServiceObject;
     AlertDialog.Builder dialogBuilder;
-    private LocationType selectedAtLocation;
     private LocationType selectedLocationType;
     private Drawable iconImage;
 
@@ -65,7 +64,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
                 title.setText("Anchoring");
                 currentServiceObject = ServiceObject.ANCHORING;
-                selectedAtLocation = LocationType.ANCHORING_AREA;
                 ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);
                 ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
                 ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);
@@ -107,7 +105,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
                 title.setText("Arrival Anchoring Operation");
                 currentServiceObject = ServiceObject.ARRIVAL_ANCHORING_OPERATION;
-                selectedAtLocation = LocationType.ANCHORING_AREA;
                 ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);
                 ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
                 ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);
@@ -129,7 +126,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
                 title.setText("Departure Anchoring Operat.");
                 currentServiceObject = ServiceObject.DEPARTURE_ANCHORING_OPERATION;
-                selectedAtLocation = LocationType.ANCHORING_AREA;
                 ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);
                 ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
                 ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);

@@ -1,54 +1,13 @@
 package com.example.juliagustafsson.vessel_gui;
 
 
-import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.app.TimePickerDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.UUID;
-
-import RESTServices.AMSS;
-import RESTServices.PortCDMServices;
-import ServiceEntities.ArrivalLocation;
-import ServiceEntities.Between;
-import ServiceEntities.DepartureLocation;
-import ServiceEntities.Location;
-import ServiceEntities.LocationState;
-import ServiceEntities.LocationType;
-import ServiceEntities.PortCallMessage;
-import ServiceEntities.Position;
-import ServiceEntities.ReferenceObject;
-import ServiceEntities.ServiceObject;
-import ServiceEntities.ServiceState;
-import ServiceEntities.ServiceTimeSequence;
-import ServiceEntities.ServiceType;
-import ServiceEntities.TimeType;
-
-import static RESTServices.PortCDMServices.getServiceType;
 
 /**
  * Activity for reporting other updates than ETAs to PortCDM. Through a menu the user gets to choose
@@ -138,7 +97,7 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
         vtsArea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                frag = new vtsFragment();
+                frag = new VtsFragment();
                 fragTransaction = getFragmentManager().beginTransaction().replace(R.id.viewOptions, frag);
                 fragTransaction.commit();
             }

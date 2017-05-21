@@ -36,8 +36,6 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
     private View locationstateView;
     private ServiceObject currentServiceObject;
     AlertDialog.Builder dialogBuilder;
-    private LocationType selectedFromLocation;
-    private LocationType selectedtoLocation;
     private LocationType selectedLocationType;
     private Drawable iconImage;
 
@@ -101,8 +99,6 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
                 TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
                 title.setText("Berth Shifting");
                 currentServiceObject = ServiceObject.BERTH_SHIFTING;
-                selectedFromLocation = LocationType.BERTH;
-                selectedtoLocation = LocationType.BERTH;
                 ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
                 ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);
                 ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);

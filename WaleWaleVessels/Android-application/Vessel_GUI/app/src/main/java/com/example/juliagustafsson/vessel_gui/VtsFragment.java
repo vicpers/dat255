@@ -55,7 +55,7 @@ import static RESTServices.PortCDMServices.getServiceType;
 /**
  * Fragment for reporting VTS related activities
  */
-public class vtsFragment extends android.app.Fragment implements View.OnClickListener {
+public class VtsFragment extends android.app.Fragment implements View.OnClickListener {
     private View serviceStateView;
     private ServiceObject currentServiceObject;
     private Spinner spinnerTimeSequence;
@@ -75,7 +75,7 @@ public class vtsFragment extends android.app.Fragment implements View.OnClickLis
     private HashMap<String, TimeType> timeTypeMap;
     HashMap<String, Location> atSubLocationMap;
     HashMap<String, ServiceTimeSequence> timeSequenceMap;
-    public vtsFragment() {
+    public VtsFragment() {
         // Required empty public constructor
     }
 

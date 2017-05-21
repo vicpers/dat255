@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class CustomAdapterBSSU extends ArrayAdapter<String> {
 
-    Context context;
+
     ArrayList<String> locFrom;
     ArrayList<String> locTo;
     private ArrayList<String> times;
@@ -30,7 +30,7 @@ public class CustomAdapterBSSU extends ArrayAdapter<String> {
 
     CustomAdapterBSSU(Context context, int resource, ArrayList<String> locFrom, ArrayList<String> locTo, ArrayList<String> timeTypes, ArrayList<String> times, ArrayList<String> dates, ArrayList<String> timeSeq, Drawable image) {
         super(context, resource, locFrom);
-        this.context = context;
+
         this.resource = resource;
         this.locFrom = locFrom;
         this.locTo = locTo;

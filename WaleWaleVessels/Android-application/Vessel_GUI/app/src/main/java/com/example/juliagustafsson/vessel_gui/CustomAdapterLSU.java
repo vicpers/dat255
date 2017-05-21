@@ -16,9 +16,8 @@ import java.util.ArrayList;
  * Class for making LocationState-objects presented in a view.
  */
 
-public class CustomAdapterLSU extends ArrayAdapter<String> {
+class CustomAdapterLSU extends ArrayAdapter<String> {
 
-    Context context;
     ArrayList<String> positions;
     ArrayList<String> times;
     ArrayList<String> dates;
@@ -28,7 +27,6 @@ public class CustomAdapterLSU extends ArrayAdapter<String> {
 
     CustomAdapterLSU(Context context, int resource, ArrayList<String> positions, ArrayList<String> timeTypes, ArrayList<String> times, ArrayList<String> dates, Drawable image) {
         super(context, resource, positions);
-        this.context = context;
         this.resource = resource;
         this.positions = positions;
         this.times = times;

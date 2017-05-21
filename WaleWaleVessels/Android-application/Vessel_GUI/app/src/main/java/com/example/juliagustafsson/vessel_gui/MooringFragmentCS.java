@@ -33,7 +33,6 @@ public class MooringFragmentCS extends android.app.Fragment implements View.OnCl
     private View serviceStateView;
     private ServiceObject currentServiceObject;
     AlertDialog.Builder dialogBuilder;
-    private LocationType selectedAtLocation;
     Drawable iconImage;
 
     public MooringFragmentCS() {
@@ -54,7 +53,6 @@ public class MooringFragmentCS extends android.app.Fragment implements View.OnCl
                 ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
                 TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
                 title.setText("Arrival Mooring");
-                selectedAtLocation = LocationType.BERTH;
                 currentServiceObject = ServiceObject.ARRIVAL_MOORING_OPERATION;
                 ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);
                 ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
@@ -76,7 +74,6 @@ public class MooringFragmentCS extends android.app.Fragment implements View.OnCl
                 ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
                 TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
                 title.setText("Departure Mooring");
-                selectedAtLocation = LocationType.BERTH;
                 currentServiceObject = ServiceObject.DEPARTURE_MOORING_OPERATION;
                 ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);
                 ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);

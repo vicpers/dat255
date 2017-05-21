@@ -129,14 +129,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     public void displayVesselImage(){
         ImageView ship = (ImageView) findViewById(R.id.vesselImage);
-        ship.setImageDrawable(LoadImageFromWebOperations(user.getVessel().getPhotoURL()));
+        ship.setImageDrawable(loadImageFromWebOperations(user.getVessel().getPhotoURL()));
     }
 
     /**
      * @param url Image-url
      * @return Drawable of image
      */
-    public static Drawable LoadImageFromWebOperations(String url) {
+    public static Drawable loadImageFromWebOperations(String url) {
         try {
             InputStream is = (InputStream) new URL(url).getContent();
             Drawable d = Drawable.createFromStream(is, "src name");

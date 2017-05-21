@@ -32,13 +32,13 @@ import static RESTServices.PortCDMServices.getStateDefinitions;
  * When a new PortCall Message is identified, a notification is sent.
  */
 
-public class User implements Runnable, Serializable{
+public class User implements Runnable {
 
     private Vessel vessel = null;
     private Context context;
     private HashMap<String, MessageBrokerQueue> messageBrokerMap;
     private String portCallID = null;
-    private Thread thread;
+    private Thread thread = null;
 
     /** Creates a User
      * @param context The Context of the launching Activity
@@ -57,10 +57,7 @@ public class User implements Runnable, Serializable{
         createDefaultQueues();
         getActualPortData();
         getStateDefinitions();
-
-        this.thread = new Thread(this);
-        this.thread.start();
-        Log.e("User Start", "Started user thread with Vessel: " + vessel.getId());
+        startThread();
     }
 
     /**
@@ -337,6 +334,14 @@ public class User implements Runnable, Serializable{
             e.printStackTrace();
         }
 
+    }
+
+    private void startThread() {
+        if(thread == null) {
+            this.thread = new Thread(this);
+            this.thread.start();
+            Log.e("User Start", "Started user thread with Vessel: " + vessel.getId());
+        }
     }
 
     /**

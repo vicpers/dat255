@@ -19,7 +19,6 @@ public class Location {
     private LocationType locationType;
     private String locationMRN = null;
     private String shortName;
-    private String subLocationName;
     private String portUnlocode = API_ACTUAL_PORT;
 
     /**
@@ -55,7 +54,6 @@ public class Location {
                 if(locationStrings.length > 5){
                     try {
                         locationType = LocationType.valueOf(locationStrings[5]);
-                        subLocationName = locationStrings[6];
                     } catch (ArrayIndexOutOfBoundsException e){}
                 }
             }

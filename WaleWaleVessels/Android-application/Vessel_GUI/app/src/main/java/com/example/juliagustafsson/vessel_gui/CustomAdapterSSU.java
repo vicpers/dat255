@@ -19,7 +19,6 @@ import java.util.ArrayList;
 
 public class CustomAdapterSSU extends ArrayAdapter<String> {
 
-    Context context;
     ArrayList<String> positions;
     private ArrayList<String> times;
     private ArrayList<String> dates;
@@ -30,7 +29,6 @@ public class CustomAdapterSSU extends ArrayAdapter<String> {
 
     CustomAdapterSSU(Context context, int resource,  ArrayList<String> positions, ArrayList<String> timeTypes, ArrayList<String> times, ArrayList<String> dates, ArrayList<String> timeSeq, Drawable image) {
         super(context, resource, positions);
-        this.context = context;
         this.resource = resource;
         this.positions = positions;
         this.times = times;

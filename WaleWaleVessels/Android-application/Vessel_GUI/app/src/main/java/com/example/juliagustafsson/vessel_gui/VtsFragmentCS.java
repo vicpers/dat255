@@ -31,11 +31,8 @@ import ServiceEntities.ServiceObject;
 public class VtsFragmentCS extends android.app.Fragment implements View.OnClickListener {
 
     private View serviceStateView;
-    private View locationstateView;
     private ServiceObject currentServiceObject;
     AlertDialog.Builder dialogBuilder;
-    private LocationType selectedAtLocation;
-    private LocationType selectedLocationType;
     private Drawable iconImage;
 
     public VtsFragmentCS() {
@@ -56,7 +53,6 @@ public class VtsFragmentCS extends android.app.Fragment implements View.OnClickL
                 serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
                 ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
                 currentServiceObject = ServiceObject.ARRIVAL_VTSAREA;
-                selectedAtLocation = LocationType.TRAFFIC_AREA;
                 TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
                 title.setText("Arrival VTS Area");
                 ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);
@@ -78,7 +74,6 @@ public class VtsFragmentCS extends android.app.Fragment implements View.OnClickL
                 serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
                 ListView dialogListView = (ListView) serviceStateView.findViewById(R.id.checkStatus);
                 currentServiceObject = ServiceObject.DEPARTURE_VTSAREA;
-                selectedAtLocation = LocationType.TRAFFIC_AREA;
                 TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
                 title.setText("Departure VTS Area");
                 ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);

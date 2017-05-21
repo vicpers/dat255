@@ -19,10 +19,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LeftMenu"
-            android:label="@string/title_activity_left_menu"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".ViewPCM"
             android:parentActivityName=".MainActivity">
 

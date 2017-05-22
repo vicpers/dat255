@@ -44,8 +44,6 @@ public class StatementsOfFacts extends AppCompatActivity {
         setSupportActionBar(customToolbar);
         getSupportActionBar().setTitle("Statements of facts");
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ListView dialogListView = (ListView) findViewById(R.id.statusView);
                 try {

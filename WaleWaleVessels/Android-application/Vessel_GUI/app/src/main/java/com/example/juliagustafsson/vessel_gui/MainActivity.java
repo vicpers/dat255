@@ -201,10 +201,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.home_page:
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                return true;
             case R.id.nav_checkStatus:
                 Intent intent4 = new Intent(this, CheckStatus.class);
                 startActivity(intent4);
@@ -217,17 +213,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent3 = new Intent(this, Report_Update.class);
                 startActivity(intent3);
                 return true;
-
             case R.id.nav_viewETA:
                 Intent intent5 = new Intent(this, ViewETA.class);
                 startActivity(intent5);
                 return true;
-
             case R.id.nav_statementsOfFacts:
                 Intent intent6 = new Intent(this, StatementsOfFacts.class);
                 startActivity(intent6);
                 return true;
-
             case R.id.nav_logout:
                 user.clearUser();
                 user.interrupt();
@@ -247,7 +240,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 } catch (Exception e){
                     Log.e("Logout - ExcVessel", e.toString());
                 }
-
                 startActivity(new Intent(MainActivity.this, Vessel_Login.class ));
                 return true;
             default:

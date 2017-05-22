@@ -36,8 +36,6 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
         setSupportActionBar(customToolbar);
         getSupportActionBar().setTitle("Check activity status");
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar ().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         frag = new DefaultFragment();
         fragTransaction = getFragmentManager().beginTransaction().add(R.id.viewOptions, frag);

@@ -205,8 +205,7 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         String message;
         if(etaResult.equals("")){
             message = "ETA sent successfully";
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            finish();
         }
         else{
             message = etaResult;

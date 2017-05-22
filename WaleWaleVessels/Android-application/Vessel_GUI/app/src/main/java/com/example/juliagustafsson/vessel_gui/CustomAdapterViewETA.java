@@ -26,12 +26,10 @@ public class CustomAdapterViewETA extends ArrayAdapter<String> {
     private ArrayList<String> posAt;
     private ArrayList<String> serviceObj;
     private Drawable image;
-    private int resource;
 
     CustomAdapterViewETA(Context context, int resource, ArrayList<String> serviceObj, ArrayList<String> posAt, ArrayList<String> locFrom, ArrayList<String> locTo, ArrayList<String> times, ArrayList<String> dates, ArrayList<String> timeSeq, Drawable image) {
-        super(context, resource, locFrom);
+        super(context, resource, times);
 
-        this.resource = resource;
         this.locFrom = locFrom;
         this.locTo = locTo;
         this.times = times;

@@ -364,19 +364,8 @@ public class User implements Runnable {
         int notificationId = Integer.parseInt(last4Str);
 
         mBuilder.setContentTitle("New PCM regarding "+ pcm.getOperationType());
-        
 
         mBuilder.setContentText("Click to view");
-        Intent resultIntent = new Intent(context, CheckStatus.class);
-        resultIntent.putExtra("clickedNotification", pcm.getOperationType());
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(CheckStatus.class);
-
-        // Adds the Intent that starts the Activity to the top of the stack
-        stackBuilder.addNextIntent(resultIntent);
-
-        //mBuilder.setContentIntent(resultPendingIntent);
-        // Remove comment above to make notifications clickable, bugs regarding multiple threads follow...
 
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
 

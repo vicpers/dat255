@@ -90,6 +90,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    @Override
+    public void onBackPressed() {
+    }
+
     /**
      * @return Controls that the activity has a user.
      */

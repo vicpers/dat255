@@ -273,7 +273,8 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
                     String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM through the AMSS.
                     if(etaResult.equals("")) {
                         message = "Anchoring update regarding: " + etaDate + ", " + etaTime + " sent!";
-                    }
+                    } else if (!message.contains("Date or Time not selected"))
+                        message = etaResult;
                     Toast toast = Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG);
                     toast.show();
 
@@ -301,7 +302,8 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
                     String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage to PortCDM through the AMSS.
                     if(etaResult.equals("")) {
                         message = "Anchoring update regarding: " + etaDate + ", " + etaTime + " sent!";
-                    }
+                    } else if (!message.contains("Date or Time not selected"))
+                        message = etaResult;
 
                     Toast toast = Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG);
                     toast.show();

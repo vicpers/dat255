@@ -168,7 +168,8 @@ public class VtsFragment extends android.app.Fragment implements View.OnClickLis
 
                 if(etaResult.equals("")) {
                     message = "VTS update regarding: " + etaDate + ", " + etaTime + " sent!";
-                }
+                } else if (!message.contains("Date or Time not selected"))
+                    message = etaResult;
                 Toast toast = Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG);
                 toast.show();
                 }

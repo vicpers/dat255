@@ -171,7 +171,8 @@ public class MooringFragment extends android.app.Fragment implements View.OnClic
 
                 if(etaResult.equals("")){
                     message = "Mooring update regarding: " + etaDate + ", " + etaTime + " sent!\"";
-                }
+                } else if (!message.contains("Date or Time not selected"))
+                    message = etaResult;
 
                 Toast toast = Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG);
                 toast.show();

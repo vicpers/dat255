@@ -194,7 +194,8 @@ public class PilotageFragment extends android.app.Fragment implements View.OnCli
                     String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
                     if(etaResult.equals("")) {
                         message = "Pilotage update regarding: " + etaDate + ", " + etaTime + " sent!";
-                    }
+                    } else if (!message.contains("Date or Time not selected"))
+                        message = etaResult;
                     Toast toast = Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG);
                     toast.show();
                     //send a location state port call message
@@ -218,7 +219,8 @@ public class PilotageFragment extends android.app.Fragment implements View.OnCli
                     String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage to PortCDM through the AMSS.
                     if(etaResult.equals("")) {
                         message = "Pilotage update regarding: " + etaDate + ", " + etaTime + " sent!";
-                    }
+                    } else if (!message.contains("Date or Time not selected"))
+                        message = etaResult;
                     Toast toast = Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG);
                     toast.show();
                 }

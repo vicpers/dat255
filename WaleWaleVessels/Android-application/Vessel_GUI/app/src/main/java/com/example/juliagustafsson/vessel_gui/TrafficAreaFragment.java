@@ -167,7 +167,8 @@ public class TrafficAreaFragment extends android.app.Fragment implements View.On
                     String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage to PortCDM through the AMSS.
                 if(etaResult.equals("")) {
                     message = "Traffic Area update regarding: " + etaDate + ", " + etaTime + " sent!";
-                }
+                } else if (!message.contains("Date or Time not selected"))
+                    message = etaResult;
                 Toast toast = Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG);
                 toast.show();
             }

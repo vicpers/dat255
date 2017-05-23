@@ -3,7 +3,6 @@ package com.example.juliagustafsson.vessel_gui;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
@@ -180,7 +179,8 @@ public class TowageFragment extends android.app.Fragment implements View.OnClick
                 String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
                 if(etaResult.equals("")) {
                     message = "Towage update regarding: " + etaDate + ", " + etaTime + " sent!";
-                }
+                } else if (!message.contains("Date or Time not selected"))
+                    message = etaResult;
                 Toast toast = Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG);
                 toast.show();
             }

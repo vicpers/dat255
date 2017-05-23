@@ -38,6 +38,12 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
     private LocationType selectedLocationType;
     Drawable iconImage;
 
+    private ArrayList<String> positions;
+    private ArrayList<String> times;
+    private ArrayList<String> dates;
+    private ArrayList<String> timeTypes;
+
+
     public TrafficAreaFragmentCS() {
 
     }
@@ -57,13 +63,16 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
                 TextView title = (TextView) locationstateView.findViewById(R.id.titleView);
                 title.setText("Arrival Traffic Area");
                 selectedLocationType = LocationType.TRAFFIC_AREA;
-                ArrayList<String> positions = locationTypeQueuePositionsToString(selectedLocationType, true);
-                ArrayList<String> times = locationTypeQueueTimesToString(selectedLocationType, true);
-                ArrayList<String> dates = locationTypeQueueDatesToString(selectedLocationType, true);
-                ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, true);
+
+                // Only runs one loop.
+                locationTypeQueueToString(selectedLocationType, true);
+//                ArrayList<String> positions = locationTypeQueuePositionsToString(selectedLocationType, true);
+//                ArrayList<String> times = locationTypeQueueTimesToString(selectedLocationType, true);
+//                ArrayList<String> dates = locationTypeQueueDatesToString(selectedLocationType, true);
+//                ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, true);
                 iconImage = getResources().getDrawable(R.drawable.ic_buoys);
                 if (times.isEmpty()) {
-                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "No status available", Toast.LENGTH_SHORT);
                     toast.show(); }
                 else {
                     ArrayAdapter<String> itemsAdapter =
@@ -82,13 +91,15 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
                 TextView title = (TextView) locationstateView.findViewById(R.id.titleView);
                 title.setText("Departure Traffic Area");
                 selectedLocationType = LocationType.TRAFFIC_AREA;
-                ArrayList<String> positions = locationTypeQueuePositionsToString(selectedLocationType, false);
-                ArrayList<String> times = locationTypeQueueTimesToString(selectedLocationType, false);
-                ArrayList<String> dates = locationTypeQueueDatesToString(selectedLocationType, false);
-                ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, false);
+                // Only runs one loop.
+                locationTypeQueueToString(selectedLocationType, false);
+//                ArrayList<String> positions = locationTypeQueuePositionsToString(selectedLocationType, false);
+//                ArrayList<String> times = locationTypeQueueTimesToString(selectedLocationType, false);
+//                ArrayList<String> dates = locationTypeQueueDatesToString(selectedLocationType, false);
+//                ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, false);
                 iconImage = getResources().getDrawable(R.drawable.ic_buoys);
                 if (times.isEmpty()) {
-                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "No status available", Toast.LENGTH_SHORT);
                     toast.show(); }
                 else {
                     ArrayAdapter<String> itemsAdapter =
@@ -132,6 +143,53 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
         dialogBuilder.setView(v);
         dialogBuilder.show();
     }
+
+    private void locationTypeQueueToString(LocationType locationType, boolean isArrival){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        positions = new ArrayList<>();
+        times     = new ArrayList<>();
+        dates     = new ArrayList<>();
+        timeTypes = new ArrayList<>();
+
+        try{
+            MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            for(PortCallMessage pcm : pcmList) {
+
+                LocationState locationState = pcm.getLocationState();
+                if(locationState != null){
+                    if(isArrival) {
+                        ArrivalLocation arrivalLocation = locationState.getArrivalLocation();
+                        if(arrivalLocation != null) {
+                            Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
+                            positions.add(tempLoc.getName());
+                        }
+                    } else {
+                        DepartureLocation departureLocation = locationState.getDepartureLocation();
+                        if(departureLocation != null) {
+                            Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
+                            positions.add(tempLoc.getName());
+                        }
+                    }
+                    timeTypes.add(pcm.getTimeType());
+                    times.add(PortCDMServices.stringToTime(pcm.getTime()));
+                    dates.add(PortCDMServices.stringToDate(pcm.getTime()));
+
+                }
+            }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-servType", e.toString());
+        }
+
+        reverse(positions);
+        reverse(times);
+        reverse(dates);
+        reverse(timeTypes);
+
+    }
+
+
 
     private ArrayList<String> locationTypeQueuePositionsToString(LocationType locationType, boolean isArrival){
         HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();

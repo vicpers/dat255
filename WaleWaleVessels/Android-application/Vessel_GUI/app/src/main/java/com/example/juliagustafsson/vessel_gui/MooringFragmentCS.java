@@ -36,6 +36,14 @@ public class MooringFragmentCS extends android.app.Fragment implements View.OnCl
     AlertDialog.Builder dialogBuilder;
     Drawable iconImage;
 
+    private ArrayList<String> positions;
+    private ArrayList<String> times;
+    private ArrayList<String> dates;
+    private ArrayList<String> timeTypes;
+    private ArrayList<String> timeSeq;
+    private ArrayList<String> locFrom;
+    private ArrayList<String> locTo;
+
     public MooringFragmentCS() {
 
     }
@@ -55,14 +63,17 @@ public class MooringFragmentCS extends android.app.Fragment implements View.OnCl
                 TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
                 title.setText("Arrival Mooring");
                 currentServiceObject = ServiceObject.ARRIVAL_MOORING_OPERATION;
-                ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);
-                ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
-                ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);
-                ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
-                ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
+
+                // Only runs one loop
+                serviceObjectQueueToString(currentServiceObject);
+//                ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);
+//                ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
+//                ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);
+//                ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
+//                ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
                 iconImage = getResources().getDrawable(R.drawable.ic_knot);
                 if (times.isEmpty()) {
-                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "No status available", Toast.LENGTH_SHORT);
                     toast.show(); }
                 else {
                     ArrayAdapter<String> itemsAdapter =
@@ -81,14 +92,17 @@ public class MooringFragmentCS extends android.app.Fragment implements View.OnCl
                 TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
                 title.setText("Departure Mooring");
                 currentServiceObject = ServiceObject.DEPARTURE_MOORING_OPERATION;
-                ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);
-                ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
-                ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);
-                ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
-                ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
+
+                // Only runs one loop
+                serviceObjectQueueToString(currentServiceObject);
+//                ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);
+//                ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
+//                ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);
+//                ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
+//                ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
                 iconImage = getResources().getDrawable(R.drawable.ic_knot);
                 if (times.isEmpty()) {
-                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "No status available", Toast.LENGTH_SHORT);
                     toast.show(); }
                 else {
                     ArrayAdapter<String> itemsAdapter =
@@ -133,6 +147,62 @@ public class MooringFragmentCS extends android.app.Fragment implements View.OnCl
         dialogBuilder.show();
     }
 
+    private void serviceObjectQueueToString(ServiceObject serviceObject){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        positions = new ArrayList<>();
+        times     = new ArrayList<>();
+        dates     = new ArrayList<>();
+        timeTypes = new ArrayList<>();
+        timeSeq   = new ArrayList<>();
+        locTo   = new ArrayList<>();
+        locFrom   = new ArrayList<>();
+        try{
+            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            for(PortCallMessage pcm : pcmList) {
+
+                timeTypes.add(pcm.getTimeType());
+                times.add(PortCDMServices.stringToTime(pcm.getTime()));
+                dates.add(PortCDMServices.stringToDate(pcm.getTime()));
+                timeSeq.add(pcm.getTimeSequence());
+
+                String locMRN = pcm.getLocationMRN();
+                if (locMRN.contains("/")) {
+                    String[] parts = locMRN.split("/");
+                    try {
+                        String loc1 = parts[0];
+                        String loc2 = parts[1];
+                        Location tempLoc = PortCDMServices.getLocation(loc1);
+                        Location tempLoc2 = PortCDMServices.getLocation(loc2);
+                        locFrom.add(tempLoc.getName());
+                        locTo.add(tempLoc2.getName());
+                    }
+                    catch (NullPointerException e){
+                        Log.e("CheckStatus-servType", e.toString());
+                    }
+                } else {
+                    Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
+                    positions.add(tempLoc.getName());
+                }
+
+
+
+
+            }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-servType", e.toString());
+        }
+
+
+        reverse(times);
+        reverse(dates);
+        reverse(timeTypes);
+        reverse(timeSeq);
+        reverse(locTo);
+        reverse(locFrom);
+        reverse(positions);
+    }
 
     private ArrayList<String> serviceObjectQueuePositionsToString(ServiceObject serviceObject){
         HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();

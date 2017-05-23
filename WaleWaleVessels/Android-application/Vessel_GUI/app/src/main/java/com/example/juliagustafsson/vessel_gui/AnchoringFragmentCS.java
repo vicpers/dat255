@@ -41,6 +41,11 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
     AlertDialog.Builder dialogBuilder;
     private LocationType selectedLocationType;
     private Drawable iconImage;
+    private ArrayList<String> positions;
+    private ArrayList<String> times;
+    private ArrayList<String> dates;
+    private ArrayList<String> timeTypes;
+    private ArrayList<String> timeSeq;
 
     public AnchoringFragmentCS() {
 
@@ -65,14 +70,17 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
                 title.setText("Anchoring");
                 currentServiceObject = ServiceObject.ANCHORING;
-                ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);
-                ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
-                ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);
-                ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
-                ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
+
+                // Only runs one loop
+                serviceObjectQueueToString(currentServiceObject);
+//                ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);
+//                ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
+//                ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);
+//                ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
+//                ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
                 iconImage = getResources().getDrawable(R.drawable.ic_big_anchor);
                 if (times.isEmpty()) {
-                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "No status available", Toast.LENGTH_SHORT);
                     toast.show(); }
                 else {
                     ArrayAdapter<String> itemsAdapter =
@@ -91,13 +99,17 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 TextView title = (TextView) locationstateView.findViewById(R.id.titleView);
                 title.setText("Arrival Anchoring");
                 selectedLocationType = LocationType.ANCHORING_AREA;
-                ArrayList<String> positions = locationTypeQueuePositionsToString(selectedLocationType, true);
-                ArrayList<String> times = locationTypeQueueTimesToString(selectedLocationType, true);
-                ArrayList<String> dates = locationTypeQueueDatesToString(selectedLocationType, true);
-                ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, true);
+
+                // Only runs one loop.
+                locationTypeQueueToString(selectedLocationType, true);
+
+//                ArrayList<String> positions = locationTypeQueuePositionsToString(selectedLocationType, true);
+//                ArrayList<String> times = locationTypeQueueTimesToString(selectedLocationType, true);
+//                ArrayList<String> dates = locationTypeQueueDatesToString(selectedLocationType, true);
+//                ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, true);
                 iconImage = getResources().getDrawable(R.drawable.ic_big_anchor);
                 if (times.isEmpty()) {
-                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "No status available", Toast.LENGTH_SHORT);
                     toast.show(); }
                 else {
                     ArrayAdapter<String> itemsAdapter =
@@ -116,14 +128,18 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
                 title.setText("Arrival Anchoring Operation");
                 currentServiceObject = ServiceObject.ARRIVAL_ANCHORING_OPERATION;
-                ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);
-                ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
-                ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);
-                ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
-                ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
+
+                // Only runs one loop
+                serviceObjectQueueToString(currentServiceObject);
+
+//                ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);
+//                ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
+//                ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);
+//                ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
+//                ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
                 iconImage = getResources().getDrawable(R.drawable.ic_big_anchor);
                 if (times.isEmpty()) {
-                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "No status available", Toast.LENGTH_SHORT);
                     toast.show(); }
                 else {
                     ArrayAdapter<String> itemsAdapter =
@@ -143,14 +159,18 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 TextView title = (TextView) serviceStateView.findViewById(R.id.titleView);
                 title.setText("Departure Anchoring Operat.");
                 currentServiceObject = ServiceObject.DEPARTURE_ANCHORING_OPERATION;
-                ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);
-                ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
-                ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);
-                ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
-                ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
+
+                // Only runs one loop
+                serviceObjectQueueToString(currentServiceObject);
+
+//                ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);
+//                ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
+//                ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);
+//                ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
+//                ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
                 iconImage = getResources().getDrawable(R.drawable.ic_big_anchor);
                 if (times.isEmpty()) {
-                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "No status available", Toast.LENGTH_SHORT);
                     toast.show(); }
                 else {
                     ArrayAdapter<String> itemsAdapter =
@@ -169,13 +189,16 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 TextView title = (TextView) locationstateView.findViewById(R.id.titleView);
                 title.setText("Departure Anchoring");
                 selectedLocationType = LocationType.ANCHORING_AREA;
-                ArrayList<String> positions = locationTypeQueuePositionsToString(selectedLocationType, false);
-                ArrayList<String> times = locationTypeQueueTimesToString(selectedLocationType, false);
-                ArrayList<String> dates = locationTypeQueueDatesToString(selectedLocationType, false);
-                ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, false);
+
+                // Only runs one loop.
+                locationTypeQueueToString(selectedLocationType, false);
+//                ArrayList<String> positions = locationTypeQueuePositionsToString(selectedLocationType, false);
+//                ArrayList<String> times = locationTypeQueueTimesToString(selectedLocationType, false);
+//                ArrayList<String> dates = locationTypeQueueDatesToString(selectedLocationType, false);
+//                ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, false);
                 iconImage = getResources().getDrawable(R.drawable.ic_big_anchor);
                 if (times.isEmpty()) {
-                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "No status available", Toast.LENGTH_SHORT);
                     toast.show(); }
                 else {
                     ArrayAdapter<String> itemsAdapter =
@@ -225,6 +248,94 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
         dialogBuilder.setView(v);
 
         dialogBuilder.show();
+    }
+
+    private void serviceObjectQueueToString(ServiceObject serviceObject){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        positions = new ArrayList<>();
+        times     = new ArrayList<>();
+        dates     = new ArrayList<>();
+        timeTypes = new ArrayList<>();
+        timeSeq   = new ArrayList<>();
+        try{
+            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            for(PortCallMessage pcm : pcmList) {
+                String locMRN = pcm.getLocationMRN();
+                if (locMRN.contains("/")) {
+                    String[] parts = locMRN.split("/");
+                    String loc1 = parts[0];
+                    String loc2 = parts[1];
+                    Location tempLoc = PortCDMServices.getLocation(loc1);
+                    positions.add(tempLoc.getName());
+                } else {
+                    Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
+                    positions.add(tempLoc.getName());
+                }
+                timeTypes.add(pcm.getTimeType());
+                times.add(PortCDMServices.stringToTime(pcm.getTime()));
+                dates.add(PortCDMServices.stringToDate(pcm.getTime()));
+                timeSeq.add(pcm.getTimeSequence());
+
+
+
+
+            }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-servType", e.toString());
+        }
+
+         reverse(positions);
+         reverse(times);
+         reverse(dates);
+         reverse(timeTypes);
+         reverse(timeSeq);
+    }
+
+    private void locationTypeQueueToString(LocationType locationType, boolean isArrival){
+        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
+        positions = new ArrayList<>();
+        times     = new ArrayList<>();
+        dates     = new ArrayList<>();
+        timeTypes = new ArrayList<>();
+        timeSeq   = new ArrayList<>();
+        try{
+            MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
+            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
+
+            for(PortCallMessage pcm : pcmList) {
+
+                LocationState locationState = pcm.getLocationState();
+                if(locationState != null){
+                    if(isArrival) {
+                        ArrivalLocation arrivalLocation = locationState.getArrivalLocation();
+                        if(arrivalLocation != null) {
+                            Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
+                            positions.add(tempLoc.getName());
+                        }
+                    } else {
+                        DepartureLocation departureLocation = locationState.getDepartureLocation();
+                        if(departureLocation != null) {
+                            Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
+                            positions.add(tempLoc.getName());
+                        }
+                    }
+                    timeTypes.add(pcm.getTimeType());
+                    times.add(PortCDMServices.stringToTime(pcm.getTime()));
+                    dates.add(PortCDMServices.stringToDate(pcm.getTime()));
+                    timeSeq.add(pcm.getTimeSequence());
+                }
+            }
+        } catch (NullPointerException e){
+            Log.e("CheckStatus-servType", e.toString());
+        }
+
+        reverse(positions);
+        reverse(times);
+        reverse(dates);
+        reverse(timeTypes);
+        reverse(timeSeq);
     }
 
     private ArrayList<String> serviceObjectQueuePositionsToString(ServiceObject serviceObject){

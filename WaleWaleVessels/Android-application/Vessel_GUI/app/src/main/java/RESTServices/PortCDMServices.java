@@ -310,7 +310,6 @@ public class PortCDMServices {
             cal.add(Calendar.HOUR, 2);
             date = cal.getTime();
             formattedTime = dateOutput.format(date);
-            Log.e("formattedTime 1", formattedTime);
         } catch (ParseException e1) {
             Log.e("DateProblem Parsing", e1.toString());
             Log.e("DateProblem Parsing", "Trying again");
@@ -323,7 +322,6 @@ public class PortCDMServices {
                 cal.add(Calendar.HOUR, 2);
                 date = cal.getTime();
                 formattedTime = dateOutput.format(date);
-                Log.e("formattedTime 2", formattedTime);
             } catch (ParseException e2) {
                 Log.e("DateProblem Parsing", e2.toString());
             }catch (NullPointerException e3){

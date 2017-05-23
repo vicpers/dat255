@@ -246,18 +246,22 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
                         if(arrivalLocation != null) {
                             Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
                             positions.add(tempLoc.getName());
+                            timeTypes.add(pcm.getTimeType());
+                            times.add(PortCDMServices.stringToTime(pcm.getTime()));
+                            dates.add(PortCDMServices.stringToDate(pcm.getTime()));
+                            timeSeq.add(pcm.getTimeSequence());
                         }
                     } else {
                         DepartureLocation departureLocation = locationState.getDepartureLocation();
                         if(departureLocation != null) {
                             Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
                             positions.add(tempLoc.getName());
+                            timeTypes.add(pcm.getTimeType());
+                            times.add(PortCDMServices.stringToTime(pcm.getTime()));
+                            dates.add(PortCDMServices.stringToDate(pcm.getTime()));
+                            timeSeq.add(pcm.getTimeSequence());
                         }
                     }
-                    timeTypes.add(pcm.getTimeType());
-                    times.add(PortCDMServices.stringToTime(pcm.getTime()));
-                    dates.add(PortCDMServices.stringToDate(pcm.getTime()));
-                    timeSeq.add(pcm.getTimeSequence());
                 }
             }
         } catch (NullPointerException e){

@@ -156,18 +156,20 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
                         if(arrivalLocation != null) {
                             Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
                             positions.add(tempLoc.getName());
+                            timeTypes.add(pcm.getTimeType());
+                            times.add(PortCDMServices.stringToTime(pcm.getTime()));
+                            dates.add(PortCDMServices.stringToDate(pcm.getTime()));
                         }
                     } else {
                         DepartureLocation departureLocation = locationState.getDepartureLocation();
                         if(departureLocation != null) {
                             Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
                             positions.add(tempLoc.getName());
+                            timeTypes.add(pcm.getTimeType());
+                            times.add(PortCDMServices.stringToTime(pcm.getTime()));
+                            dates.add(PortCDMServices.stringToDate(pcm.getTime()));
                         }
                     }
-                    timeTypes.add(pcm.getTimeType());
-                    times.add(PortCDMServices.stringToTime(pcm.getTime()));
-                    dates.add(PortCDMServices.stringToDate(pcm.getTime()));
-
                 }
             }
         } catch (NullPointerException e){
@@ -178,7 +180,6 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
         reverse(times);
         reverse(dates);
         reverse(timeTypes);
-
     }
 
     public ArrayList<String> reverse(ArrayList<String> list) {

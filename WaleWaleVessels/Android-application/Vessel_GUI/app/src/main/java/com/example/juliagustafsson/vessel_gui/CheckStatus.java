@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -128,7 +127,6 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
         Intent intent = getIntent();
         if (intent.hasExtra("clickedNotification")) {
             String notification = intent.getStringExtra("clickedNotification");
-            Log.d("hej", notification);
             if (notification.toLowerCase().contains("anchoring")) {
                 Bundle bundle = new Bundle();
                 bundle.putString("notification", notification);

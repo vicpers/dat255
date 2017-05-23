@@ -232,14 +232,12 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
     private ArrayList<String> serviceObjectQueuePositionsToString(ServiceObject serviceObject){
         HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
         ArrayList<String> positions = new ArrayList<>();
-        Log.e("QP", "calls method serviceObject");
         try{
             MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
             ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
 
             for(PortCallMessage pcm : pcmList) {
                 String locMRN = pcm.getLocationMRN();
-                Log.e("MRNS", locMRN);
                 if (locMRN.contains("/")) {
                     String[] parts = locMRN.split("/");
                     String loc1 = parts[0];

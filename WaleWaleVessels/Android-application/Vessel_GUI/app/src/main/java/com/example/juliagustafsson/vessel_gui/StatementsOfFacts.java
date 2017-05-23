@@ -9,9 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import RESTServices.MessageBrokerQueue;
 import RESTServices.PortCDMServices;
 import ServiceEntities.Location;
 import ServiceEntities.PortCallMessage;
@@ -100,13 +98,6 @@ public class StatementsOfFacts extends AppCompatActivity {
                     Log.e("actualQueue.pollQueue()", e.toString());
                 }
 
-        Log.e("ServiceObjects", serviceObjects.toString());
-        Log.e("PositionsAt", positionsAt.toString());
-        Log.e("LocationsFrom", locationsFrom.toString());
-        Log.e("LocationsTo", locationsTo.toString());
-        Log.e("Times", times.toString());
-        Log.e("Dates", dates.toString());
-        Log.e("TimeSeq", timeSequences.toString());
         reverse(serviceObjects);
         reverse(positionsAt);
         reverse(locationsFrom);

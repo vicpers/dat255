@@ -1,7 +1,6 @@
 package com.example.juliagustafsson.vessel_gui;
 
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.TaskStackBuilder;
@@ -306,7 +305,6 @@ public class User implements Runnable {
                     pcmArray = mapEntry.getValue().pollQueue();
 
                     if (mapEntry.getKey().equals("vessel") && pcmArray != null && pcmArray.size() > 0){
-                        Log.e("SizePcm", pcmArray.size() + "");
                         for (PortCallMessage pcm : pcmArray) {
                             if (portCallID == null || portCallID.equals("null") || portCallID.equals("")) {
                                 Log.e("Got New PortCallID", pcm.getPortCallId());
@@ -319,7 +317,6 @@ public class User implements Runnable {
                     }
 
                     if (mapEntry.getKey().equals("portcall") && pcmArray != null && pcmArray.size() > 0){
-                        Log.e("SizePcm", pcmArray.size() + "");
                         for (PortCallMessage pcm : pcmArray) {
                             Log.e("NyttPortCallIdPCM", pcm.toString());
                             sendNotification(pcm);

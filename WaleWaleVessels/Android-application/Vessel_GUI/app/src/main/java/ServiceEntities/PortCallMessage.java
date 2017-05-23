@@ -346,10 +346,9 @@ public class PortCallMessage{
      * @return String with the LocationMRN of the PortCall Message
      */
     public String getLocationMRN(){
-        if(isServiceState()){
-            Log.e("1", "1");
+        if(isServiceState())
             return getServiceState().getLocationMRN();
-        }
-        else return getLocationState().getLocationMRN();
+        else
+            return getLocationState().getLocationMRN();
     }
 }

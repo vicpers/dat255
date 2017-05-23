@@ -81,10 +81,6 @@ public class Vessel implements Serializable {
         setId(id);
     }
 
-    public String getImo() {
-        return imo;
-    }
-
     private void setImo(String imo) {
         this.imo = imo;
     }
@@ -105,16 +101,8 @@ public class Vessel implements Serializable {
         this.name = name;
     }
 
-    public String getCallSign() {
-        return callSign;
-    }
-
     private void setCallSign(String callSign) {
         this.callSign = callSign;
-    }
-
-    public String getMmsi() {
-        return mmsi;
     }
 
     private void setMmsi(String mmsi) {
@@ -129,10 +117,6 @@ public class Vessel implements Serializable {
         this.vesselType = type;
     }
 
-    public String getStmVesselId() {
-        return stmVesselId;
-    }
-
     private void setStmVesselId(String stmVesselId) {
         this.stmVesselId = stmVesselId;
     }
@@ -145,22 +129,10 @@ public class Vessel implements Serializable {
         this.photoURL = photoURL;
     }
 
-
-    public VesselType getVesselType() {
-        return vesselType;
-    }
-
-    public void setVesselType(VesselType vesselType) {
-        this.vesselType = vesselType;
-    }
-
-
-
     @Override
     public String toString(){
         return "VesselID: " + getId() +
                "\nVesselName: " + getName();
     }
-
 
 }

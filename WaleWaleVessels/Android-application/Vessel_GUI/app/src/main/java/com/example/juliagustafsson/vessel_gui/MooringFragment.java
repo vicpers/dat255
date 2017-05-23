@@ -169,8 +169,6 @@ public class MooringFragment extends android.app.Fragment implements View.OnClic
                 AMSS amss = new AMSS(pcmObj);
                 String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
 
-                Log.e("etaResult: ", etaResult);
-
                 if(etaResult.equals("")){
                     message = "Mooring update regarding: " + etaDate + ", " + etaTime + " sent!\"";
                 }

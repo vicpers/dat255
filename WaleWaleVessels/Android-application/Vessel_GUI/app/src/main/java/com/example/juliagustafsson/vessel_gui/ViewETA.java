@@ -1,12 +1,10 @@
 package com.example.juliagustafsson.vessel_gui;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -100,13 +98,6 @@ public class ViewETA extends AppCompatActivity {
         } catch (NullPointerException e) {
             Log.e("NoPortCallID", e.toString());
         }
-        Log.e("ServiceObjects", serviceObjects.toString());
-        Log.e("PositionsAt", positionsAt.toString());
-        Log.e("LocationsFrom", locationsFrom.toString());
-        Log.e("LocationsTo", locationsTo.toString());
-        Log.e("Times", times.toString());
-        Log.e("Dates", dates.toString());
-        Log.e("TimeSeq", timeSequences.toString());
         reverse(serviceObjects);
         reverse(positionsAt);
         reverse(locationsFrom);

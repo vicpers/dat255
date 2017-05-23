@@ -243,7 +243,7 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
         reverse(timeTypes);
         reverse(timeSeq);
     }
-    
+
 
     public ArrayList<String> reverse(ArrayList<String> list) {
         if(list.size() > 1) {

@@ -66,10 +66,6 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
 
                 // Only runs one loop.
                 locationTypeQueueToString(selectedLocationType, true);
-//                ArrayList<String> positions = locationTypeQueuePositionsToString(selectedLocationType, true);
-//                ArrayList<String> times = locationTypeQueueTimesToString(selectedLocationType, true);
-//                ArrayList<String> dates = locationTypeQueueDatesToString(selectedLocationType, true);
-//                ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, true);
                 iconImage = getResources().getDrawable(R.drawable.ic_buoys);
                 if (times.isEmpty()) {
                     Toast toast = Toast.makeText(getActivity().getApplicationContext(), "No status available", Toast.LENGTH_SHORT);
@@ -93,10 +89,6 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
                 selectedLocationType = LocationType.TRAFFIC_AREA;
                 // Only runs one loop.
                 locationTypeQueueToString(selectedLocationType, false);
-//                ArrayList<String> positions = locationTypeQueuePositionsToString(selectedLocationType, false);
-//                ArrayList<String> times = locationTypeQueueTimesToString(selectedLocationType, false);
-//                ArrayList<String> dates = locationTypeQueueDatesToString(selectedLocationType, false);
-//                ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, false);
                 iconImage = getResources().getDrawable(R.drawable.ic_buoys);
                 if (times.isEmpty()) {
                     Toast toast = Toast.makeText(getActivity().getApplicationContext(), "No status available", Toast.LENGTH_SHORT);
@@ -187,139 +179,6 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
         reverse(dates);
         reverse(timeTypes);
 
-    }
-
-
-
-    private ArrayList<String> locationTypeQueuePositionsToString(LocationType locationType, boolean isArrival){
-        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> positions = new ArrayList<>();
-
-        try {
-            MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-
-            //hämtar befintlig kö och lagrar som pcmList
-            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
-
-            //läser igenom alla PCMer och lagrar som strings
-            for (PortCallMessage pcm : pcmList) {
-                LocationState locationState = pcm.getLocationState();
-                if(locationState != null){
-                    if(isArrival) {
-                        ArrivalLocation arrivalLocation = locationState.getArrivalLocation();
-                        if(arrivalLocation != null) {
-                            Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
-                            positions.add(tempLoc.getName());
-                        }
-                    } else {
-                        DepartureLocation departureLocation = locationState.getDepartureLocation();
-                        if(departureLocation != null) {
-                            Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
-                            positions.add(tempLoc.getName());
-                        }
-                    }
-                }
-            }
-        } catch (NullPointerException e){
-            Log.e("CheckStatus-locType", e.toString());
-        }
-
-        return reverse(positions);
-    }
-    private ArrayList<String> locationTypeQueueTimesToString(LocationType locationType, boolean isArrival){
-        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> times = new ArrayList<>();
-
-        try {
-            MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-
-            //hämtar befintlig kö och lagrar som pcmList
-            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
-
-            //läser igenom alla PCMer och lagrar som strings
-            for (PortCallMessage pcm : pcmList) {
-                LocationState locationState = pcm.getLocationState();
-                if(locationState != null){
-                    if(isArrival) {
-                        ArrivalLocation arrivalLocation = locationState.getArrivalLocation();
-                        if(arrivalLocation != null) {
-                            times.add(PortCDMServices.stringToTime(pcm.getTime()));
-                        }
-                    } else {
-                        DepartureLocation departureLocation = locationState.getDepartureLocation();
-                        if(departureLocation != null) {
-                            times.add(PortCDMServices.stringToTime(pcm.getTime()));
-                        }
-                    }
-                }
-            }
-        } catch (NullPointerException e){
-            Log.e("CheckStatus-locType", e.toString());
-        }
-        return reverse(times);
-    }
-    private ArrayList<String> locationTypeQueueDatesToString(LocationType locationType, boolean isArrival){
-        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> dates = new ArrayList<>();
-
-        try {
-            MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-
-            //hämtar befintlig kö och lagrar som pcmList
-            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
-
-            //läser igenom alla PCMer och lagrar som strings
-            for (PortCallMessage pcm : pcmList) {
-                LocationState locationState = pcm.getLocationState();
-                if(locationState != null){
-                    if(isArrival) {
-                        ArrivalLocation arrivalLocation = locationState.getArrivalLocation();
-                        if(arrivalLocation != null) {
-                            dates.add(PortCDMServices.stringToDate(pcm.getTime()));
-                        }
-                    } else {
-                        DepartureLocation departureLocation = locationState.getDepartureLocation();
-                        if(departureLocation != null) {
-                            dates.add(PortCDMServices.stringToDate(pcm.getTime()));                        }
-                    }
-                }
-            }
-        } catch (NullPointerException e){
-            Log.e("CheckStatus-locType", e.toString());
-        }
-        return reverse(dates);
-    }
-    private ArrayList<String> locationTypeQueueTimeTypesToString(LocationType locationType, boolean isArrival){
-        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> timeTypes = new ArrayList<>();
-
-        try {
-            MessageBrokerQueue actualQueue = queueMap.get(locationType.getText());
-
-            //hämtar befintlig kö och lagrar som pcmList
-            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
-
-            //läser igenom alla PCMer och lagrar som strings
-            for (PortCallMessage pcm : pcmList) {
-                LocationState locationState = pcm.getLocationState();
-                if(locationState != null){
-                    if(isArrival) {
-                        ArrivalLocation arrivalLocation = locationState.getArrivalLocation();
-                        if(arrivalLocation != null) {
-                            timeTypes.add(pcm.getTimeType());
-                        }
-                    } else {
-                        DepartureLocation departureLocation = locationState.getDepartureLocation();
-                        if(departureLocation != null) {
-                            timeTypes.add(pcm.getTimeType());
-                        }
-                    }
-                }
-            }
-        } catch (NullPointerException e){
-            Log.e("CheckStatus-locType", e.toString());
-        }
-        return reverse(timeTypes);
     }
 
     public ArrayList<String> reverse(ArrayList<String> list) {

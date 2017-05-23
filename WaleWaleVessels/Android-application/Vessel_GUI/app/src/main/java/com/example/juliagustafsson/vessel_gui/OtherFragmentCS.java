@@ -66,12 +66,6 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
                 title.setText("Ice Breaking");
                 // Only runs one loop
                 serviceObjectQueueToString(currentServiceObject);
-//                ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
-//                ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);
-//                ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
-//                ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
-//                ArrayList<String> locFrom = serviceObjectQueueLocFromToString(currentServiceObject);
-//                ArrayList<String> locTo = serviceObjectQueueLocToToString(currentServiceObject);
                 iconImage = getResources().getDrawable(R.drawable.ic_more);
                 if (times.isEmpty()) {
                     Toast toast = Toast.makeText(getActivity().getApplicationContext(), "No status available", Toast.LENGTH_SHORT);
@@ -95,11 +89,6 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
                 title.setText("Cargo Operation");
                 // Only runs one loop
                 serviceObjectQueueToString(currentServiceObject);
-//                ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);
-//                ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
-//                ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);
-//                ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
-//                ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
                 iconImage = getResources().getDrawable(R.drawable.ic_more);
                 if (times.isEmpty()) {
                     Toast toast = Toast.makeText(getActivity().getApplicationContext(), "No status available", Toast.LENGTH_SHORT);
@@ -123,11 +112,6 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
                 title.setText("Bunkering Operation");
                 // Only runs one loop
                 serviceObjectQueueToString(currentServiceObject);
-//                ArrayList<String> positions = serviceObjectQueuePositionsToString(currentServiceObject);
-//                ArrayList<String> times = serviceObjectQueueTimesToString(currentServiceObject);
-//                ArrayList<String> dates = serviceObjectQueueDatesToString(currentServiceObject);
-//                ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
-//                ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
                 iconImage = getResources().getDrawable(R.drawable.ic_more);
                 if (times.isEmpty()) {
                     Toast toast = Toast.makeText(getActivity().getApplicationContext(), "No status available", Toast.LENGTH_SHORT);
@@ -233,155 +217,6 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
         reverse(locTo);
         reverse(locFrom);
         reverse(positions);
-    }
-
-
-    private ArrayList<String> serviceObjectQueueLocFromToString(ServiceObject serviceObject){
-        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> positions = new ArrayList<>();
-        try{
-            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
-
-            for(PortCallMessage pcm : pcmList) {
-                String locMRN = pcm.getLocationMRN();
-                if (locMRN.contains("/")) {
-                    String[] parts = locMRN.split("/");
-                    try {
-                        String loc1 = parts[0];
-                        String loc2 = parts[1];
-                        Location tempLoc = PortCDMServices.getLocation(loc1);
-                        positions.add(tempLoc.getName());
-                    }
-                    catch (NullPointerException e){
-                        Log.e("CheckStatus-servType", e.toString());
-                    }
-                } else {
-                    Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
-                    positions.add(tempLoc.getName());
-                }
-            }
-        } catch (NullPointerException e){
-            Log.e("CheckStatus-servType", e.toString());
-        }
-
-        return reverse(positions);
-    }
-    private ArrayList<String> serviceObjectQueueLocToToString(ServiceObject serviceObject){
-        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> positions = new ArrayList<>();
-        try{
-            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
-
-            for(PortCallMessage pcm : pcmList) {
-                String locMRN = pcm.getLocationMRN();
-                if (locMRN.contains("/")) {
-                    String[] parts = locMRN.split("/");
-                    try {
-                        String loc1 = parts[0];
-                        String loc2 = parts[1];
-                        Location tempLoc = PortCDMServices.getLocation(loc2);
-                        positions.add(tempLoc.getName());
-                    }
-                    catch (NullPointerException e){
-                        Log.e("CheckStatus-servType", e.toString());
-                    }
-                } else {
-                    Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
-                    positions.add(tempLoc.getName());
-                }
-            }
-        } catch (NullPointerException e){
-            Log.e("CheckStatus-servType", e.toString());
-        }
-        return reverse(positions);
-    }
-    private ArrayList<String> serviceObjectQueuePositionsToString(ServiceObject serviceObject){
-        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> positions = new ArrayList<>();
-        try{
-            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
-
-            for(PortCallMessage pcm : pcmList) {
-                String locMRN = pcm.getLocationMRN();
-                if (locMRN.contains("/")) {
-                    String[] parts = locMRN.split("/");
-                    String loc1 = parts[0];
-                    String loc2 = parts[1];
-                    Location tempLoc = PortCDMServices.getLocation(loc1);
-                    positions.add(tempLoc.getName());
-                } else {
-                    Location tempLoc = PortCDMServices.getLocation(pcm.getLocationMRN());
-                    positions.add(tempLoc.getName());
-                }
-            }
-        } catch (NullPointerException e){
-            Log.e("CheckStatus-servType", e.toString());
-        }
-
-        return reverse(positions);
-    }
-    private ArrayList<String> serviceObjectQueueTimeTypesToString(ServiceObject serviceObject){
-        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> timeTypes = new ArrayList<>();
-        try{
-            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
-
-            for(PortCallMessage pcm : pcmList){
-                timeTypes.add(pcm.getTimeType());      }
-        } catch (NullPointerException e){
-            Log.e("CheckStatus-servType", e.toString());
-        }
-
-        return reverse(timeTypes);
-    }
-    private ArrayList<String> serviceObjectQueueTimesToString(ServiceObject serviceObject){
-        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> times = new ArrayList<>();
-        try{
-            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
-
-            for(PortCallMessage pcm : pcmList){
-                times.add(PortCDMServices.stringToTime(pcm.getTime()));  }
-        } catch (NullPointerException e){
-            Log.e("CheckStatus-servType", e.toString());
-        }
-
-        return reverse(times);
-    }
-    private ArrayList<String> serviceObjectQueueDatesToString(ServiceObject serviceObject){
-        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> dates = new ArrayList<>();
-        try{
-            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
-
-            for(PortCallMessage pcm : pcmList){
-                dates.add(PortCDMServices.stringToDate(pcm.getTime()));    }
-        } catch (NullPointerException e){
-            Log.e("CheckStatus-servType", e.toString());
-        }
-
-        return reverse(dates);
-    }
-    private ArrayList<String> serviceObjectQueueTimeSequenceToString(ServiceObject serviceObject){
-        HashMap<String, MessageBrokerQueue> queueMap = UserLocalStorage.getMessageBrokerMap();
-        ArrayList<String> timeSequences = new ArrayList<>();
-        try{
-            MessageBrokerQueue actualQueue = queueMap.get(serviceObject.getText());
-            ArrayList<PortCallMessage> pcmList = actualQueue.getQueue();
-
-            for(PortCallMessage pcm : pcmList){
-                timeSequences.add(pcm.getTimeSequence());      }
-        } catch (NullPointerException e){
-            Log.e("CheckStatus-servType", e.toString());
-        }
-
-        return reverse(timeSequences);
     }
 
     public ArrayList<String> reverse(ArrayList<String> list) {

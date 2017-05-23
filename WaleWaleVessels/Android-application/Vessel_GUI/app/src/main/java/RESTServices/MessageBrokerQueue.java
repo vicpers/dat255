@@ -38,7 +38,7 @@ import static RESTServices.Constants_API.API_SERVICE_POLL_QUEUE;
 public class MessageBrokerQueue{
     // Date strings for retrieving either old messages or only new.
     private static final String date = "";// "?fromTime=2017-05-16T14:20:21Z";
-    private static final String portCallIDdate = "?fromTime=2017-05-16T14:20:21Z";
+    private static final String portCallIDdate = "?fromTime=2017-05-23T14:20:21Z";
 
     // queueId is the id returned from the server when the queue is created.
     private String queueId;

@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
@@ -303,14 +304,26 @@ public class PortCDMServices {
         String formattedTime = "";
         try {
             date = dateInput.parse(dateString);
+            // Sets the time to UTC-time.
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            cal.add(Calendar.HOUR, 2);
+            date = cal.getTime();
             formattedTime = dateOutput.format(date);
+            Log.e("formattedTime 1", formattedTime);
         } catch (ParseException e1) {
             Log.e("DateProblem Parsing", e1.toString());
             Log.e("DateProblem Parsing", "Trying again");
             try {
                 dateInput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                 date = dateInput.parse(dateString);
+                // Sets the time to UTC-time.
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);
+                cal.add(Calendar.HOUR, 2);
+                date = cal.getTime();
                 formattedTime = dateOutput.format(date);
+                Log.e("formattedTime 2", formattedTime);
             } catch (ParseException e2) {
                 Log.e("DateProblem Parsing", e2.toString());
             }catch (NullPointerException e3){

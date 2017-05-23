@@ -173,7 +173,13 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         String formattedTime = "";
         try {
             date = etaInput.parse(etaDate + " " + etaTime);
+            // Sets the time to UTC-time.
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            cal.add(Calendar.HOUR, -2);
+            date = cal.getTime();
             formattedTime = etaOutput.format(date);
+            Log.e("formattedTime", formattedTime);
         } catch (ParseException e1) {
             Log.e("DateProblem Parsing", e1.toString());
             message = "Error: Date or Time not selected! \n Could not send the message.";

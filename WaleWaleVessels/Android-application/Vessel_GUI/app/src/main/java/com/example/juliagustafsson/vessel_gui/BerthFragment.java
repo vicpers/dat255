@@ -170,6 +170,11 @@ public class BerthFragment extends android.app.Fragment implements View.OnClickL
                 String formattedTime = "";
                 try {
                     date = etaInput.parse(etaDate + " " + etaTime);
+                    // Sets the time to UTC-time.
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(date);
+                    cal.add(Calendar.HOUR, -2);
+                    date = cal.getTime();
                     formattedTime = etaOutput.format(date);
                 } catch (ParseException e1) {
                     Log.e("DateProblem Parsing", e1.toString());

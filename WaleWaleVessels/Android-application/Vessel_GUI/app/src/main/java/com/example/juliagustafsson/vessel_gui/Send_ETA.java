@@ -165,6 +165,7 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         // Gets strings that represent the date and time from different Edit-fields.
         String etaDate = dateEditText.getText().toString();
         String etaTime = timeEditText.getText().toString();
+        String message = "";
         // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         // which PortCDM requires.
         SimpleDateFormat etaOutput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -176,6 +177,7 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
             formattedTime = etaOutput.format(date);
         } catch (ParseException e1) {
             Log.e("DateProblem Parsing", e1.toString());
+            message = "Error: Date or Time not selected! \n Could not send the message.";
         } catch (NullPointerException e2){
             Log.e("DateProblem Null", e2.toString());
         }
@@ -200,13 +202,9 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
                                                      locState);
         AMSS amss = new AMSS(pcmObj);
         String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
-        String message;
         if(etaResult.equals("")){
             message = "ETA sent successfully";
             finish();
-        }
-        else{
-            message = etaResult;
         }
         Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
         toast.show();

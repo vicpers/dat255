@@ -150,11 +150,7 @@ public class OtherFragment extends android.app.Fragment implements View.OnClickL
             // Gets strings that represent the date and time from different Edit-fields.
             String etaDate = dateEditText.getText().toString();
             String etaTime = timeEditText.getText().toString();
-
-            String message = "Sent update regarding: " + etaDate + ", " + etaTime;
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(getActivity().getApplicationContext(), message, duration);
-            toast.show();
+            String message = "";
 
             // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
             // which PortCDM requires.
@@ -167,10 +163,10 @@ public class OtherFragment extends android.app.Fragment implements View.OnClickL
                 formattedTime = etaOutput.format(date);
             } catch (ParseException e1) {
                 Log.e("DateProblem Parsing", e1.toString());
+                message = "Error: Date or Time not selected! \n Could not send the message.";
             } catch (NullPointerException e2){
                 Log.e("DateProblem Null", e2.toString());
             }
-            // TODO Kontrollera att man faktiskt valt ett datum och en tid
             String vesselID = UserLocalStorage.getVessel().getId(); //Get VesselIMO
             String portCallID = UserLocalStorage.getPortCallID(); //Get portCallID
 
@@ -212,8 +208,12 @@ public class OtherFragment extends android.app.Fragment implements View.OnClickL
                     serviceState);
                 AMSS amss = new AMSS(pcmObj);
 
-                //TODO Se till att gö något kul med etaResult
                 String etaResult = amss.submitStateUpdate(); // Submits the PortCallMessage containing the ETA to PortCDM trhough the AMSS.
+                if(etaResult.equals("")) {
+                    message = "Traffic Area update regarding: " + etaDate + ", " + etaTime + " sent!";
+                }
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG);
+                toast.show();
             }
         });
 

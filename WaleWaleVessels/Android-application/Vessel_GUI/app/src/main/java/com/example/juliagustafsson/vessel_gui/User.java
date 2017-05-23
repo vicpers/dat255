@@ -377,8 +377,6 @@ public class User implements Runnable {
 
         // Adds the Intent that starts the Activity to the top of the stack
         stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
-
 
         //mBuilder.setContentIntent(resultPendingIntent);
         // Remove comment above to make notifications clickable, bugs regarding multiple threads follow...

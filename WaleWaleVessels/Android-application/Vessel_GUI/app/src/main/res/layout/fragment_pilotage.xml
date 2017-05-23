@@ -22,10 +22,11 @@
                 android:layout_height="80dp"
                 android:layout_marginRight="4dp"
                 android:layout_weight="1"
-                android:background="@color/menuHeader"
+                android:background="@color/colorPrimaryDark"
                 android:onClick="sendNewServiceState"
                 android:padding="8dp"
                 android:text="Pilotage"
+                android:textColor="@android:color/background_light"
                 android:textSize="18sp" />
 
             <Button
@@ -34,10 +35,11 @@
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="4dp"
                 android:layout_weight="1"
-                android:background="@color/menuHeader"
+                android:background="@color/colorPrimaryDark"
                 android:onClick="sendNewLocationState"
                 android:padding="8dp"
                 android:text="Pilotage Boarding Area"
+                android:textColor="@android:color/background_light"
                 android:textSize="18sp" />
 
         </TableRow>

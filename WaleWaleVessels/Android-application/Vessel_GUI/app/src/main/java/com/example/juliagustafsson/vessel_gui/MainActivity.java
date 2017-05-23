@@ -45,9 +45,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         TextView textView = (TextView) findViewById(R.id.textView4);
-
         // The actual port is always SEGOT for this application.
         textView.setText("Current Port: SEGOT");
+        setCustomFonts();
 
         // Set customized toolbar
         Toolbar customToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -56,11 +56,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // Import and set custom font
-        TextView myTextView = (TextView) findViewById(R.id.textView2);
-        Typeface typeface=Typeface.createFromAsset(getAssets(), "fonts/Renogare-Regular.otf");
-        myTextView.setTypeface(typeface);
 
         // Settings regarding left menu
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -73,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         new UserLocalStorage(this);
-
 
     }
 
@@ -112,6 +106,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    /**
+     * Sets custom fonts for some TextViews
+     */
+    public void setCustomFonts() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View v = navigationView.getHeaderView(0);
+        TextView activeUser = (TextView) v.findViewById(R.id.active_user);
+        TextView myTextView = (TextView) findViewById(R.id.textView2);
+        Typeface renogare =Typeface.createFromAsset(getAssets(), "fonts/Renogare-Regular.otf");
+        myTextView.setTypeface(renogare);
+        activeUser.setTypeface(renogare);
+    }
     /**
      * Displays vesselIMO in left menu
      */

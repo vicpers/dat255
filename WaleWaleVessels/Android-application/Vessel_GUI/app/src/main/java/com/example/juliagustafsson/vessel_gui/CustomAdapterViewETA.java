@@ -56,7 +56,7 @@ public class CustomAdapterViewETA extends ArrayAdapter<String> {
             pos.setText(posAt.get(position));
             time.setText(times.get(position));
             date.setText(dates.get(position));
-            serviceObjects.setText("Vessel");
+            serviceObjects.setText("Vessel Arrival");
             iconImage.setImageDrawable(image);
             return rowLSU;
         }

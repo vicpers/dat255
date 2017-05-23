@@ -132,7 +132,6 @@ public class TowageFragment extends android.app.Fragment implements View.OnClick
                 String etaTime = timeEditText.getText().toString();
                 String message = "";
 
-
                 // Converts the date and time from input into date on the form "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
                 // which PortCDM requires.
                 SimpleDateFormat etaOutput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");

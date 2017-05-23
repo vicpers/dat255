@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,10 +66,15 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
                 ArrayList<String> dates = locationTypeQueueDatesToString(selectedLocationType, true);
                 ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, true);
                 iconImage = getResources().getDrawable(R.drawable.ic_mooring_point);
-                ArrayAdapter<String> itemsAdapter =
-                        new CustomAdapterLSU(getActivity(),  R.layout.custom_listview_row_lsu, positions, timeTypes, times, dates, iconImage);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(locationstateView);
+                if (times.isEmpty()) {
+                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    toast.show(); }
+                else {
+                    ArrayAdapter<String> itemsAdapter =
+                            new CustomAdapterLSU(getActivity(),  R.layout.custom_listview_row_lsu, positions, timeTypes, times, dates, iconImage);
+                    dialogListView.setAdapter(itemsAdapter);
+                    createAlertDialog(locationstateView);
+                }
             }
         });
 
@@ -85,10 +91,15 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
                 ArrayList<String> dates = locationTypeQueueDatesToString(selectedLocationType, false);
                 ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, false);
                 iconImage = getResources().getDrawable(R.drawable.ic_mooring_point);
-                ArrayAdapter<String> itemsAdapter =
-                        new CustomAdapterLSU(getActivity(), R.layout.custom_listview_row_lsu, positions, timeTypes, times, dates, iconImage);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(locationstateView);
+                if (times.isEmpty()) {
+                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    toast.show(); }
+                else {
+                    ArrayAdapter<String> itemsAdapter =
+                            new CustomAdapterLSU(getActivity(), R.layout.custom_listview_row_lsu, positions, timeTypes, times, dates, iconImage);
+                    dialogListView.setAdapter(itemsAdapter);
+                    createAlertDialog(locationstateView);
+                }
             }});
 
         berthShift.setOnClickListener(new View.OnClickListener() {
@@ -106,10 +117,15 @@ public class BerthFragmentCS extends android.app.Fragment implements View.OnClic
                 ArrayList<String> locFrom = serviceObjectQueueLocFromToString(currentServiceObject);
                 ArrayList<String> locTo = serviceObjectQueueLocToToString(currentServiceObject);
                 iconImage = getResources().getDrawable(R.drawable.ic_mooring_point);
-                ArrayAdapter<String> itemsAdapter =
-                        new CustomAdapterBSSU(getActivity(), R.layout.custom_listview_row_bssu, locFrom, locTo, timeTypes, times, dates, timeSeq, iconImage);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);}
+                if (times.isEmpty()) {
+                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    toast.show(); }
+                else {
+                    ArrayAdapter<String> itemsAdapter =
+                            new CustomAdapterBSSU(getActivity(), R.layout.custom_listview_row_bssu, locFrom, locTo, timeTypes, times, dates, timeSeq, iconImage);
+                    dialogListView.setAdapter(itemsAdapter);
+                    createAlertDialog(serviceStateView);}
+                }
 
         });
 

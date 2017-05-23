@@ -27,8 +27,10 @@ public class Report_Update extends AppCompatActivity implements View.OnClickList
 
         Toolbar customToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(customToolbar);
-        getSupportActionBar().setTitle("Report activity update");
+        getSupportActionBar().setTitle("  Report activity update");
         getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_ship24);
+
 
         frag = new DefaultFragment();
         fragTransaction = getFragmentManager().beginTransaction().add(R.id.viewOptions, frag);

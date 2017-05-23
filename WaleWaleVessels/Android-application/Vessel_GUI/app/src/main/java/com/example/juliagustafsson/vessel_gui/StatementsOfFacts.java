@@ -42,8 +42,10 @@ public class StatementsOfFacts extends AppCompatActivity {
         //Set custom toolbar
         Toolbar customToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(customToolbar);
-        getSupportActionBar().setTitle("Statements of facts");
+        getSupportActionBar().setTitle("  Statements of facts");
         getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_ship24);
+
 
         ListView dialogListView = (ListView) findViewById(R.id.statusView);
                 try {
@@ -92,7 +94,7 @@ public class StatementsOfFacts extends AppCompatActivity {
                         }
                         dates.add(PortCDMServices.stringToDate(pcm.getTime()));
                         times.add(PortCDMServices.stringToTime(pcm.getTime()));
-                        iconImage = getResources().getDrawable(R.drawable.ic_alarm_black_24dp);
+                        iconImage = getResources().getDrawable(R.drawable.ic_check24);
                     }
                 } catch(NullPointerException e){
                     Log.e("actualQueue.pollQueue()", e.toString());
@@ -115,8 +117,6 @@ public class StatementsOfFacts extends AppCompatActivity {
 
         ArrayAdapter<String> itemsAdapter = new CustomAdapterViewETA(this, R.layout.custom_listview_row_bssu, serviceObjects, positionsAt, locationsFrom, locationsTo, times, dates, timeSequences, iconImage);
         dialogListView.setAdapter(itemsAdapter);
-
-
     }
 
     public ArrayList<String> reverse(ArrayList<String> list) {

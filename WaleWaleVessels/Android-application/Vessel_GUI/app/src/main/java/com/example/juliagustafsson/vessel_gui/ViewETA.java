@@ -43,9 +43,8 @@ public class ViewETA extends AppCompatActivity {
         // Set customized toolbar
         Toolbar customToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(customToolbar);
-        getSupportActionBar().setTitle("View ETA history");
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("  View ETA history");
+        getSupportActionBar().setIcon(R.drawable.ic_ship24);
 
         ListView dialogListView = (ListView) findViewById(R.id.listView);
 

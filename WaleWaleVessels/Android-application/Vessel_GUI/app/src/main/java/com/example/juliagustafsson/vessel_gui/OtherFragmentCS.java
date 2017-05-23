@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,10 +63,15 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
                 ArrayList<String> locFrom = serviceObjectQueueLocFromToString(currentServiceObject);
                 ArrayList<String> locTo = serviceObjectQueueLocToToString(currentServiceObject);
                 iconImage = getResources().getDrawable(R.drawable.ic_more);
-                ArrayAdapter<String> itemsAdapter =
-                        new CustomAdapterBSSU(getActivity(), R.layout.custom_listview_row_bssu, locFrom, locTo, timeTypes, times, dates, timeSeq, iconImage);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);
+                if (times.isEmpty()) {
+                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    toast.show(); }
+                else {
+                    ArrayAdapter<String> itemsAdapter =
+                            new CustomAdapterBSSU(getActivity(), R.layout.custom_listview_row_bssu, locFrom, locTo, timeTypes, times, dates, timeSeq, iconImage);
+                    dialogListView.setAdapter(itemsAdapter);
+                    createAlertDialog(serviceStateView);
+                }
             }
         });
 
@@ -83,10 +89,15 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
                 ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
                 ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
                 iconImage = getResources().getDrawable(R.drawable.ic_more);
-                ArrayAdapter<String> itemsAdapter =
-                        new CustomAdapterSSU(getActivity(), R.layout.custom_listview_row_ssu, positions, timeTypes, times, dates, timeSeq, iconImage);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);
+                if (times.isEmpty()) {
+                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    toast.show(); }
+                else {
+                    ArrayAdapter<String> itemsAdapter =
+                            new CustomAdapterSSU(getActivity(), R.layout.custom_listview_row_ssu, positions, timeTypes, times, dates, timeSeq, iconImage);
+                    dialogListView.setAdapter(itemsAdapter);
+                    createAlertDialog(serviceStateView);
+                }
             }
         });
 
@@ -104,10 +115,15 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
                 ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
                 ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
                 iconImage = getResources().getDrawable(R.drawable.ic_more);
-                ArrayAdapter<String> itemsAdapter =
-                        new CustomAdapterSSU(getActivity(), R.layout.custom_listview_row_ssu, positions, timeTypes, times, dates, timeSeq, iconImage);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);
+                if (times.isEmpty()) {
+                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    toast.show(); }
+                else {
+                    ArrayAdapter<String> itemsAdapter =
+                            new CustomAdapterSSU(getActivity(), R.layout.custom_listview_row_ssu, positions, timeTypes, times, dates, timeSeq, iconImage);
+                    dialogListView.setAdapter(itemsAdapter);
+                    createAlertDialog(serviceStateView);
+                }
             }
         });
 

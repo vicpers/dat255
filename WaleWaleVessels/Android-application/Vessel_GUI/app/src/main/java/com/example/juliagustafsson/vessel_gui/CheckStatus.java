@@ -34,8 +34,10 @@ public class CheckStatus extends AppCompatActivity implements View.OnClickListen
 
         Toolbar customToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(customToolbar);
-        getSupportActionBar().setTitle("Check activity status");
+        getSupportActionBar().setTitle("  Check activity status");
         getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_ship24);
+
 
         frag = new DefaultFragment();
         fragTransaction = getFragmentManager().beginTransaction().add(R.id.viewOptions, frag);

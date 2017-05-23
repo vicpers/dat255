@@ -36,8 +36,6 @@ public class CustomAdapterSSU extends ArrayAdapter<String> {
         this.timeTypes = timeTypes;
         this.timeSeq = timeSeq;
         this.image = image;
-        Log.e("Constructor", "Constructor SSU working");
-
     }
 
     @Override

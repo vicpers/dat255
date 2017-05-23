@@ -2,8 +2,7 @@ package com.example.juliagustafsson.vessel_gui;
 
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.Intent;
-import android.support.v4.app.TaskStackBuilder;
+import android.net.Uri;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.util.NoSuchPropertyException;
@@ -357,21 +356,15 @@ public class User implements Runnable {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
         mBuilder.setSmallIcon(R.drawable.ic_big_anchor);
         mBuilder.setAutoCancel(true);
-
         long time = new Date().getTime();
         String tmpStr = String.valueOf(time);
         String last4Str = tmpStr.substring(tmpStr.length() - 5);
         int notificationId = Integer.parseInt(last4Str);
-
         mBuilder.setContentTitle("New PCM regarding "+ pcm.getOperationType());
-
         mBuilder.setContentText("Click to view");
-
+        mBuilder.setSound( Uri.parse("android.resource://"+context.getPackageName()+"/"+R.raw.aye) ) ;
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
-
-
         mNotificationManager.notify(notificationId, mBuilder.build());
-
     }
 
 }

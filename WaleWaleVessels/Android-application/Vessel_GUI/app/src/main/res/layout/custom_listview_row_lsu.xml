@@ -4,12 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
 
 
     <TextView
         android:id="@+id/timeType"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -17,18 +19,23 @@
         android:textAllCaps="true"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/position" />
+        app:layout_constraintTop_toBottomOf="@+id/position"
+        app:layout_constraintRight_toLeftOf="@+id/date"
+        android:layout_marginRight="16dp" />
 
     <TextView
         android:id="@+id/position"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="0dp"
         android:text="Dana Fjord"
         android:textSize="13sp"
         app:layout_constraintLeft_toRightOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/date"
+        android:layout_marginRight="16dp"
+        app:layout_constraintHorizontal_bias="0.0" />
 
 
     <TextView
@@ -38,10 +45,10 @@
         android:text="2017-01-24"
         android:textSize="13sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="@+id/timeType"
-        android:layout_marginTop="0dp"
         android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/position"
+        android:layout_marginTop="0dp" />
 
 
     <TextView
@@ -51,7 +58,7 @@
         android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"
         android:text="12:48"
-        android:textSize="18sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date" />
@@ -61,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="-1dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_big_anchor" />

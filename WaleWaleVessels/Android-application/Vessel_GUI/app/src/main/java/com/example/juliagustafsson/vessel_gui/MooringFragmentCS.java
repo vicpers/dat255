@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,10 +61,15 @@ public class MooringFragmentCS extends android.app.Fragment implements View.OnCl
                 ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
                 ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
                 iconImage = getResources().getDrawable(R.drawable.ic_knot);
-                ArrayAdapter<String> itemsAdapter =
-                        new CustomAdapterSSU(getActivity(), R.layout.custom_listview_row_ssu, positions, timeTypes, times, dates, timeSeq, iconImage);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);
+                if (times.isEmpty()) {
+                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    toast.show(); }
+                else {
+                    ArrayAdapter<String> itemsAdapter =
+                            new CustomAdapterSSU(getActivity(), R.layout.custom_listview_row_ssu, positions, timeTypes, times, dates, timeSeq, iconImage);
+                    dialogListView.setAdapter(itemsAdapter);
+                    createAlertDialog(serviceStateView);
+                }
             }
         });
 
@@ -81,10 +87,15 @@ public class MooringFragmentCS extends android.app.Fragment implements View.OnCl
                 ArrayList<String> timeTypes = serviceObjectQueueTimeTypesToString(currentServiceObject);
                 ArrayList<String> timeSeq = serviceObjectQueueTimeSequenceToString(currentServiceObject);
                 iconImage = getResources().getDrawable(R.drawable.ic_knot);
-                ArrayAdapter<String> itemsAdapter =
-                        new CustomAdapterSSU(getActivity(), R.layout.custom_listview_row_ssu, positions, timeTypes, times, dates, timeSeq, iconImage);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);
+                if (times.isEmpty()) {
+                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    toast.show(); }
+                else {
+                    ArrayAdapter<String> itemsAdapter =
+                            new CustomAdapterSSU(getActivity(), R.layout.custom_listview_row_ssu, positions, timeTypes, times, dates, timeSeq, iconImage);
+                    dialogListView.setAdapter(itemsAdapter);
+                    createAlertDialog(serviceStateView);
+                }
             }
         });
         Bundle bundle = getArguments();

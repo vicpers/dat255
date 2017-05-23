@@ -70,7 +70,8 @@ public class Send_ETA extends AppCompatActivity implements View.OnClickListener{
         //Set custom toolbar
         Toolbar customToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(customToolbar);
-        getSupportActionBar().setTitle("Send new ETA");
+        getSupportActionBar().setTitle("  Send new ETA");
+        getSupportActionBar().setIcon(R.drawable.ic_ship24);
         getSupportActionBar().setHomeButtonEnabled(true);
 
         timeEditText = (EditText) findViewById(R.id.editText);

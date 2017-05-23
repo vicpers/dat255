@@ -131,7 +131,7 @@ public class TowageFragment extends android.app.Fragment implements View.OnClick
                 String etaDate = dateEditText.getText().toString();
                 String etaTime = timeEditText.getText().toString();
 
-                String message = "Berth update regarding: " + etaDate + ", " + etaTime + " sent!";
+                String message = "Towage update regarding: " + etaDate + ", " + etaTime + " sent!";
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(getActivity().getApplicationContext(), message, duration);
                 toast.show();

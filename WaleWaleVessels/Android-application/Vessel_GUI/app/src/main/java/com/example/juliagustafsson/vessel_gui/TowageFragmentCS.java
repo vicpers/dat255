@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,13 +63,19 @@ public class TowageFragmentCS extends android.app.Fragment implements View.OnCli
                 ArrayList<String> locFrom = serviceObjectQueueLocFromToString(currentServiceObject);
                 ArrayList<String> locTo = serviceObjectQueueLocToToString(currentServiceObject);
                 iconImage = getResources().getDrawable(R.drawable.ic_boat_lifesaver);
-                ArrayAdapter<String> itemsAdapter =
-                        new CustomAdapterBSSU(getActivity(), R.layout.custom_listview_row_bssu, locFrom, locTo, timeTypes, times, dates, timeSeq, iconImage);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(serviceStateView);}
+                if (times.isEmpty()) {
+                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    toast.show(); }
+                else {
+                    ArrayAdapter<String> itemsAdapter =
+                            new CustomAdapterBSSU(getActivity(), R.layout.custom_listview_row_bssu, locFrom, locTo, timeTypes, times, dates, timeSeq, iconImage);
+                    dialogListView.setAdapter(itemsAdapter);
+                    createAlertDialog(serviceStateView);
+                }
+            }
         });
 
-        escortTowage.setOnClickListener(new View.OnClickListener() {
+                 escortTowage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 serviceStateView  = getActivity().getLayoutInflater().inflate(R.layout.dialog_check_status, null);
@@ -83,10 +90,16 @@ public class TowageFragmentCS extends android.app.Fragment implements View.OnCli
             ArrayList<String> locFrom = serviceObjectQueueLocFromToString(currentServiceObject);
             ArrayList<String> locTo = serviceObjectQueueLocToToString(currentServiceObject);
             iconImage = getResources().getDrawable(R.drawable.ic_boat_lifesaver);
-            ArrayAdapter<String> itemsAdapter =
-                    new CustomAdapterBSSU(getActivity(), R.layout.custom_listview_row_bssu, locFrom, locTo, timeTypes, times, dates, timeSeq, iconImage);
-            dialogListView.setAdapter(itemsAdapter);
-            createAlertDialog(serviceStateView);}
+                if (times.isEmpty()) {
+                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    toast.show(); }
+                else {
+                    ArrayAdapter<String> itemsAdapter =
+                            new CustomAdapterBSSU(getActivity(), R.layout.custom_listview_row_bssu, locFrom, locTo, timeTypes, times, dates, timeSeq, iconImage);
+                    dialogListView.setAdapter(itemsAdapter);
+                    createAlertDialog(serviceStateView);
+                }
+            }
         });
 
         Bundle bundle = getArguments();

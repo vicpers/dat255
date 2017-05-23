@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -60,10 +62,15 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
                 ArrayList<String> dates = locationTypeQueueDatesToString(selectedLocationType, true);
                 ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, true);
                 iconImage = getResources().getDrawable(R.drawable.ic_buoys);
-                ArrayAdapter<String> itemsAdapter =
-                        new CustomAdapterLSU(getActivity(),  R.layout.custom_listview_row_lsu, positions, timeTypes, times, dates, iconImage);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(locationstateView);
+                if (times.isEmpty()) {
+                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    toast.show(); }
+                else {
+                    ArrayAdapter<String> itemsAdapter =
+                            new CustomAdapterLSU(getActivity(),  R.layout.custom_listview_row_lsu, positions, timeTypes, times, dates, iconImage);
+                    dialogListView.setAdapter(itemsAdapter);
+                    createAlertDialog(locationstateView);
+                }
             }
         });
 
@@ -80,10 +87,15 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
                 ArrayList<String> dates = locationTypeQueueDatesToString(selectedLocationType, false);
                 ArrayList<String> timeTypes = locationTypeQueueTimeTypesToString(selectedLocationType, false);
                 iconImage = getResources().getDrawable(R.drawable.ic_buoys);
-                ArrayAdapter<String> itemsAdapter =
-                        new CustomAdapterLSU(getActivity(),  R.layout.custom_listview_row_lsu, positions, timeTypes, times, dates, iconImage);
-                dialogListView.setAdapter(itemsAdapter);
-                createAlertDialog(locationstateView);
+                if (times.isEmpty()) {
+                    Toast toast = Toast.makeText(getContext(), "No status available", Toast.LENGTH_SHORT);
+                    toast.show(); }
+                else {
+                    ArrayAdapter<String> itemsAdapter =
+                            new CustomAdapterLSU(getActivity(),  R.layout.custom_listview_row_lsu, positions, timeTypes, times, dates, iconImage);
+                    dialogListView.setAdapter(itemsAdapter);
+                    createAlertDialog(locationstateView);
+                }
             }
         });
         Bundle bundle = getArguments();

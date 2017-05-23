@@ -164,7 +164,6 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-locType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(positions);
@@ -198,7 +197,6 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-locType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
         return reverse(times);
     }
@@ -230,7 +228,6 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-locType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
         return reverse(dates);
     }
@@ -263,7 +260,6 @@ public class TrafficAreaFragmentCS extends android.app.Fragment implements View.
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-locType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
         return reverse(timeTypes);
     }

@@ -191,7 +191,6 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(positions);
@@ -224,7 +223,6 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
         return reverse(positions);
     }
@@ -251,7 +249,6 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(positions);
@@ -267,7 +264,6 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
                 timeTypes.add(pcm.getTimeType());      }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(timeTypes);
@@ -283,7 +279,6 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
                 times.add(PortCDMServices.stringToTime(pcm.getTime()));  }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(times);
@@ -299,7 +294,6 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
                 dates.add(PortCDMServices.stringToDate(pcm.getTime()));    }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(dates);
@@ -315,7 +309,6 @@ public class OtherFragmentCS extends android.app.Fragment implements View.OnClic
                 timeSequences.add(pcm.getTimeSequence());      }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(timeSequences);

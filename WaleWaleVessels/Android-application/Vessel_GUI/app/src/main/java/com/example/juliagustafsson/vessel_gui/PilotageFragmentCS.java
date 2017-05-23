@@ -169,7 +169,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-locType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(positions);
@@ -203,7 +202,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-locType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
         return reverse(times);
     }
@@ -235,7 +233,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-locType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
         return reverse(dates);
     }
@@ -268,7 +265,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-locType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
         return reverse(timeTypes);
     }
@@ -285,7 +281,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return stringList;
@@ -302,7 +297,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
                 timeTypes.add(pcm.getTimeType());      }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(timeTypes);
@@ -318,7 +312,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
                 times.add(PortCDMServices.stringToTime(pcm.getTime()));  }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(times);
@@ -334,7 +327,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
                 dates.add(PortCDMServices.stringToDate(pcm.getTime()));    }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(dates);
@@ -350,7 +342,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
                 timeSequences.add(pcm.getTimeSequence());      }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(timeSequences);
@@ -382,7 +373,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(positions);
@@ -415,7 +405,6 @@ public class PilotageFragmentCS extends android.app.Fragment implements View.OnC
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
         return reverse(positions);
     }

@@ -16,10 +16,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import RESTServices.MessageBrokerQueue;
 import RESTServices.PortCDMServices;
 import ServiceEntities.Location;
-import ServiceEntities.LocationType;
 import ServiceEntities.PortCallMessage;
 import ServiceEntities.ServiceObject;
 
@@ -156,7 +156,6 @@ public class VtsFragmentCS extends android.app.Fragment implements View.OnClickL
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(positions);
@@ -172,7 +171,6 @@ public class VtsFragmentCS extends android.app.Fragment implements View.OnClickL
                 timeTypes.add(pcm.getTimeType());      }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(timeTypes);
@@ -188,7 +186,6 @@ public class VtsFragmentCS extends android.app.Fragment implements View.OnClickL
                 times.add(PortCDMServices.stringToTime(pcm.getTime()));  }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(times);
@@ -204,7 +201,6 @@ public class VtsFragmentCS extends android.app.Fragment implements View.OnClickL
                 dates.add(PortCDMServices.stringToDate(pcm.getTime()));    }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(dates);
@@ -220,7 +216,6 @@ public class VtsFragmentCS extends android.app.Fragment implements View.OnClickL
                 timeSequences.add(pcm.getTimeSequence());      }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(timeSequences);

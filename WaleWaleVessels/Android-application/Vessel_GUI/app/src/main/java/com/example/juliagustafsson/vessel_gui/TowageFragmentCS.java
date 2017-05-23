@@ -148,7 +148,6 @@ public class TowageFragmentCS extends android.app.Fragment implements View.OnCli
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return stringList;
@@ -165,7 +164,6 @@ public class TowageFragmentCS extends android.app.Fragment implements View.OnCli
                 timeTypes.add(pcm.getTimeType());      }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(timeTypes);
@@ -181,7 +179,6 @@ public class TowageFragmentCS extends android.app.Fragment implements View.OnCli
                 times.add(PortCDMServices.stringToTime(pcm.getTime()));  }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(times);
@@ -197,7 +194,6 @@ public class TowageFragmentCS extends android.app.Fragment implements View.OnCli
                 dates.add(PortCDMServices.stringToDate(pcm.getTime()));    }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(dates);
@@ -213,7 +209,6 @@ public class TowageFragmentCS extends android.app.Fragment implements View.OnCli
                 timeSequences.add(pcm.getTimeSequence());      }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(timeSequences);
@@ -245,7 +240,6 @@ public class TowageFragmentCS extends android.app.Fragment implements View.OnCli
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(positions);
@@ -278,7 +272,6 @@ public class TowageFragmentCS extends android.app.Fragment implements View.OnCli
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
         return reverse(positions);
     }

@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -250,7 +249,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(positions);
@@ -266,7 +264,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 timeTypes.add(pcm.getTimeType());      }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(timeTypes);
@@ -281,7 +278,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 times.add(PortCDMServices.stringToTime(pcm.getTime()));  }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(times);
@@ -297,7 +293,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 dates.add(PortCDMServices.stringToDate(pcm.getTime()));    }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(dates);
@@ -313,7 +308,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
                 timeSequences.add(pcm.getTimeSequence());      }
         } catch (NullPointerException e){
             Log.e("CheckStatus-servType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(timeSequences);
@@ -350,7 +344,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-locType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
 
         return reverse(positions);
@@ -384,7 +377,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-locType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
         return reverse(times);
     }
@@ -416,7 +408,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-locType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
         return reverse(dates);
     }
@@ -449,7 +440,6 @@ public class AnchoringFragmentCS extends android.app.Fragment implements View.On
             }
         } catch (NullPointerException e){
             Log.e("CheckStatus-locType", e.toString());
-            //TODO Visa felmeddelande för användaren.
         }
         return reverse(timeTypes);
     }

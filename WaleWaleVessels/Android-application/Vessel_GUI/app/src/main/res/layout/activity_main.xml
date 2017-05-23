@@ -51,9 +51,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="28dp"
-                    android:text="portCdm"
+                    android:text="iiCAPTAIN"
                     android:textAlignment="viewStart"
-                    android:textSize="40dp" />
+                    android:textSize="35dp" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -94,7 +94,8 @@
             android:onClick="sendETA"
             android:text="Send new ETA"
             android:textColor="@android:color/background_light"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:padding="16dp"/>
     </TableRow>
 
     <TableRow
@@ -114,9 +115,10 @@
             android:layout_weight="1"
             android:background="@color/colorPrimaryDark"
             android:onClick="reportUpdate"
-            android:text="Report Activity Update"
+            android:text="Activity Update"
             android:textColor="?attr/colorBackgroundFloating"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:padding="16dp"/>
 
         <Button
             android:id="@+id/button1"
@@ -126,9 +128,10 @@
             android:layout_weight="1"
             android:background="@color/colorPrimaryDark"
             android:onClick="checkStatus"
-            android:text="Check activity status"
+            android:text="Activity status"
             android:textColor="@android:color/background_light"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:padding="16dp"/>
     </TableRow>
 
     <TableRow
@@ -146,9 +149,10 @@
             android:layout_weight="1"
             android:background="@color/colorPrimaryDark"
             android:onClick="viewETA"
-            android:text="View ETA history"
+            android:text="ETA history"
             android:textColor="@android:color/background_light"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:padding="16dp"/>
 
         <Button
             android:id="@+id/logout"
@@ -159,9 +163,10 @@
             android:layout_weight="1"
             android:background="@color/colorPrimaryDark"
             android:onClick="statementsOfFacts"
-            android:text="Statements of facts"
+            android:text="SOF"
             android:textColor="@android:color/background_light"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:padding="16dp" />
 
     </TableRow>
 

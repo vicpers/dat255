@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Import and set custom font
         TextView myTextView = (TextView) findViewById(R.id.textView2);
-        Typeface typeface=Typeface.createFromAsset(getAssets(), "fonts/LEIXO.ttf");
+        Typeface typeface=Typeface.createFromAsset(getAssets(), "fonts/Renogare-Regular.otf");
         myTextView.setTypeface(typeface);
 
         // Settings regarding left menu

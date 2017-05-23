@@ -35,7 +35,7 @@ public class Vessel_Login extends AppCompatActivity implements View.OnClickListe
 
         // Import custom font
         TextView myTextView = (TextView) findViewById(R.id.PortCDM);
-        Typeface typeface=Typeface.createFromAsset(getAssets(), "fonts/LEIXO.ttf");
+        Typeface typeface=Typeface.createFromAsset(getAssets(), "fonts/Renogare-Regular.otf");
         myTextView.setTypeface(typeface);
 
         Button myTextView2 = (Button) findViewById(R.id.Access_PortCDM);

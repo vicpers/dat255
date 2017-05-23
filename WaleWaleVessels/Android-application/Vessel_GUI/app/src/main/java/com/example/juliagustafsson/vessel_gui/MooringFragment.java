@@ -62,6 +62,7 @@ public class MooringFragment extends android.app.Fragment implements View.OnClic
     private HashMap<String, TimeType> timeTypeMap;
     HashMap<String, Location> atSubLocationMap;
     HashMap<String, ServiceTimeSequence> timeSequenceMap;
+    private String currentActivity;
 
     public MooringFragment() {
         // Required empty public constructor
@@ -80,6 +81,7 @@ public class MooringFragment extends android.app.Fragment implements View.OnClic
             public void onClick(View v) {
                 serviceStateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
                 selectedAtLocation = LocationType.BERTH;
+                currentActivity = "Arrival Mooring Operation";
                 currentServiceObject = ServiceObject.ARRIVAL_MOORING_OPERATION;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
@@ -93,6 +95,7 @@ public class MooringFragment extends android.app.Fragment implements View.OnClic
             public void onClick(View v) {
                 serviceStateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
                 selectedAtLocation = LocationType.BERTH;
+                currentActivity = "Departure Mooring Operation";
                 currentServiceObject = ServiceObject.DEPARTURE_MOORING_OPERATION;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
@@ -177,6 +180,7 @@ public class MooringFragment extends android.app.Fragment implements View.OnClic
 
             }
         });
+        dialogBuilder.setTitle(currentActivity);
         dialogBuilder.setNegativeButton("Cancel", null);
         dialogBuilder.setView(v);
         dialogBuilder.show();

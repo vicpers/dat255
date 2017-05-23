@@ -81,6 +81,7 @@ public class BerthFragment extends android.app.Fragment implements View.OnClickL
     HashMap<String, Location> toSubLocationMap;
     HashMap<String, Location> fromSubLocationMap;
     HashMap<String, ServiceTimeSequence> timeSequenceMap;
+    private  String currentActivity;
     public BerthFragment() {
         // Required empty public constructor
     }
@@ -100,6 +101,7 @@ public class BerthFragment extends android.app.Fragment implements View.OnClickL
                 isServiceState = false;
                 locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_location_state_update, null);
                 isArrival = true;
+                currentActivity = "Arrival Berth";
                 selectedLocationType = LocationType.BERTH;
                 createAlertDialog(locationstateView);
                 setTimeAndDate(locationstateView);
@@ -113,6 +115,7 @@ public class BerthFragment extends android.app.Fragment implements View.OnClickL
                 isServiceState = false;
                 locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_location_state_update, null);
                 isArrival = false;
+                currentActivity = "Departure Berth";
                 selectedLocationType = LocationType.BERTH;
                 createAlertDialog(locationstateView);
                 setTimeAndDate(locationstateView);
@@ -124,6 +127,7 @@ public class BerthFragment extends android.app.Fragment implements View.OnClickL
             @Override
             public void onClick(View v) {
                 isServiceState = true;
+                currentActivity = "Berth Shifting";
                 serviceStateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
                 currentServiceObject = ServiceObject.BERTH_SHIFTING;
                 selectedFromLocation = LocationType.BERTH;
@@ -243,6 +247,7 @@ public class BerthFragment extends android.app.Fragment implements View.OnClickL
                 }
             }
         });
+        dialogBuilder.setTitle(currentActivity);
         dialogBuilder.setNegativeButton("Cancel", null);
         dialogBuilder.setView(v);
         dialogBuilder.show();

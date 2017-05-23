@@ -61,6 +61,7 @@ public class TrafficAreaFragment extends android.app.Fragment implements View.On
     private DepartureLocation depLoc;
     private LocationState locState;
     HashMap<String, Location> subLocationsMap;
+    private String currentActivity;
 
     public TrafficAreaFragment() {
         // Required empty public constructor
@@ -79,6 +80,7 @@ public class TrafficAreaFragment extends android.app.Fragment implements View.On
             public void onClick(View v) {
                 locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_location_state_update, null);
                 isArrival = true;
+                currentActivity = "Arrival Traffic Area";
                 selectedLocationType = LocationType.TRAFFIC_AREA;
                 createAlertDialog(locationstateView);
                 setTimeAndDate(locationstateView);
@@ -91,6 +93,7 @@ public class TrafficAreaFragment extends android.app.Fragment implements View.On
             public void onClick(View v) {
                 locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_location_state_update, null);
                 isArrival = false;
+                currentActivity = "Departure Traffic Area";
                 selectedLocationType = LocationType.TRAFFIC_AREA;
                 createAlertDialog(locationstateView);
                 setTimeAndDate(locationstateView);
@@ -169,6 +172,7 @@ public class TrafficAreaFragment extends android.app.Fragment implements View.On
                 toast.show();
             }
         });
+        dialogBuilder.setTitle(currentActivity);
         dialogBuilder.setNegativeButton("Cancel", null);
         dialogBuilder.setView(v);
         dialogBuilder.show();

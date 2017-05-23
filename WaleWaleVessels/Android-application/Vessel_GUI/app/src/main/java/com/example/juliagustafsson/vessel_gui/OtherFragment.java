@@ -76,6 +76,7 @@ public class OtherFragment extends android.app.Fragment implements View.OnClickL
     HashMap<String, Location> fromSubLocationMap;
     HashMap<String, Location> atSubLocationMap;
     HashMap<String, ServiceTimeSequence> timeSequenceMap;
+    private String currentActivity;
 
     public OtherFragment() {
         // Required empty public constructor
@@ -95,6 +96,7 @@ public class OtherFragment extends android.app.Fragment implements View.OnClickL
             public void onClick(View v) {
                 serviceStateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_between_service_state, null);
                 currentServiceObject = ServiceObject.ICEBREAKING_OPERATION;
+                currentActivity = "Ice Breaking Operation";
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
@@ -108,6 +110,7 @@ public class OtherFragment extends android.app.Fragment implements View.OnClickL
                 serviceStateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
                 selectedAtLocation = LocationType.BERTH;
                 currentServiceObject = ServiceObject.CARGO_OPERATION;
+                currentActivity = "Cargo Operation";
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
@@ -120,6 +123,7 @@ public class OtherFragment extends android.app.Fragment implements View.OnClickL
             public void onClick(View v) {
                 serviceStateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
                 selectedAtLocation = LocationType.BERTH;
+                currentActivity = "Bunkering Operation";
                 currentServiceObject = ServiceObject.BUNKERING_OPERATION;
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
@@ -216,7 +220,7 @@ public class OtherFragment extends android.app.Fragment implements View.OnClickL
                 toast.show();
             }
         });
-
+        dialogBuilder.setTitle(currentActivity);
         dialogBuilder.setNegativeButton("Cancel", null);
         dialogBuilder.setView(v);
         dialogBuilder.show();

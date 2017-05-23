@@ -63,6 +63,7 @@ public class VtsFragment extends android.app.Fragment implements View.OnClickLis
     private HashMap<String, TimeType> timeTypeMap;
     HashMap<String, Location> atSubLocationMap;
     HashMap<String, ServiceTimeSequence> timeSequenceMap;
+    private String currentActivity;
     public VtsFragment() {
         // Required empty public constructor
     }
@@ -82,6 +83,7 @@ public class VtsFragment extends android.app.Fragment implements View.OnClickLis
                 serviceStateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
                 currentServiceObject = ServiceObject.ARRIVAL_VTSAREA;
                 selectedAtLocation = LocationType.TRAFFIC_AREA;
+                currentActivity = "Arrival VTS Area";
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
@@ -95,6 +97,7 @@ public class VtsFragment extends android.app.Fragment implements View.OnClickLis
                 serviceStateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
                 currentServiceObject = ServiceObject.DEPARTURE_VTSAREA;
                 selectedAtLocation = LocationType.TRAFFIC_AREA;
+                currentActivity = "Departure VTS Area";
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
@@ -171,6 +174,7 @@ public class VtsFragment extends android.app.Fragment implements View.OnClickLis
                 }
         });
 
+        dialogBuilder.setTitle(currentActivity);
         dialogBuilder.setNegativeButton("Cancel", null);
         dialogBuilder.setView(v);
         dialogBuilder.show();

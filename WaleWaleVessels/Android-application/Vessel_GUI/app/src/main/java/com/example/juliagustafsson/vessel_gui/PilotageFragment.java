@@ -80,6 +80,7 @@ public class PilotageFragment extends android.app.Fragment implements View.OnCli
     HashMap<String, Location> toSubLocationMap;
     HashMap<String, Location> fromSubLocationMap;
     HashMap<String, ServiceTimeSequence> timeSequenceMap;
+    private String currentActivity;
 
     public PilotageFragment() {
         // Required empty public constructor
@@ -100,6 +101,7 @@ public class PilotageFragment extends android.app.Fragment implements View.OnCli
                 isServiceState = true;
                 serviceStateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_between_service_state, null);
                 currentServiceObject = ServiceObject.PILOTAGE;
+                currentActivity = "Pilotage";
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
@@ -111,6 +113,7 @@ public class PilotageFragment extends android.app.Fragment implements View.OnCli
             @Override
             public void onClick(View v) {
                 isServiceState = false;
+                currentActivity = "Pilotage Boarding Area";
                 locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_location_state_update, null);
                 selectedLocationType = LocationType.PILOT_BOARDING_AREA;
                 createAlertDialog(locationstateView);
@@ -221,6 +224,7 @@ public class PilotageFragment extends android.app.Fragment implements View.OnCli
                 }
             }
         });
+        dialogBuilder.setTitle(currentActivity);
         dialogBuilder.setNegativeButton("Cancel", null);
         dialogBuilder.setView(v);
         dialogBuilder.show();

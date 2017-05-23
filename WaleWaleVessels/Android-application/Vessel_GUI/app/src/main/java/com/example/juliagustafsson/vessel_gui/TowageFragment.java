@@ -70,6 +70,7 @@ public class TowageFragment extends android.app.Fragment implements View.OnClick
     HashMap<String, Location> toSubLocationMap;
     HashMap<String, Location> fromSubLocationMap;
     HashMap<String, ServiceTimeSequence> timeSequenceMap;
+    private String currentActivity;
 
     public TowageFragment() {
         // Required empty public constructor
@@ -88,6 +89,7 @@ public class TowageFragment extends android.app.Fragment implements View.OnClick
             public void onClick(View v) {
                 serviceStateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_between_service_state, null);
                 currentServiceObject = ServiceObject.TOWAGE;
+                currentActivity = "Towage";
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
@@ -100,6 +102,7 @@ public class TowageFragment extends android.app.Fragment implements View.OnClick
             public void onClick(View v) {
                 serviceStateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_between_service_state, null);
                 currentServiceObject = ServiceObject.ESCORT_TOWAGE;
+                currentActivity = "Escort Towage";
                 setTimeSequenceSpinner(currentServiceObject);
                 createAlertDialog(serviceStateView);
                 setTimeAndDate(serviceStateView);
@@ -182,6 +185,7 @@ public class TowageFragment extends android.app.Fragment implements View.OnClick
                 toast.show();
             }
         });
+        dialogBuilder.setTitle(currentActivity);
         dialogBuilder.setNegativeButton("Cancel", null);
         dialogBuilder.setView(v);
         dialogBuilder.show();

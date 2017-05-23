@@ -92,6 +92,9 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
     HashMap<String, Location> fromSubLocationMap;
     HashMap<String, Location> atSubLocationMap;
     HashMap<String, ServiceTimeSequence> timeSequenceMap;
+    private boolean isArrivalOp;
+    private boolean isAnchoring;
+    private String currentActivity;
 
     public AnchoringFragment() {
 
@@ -113,6 +116,8 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
             @Override
             public void onClick(View v) {
                 isServiceState = true;
+                isAnchoring = true;
+                currentActivity = "Anchoring";
                 serviceStateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
                 currentServiceObject = ServiceObject.ANCHORING;
                 selectedAtLocation = LocationType.ANCHORING_AREA;
@@ -129,6 +134,7 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
                 isServiceState = false;
                 locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_location_state_update, null);
                 isArrival = true;
+                currentActivity = "Arrival Anchoring Area";
                 selectedLocationType = LocationType.ANCHORING_AREA;
                 createAlertDialog(locationstateView);
                 setTimeAndDate(locationstateView);
@@ -140,6 +146,8 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
             @Override
             public void onClick(View v) {
                 isServiceState = true;
+                isArrivalOp = true;
+                currentActivity = "Arrival Anchoring Operation";
                 serviceStateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
                 currentServiceObject = ServiceObject.ARRIVAL_ANCHORING_OPERATION;
                 selectedAtLocation = LocationType.ANCHORING_AREA;
@@ -154,6 +162,8 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
             @Override
             public void onClick(View v) {
                 isServiceState = true;
+                isArrivalOp = false;
+                currentActivity = "Departure Anchoring Operation";
                 serviceStateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_service_state_update, null);
                 currentServiceObject = ServiceObject.DEPARTURE_ANCHORING_OPERATION;
                 selectedAtLocation = LocationType.ANCHORING_AREA;
@@ -170,6 +180,7 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
                 isServiceState = false;
                 locationstateView = getActivity().getLayoutInflater().inflate(R.layout.dialog_location_state_update, null);
                 isArrival = false;
+                currentActivity = "Departure Anchoring Area";
                 selectedLocationType = LocationType.ANCHORING_AREA;
                 createAlertDialog(locationstateView);
                 setTimeAndDate(locationstateView);
@@ -298,6 +309,8 @@ public class AnchoringFragment extends android.app.Fragment implements View.OnCl
                 }
             }
         });
+
+        dialogBuilder.setTitle(currentActivity);
         dialogBuilder.setNegativeButton("Cancel", null);
         dialogBuilder.setView(v);
         dialogBuilder.show();

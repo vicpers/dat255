@@ -2,7 +2,7 @@
 <project version="4">
   <component name="FindBugs-IDEA">
     <excludeFilterFiles>
-      <filter file="$USER_HOME$/Desktop/findbugsfilter.xml" enabled="true" />
+      <filter file="$USER_HOME$/Desktop/findbugsfilter.xml" enabled="false" />
     </excludeFilterFiles>
   </component>
 </project>

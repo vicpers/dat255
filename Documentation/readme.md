@@ -1,1 +1,2 @@
 
+Dokumenteringen av prototypen är uppdelad i code quality, tests, design rationale, overview och user stories. En närmare beskrivning och reflektion för varje delområde finns således i respektive mapp. 

@@ -1,0 +1,1 @@
+PDF-filen ovan togs fram av utvecklingsteamet på begaran av Mathias Karlsson på RI.SE. Den består av ett antal print screens från applikationen samt en kortare beskrivning och förklaring av den funktionalitet som finns. 

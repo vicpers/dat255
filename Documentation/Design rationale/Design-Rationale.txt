@@ -1,0 +1,20 @@
+Design Rationale
+
+För vår Android applikation har vi satt API level till minimum 21, men en målsättning på 25. Anledningen till detta är att level 21 är den version som stöds av den externa mobiltelefon som vi har använt för att testa applikationen med. En lägre API level hade kunnat användas för att applikationen ska vara bakåtkompatibel med äldre versioner av Android. Fördelen med en högre API level är att ett bredare kodbibliotek blir tillgängligt att använda, vilket gjorde att fördelarna för en senare version översteg nackdelarna.
+
+Designval angående hur kommunikation med servern skulle ske gjordes ur enkelhetssynpunkt. Direkt mot REST, genererad API klient eller genom ett Connector-bibliotek var de tre val som fanns. Att använda de två sistnämnde skulle kunna minska oväntade felmeddelanden baserade på serverförändringar, däremot var dokumentationen bristfällig och problematiken, att använda dessa alternativ, stor. Valet föll därför på att direkt kommunicera med REST API:t. Däremot skapar detta ett beroende till servern och förändringar som sker.
+
+Funderingar fanns på att skapa en databas för att lagra data. Däremot kulle detta medföra duplicering av den informationen som redan finns på servern. En databas skulle även göra applikationen mer omfattande. Således fanns inget syfte med en databas. Den minimala data som behöver applikationen behöver spara lagras istället på mobiltelefonens lagringsutrymme.
+
+För att representera datan från servern i applikationen gjordes ett val att skapa klasser för varje motsvarande entitet som existerar på servern. Anledningen är att lättare kunna få tillgång till olika typer av information från flera olika platser i applikationen. Ett alternativ hade varit att behålla datan från servern som en sträng och parsa denna när informationen efterfrågas. Detta hade antagligen gjort applikationen långsammare då betydligt fler nedbrytningar av strängen hade behövts. 
+
+
+
+
+
+
+
+
+
+
+

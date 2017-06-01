@@ -6,7 +6,7 @@ Att arbeta med user stories och en Scrum board var för majoriteten av medlemmar
 
 
 Genomgående under projektets gång presenterade produktägaren under sprint reviews flertalet önskemål om funktionalitet som "hade varit nice". Detta ledde till en utmaning i vad som skulle prioriteras. Vid de inledande träffarna var det svårt att vara tydlig mot produktägaren vad denna kunde förvänta sig av den kommande sprinten. Alla "nice" idéer och features kändes relevanta och viktiga även från utvecklingsteamets perspektiv. Detta ledde till att tvetydliga och stora user stories skapades vilka var svåra att avgöra när de var färdiga och svåra att veta hur de skulle angripas. Halvvägs genom projektet presenterade produktägaren en lista med minimikrav vilket kom att underlätta det fortsatta arbetet. Utvecklingsteamet fattade, som tidigare nämnt, beslutet att först och främst se till att uppnå minimikraven och säkerställa kvaliteten för denna funktionalitet. Det mer fokuserade och minskade omfånget underlättade utformandet av user stories, både vad gäller storlek och kravspecifikation / definition of done. Detta var en viktig lärdom för utvecklingsteamet; att själv se till att få fram en tydlig kravbild från produktägaren och att se till att leverera detta med en hög kvalitet och stabilitet.
-=======
+
  - Samarbetet med produktägaren vad gäller prioritering av User Stories. "Hade varit nice"-funktionalitet vs. "Must have"-funktionalitet (kap 2.2.3 Sprint Planning, Reviews and Retrospectives, kap 3.4.3.1 Product Backlog)
 
 
@@ -14,7 +14,8 @@ Genomgående under projektets gång presenterade produktägaren under sprint rev
 
 
 Ovanan i arbetssättet ledde dessutom till att Scrum boarden glömdes bort och endast uppdaterades i samband med nästa sprintplanering. Detta ledde i sin tur till att Scrum boarden blev svår att överblicka och att avklarade eller inaktuella user stories och tasks blev liggandes på fel plats. Ytterligare ett resultat var kopior av vissa user stories dök upp vid ett par tillfällen, formulerade på olika sätt. "Har vi inte gjort detta?" eller "Den här är väl klar sedan länge?" är frågor som dykt upp lite väl många gånger. För att försöka komma till rätta med detta problem utsåg utvecklingsteamet en "Scrum board-master" vars ansvar var att se till att scrum boarden uppdaterades mer frekvent och att rätt "kort" låg i rätt kolumn. Detta ledde till en märkbar positiv skillnad tämligen omgående. Enda nackdelen var att det dröjde innan utvecklingsteamet tog problemet på allvar och agerade.
-=======
+
+
  - Hålla sig till den upprättade sprintplanen och låta Sprint Backlog vara statisk.  (kap 2.2.5 Sprint backlog & kap 3.4.1 D1 - Scrum Strategies)
 
  - Estimering av effort och story points (kap 2.4 Effort and Task Breakdown & kap 3.4.2.1 Velocity)

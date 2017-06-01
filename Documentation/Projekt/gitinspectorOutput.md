@@ -1,3 +1,5 @@
+OBS! Öppna filen för bästa format, läs alltså ej direkt på Github. 
+
 The following historical commit information, by author, was found:
 
 Author                     Commits    Insertions      Deletions    % of changes
